@@ -10,7 +10,7 @@ extern crate svelte_ir as ir;
 use std::path;
 
 /// Parse the file at the given path into IR items.
-pub fn parse<P: AsRef<path::Path>>(path: P) -> Result<ir::Items, failure::Error> {
+pub fn parse<P: AsRef<path::Path>>(_path: P) -> Result<ir::Items, failure::Error> {
     bail!("not yet implemented")
 }
 

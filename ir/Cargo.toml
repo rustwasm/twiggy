@@ -7,3 +7,4 @@ authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 path = "./ir.rs"
 
 [dependencies]
+frozen = "1"

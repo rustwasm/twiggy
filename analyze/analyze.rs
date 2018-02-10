@@ -8,11 +8,8 @@ extern crate failure;
 extern crate svelte_ir as ir;
 extern crate svelte_traits as traits;
 
-/// Run the analysis on the given IR items.
-pub fn analyze(
-    items: ir::Items,
-    analysis: &ir::Analysis,
-) -> Result<Box<traits::Emit>, failure::Error> {
+/// Run the `top` analysis on the given IR items.
+pub fn top(_items: &mut ir::Items) -> Result<Box<traits::Emit>, failure::Error> {
     bail!("not yet implemented")
 }
 

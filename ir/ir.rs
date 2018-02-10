@@ -3,32 +3,52 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-/// TODO FITZGEN
-pub trait Extra {
-    /// TODO FITZGEN
-    type ItemsExtra;
+extern crate frozen;
 
-    /// TODO FITZGEN
-    type ItemExtra;
+use frozen::Frozen;
+use std::cmp;
+use std::collections::BTreeSet;
+
+/// Build up a a set of `ir::Items`.
+#[derive(Debug)]
+pub struct ItemsBuilder {
+    id_counter: u32,
+    items: BTreeSet<Item>,
 }
 
 /// The architecture- and target-independent internal representation of
 /// functions, sections, etc in a file that is being size profiled.
-#[derive(Clone, Debug)]
-pub struct Items<E> {
-    items: BTreeSet<Item<E>>,
-    extra: E::ItemsExtra,
+#[derive(Debug)]
+pub struct Items {
+    items: Frozen<BTreeSet<Item>>,
 }
 
-/// TODO FITZGEN
+/// An item's unique identifier.
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
+pub struct Id(u32);
+
+/// An item in the binary.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub struct Item<E: Extra> {
-    kind: ItemKind<E>,
-    extra: E::ItemExtra,
+pub struct Item {
+    id: Id,
+    kind: Kind,
 }
 
-/// TODO FITZGEN
-pub enum ItemKind<E: Extra> {
+impl PartialOrd for Item {
+    fn partial_cmp(&self, rhs: &Item) -> Option<cmp::Ordering> {
+        self.id.partial_cmp(&rhs.id)
+    }
+}
+
+impl Ord for Item {
+    fn cmp(&self, rhs: &Item) -> cmp::Ordering {
+        self.id.cmp(&rhs.id)
+    }
+}
+
+/// The kind of item in the binary.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum Kind {
 }
 
 #[cfg(test)]

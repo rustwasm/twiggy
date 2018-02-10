@@ -1,10 +1,13 @@
 [package]
+description = "A code size profiler"
 name = "svelte"
 version = "0.1.0"
 authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 
 [dependencies]
 failure = "0.1.1"
+structopt = "0.1.7"
+structopt-derive = "0.1.6"
 svelte-analyze = { version = "0.1.0", path = "../analyze" }
 svelte-ir = { version = "0.1.0", path = "../ir" }
 svelte-parser = { version = "0.1.0", path = "../parser" }
