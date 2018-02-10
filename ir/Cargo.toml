@@ -1,0 +1,9 @@
+[package]
+name = "svelte-ir"
+version = "0.1.0"
+authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
+
+[lib]
+path = "./ir.rs"
+
+[dependencies]

@@ -1,0 +1,11 @@
+[package]
+name = "svelte"
+version = "0.1.0"
+authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
+
+[dependencies]
+failure = "0.1.1"
+svelte-analyze = { version = "0.1.0", path = "../analyze" }
+svelte-ir = { version = "0.1.0", path = "../ir" }
+svelte-parser = { version = "0.1.0", path = "../parser" }
+svelte-traits = { version = "0.1.0", path = "../traits" }

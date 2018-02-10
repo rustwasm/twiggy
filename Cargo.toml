@@ -1,0 +1,8 @@
+[workspace]
+members = [
+  "./svelte",
+  "./parser",
+  "./ir",
+  "./analyze",
+  "./traits"
+]

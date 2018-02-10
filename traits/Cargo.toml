@@ -1,0 +1,11 @@
+[package]
+name = "svelte-traits"
+version = "0.1.0"
+authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
+
+[lib]
+path = "./traits.rs"
+
+[dependencies]
+failure = "0.1.0"
+svelte-ir = { version = "0.1.0", path = "../ir" }

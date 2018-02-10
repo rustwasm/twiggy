@@ -1,0 +1,12 @@
+[package]
+name = "svelte-analyze"
+version = "0.1.0"
+authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
+
+[lib]
+path = "./analyze.rs"
+
+[dependencies]
+failure = "0.1.1"
+svelte-ir = { version = "0.1.0", path = "../ir" }
+svelte-traits = { version = "0.1.0", path = "../traits" }
