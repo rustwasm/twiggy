@@ -1,0 +1,11 @@
+[package]
+name = "svelte-opt"
+version = "0.1.0"
+authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
+
+[lib]
+path = "opt.rs"
+
+[dependencies]
+failure = "0.1.1"
+structopt = "0.2"

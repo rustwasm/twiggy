@@ -1,8 +1,9 @@
 [workspace]
 members = [
-  "./svelte",
-  "./parser",
-  "./ir",
   "./analyze",
+  "./ir",
+  "./opt",
+  "./parser",
+  "./svelte",
   "./traits"
 ]

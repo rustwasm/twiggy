@@ -7,11 +7,18 @@
 extern crate failure;
 extern crate svelte_ir as ir;
 
+use std::fs;
+use std::io::Read;
 use std::path;
 
 /// Parse the file at the given path into IR items.
-pub fn parse<P: AsRef<path::Path>>(_path: P) -> Result<ir::Items, failure::Error> {
-    bail!("not yet implemented")
+pub fn parse<P: AsRef<path::Path>>(path: P) -> Result<ir::Items, failure::Error> {
+    let path = path.as_ref();
+    let mut file = fs::File::open(path)?;
+    let mut data = vec![];
+    file.read_to_end(&mut data)?;
+
+    bail!("not yet implemented");
 }
 
 #[cfg(test)]

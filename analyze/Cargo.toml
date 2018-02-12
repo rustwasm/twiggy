@@ -9,4 +9,5 @@ path = "./analyze.rs"
 [dependencies]
 failure = "0.1.1"
 svelte-ir = { version = "0.1.0", path = "../ir" }
+svelte-opt = { version = "0.1.0", path = "../opt" }
 svelte-traits = { version = "0.1.0", path = "../traits" }
