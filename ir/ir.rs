@@ -3,7 +3,9 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
+extern crate cpp_demangle;
 extern crate frozen;
+extern crate rustc_demangle;
 
 use frozen::Frozen;
 use std::cmp;
@@ -118,6 +120,7 @@ pub struct Id(u32);
 pub struct Item {
     id: Id,
     name: String,
+    demangled: Option<String>,
     size: u32,
     kind: ItemKind,
 }
@@ -129,9 +132,12 @@ impl Item {
         S: Into<String>,
         K: Into<ItemKind>,
     {
+        let name = name.into();
+        let demangled = demangle(&name);
         Item {
             id: Id(u32::MAX),
-            name: name.into(),
+            name,
+            demangled,
             size,
             kind: kind.into(),
         }
@@ -152,8 +158,24 @@ impl Item {
     /// Get this item's name.
     #[inline]
     pub fn name(&self) -> &str {
-        &self.name
+        if let Some(ref demangled) = self.demangled {
+            demangled
+        } else {
+            &self.name
+        }
     }
+}
+
+fn demangle(s: &str) -> Option<String> {
+    if let Ok(sym) = rustc_demangle::try_demangle(s) {
+        return Some(sym.to_string());
+    }
+
+    if let Ok(sym) = cpp_demangle::Symbol::new(s) {
+        return Some(sym.to_string());
+    }
+
+    None
 }
 
 impl PartialOrd for Item {
