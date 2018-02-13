@@ -45,7 +45,7 @@ where
 fn parse_wasm(data: &[u8]) -> Result<ir::Items, failure::Error> {
     use wasm::elements;
 
-    let mut items = ir::ItemsBuilder::default();
+    let mut items = ir::ItemsBuilder::new(data.len() as u32);
 
     let module: wasm::elements::Module = elements::deserialize_buffer(data)?;
     // Greedily parse the name section, if it exists.
@@ -70,15 +70,15 @@ fn parse_wasm(data: &[u8]) -> Result<ir::Items, failure::Error> {
         let name = match *name {
             elements::NameSection::Module(ref m) => {
                 module_name = Some(m.name().to_string());
-                "module name subsection".to_string()
+                "\"module name\" subsection".to_string()
             }
             elements::NameSection::Function(ref f) => {
                 function_names = Some(f.names());
-                "function names subsection".to_string()
+                "\"function names\" subsection".to_string()
             }
             elements::NameSection::Local(ref l) => {
                 local_names = Some(l.local_names());
-                "local names subsection".to_string()
+                "\"local names\" subsection".to_string()
             }
             elements::NameSection::Unparsed { .. } => unreachable!("we pre-parsed names sections"),
         };

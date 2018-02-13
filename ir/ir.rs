@@ -16,21 +16,22 @@ use std::u32;
 #[derive(Debug)]
 pub struct ItemsBuilder {
     id_counter: u32,
+    size: u32,
     items: BTreeMap<Id, Item>,
     roots: BTreeSet<Id>,
 }
 
-impl Default for ItemsBuilder {
-    fn default() -> ItemsBuilder {
+impl ItemsBuilder {
+    /// Construct a new builder, with the given size.
+    pub fn new(size: u32) -> ItemsBuilder {
         ItemsBuilder {
             id_counter: 0,
+            size,
             items: Default::default(),
             roots: Default::default(),
         }
     }
-}
 
-impl ItemsBuilder {
     /// Add the given item to to the graph and return the `Id` that it was
     /// assigned.
     pub fn add_item(&mut self, mut item: Item) -> Id {
@@ -54,6 +55,7 @@ impl ItemsBuilder {
     /// Finish building the IR graph and return the resulting `Items`.
     pub fn finish(self) -> Items {
         Items {
+            size: self.size,
             items: Frozen::freeze(self.items),
             roots: Frozen::freeze(self.roots),
         }
@@ -66,6 +68,7 @@ impl ItemsBuilder {
 /// Constructed with `ItemsBuilder`.
 #[derive(Debug)]
 pub struct Items {
+    size: u32,
     items: Frozen<BTreeMap<Id, Item>>,
     roots: Frozen<BTreeSet<Id>>,
 }
@@ -84,6 +87,11 @@ impl Items {
         Iter {
             inner: self.items.iter(),
         }
+    }
+
+    /// The size of the total binary, containing all items.
+    pub fn size(&self) -> u32 {
+        self.size
     }
 }
 
