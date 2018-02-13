@@ -18,5 +18,5 @@ pub fn run(opts: opt::Options) -> Result<(), failure::Error> {
     let data = match opts {
         opt::Options::Top(ref top) => analyze::top(&mut items, top)?,
     };
-    data.emit(opts.output_destination(), opts.output_format())
+    data.emit(&items, opts.output_destination(), opts.output_format())
 }

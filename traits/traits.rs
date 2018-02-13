@@ -23,11 +23,12 @@ pub trait Emit {
     /// Emit this thing to the given destination in the given output format.
     fn emit(
         &self,
+        items: &ir::Items,
         destination: &opt::OutputDestination,
         format: opt::OutputFormat,
     ) -> Result<(), failure::Error> {
         match format {
-            opt::OutputFormat::Text => self.emit_text(destination),
+            opt::OutputFormat::Text => self.emit_text(items, destination),
             // OutputFormat::Html => self.emit_html(destination),
             // OutputFormat::Dot => self.emit_dot(destination),
             // OutputFormat::Csv => self.emit_csv(destination),
@@ -36,7 +37,11 @@ pub trait Emit {
     }
 
     /// Emit human readable text.
-    fn emit_text(&self, destination: &opt::OutputDestination) -> Result<(), failure::Error>;
+    fn emit_text(
+        &self,
+        items: &ir::Items,
+        destination: &opt::OutputDestination,
+    ) -> Result<(), failure::Error>;
 
     // /// Emit HTML.
     // fn emit_html(&self, destination: &mut io::Write) -> Result<(), failure::Error>;
