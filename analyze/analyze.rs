@@ -111,7 +111,9 @@ impl fmt::Display for Table {
     }
 }
 
-struct Top(Vec<ir::Id>);
+struct Top {
+    items: Vec<ir::Id>,
+}
 
 impl traits::Emit for Top {
     fn emit_text(
@@ -127,7 +129,7 @@ impl traits::Emit for Top {
             (Align::Left, "Item".to_string()),
         ]);
 
-        for &id in &self.0 {
+        for &id in &self.items {
             let item = &items[id];
             let size = item.size();
             let size_percent = (size as f64) / (items.size() as f64) * 100.0;
@@ -151,7 +153,7 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
         items.truncate(n as usize);
     }
     let items: Vec<_> = items.into_iter().map(|i| i.id()).collect();
-    Ok(Box::new(Top(items)) as Box<traits::Emit>)
+    Ok(Box::new(Top { items }) as Box<traits::Emit>)
 }
 
 #[cfg(test)]
