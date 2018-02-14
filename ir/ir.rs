@@ -5,13 +5,17 @@
 
 extern crate cpp_demangle;
 extern crate frozen;
+extern crate petgraph;
 extern crate rustc_demangle;
+
+mod graph_impl;
 
 use frozen::Frozen;
 use std::cmp;
 use std::collections::btree_map;
 use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::ops;
+use std::slice;
 use std::u32;
 
 /// Build up a a set of `Items`.
@@ -125,9 +129,33 @@ impl Items {
         }
     }
 
+    /// Iterate over an item's neighbors.
+    pub fn neighbors(&self, id: Id) -> Neighbors {
+        Neighbors {
+            inner: self.edges
+                .get(&id)
+                .map_or_else(|| [].iter(), |edges| edges.iter()),
+        }
+    }
+
     /// The size of the total binary, containing all items.
     pub fn size(&self) -> u32 {
         self.size
+    }
+}
+
+/// An iterator over an item's neighbors.
+#[derive(Debug)]
+pub struct Neighbors<'a> {
+    inner: slice::Iter<'a, Id>,
+}
+
+impl<'a> Iterator for Neighbors<'a> {
+    type Item = Id;
+
+    #[inline]
+    fn next(&mut self) -> Option<Id> {
+        self.inner.next().cloned()
     }
 }
 
@@ -146,7 +174,7 @@ impl<'a> Iterator for Iter<'a> {
 }
 
 /// An item's unique identifier.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Id(u32);
 
 /// An item in the binary.

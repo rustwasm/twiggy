@@ -9,4 +9,5 @@ path = "./ir.rs"
 [dependencies]
 cpp_demangle = "0.2.7"
 frozen = "1"
+petgraph = "0.4.11"
 rustc-demangle = "0.1.5"
