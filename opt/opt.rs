@@ -95,7 +95,7 @@ impl CommonOptions for Top {
 }
 
 /// Whether to sort by shallow or retained size.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub enum SortBy {
     Shallow,
     Retained,

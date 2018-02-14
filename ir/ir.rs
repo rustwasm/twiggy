@@ -42,11 +42,16 @@ impl ItemsBuilder {
         }
     }
 
+    fn next_id(&mut self) -> Id {
+        let id = Id(self.id_counter);
+        self.id_counter += 1;
+        id
+    }
+
     /// Add the given item to to the graph and return the `Id` that it was
     /// assigned.
     pub fn add_item<T>(&mut self, key: &T, mut item: Item) -> Id {
-        let id = Id(self.id_counter);
-        self.id_counter += 1;
+        let id = self.next_id();
 
         item.id = id;
         self.items.insert(id, item);
@@ -86,9 +91,17 @@ impl ItemsBuilder {
     }
 
     /// Finish building the IR graph and return the resulting `Items`.
-    pub fn finish(self) -> Items {
+    pub fn finish(mut self) -> Items {
+        let meta_root_id = self.next_id();
+        let mut meta_root = Item::new("<meta root>", 0, Misc::new());
+        meta_root.id = meta_root_id;
+        self.items.insert(meta_root_id, meta_root);
+        self.edges.insert(meta_root_id, self.roots.clone());
+
         Items {
             size: self.size,
+            dominator_tree: None,
+            retained_sizes: None,
             items: Frozen::freeze(self.items),
             edges: Frozen::freeze(
                 self.edges
@@ -97,6 +110,7 @@ impl ItemsBuilder {
                     .collect(),
             ),
             roots: Frozen::freeze(self.roots),
+            meta_root: meta_root_id,
         }
     }
 }
@@ -108,9 +122,12 @@ impl ItemsBuilder {
 #[derive(Debug)]
 pub struct Items {
     size: u32,
+    dominator_tree: Option<BTreeMap<Id, Vec<Id>>>,
+    retained_sizes: Option<BTreeMap<Id, u32>>,
     items: Frozen<BTreeMap<Id, Item>>,
     edges: Frozen<BTreeMap<Id, Vec<Id>>>,
     roots: Frozen<BTreeSet<Id>>,
+    meta_root: Id,
 }
 
 impl ops::Index<Id> for Items {
@@ -141,6 +158,100 @@ impl Items {
     /// The size of the total binary, containing all items.
     pub fn size(&self) -> u32 {
         self.size
+    }
+
+    /// Get the id of the "meta root" which is a single root item with edges to
+    /// all of the real roots.
+    pub fn meta_root(&self) -> Id {
+        self.meta_root
+    }
+
+    /// Force computation of the dominator tree.
+    pub fn compute_dominator_tree(&mut self) {
+        if self.dominator_tree.is_some() {
+            return;
+        }
+
+        let mut dominator_tree = BTreeMap::new();
+        let dominators = petgraph::algo::dominators::simple_fast(&*self, self.meta_root);
+        for item in self.iter() {
+            if let Some(idom) = dominators.immediate_dominator(item.id()) {
+                dominator_tree
+                    .entry(idom)
+                    .or_insert(BTreeSet::new())
+                    .insert(item.id());
+            }
+        }
+
+        self.dominator_tree = Some(
+            dominator_tree
+                .into_iter()
+                .map(|(k, v)| (k, v.into_iter().collect()))
+                .collect(),
+        );
+    }
+
+    /// Force computation of the retained sizes of each IR item.
+    pub fn compute_retained_sizes(&mut self) {
+        if self.retained_sizes.is_some() {
+            return;
+        }
+        self.compute_dominator_tree();
+
+        fn recursive_retained_size(
+            retained_sizes: &mut BTreeMap<Id, u32>,
+            items: &Items,
+            item: &Item,
+            dominator_tree: &BTreeMap<Id, Vec<Id>>,
+        ) -> u32 {
+            // Although the dominator tree cannot have cycles, because we
+            // compute retained sizes in item iteration order, rather than from
+            // the bottom of the dominator tree up, it is possible we have
+            // already computed the retained sizes for subtrees.
+            if let Some(rsize) = retained_sizes.get(&item.id()) {
+                return *rsize;
+            }
+
+            let mut rsize = item.size();
+            if let Some(children) = dominator_tree.get(&item.id()) {
+                for child in children {
+                    rsize += recursive_retained_size(
+                        retained_sizes,
+                        items,
+                        &items[*child],
+                        dominator_tree,
+                    );
+                }
+            }
+
+            let old_value = retained_sizes.insert(item.id(), rsize);
+            // The dominator tree is a proper tree, so there shouldn't be
+            // any cycles.
+            assert!(old_value.is_none());
+            rsize
+        }
+
+        let mut retained_sizes = BTreeMap::new();
+        {
+            let dominator_tree = self.dominator_tree.as_ref().unwrap();
+            for item in self.iter() {
+                recursive_retained_size(&mut retained_sizes, self, item, dominator_tree);
+            }
+        }
+        self.retained_sizes = Some(retained_sizes);
+    }
+
+    /// Get the given item's retained size.
+    pub fn retained_size(&self, id: Id) -> u32 {
+        self.retained_sizes
+            .as_ref()
+            .expect(
+                "Cannot call retained_sizes unless compute_retained_sizes \
+                 has already been called",
+            )
+            .get(&id)
+            .cloned()
+            .unwrap()
     }
 }
 

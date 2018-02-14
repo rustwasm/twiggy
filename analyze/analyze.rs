@@ -3,6 +3,7 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
+#[macro_use]
 extern crate failure;
 extern crate svelte_ir as ir;
 extern crate svelte_opt as opt;
@@ -113,6 +114,7 @@ impl fmt::Display for Table {
 
 struct Top {
     items: Vec<ir::Id>,
+    opts: opt::Top,
 }
 
 impl traits::Emit for Top {
@@ -123,15 +125,25 @@ impl traits::Emit for Top {
     ) -> Result<(), failure::Error> {
         let mut dest = dest.open().context("could not open output destination")?;
 
+        let sort_label = match self.opts.sort_by {
+            opt::SortBy::Shallow => "Shallow",
+            opt::SortBy::Retained => "Retained",
+        };
+
         let mut table = Table::with_header(vec![
-            (Align::Right, "Shallow Bytes".to_string()),
-            (Align::Right, "Shallow %".to_string()),
+            (Align::Right, format!("{} Bytes", sort_label)),
+            (Align::Right, format!("{} %", sort_label)),
             (Align::Left, "Item".to_string()),
         ]);
 
         for &id in &self.items {
             let item = &items[id];
-            let size = item.size();
+
+            let size = match self.opts.sort_by {
+                opt::SortBy::Shallow => item.size(),
+                opt::SortBy::Retained => items.retained_size(id),
+            };
+
             let size_percent = (size as f64) / (items.size() as f64) * 100.0;
             table.add_row(vec![
                 size.to_string(),
@@ -147,19 +159,36 @@ impl traits::Emit for Top {
 
 /// Run the `top` analysis on the given IR items.
 pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, failure::Error> {
-    let mut items: Vec<_> = items.iter().collect();
-    items.sort_unstable_by(|a, b| b.size().cmp(&a.size()));
-    if let Some(n) = opts.number {
-        items.truncate(n as usize);
+    if opts.retaining_paths {
+        bail!("retaining paths are not yet implemented");
     }
-    let items: Vec<_> = items.into_iter().map(|i| i.id()).collect();
-    Ok(Box::new(Top { items }) as Box<traits::Emit>)
-}
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
+    if opts.sort_by == opt::SortBy::Retained {
+        items.compute_retained_sizes();
     }
+
+    let mut top_items: Vec<_> = items
+        .iter()
+        .filter(|item| item.id() != items.meta_root())
+        .collect();
+
+    top_items.sort_unstable_by(|a, b| match opts.sort_by {
+        opt::SortBy::Shallow => b.size().cmp(&a.size()),
+        opt::SortBy::Retained => items
+            .retained_size(b.id())
+            .cmp(&items.retained_size(a.id())),
+    });
+
+    if let Some(n) = opts.number {
+        top_items.truncate(n as usize);
+    }
+
+    let top_items: Vec<_> = top_items.into_iter().map(|i| i.id()).collect();
+
+    let top = Top {
+        items: top_items,
+        opts: opts.clone(),
+    };
+
+    Ok(Box::new(top) as Box<traits::Emit>)
 }
