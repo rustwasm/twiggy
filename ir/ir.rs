@@ -10,7 +10,7 @@ extern crate rustc_demangle;
 use frozen::Frozen;
 use std::cmp;
 use std::collections::btree_map;
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::ops;
 use std::u32;
 
@@ -19,7 +19,9 @@ use std::u32;
 pub struct ItemsBuilder {
     id_counter: u32,
     size: u32,
+    parsed: HashMap<*const (), Id>,
     items: BTreeMap<Id, Item>,
+    edges: BTreeMap<Id, BTreeSet<Id>>,
     roots: BTreeSet<Id>,
 }
 
@@ -29,29 +31,54 @@ impl ItemsBuilder {
         ItemsBuilder {
             id_counter: 0,
             size,
+            parsed: Default::default(),
             items: Default::default(),
+            edges: Default::default(),
             roots: Default::default(),
         }
     }
 
     /// Add the given item to to the graph and return the `Id` that it was
     /// assigned.
-    pub fn add_item(&mut self, mut item: Item) -> Id {
+    pub fn add_item<T>(&mut self, key: &T, mut item: Item) -> Id {
         let id = Id(self.id_counter);
         self.id_counter += 1;
 
         item.id = id;
         self.items.insert(id, item);
 
+        let old_value = self.parsed.insert(key as *const T as *const (), id);
+        assert!(
+            old_value.is_none(),
+            "should not parse the same key into multiple items"
+        );
+
         id
     }
 
     /// Add the given item to the graph as a root and return the `Id` that it
     /// was assigned.
-    pub fn add_root(&mut self, item: Item) -> Id {
-        let id = self.add_item(item);
+    pub fn add_root<T>(&mut self, key: &T, item: Item) -> Id {
+        let id = self.add_item(key, item);
         self.roots.insert(id);
         id
+    }
+
+    /// Add an edge between the given keys that have already been parsed into
+    /// items.
+    pub fn add_edge<K, J>(&mut self, from: &K, to: &J) {
+        let from_id = self.id_for_key(from);
+        let to_id = self.id_for_key(to);
+        self.edges
+            .entry(from_id)
+            .or_insert(BTreeSet::new())
+            .insert(to_id);
+    }
+
+    /// Get the id for the item we parsed from the given key.
+    pub fn id_for_key<T>(&self, key: &T) -> Id {
+        let key = key as *const T as *const ();
+        self.parsed[&key]
     }
 
     /// Finish building the IR graph and return the resulting `Items`.
@@ -59,6 +86,12 @@ impl ItemsBuilder {
         Items {
             size: self.size,
             items: Frozen::freeze(self.items),
+            edges: Frozen::freeze(
+                self.edges
+                    .into_iter()
+                    .map(|(from, tos)| (from, tos.into_iter().collect::<Vec<_>>()))
+                    .collect(),
+            ),
             roots: Frozen::freeze(self.roots),
         }
     }
@@ -72,6 +105,7 @@ impl ItemsBuilder {
 pub struct Items {
     size: u32,
     items: Frozen<BTreeMap<Id, Item>>,
+    edges: Frozen<BTreeMap<Id, Vec<Id>>>,
     roots: Frozen<BTreeSet<Id>>,
 }
 
