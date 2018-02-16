@@ -15,7 +15,7 @@ It analyzes a binary's call graph to answer questions like:
   saved if I removed it and all the functions that become dead code after its
   removal.
 
-Use `svelte` to make you binaries slim!
+Use `svelte` to make your binaries slim!
 
 --------------------------------------------------------------------------------
 
