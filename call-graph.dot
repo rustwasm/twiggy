@@ -1,0 +1,16 @@
+digraph "call-graph" {
+    "shred" -> "gnar_gnar";
+    "shred" -> "bluebird";
+
+    "gnar_gnar" -> "weather_report";
+    "gnar_gnar" -> "pow";
+
+    "bluebird" -> "weather_report";
+
+    "weather_report" -> "shred";
+
+    "pow" -> "fluffy";
+    "pow" -> "soft";
+
+    "baker" -> "hood";
+}
