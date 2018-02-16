@@ -120,7 +120,23 @@ the unwelcome function anymore, it would be dead code, and the linker would
 remove it.
 
 You can use the `svelte paths` subcommand to view the paths to a function in a
-given binary's call graph.
+given binary's call graph:
+
+```
+$ svelte paths wee_alloc.wasm 'wee_alloc::alloc_first_fit::h9a72de3af77ef93f'
+ Shallow Bytes │ Shallow % │ Retaining Paths
+───────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+           225 ┊     7.99% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+               ┊           ┊   ⬑ func[3]
+               ┊           ┊       ⬑ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+               ┊           ┊           ⬑ func[2]
+               ┊           ┊               ⬑ <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
+               ┊           ┊                   ⬑ func[5]
+               ┊           ┊                       ⬑ elem[0]
+               ┊           ┊               ⬑ hello
+               ┊           ┊                   ⬑ func[8]
+               ┊           ┊                       ⬑ export "hello"
+```
 
 ### Dominators and Retained Size
 
