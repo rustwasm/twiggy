@@ -104,3 +104,12 @@ test!(
     "dominators",
     "./fixtures/wee_alloc.wasm"
 );
+
+test!(
+    paths_wee_alloc,
+    "paths",
+    "./fixtures/wee_alloc.wasm",
+    "wee_alloc::alloc_first_fit::h9a72de3af77ef93f",
+    "hello",
+    "goodbye"
+);

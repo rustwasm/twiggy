@@ -102,6 +102,7 @@ impl ItemsBuilder {
             size: self.size,
             dominator_tree: None,
             retained_sizes: None,
+            predecessors: None,
             items: Frozen::freeze(self.items),
             edges: Frozen::freeze(
                 self.edges
@@ -124,6 +125,7 @@ pub struct Items {
     size: u32,
     dominator_tree: Option<BTreeMap<Id, Vec<Id>>>,
     retained_sizes: Option<BTreeMap<Id, u32>>,
+    predecessors: Option<BTreeMap<Id, Vec<Id>>>,
     items: Frozen<BTreeMap<Id, Item>>,
     edges: Frozen<BTreeMap<Id, Vec<Id>>>,
     roots: Frozen<BTreeSet<Id>>,
@@ -155,6 +157,17 @@ impl Items {
         }
     }
 
+    /// Iterate over an item's neighbors.
+    pub fn predecessors(&self, id: Id) -> Predecessors {
+        Predecessors {
+            inner: self.predecessors
+                .as_ref()
+                .expect("To access predecessors, must have already called compute_predecessors")
+                .get(&id)
+                .map_or_else(|| [].iter(), |edges| edges.iter()),
+        }
+    }
+
     /// The size of the total binary, containing all items.
     pub fn size(&self) -> u32 {
         self.size
@@ -164,6 +177,31 @@ impl Items {
     /// all of the real roots.
     pub fn meta_root(&self) -> Id {
         self.meta_root
+    }
+
+    /// Force computation of predecessors.
+    pub fn compute_predecessors(&mut self) {
+        if self.predecessors.is_some() {
+            return;
+        }
+
+        let mut predecessors = BTreeMap::new();
+
+        for (from, tos) in self.edges.iter() {
+            for to in tos {
+                predecessors
+                    .entry(*to)
+                    .or_insert_with(|| BTreeSet::new())
+                    .insert(*from);
+            }
+        }
+
+        self.predecessors = Some(
+            predecessors
+                .into_iter()
+                .map(|(k, v)| (k, v.into_iter().collect()))
+                .collect(),
+        );
     }
 
     /// Force computation of the dominator tree.
@@ -271,6 +309,21 @@ pub struct Neighbors<'a> {
 }
 
 impl<'a> Iterator for Neighbors<'a> {
+    type Item = Id;
+
+    #[inline]
+    fn next(&mut self) -> Option<Id> {
+        self.inner.next().cloned()
+    }
+}
+
+/// An iterator over an item's predecessors.
+#[derive(Debug)]
+pub struct Predecessors<'a> {
+    inner: slice::Iter<'a, Id>,
+}
+
+impl<'a> Iterator for Predecessors<'a> {
     type Item = Id;
 
     #[inline]

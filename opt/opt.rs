@@ -13,8 +13,9 @@ use std::io;
 use std::path;
 use std::str::FromStr;
 
-/// Options for controlling `svelte`.
+/// Options for configuring `svelte`.
 #[derive(Clone, Debug, StructOpt)]
+#[structopt(about = "\n`svelte` is a code size profiler.\n\nIt analyzes a binary's call graph to answer questions like:\n\n* Why was this function included in the binary in the first place?\n\n* What is the retained size of this function? I.e. how much space\n  would be saved if I removed it and all the functions that become\n  dead code after its removal.\n\nUse `svelte` to make your binaries slim!")]
 pub enum Options {
     /// List the top code size offenders in a binary.
     #[structopt(name = "top")]
@@ -23,6 +24,11 @@ pub enum Options {
     /// Compute and display the dominator tree for a binary's call graph.
     #[structopt(name = "dominators")]
     Dominators(Dominators),
+
+    /// Find and display the call paths to a function in the given binary's call
+    /// graph.
+    #[structopt(name = "paths")]
+    Paths(Paths),
 }
 
 /// Options that are common to all commands.
@@ -42,6 +48,7 @@ impl CommonOptions for Options {
         match *self {
             Options::Top(ref top) => top.input(),
             Options::Dominators(ref doms) => doms.input(),
+            Options::Paths(ref paths) => paths.input(),
         }
     }
 
@@ -49,6 +56,7 @@ impl CommonOptions for Options {
         match *self {
             Options::Top(ref top) => top.output_destination(),
             Options::Dominators(ref doms) => doms.output_destination(),
+            Options::Paths(ref paths) => paths.output_destination(),
         }
     }
 
@@ -56,6 +64,7 @@ impl CommonOptions for Options {
         match *self {
             Options::Top(ref top) => top.output_format(),
             Options::Dominators(ref doms) => doms.output_format(),
+            Options::Paths(ref paths) => paths.output_format(),
         }
     }
 }
@@ -119,6 +128,40 @@ pub struct Dominators {
 }
 
 impl CommonOptions for Dominators {
+    fn input(&self) -> &path::Path {
+        &self.input
+    }
+
+    fn output_destination(&self) -> &OutputDestination {
+        &self.output_destination
+    }
+
+    fn output_format(&self) -> OutputFormat {
+        self.output_format
+    }
+}
+
+/// Find and display the call paths to a function in the given binary's call
+/// graph.
+#[derive(Clone, Debug, StructOpt)]
+pub struct Paths {
+    /// The path to the input binary to size profile.
+    #[structopt(parse(from_os_str))]
+    pub input: path::PathBuf,
+
+    /// The functions to find call paths to.
+    pub functions: Vec<String>,
+
+    /// The destination to write the output to. Defaults to `stdout`.
+    #[structopt(short = "o", default_value = "-")]
+    pub output_destination: OutputDestination,
+
+    /// The format the output should be written in.
+    #[structopt(short = "f", long = "format", default_value = "text")]
+    pub output_format: OutputFormat,
+}
+
+impl CommonOptions for Paths {
     fn input(&self) -> &path::Path {
         &self.input
     }

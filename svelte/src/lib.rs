@@ -18,6 +18,7 @@ pub fn run(opts: opt::Options) -> Result<(), failure::Error> {
     let data = match opts {
         opt::Options::Top(ref top) => analyze::top(&mut items, top)?,
         opt::Options::Dominators(ref doms) => analyze::dominators(&mut items, doms)?,
+        opt::Options::Paths(ref paths) => analyze::paths(&mut items, paths)?,
     };
     data.emit(&items, opts.output_destination(), opts.output_format())
 }

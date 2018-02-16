@@ -11,7 +11,7 @@ extern crate svelte_traits as traits;
 
 use failure::ResultExt;
 use std::cmp;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use std::fmt;
 
 #[derive(Debug, Clone, Copy)]
@@ -272,4 +272,97 @@ pub fn dominators(
     };
 
     Ok(Box::new(tree) as Box<traits::Emit>)
+}
+
+struct Paths {
+    items: Vec<ir::Id>,
+}
+
+impl traits::Emit for Paths {
+    fn emit_text(
+        &self,
+        items: &ir::Items,
+        dest: &opt::OutputDestination,
+    ) -> Result<(), failure::Error> {
+        fn recursive_callers(
+            items: &ir::Items,
+            seen: &mut BTreeSet<ir::Id>,
+            table: &mut Table,
+            depth: usize,
+            id: ir::Id,
+        ) {
+            if seen.contains(&id) || items.meta_root() == id {
+                return;
+            }
+
+            let item = &items[id];
+
+            let mut label = String::with_capacity(depth * 4 + item.name().len());
+            for _ in 1..depth {
+                label.push_str("    ");
+            }
+            if depth > 0 {
+                label.push_str("  ⬑ ");
+            }
+            label.push_str(item.name());
+
+            table.add_row(vec![
+                if depth == 0 {
+                    item.size().to_string()
+                } else {
+                    "".to_string()
+                },
+                if depth == 0 {
+                    let size_percent = (item.size() as f64) / (items.size() as f64) * 100.0;
+                    format!("{:.2}%", size_percent)
+                } else {
+                    "".to_string()
+                },
+                label,
+            ]);
+
+            seen.insert(id);
+            for caller in items.predecessors(id) {
+                recursive_callers(items, seen, table, depth + 1, caller);
+            }
+            seen.remove(&id);
+        }
+
+        let mut table = Table::with_header(vec![
+            (Align::Right, "Shallow Bytes".to_string()),
+            (Align::Right, "Shallow %".to_string()),
+            (Align::Left, "Retaining Paths".to_string()),
+        ]);
+
+        for id in &self.items {
+            let mut seen = BTreeSet::new();
+            recursive_callers(items, &mut seen, &mut table, 0, *id);
+        }
+
+        let mut dest = dest.open().context("could not open output destination")?;
+        write!(&mut dest, "{}", table)?;
+        Ok(())
+    }
+}
+
+/// Find all retaining paths for the given items.
+pub fn paths(
+    items: &mut ir::Items,
+    opts: &opt::Paths,
+) -> Result<Box<traits::Emit>, failure::Error> {
+    items.compute_predecessors();
+
+    let mut paths = Paths {
+        items: Vec::with_capacity(opts.functions.len()),
+    };
+
+    let functions: BTreeSet<_> = opts.functions.iter().map(|s| s.as_str()).collect();
+
+    for item in items.iter() {
+        if functions.contains(item.name()) {
+            paths.items.push(item.id());
+        }
+    }
+
+    Ok(Box::new(paths) as Box<traits::Emit>)
 }
