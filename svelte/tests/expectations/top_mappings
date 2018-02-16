@@ -1,0 +1,12 @@
+ Shallow Bytes │ Shallow % │ Item
+───────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────
+          5284 ┊    11.68% ┊ _ZN4core3ptr13drop_in_place17hddeb26218033f78bE.1290
+          4337 ┊     9.59% ┊ "function names" subsection
+          1975 ┊     4.37% ┊ memmove
+          1752 ┊     3.87% ┊ <std::thread::local::LocalKey<T>>::try_with::h81b6490c42d3c021
+          1704 ┊     3.77% ┊ parse_mappings
+          1512 ┊     3.34% ┊ <std::thread::local::AccessError as core::fmt::Debug>::fmt::h17b46907f43c196c
+          1277 ┊     2.82% ┊ core::ptr::drop_in_place::h15636b240d3542f7
+          1219 ┊     2.69% ┊ memset
+          1217 ┊     2.69% ┊ __powidf2
+          1142 ┊     2.52% ┊ __udivsi3

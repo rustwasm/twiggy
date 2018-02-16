@@ -12,3 +12,6 @@ svelte-ir = { version = "0.1.0", path = "../ir" }
 svelte-opt = { version = "0.1.0", path = "../opt" }
 svelte-parser = { version = "0.1.0", path = "../parser" }
 svelte-traits = { version = "0.1.0", path = "../traits" }
+
+[dev-dependencies]
+diff = "0.1.11"
