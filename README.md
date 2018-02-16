@@ -152,7 +152,29 @@ function by taking its shallow size and adding the retained sizes of each
 function that it immediately dominates.
 
 You can use the `svelte dominators` subcommand to view the dominator tree for a
-given binary's call graph.
+given binary's call graph:
+
+```
+$ svelte dominators wee_alloc.wasm
+ Retained Bytes │ Retained % │ Dominator Tree
+────────────────┼────────────┼────────────────────────────────────────────────────────────────────────
+            774 ┊     27.48% ┊ "function names" subsection
+            564 ┊     20.02% ┊ export "hello"
+            556 ┊     19.74% ┊   ⤷ func[8]
+            551 ┊     19.56% ┊       ⤷ hello
+            387 ┊     13.74% ┊           ⤷ func[2]
+            378 ┊     13.42% ┊               ⤷ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+            226 ┊      8.02% ┊                   ⤷ func[3]
+            225 ┊      7.99% ┊                       ⤷ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+              8 ┊      0.28% ┊               ⤷ type[4]
+              4 ┊      0.14% ┊       ⤷ type[5]
+             59 ┊      2.09% ┊ export "goodbye"
+             49 ┊      1.74% ┊   ⤷ func[9]
+             44 ┊      1.56% ┊       ⤷ goodbye
+              4 ┊      0.14% ┊       ⤷ type[3]
+             11 ┊      0.39% ┊ export "memory"
+              2 ┊      0.07% ┊   ⤷ memory[0]
+```
 
 [dominators]: https://en.wikipedia.org/wiki/Dominator_(graph_theory)
 
