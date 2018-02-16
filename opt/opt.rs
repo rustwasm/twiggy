@@ -16,8 +16,13 @@ use std::str::FromStr;
 /// Options for controlling `svelte`.
 #[derive(Clone, Debug, StructOpt)]
 pub enum Options {
+    /// List the top code size offenders in a binary.
     #[structopt(name = "top")]
     Top(Top),
+
+    /// Compute and display the dominator tree for a binary's call graph.
+    #[structopt(name = "dominators")]
+    Dominators(Dominators),
 }
 
 /// Options that are common to all commands.
@@ -36,18 +41,21 @@ impl CommonOptions for Options {
     fn input(&self) -> &path::Path {
         match *self {
             Options::Top(ref top) => top.input(),
+            Options::Dominators(ref doms) => doms.input(),
         }
     }
 
     fn output_destination(&self) -> &OutputDestination {
         match *self {
             Options::Top(ref top) => top.output_destination(),
+            Options::Dominators(ref doms) => doms.output_destination(),
         }
     }
 
     fn output_format(&self) -> OutputFormat {
         match *self {
             Options::Top(ref top) => top.output_format(),
+            Options::Dominators(ref doms) => doms.output_format(),
         }
     }
 }
@@ -81,6 +89,36 @@ pub struct Top {
 }
 
 impl CommonOptions for Top {
+    fn input(&self) -> &path::Path {
+        &self.input
+    }
+
+    fn output_destination(&self) -> &OutputDestination {
+        &self.output_destination
+    }
+
+    fn output_format(&self) -> OutputFormat {
+        self.output_format
+    }
+}
+
+/// Compute and display the dominator tree for a binary's call graph.
+#[derive(Clone, Debug, StructOpt)]
+pub struct Dominators {
+    /// The path to the input binary to size profile.
+    #[structopt(parse(from_os_str))]
+    pub input: path::PathBuf,
+
+    /// The destination to write the output to. Defaults to `stdout`.
+    #[structopt(short = "o", default_value = "-")]
+    pub output_destination: OutputDestination,
+
+    /// The format the output should be written in.
+    #[structopt(short = "f", long = "format", default_value = "text")]
+    pub output_format: OutputFormat,
+}
+
+impl CommonOptions for Dominators {
     fn input(&self) -> &path::Path {
         &self.input
     }

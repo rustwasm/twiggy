@@ -191,6 +191,15 @@ impl Items {
         );
     }
 
+    /// Get a reference to the dominator tree.
+    ///
+    /// Must have already called `compute_dominator_tree`.
+    pub fn dominator_tree(&self) -> &BTreeMap<Id, Vec<Id>> {
+        self.dominator_tree
+            .as_ref()
+            .expect("must call compute_dominator_tree before calling dominator_tree")
+    }
+
     /// Force computation of the retained sizes of each IR item.
     pub fn compute_retained_sizes(&mut self) {
         if self.retained_sizes.is_some() {

@@ -11,6 +11,7 @@ extern crate svelte_traits as traits;
 
 use failure::ResultExt;
 use std::cmp;
+use std::collections::BTreeMap;
 use std::fmt;
 
 #[derive(Debug, Clone, Copy)]
@@ -191,4 +192,84 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
     };
 
     Ok(Box::new(top) as Box<traits::Emit>)
+}
+
+struct DominatorTree {
+    tree: BTreeMap<ir::Id, Vec<ir::Id>>,
+}
+
+impl traits::Emit for DominatorTree {
+    fn emit_text(
+        &self,
+        items: &ir::Items,
+        dest: &opt::OutputDestination,
+    ) -> Result<(), failure::Error> {
+        let mut dest = dest.open().context("could not open output destination")?;
+
+        let mut table = Table::with_header(vec![
+            (Align::Right, "Retained Bytes".to_string()),
+            (Align::Right, "Retained %".to_string()),
+            (Align::Left, "Dominator Tree".to_string()),
+        ]);
+
+        fn recursive_add_rows(
+            table: &mut Table,
+            items: &ir::Items,
+            dominator_tree: &BTreeMap<ir::Id, Vec<ir::Id>>,
+            depth: usize,
+            id: ir::Id,
+        ) {
+            assert_eq!(id == items.meta_root(), depth == 0);
+
+            if depth > 0 {
+                let item = &items[id];
+
+                let size = items.retained_size(id);
+                let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+
+                let mut label = String::with_capacity(depth * 4 + item.name().len() + "⤷ ".len());
+                for _ in 2..depth {
+                    label.push_str("    ");
+                }
+                if depth != 1 {
+                    label.push_str("  ⤷ ");
+                }
+                label.push_str(item.name());
+
+                table.add_row(vec![
+                    size.to_string(),
+                    format!("{:.2}%", size_percent),
+                    label,
+                ]);
+            }
+
+            if let Some(children) = dominator_tree.get(&id) {
+                let mut children: Vec<_> = children.iter().cloned().collect();
+                children
+                    .sort_unstable_by(|a, b| items.retained_size(*b).cmp(&items.retained_size(*a)));
+                for child in children {
+                    recursive_add_rows(table, items, dominator_tree, depth + 1, child);
+                }
+            }
+        }
+
+        recursive_add_rows(&mut table, items, &self.tree, 0, items.meta_root());
+        write!(&mut dest, "{}", &table)?;
+        Ok(())
+    }
+}
+
+/// Compute the dominator tree for the given IR graph.
+pub fn dominators(
+    items: &mut ir::Items,
+    _opts: &opt::Dominators,
+) -> Result<Box<traits::Emit>, failure::Error> {
+    items.compute_dominator_tree();
+    items.compute_retained_sizes();
+
+    let tree = DominatorTree {
+        tree: items.dominator_tree().clone(),
+    };
+
+    Ok(Box::new(tree) as Box<traits::Emit>)
 }

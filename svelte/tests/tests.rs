@@ -98,3 +98,9 @@ test!(
     "retained",
     "./fixtures/mappings.wasm"
 );
+
+test!(
+    dominators_wee_alloc,
+    "dominators",
+    "./fixtures/wee_alloc.wasm"
+);
