@@ -140,12 +140,12 @@ $ svelte paths wee_alloc.wasm 'wee_alloc::alloc_first_fit::h9a72de3af77ef93f'
 
 ### Dominators and Retained Size
 
-A function *F* might not be very large. But it might call functions *G* and *H*,
-both of which are huge. And they are *only* called by *F*, so if *F* were
-removed, then *G* and *H* would both become dead code and get removed as
-well. Therefore, *F*'s "real" size is huge, even though it doesn't look like it
-on paper. The *dominator* relationship gives us a way to reason about the
-*retained size* of a function.
+Imagine the `pow` function itself might is not very large. But it calls
+functions `soft` and `fluffy`, both of which are **huge**. And they are both
+*only* called by `pow`, so if `pow` were removed, then `soft` and `fluffy` would
+both become dead code and get removed as well. Therefore, `pow`'s "real" size is
+huge, even though it doesn't look like it at a glance. The *dominator*
+relationship gives us a way to reason about the *retained size* of a function.
 
 In a graph that is rooted at vertex *R*, vertex *A* is said to
 [*dominate*][dominators] vertex *B* if every path in the graph from *R* to *B*
