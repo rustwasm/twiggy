@@ -106,6 +106,16 @@ test!(
 );
 
 test!(
+    dominators_wee_alloc_with_depth_and_row,
+    "dominators",
+    "./fixtures/wee_alloc.wasm",
+    "-d",
+    "5",
+    "-r",
+    "3"
+);
+
+test!(
     paths_wee_alloc,
     "paths",
     "./fixtures/wee_alloc.wasm",
