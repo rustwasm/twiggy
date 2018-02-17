@@ -85,8 +85,7 @@ test!(
     "top",
     "-n",
     "10",
-    "-s",
-    "retained",
+    "--retained",
     "./fixtures/wee_alloc.wasm"
 );
 test!(
@@ -94,8 +93,7 @@ test!(
     "top",
     "-n",
     "10",
-    "-s",
-    "retained",
+    "--retained",
     "./fixtures/mappings.wasm"
 );
 
