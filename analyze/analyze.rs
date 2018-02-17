@@ -276,6 +276,8 @@ pub fn dominators(
 
 struct Paths {
     items: Vec<ir::Id>,
+    max_depth: usize,
+    max_row: usize,
 }
 
 impl traits::Emit for Paths {
@@ -289,43 +291,55 @@ impl traits::Emit for Paths {
             seen: &mut BTreeSet<ir::Id>,
             table: &mut Table,
             depth: usize,
+            max_depth: usize,
+            max_row: usize,
             id: ir::Id,
         ) {
-            if seen.contains(&id) || items.meta_root() == id {
-                return;
-            }
+            if max_depth != depth && max_row != 0 {
+                if seen.contains(&id) || items.meta_root() == id {
+                    return;
+                }
 
-            let item = &items[id];
+                let item = &items[id];
 
-            let mut label = String::with_capacity(depth * 4 + item.name().len());
-            for _ in 1..depth {
-                label.push_str("    ");
-            }
-            if depth > 0 {
-                label.push_str("  ⬑ ");
-            }
-            label.push_str(item.name());
+                let mut label = String::with_capacity(depth * 4 + item.name().len());
+                for _ in 1..depth {
+                    label.push_str("    ");
+                }
+                if depth > 0 {
+                    label.push_str("  ⬑ ");
+                }
+                label.push_str(item.name());
 
-            table.add_row(vec![
-                if depth == 0 {
-                    item.size().to_string()
-                } else {
-                    "".to_string()
-                },
-                if depth == 0 {
-                    let size_percent = (item.size() as f64) / (items.size() as f64) * 100.0;
-                    format!("{:.2}%", size_percent)
-                } else {
-                    "".to_string()
-                },
-                label,
-            ]);
+                table.add_row(vec![
+                    if depth == 0 {
+                        item.size().to_string()
+                    } else {
+                        "".to_string()
+                    },
+                    if depth == 0 {
+                        let size_percent = (item.size() as f64) / (items.size() as f64) * 100.0;
+                        format!("{:.2}%", size_percent)
+                    } else {
+                        "".to_string()
+                    },
+                    label,
+                ]);
 
-            seen.insert(id);
-            for caller in items.predecessors(id) {
-                recursive_callers(items, seen, table, depth + 1, caller);
+                seen.insert(id);
+                for caller in items.predecessors(id) {
+                    recursive_callers(
+                        items,
+                        seen,
+                        table,
+                        depth + 1,
+                        max_depth,
+                        max_row - 1,
+                        caller,
+                    );
+                }
+                seen.remove(&id);
             }
-            seen.remove(&id);
         }
 
         let mut table = Table::with_header(vec![
@@ -334,9 +348,12 @@ impl traits::Emit for Paths {
             (Align::Left, "Retaining Paths".to_string()),
         ]);
 
+        let max_depth = self.max_depth;
+        let max_row = self.max_row;
+
         for id in &self.items {
             let mut seen = BTreeSet::new();
-            recursive_callers(items, &mut seen, &mut table, 0, *id);
+            recursive_callers(items, &mut seen, &mut table, 0, max_depth, max_row, *id);
         }
 
         let mut dest = dest.open().context("could not open output destination")?;
@@ -354,6 +371,8 @@ pub fn paths(
 
     let mut paths = Paths {
         items: Vec::with_capacity(opts.functions.len()),
+        max_depth: opts.max_depth,
+        max_row: opts.max_row,
     };
 
     let functions: BTreeSet<_> = opts.functions.iter().map(|s| s.as_str()).collect();

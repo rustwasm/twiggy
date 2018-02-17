@@ -1,0 +1,5 @@
+ Shallow Bytes │ Shallow % │ Retaining Paths
+───────────────┼───────────┼──────────────────────────────────────────────
+           225 ┊     7.99% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+           164 ┊     5.82% ┊ hello
+            44 ┊     1.56% ┊ goodbye
