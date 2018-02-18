@@ -196,7 +196,7 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
 
 struct DominatorTree {
     tree: BTreeMap<ir::Id, Vec<ir::Id>>,
-    dominators: opt::Dominators,
+    opts: opt::Dominators,
 }
 
 impl traits::Emit for DominatorTree {
@@ -213,58 +213,70 @@ impl traits::Emit for DominatorTree {
             (Align::Left, "Dominator Tree".to_string()),
         ]);
 
-        let dominators = &self.dominators;
+        let opts = &self.opts;
+
+        let mut row = 0 as usize;
 
         fn recursive_add_rows(
             table: &mut Table,
             items: &ir::Items,
             dominator_tree: &BTreeMap<ir::Id, Vec<ir::Id>>,
             depth: usize,
-            dominators: &opt::Dominators,
+            mut row: &mut usize,
+            opts: &opt::Dominators,
             id: ir::Id,
         ) {
             assert_eq!(id == items.meta_root(), depth == 0);
 
-            if dominators.max_row != 0 && depth != dominators.max_depth {
-                if depth > 0 {
-                    let item = &items[id];
-
-                    let size = items.retained_size(id);
-                    let size_percent = (size as f64) / (items.size() as f64) * 100.0;
-
-                    let mut label =
-                        String::with_capacity(depth * 4 + item.name().len() + "⤷ ".len());
-                    for _ in 2..depth {
-                        label.push_str("    ");
-                    }
-                    if depth != 1 {
-                        label.push_str("  ⤷ ");
-                    }
-                    label.push_str(item.name());
-
-                    table.add_row(vec![
-                        size.to_string(),
-                        format!("{:.2}%", size_percent),
-                        label,
-                    ]);
+            if let Some(max_rows) = opts.max_rows {
+                if *row == max_rows {
+                    return;
                 }
+            }
 
-                if let Some(children) = dominator_tree.get(&id) {
-                    let mut children: Vec<_> = children.iter().cloned().collect();
-                    children.sort_unstable_by(|a, b| {
-                        items.retained_size(*b).cmp(&items.retained_size(*a))
-                    });
-                    for child in children {
-                        // dominators.max_row = &dominators.max_row - 1;
-                        recursive_add_rows(
-                            table,
-                            items,
-                            dominator_tree,
-                            depth + 1,
-                            &dominators,
-                            child,
-                        );
-                    }
+            if let Some(max_depth) = opts.max_depth {
+                if depth > max_depth {
+                    return;
+                }
+            }
+
+            if depth > 0 {
+                let item = &items[id];
+
+                let size = items.retained_size(id);
+                let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+
+                let mut label = String::with_capacity(depth * 4 + item.name().len() + "⤷ ".len());
+                for _ in 2..depth {
+                    label.push_str("    ");
+                }
+                if depth != 1 {
+                    label.push_str("  ⤷ ");
+                }
+                label.push_str(item.name());
+
+                table.add_row(vec![
+                    size.to_string(),
+                    format!("{:.2}%", size_percent),
+                    label,
+                ]);
+            }
+
+            if let Some(children) = dominator_tree.get(&id) {
+                let mut children: Vec<_> = children.iter().cloned().collect();
+                children
+                    .sort_unstable_by(|a, b| items.retained_size(*b).cmp(&items.retained_size(*a)));
+                for child in children {
+                    *row += 1;
+                    recursive_add_rows(
+                        table,
+                        items,
+                        dominator_tree,
+                        depth + 1,
+                        &mut row,
+                        &opts,
+                        child,
+                    );
                 }
             }
         }
@@ -274,7 +286,8 @@ impl traits::Emit for DominatorTree {
             items,
             &self.tree,
             0,
-            &dominators,
+            &mut row,
+            &opts,
             items.meta_root(),
         );
         write!(&mut dest, "{}", &table)?;
@@ -292,7 +305,7 @@ pub fn dominators(
 
     let tree = DominatorTree {
         tree: items.dominator_tree().clone(),
-        dominators: opts.clone(),
+        opts: opts.clone(),
     };
 
     Ok(Box::new(tree) as Box<traits::Emit>)

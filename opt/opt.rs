@@ -126,9 +126,13 @@ pub struct Dominators {
     #[structopt(short = "f", long = "format", default_value = "text")]
     pub output_format: OutputFormat,
 
-    #[structopt(short = "d", default_value = "10")] pub max_depth: usize,
+    /// The maximum depth to print the dominators tree.
+    #[structopt(short = "d")]
+    pub max_depth: Option<usize>,
 
-    #[structopt(short = "r", default_value = "10")] pub max_row: usize,
+    /// The maximum number of rows, regardless of depth in the tree, to display.
+    #[structopt(short = "r")]
+    pub max_rows: Option<usize>,
 }
 
 impl CommonOptions for Dominators {
