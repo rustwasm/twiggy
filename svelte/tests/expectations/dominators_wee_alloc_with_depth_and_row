@@ -1,0 +1,10 @@
+ Retained Bytes │ Retained % │ Dominator Tree
+────────────────┼────────────┼────────────────────────────
+            774 ┊     27.48% ┊ "function names" subsection
+            564 ┊     20.02% ┊ export "hello"
+             59 ┊      2.09% ┊ export "goodbye"
+             49 ┊      1.74% ┊   ⤷ func[9]
+             44 ┊      1.56% ┊       ⤷ goodbye
+              4 ┊      0.14% ┊       ⤷ type[3]
+             11 ┊      0.39% ┊ export "memory"
+              2 ┊      0.07% ┊   ⤷ memory[0]
