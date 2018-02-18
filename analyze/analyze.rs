@@ -196,6 +196,7 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
 
 struct DominatorTree {
     tree: BTreeMap<ir::Id, Vec<ir::Id>>,
+    opts: opt::Dominators,
 }
 
 impl traits::Emit for DominatorTree {
@@ -212,14 +213,32 @@ impl traits::Emit for DominatorTree {
             (Align::Left, "Dominator Tree".to_string()),
         ]);
 
+        let opts = &self.opts;
+
+        let mut row = 0 as usize;
+
         fn recursive_add_rows(
             table: &mut Table,
             items: &ir::Items,
             dominator_tree: &BTreeMap<ir::Id, Vec<ir::Id>>,
             depth: usize,
+            mut row: &mut usize,
+            opts: &opt::Dominators,
             id: ir::Id,
         ) {
             assert_eq!(id == items.meta_root(), depth == 0);
+
+            if let Some(max_rows) = opts.max_rows {
+                if *row == max_rows {
+                    return;
+                }
+            }
+
+            if let Some(max_depth) = opts.max_depth {
+                if depth > max_depth {
+                    return;
+                }
+            }
 
             if depth > 0 {
                 let item = &items[id];
@@ -248,12 +267,29 @@ impl traits::Emit for DominatorTree {
                 children
                     .sort_unstable_by(|a, b| items.retained_size(*b).cmp(&items.retained_size(*a)));
                 for child in children {
-                    recursive_add_rows(table, items, dominator_tree, depth + 1, child);
+                    *row += 1;
+                    recursive_add_rows(
+                        table,
+                        items,
+                        dominator_tree,
+                        depth + 1,
+                        &mut row,
+                        &opts,
+                        child,
+                    );
                 }
             }
         }
 
-        recursive_add_rows(&mut table, items, &self.tree, 0, items.meta_root());
+        recursive_add_rows(
+            &mut table,
+            items,
+            &self.tree,
+            0,
+            &mut row,
+            &opts,
+            items.meta_root(),
+        );
         write!(&mut dest, "{}", &table)?;
         Ok(())
     }
@@ -262,13 +298,14 @@ impl traits::Emit for DominatorTree {
 /// Compute the dominator tree for the given IR graph.
 pub fn dominators(
     items: &mut ir::Items,
-    _opts: &opt::Dominators,
+    opts: &opt::Dominators,
 ) -> Result<Box<traits::Emit>, failure::Error> {
     items.compute_dominator_tree();
     items.compute_retained_sizes();
 
     let tree = DominatorTree {
         tree: items.dominator_tree().clone(),
+        opts: opts.clone(),
     };
 
     Ok(Box::new(tree) as Box<traits::Emit>)
