@@ -160,9 +160,13 @@ pub struct Paths {
     #[structopt(short = "f", long = "format", default_value = "text")]
     pub output_format: OutputFormat,
 
-    #[structopt(short = "d", default_value = "10")] pub max_depth: usize,
+    /// The maximum depth to print the paths.
+    #[structopt(short = "d", default_value = "10")]
+    pub max_depth: usize,
 
-    #[structopt(short = "r", default_value = "10")] pub max_row: usize,
+    /// The maximum number of paths, regardless of depth in the tree, to display.
+    #[structopt(short = "r", default_value = "10")]
+    pub max_paths: usize,
 }
 
 impl CommonOptions for Paths {

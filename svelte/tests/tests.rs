@@ -115,7 +115,7 @@ test!(
 );
 
 test!(
-    paths_wee_alloc_with_depth_and_rows,
+    paths_wee_alloc_with_depth_and_paths,
     "paths",
     "./fixtures/wee_alloc.wasm",
     "wee_alloc::alloc_first_fit::h9a72de3af77ef93f",
