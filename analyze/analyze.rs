@@ -331,7 +331,7 @@ impl traits::Emit for Paths {
             opts: &opt::Paths,
             id: ir::Id,
         ) {
-            if opts.max_paths == *paths && depth > opts.max_depth {
+            if opts.max_paths == *paths || depth > opts.max_depth {
                 return;
             }
 
@@ -366,8 +366,8 @@ impl traits::Emit for Paths {
             ]);
 
             seen.insert(id);
-            for caller in items.predecessors(id) {
-                if depth != 0 {
+            for (i, caller) in items.predecessors(id).enumerate() {
+                if i > 0 {
                     *paths += 1;
                 }
                 recursive_callers(items, seen, table, depth + 1, &mut paths, &opts, caller);
