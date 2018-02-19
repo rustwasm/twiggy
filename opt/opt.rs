@@ -92,9 +92,9 @@ pub struct Top {
     #[structopt(short = "r", long = "retaining-paths")]
     pub retaining_paths: bool,
 
-    /// Choose how to sort the list. Choices are "shallow" or "retained".
-    #[structopt(short = "s", long = "sort-by", default_value = "shallow")]
-    pub sort_by: SortBy,
+    /// Sort list by retained
+    #[structopt(long = "retained")]
+    pub retained: bool,
 }
 
 impl CommonOptions for Top {
@@ -180,25 +180,6 @@ impl CommonOptions for Paths {
 
     fn output_format(&self) -> OutputFormat {
         self.output_format
-    }
-}
-
-/// Whether to sort by shallow or retained size.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub enum SortBy {
-    Shallow,
-    Retained,
-}
-
-impl FromStr for SortBy {
-    type Err = failure::Error;
-
-    fn from_str(s: &str) -> Result<SortBy, failure::Error> {
-        match s {
-            "shallow" => Ok(SortBy::Shallow),
-            "retained" => Ok(SortBy::Retained),
-            _ => bail!("unknown sort order: '{}'", s),
-        }
     }
 }
 

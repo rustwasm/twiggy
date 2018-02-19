@@ -126,9 +126,10 @@ impl traits::Emit for Top {
     ) -> Result<(), failure::Error> {
         let mut dest = dest.open().context("could not open output destination")?;
 
-        let sort_label = match self.opts.sort_by {
-            opt::SortBy::Shallow => "Shallow",
-            opt::SortBy::Retained => "Retained",
+        let sort_label = if self.opts.retained {
+            "Retained"
+        } else {
+            "Shallow"
         };
 
         let mut table = Table::with_header(vec![
@@ -140,9 +141,10 @@ impl traits::Emit for Top {
         for &id in &self.items {
             let item = &items[id];
 
-            let size = match self.opts.sort_by {
-                opt::SortBy::Shallow => item.size(),
-                opt::SortBy::Retained => items.retained_size(id),
+            let size = if self.opts.retained {
+                items.retained_size(id)
+            } else {
+                item.size()
             };
 
             let size_percent = (size as f64) / (items.size() as f64) * 100.0;
@@ -164,7 +166,7 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
         bail!("retaining paths are not yet implemented");
     }
 
-    if opts.sort_by == opt::SortBy::Retained {
+    if opts.retained {
         items.compute_retained_sizes();
     }
 
@@ -173,9 +175,9 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
         .filter(|item| item.id() != items.meta_root())
         .collect();
 
-    top_items.sort_unstable_by(|a, b| match opts.sort_by {
-        opt::SortBy::Shallow => b.size().cmp(&a.size()),
-        opt::SortBy::Retained => items
+    top_items.sort_unstable_by(|a, b| match opts.retained {
+        false => b.size().cmp(&a.size()),
+        true => items
             .retained_size(b.id())
             .cmp(&items.retained_size(a.id())),
     });
