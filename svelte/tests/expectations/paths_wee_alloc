@@ -9,10 +9,9 @@
                ┊           ┊                       ⬑ elem[0]
                ┊           ┊               ⬑ hello
                ┊           ┊                   ⬑ func[8]
-               ┊           ┊                       ⬑ export "hello"
+               ┊           ┊                       ⬑ export "goodbye"
            164 ┊     5.82% ┊ hello
                ┊           ┊   ⬑ func[8]
-               ┊           ┊       ⬑ export "hello"
+               ┊           ┊       ⬑ export "goodbye"
             44 ┊     1.56% ┊ goodbye
                ┊           ┊   ⬑ func[9]
-               ┊           ┊       ⬑ export "goodbye"

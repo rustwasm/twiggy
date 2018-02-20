@@ -113,3 +113,10 @@ test!(
     "hello",
     "goodbye"
 );
+
+test!(
+    paths_mappings_index,
+    "paths",
+    "./fixtures/mappings.wasm",
+    "by_generated_location"
+);
