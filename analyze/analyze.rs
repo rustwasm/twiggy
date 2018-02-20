@@ -315,6 +315,7 @@ pub fn dominators(
 
 struct Paths {
     items: Vec<ir::Id>,
+    opts: opt::Paths,
 }
 
 impl traits::Emit for Paths {
@@ -328,8 +329,14 @@ impl traits::Emit for Paths {
             seen: &mut BTreeSet<ir::Id>,
             table: &mut Table,
             depth: usize,
+            mut paths: &mut usize,
+            opts: &opt::Paths,
             id: ir::Id,
         ) {
+            if opts.max_paths == *paths || depth > opts.max_depth {
+                return;
+            }
+
             if seen.contains(&id) || items.meta_root() == id {
                 return;
             }
@@ -361,8 +368,11 @@ impl traits::Emit for Paths {
             ]);
 
             seen.insert(id);
-            for caller in items.predecessors(id) {
-                recursive_callers(items, seen, table, depth + 1, caller);
+            for (i, caller) in items.predecessors(id).enumerate() {
+                if i > 0 {
+                    *paths += 1;
+                }
+                recursive_callers(items, seen, table, depth + 1, &mut paths, &opts, caller);
             }
             seen.remove(&id);
         }
@@ -373,9 +383,12 @@ impl traits::Emit for Paths {
             (Align::Left, "Retaining Paths".to_string()),
         ]);
 
+        let opts = &self.opts;
+
         for id in &self.items {
+            let mut paths = 0 as usize;
             let mut seen = BTreeSet::new();
-            recursive_callers(items, &mut seen, &mut table, 0, *id);
+            recursive_callers(items, &mut seen, &mut table, 0, &mut paths, &opts, *id);
         }
 
         let mut dest = dest.open().context("could not open output destination")?;
@@ -393,6 +406,7 @@ pub fn paths(
 
     let mut paths = Paths {
         items: Vec::with_capacity(opts.functions.len()),
+        opts: opts.clone(),
     };
 
     let functions: BTreeSet<_> = opts.functions.iter().map(|s| s.as_str()).collect();
