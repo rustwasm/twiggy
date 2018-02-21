@@ -503,17 +503,17 @@ impl<'a> Parse<'a> for elements::ElementSection {
         let tables = module.table_section();
 
         for elem in self.entries() {
-            tables
-                .and_then(|ts| ts.entries().get(elem.index() as usize))
-                .map(|t| {
-                    items.add_edge(elem, t);
-                });
-
             for f in elem.members() {
                 funcs.and_then(|fs| fs.entries().get(*f as usize)).map(|f| {
                     items.add_edge(elem, f);
                 });
             }
+            
+            tables
+                .and_then(|ts| ts.entries().get(elem.index() as usize))
+                .map(|t| {
+                    items.add_edge(elem, t);
+                });            
         }
         Ok(())
     }
