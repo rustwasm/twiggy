@@ -85,8 +85,7 @@ test!(
     "top",
     "-n",
     "10",
-    "-s",
-    "retained",
+    "--retained",
     "./fixtures/wee_alloc.wasm"
 );
 test!(
@@ -94,8 +93,7 @@ test!(
     "top",
     "-n",
     "10",
-    "-s",
-    "retained",
+    "--retained",
     "./fixtures/mappings.wasm"
 );
 
@@ -106,12 +104,35 @@ test!(
 );
 
 test!(
+    dominators_wee_alloc_with_depth_and_row,
+    "dominators",
+    "./fixtures/wee_alloc.wasm",
+    "-d",
+    "5",
+    "-r",
+    "3"
+);
+
+test!(
     paths_wee_alloc,
     "paths",
     "./fixtures/wee_alloc.wasm",
     "wee_alloc::alloc_first_fit::h9a72de3af77ef93f",
     "hello",
     "goodbye"
+);
+
+test!(
+    paths_wee_alloc_with_depth_and_paths,
+    "paths",
+    "./fixtures/wee_alloc.wasm",
+    "wee_alloc::alloc_first_fit::h9a72de3af77ef93f",
+    "hello",
+    "goodbye",
+    "-d",
+    "1",
+    "-r",
+    "2"
 );
 
 test!(

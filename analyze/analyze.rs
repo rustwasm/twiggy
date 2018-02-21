@@ -126,9 +126,10 @@ impl traits::Emit for Top {
     ) -> Result<(), failure::Error> {
         let mut dest = dest.open().context("could not open output destination")?;
 
-        let sort_label = match self.opts.sort_by {
-            opt::SortBy::Shallow => "Shallow",
-            opt::SortBy::Retained => "Retained",
+        let sort_label = if self.opts.retained {
+            "Retained"
+        } else {
+            "Shallow"
         };
 
         let mut table = Table::with_header(vec![
@@ -140,9 +141,10 @@ impl traits::Emit for Top {
         for &id in &self.items {
             let item = &items[id];
 
-            let size = match self.opts.sort_by {
-                opt::SortBy::Shallow => item.size(),
-                opt::SortBy::Retained => items.retained_size(id),
+            let size = if self.opts.retained {
+                items.retained_size(id)
+            } else {
+                item.size()
             };
 
             let size_percent = (size as f64) / (items.size() as f64) * 100.0;
@@ -164,7 +166,7 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
         bail!("retaining paths are not yet implemented");
     }
 
-    if opts.sort_by == opt::SortBy::Retained {
+    if opts.retained {
         items.compute_retained_sizes();
     }
 
@@ -173,9 +175,9 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
         .filter(|item| item.id() != items.meta_root())
         .collect();
 
-    top_items.sort_unstable_by(|a, b| match opts.sort_by {
-        opt::SortBy::Shallow => b.size().cmp(&a.size()),
-        opt::SortBy::Retained => items
+    top_items.sort_unstable_by(|a, b| match opts.retained {
+        false => b.size().cmp(&a.size()),
+        true => items
             .retained_size(b.id())
             .cmp(&items.retained_size(a.id())),
     });
@@ -196,6 +198,7 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
 
 struct DominatorTree {
     tree: BTreeMap<ir::Id, Vec<ir::Id>>,
+    opts: opt::Dominators,
 }
 
 impl traits::Emit for DominatorTree {
@@ -212,14 +215,32 @@ impl traits::Emit for DominatorTree {
             (Align::Left, "Dominator Tree".to_string()),
         ]);
 
+        let opts = &self.opts;
+
+        let mut row = 0 as usize;
+
         fn recursive_add_rows(
             table: &mut Table,
             items: &ir::Items,
             dominator_tree: &BTreeMap<ir::Id, Vec<ir::Id>>,
             depth: usize,
+            mut row: &mut usize,
+            opts: &opt::Dominators,
             id: ir::Id,
         ) {
             assert_eq!(id == items.meta_root(), depth == 0);
+
+            if let Some(max_rows) = opts.max_rows {
+                if *row == max_rows {
+                    return;
+                }
+            }
+
+            if let Some(max_depth) = opts.max_depth {
+                if depth > max_depth {
+                    return;
+                }
+            }
 
             if depth > 0 {
                 let item = &items[id];
@@ -248,12 +269,29 @@ impl traits::Emit for DominatorTree {
                 children
                     .sort_unstable_by(|a, b| items.retained_size(*b).cmp(&items.retained_size(*a)));
                 for child in children {
-                    recursive_add_rows(table, items, dominator_tree, depth + 1, child);
+                    *row += 1;
+                    recursive_add_rows(
+                        table,
+                        items,
+                        dominator_tree,
+                        depth + 1,
+                        &mut row,
+                        &opts,
+                        child,
+                    );
                 }
             }
         }
 
-        recursive_add_rows(&mut table, items, &self.tree, 0, items.meta_root());
+        recursive_add_rows(
+            &mut table,
+            items,
+            &self.tree,
+            0,
+            &mut row,
+            &opts,
+            items.meta_root(),
+        );
         write!(&mut dest, "{}", &table)?;
         Ok(())
     }
@@ -262,13 +300,14 @@ impl traits::Emit for DominatorTree {
 /// Compute the dominator tree for the given IR graph.
 pub fn dominators(
     items: &mut ir::Items,
-    _opts: &opt::Dominators,
+    opts: &opt::Dominators,
 ) -> Result<Box<traits::Emit>, failure::Error> {
     items.compute_dominator_tree();
     items.compute_retained_sizes();
 
     let tree = DominatorTree {
         tree: items.dominator_tree().clone(),
+        opts: opts.clone(),
     };
 
     Ok(Box::new(tree) as Box<traits::Emit>)
@@ -276,6 +315,7 @@ pub fn dominators(
 
 struct Paths {
     items: Vec<ir::Id>,
+    opts: opt::Paths,
 }
 
 impl traits::Emit for Paths {
@@ -289,8 +329,14 @@ impl traits::Emit for Paths {
             seen: &mut BTreeSet<ir::Id>,
             table: &mut Table,
             depth: usize,
+            mut paths: &mut usize,
+            opts: &opt::Paths,
             id: ir::Id,
         ) {
+            if opts.max_paths == *paths || depth > opts.max_depth {
+                return;
+            }
+
             if seen.contains(&id) || items.meta_root() == id {
                 return;
             }
@@ -322,8 +368,11 @@ impl traits::Emit for Paths {
             ]);
 
             seen.insert(id);
-            for caller in items.predecessors(id) {
-                recursive_callers(items, seen, table, depth + 1, caller);
+            for (i, caller) in items.predecessors(id).enumerate() {
+                if i > 0 {
+                    *paths += 1;
+                }
+                recursive_callers(items, seen, table, depth + 1, &mut paths, &opts, caller);
             }
             seen.remove(&id);
         }
@@ -334,9 +383,12 @@ impl traits::Emit for Paths {
             (Align::Left, "Retaining Paths".to_string()),
         ]);
 
+        let opts = &self.opts;
+
         for id in &self.items {
+            let mut paths = 0 as usize;
             let mut seen = BTreeSet::new();
-            recursive_callers(items, &mut seen, &mut table, 0, *id);
+            recursive_callers(items, &mut seen, &mut table, 0, &mut paths, &opts, *id);
         }
 
         let mut dest = dest.open().context("could not open output destination")?;
@@ -354,6 +406,7 @@ pub fn paths(
 
     let mut paths = Paths {
         items: Vec::with_capacity(opts.functions.len()),
+        opts: opts.clone(),
     };
 
     let functions: BTreeSet<_> = opts.functions.iter().map(|s| s.as_str()).collect();

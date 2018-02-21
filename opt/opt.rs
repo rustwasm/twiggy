@@ -92,9 +92,9 @@ pub struct Top {
     #[structopt(short = "r", long = "retaining-paths")]
     pub retaining_paths: bool,
 
-    /// Choose how to sort the list. Choices are "shallow" or "retained".
-    #[structopt(short = "s", long = "sort-by", default_value = "shallow")]
-    pub sort_by: SortBy,
+    /// Sort list by retained
+    #[structopt(long = "retained")]
+    pub retained: bool,
 }
 
 impl CommonOptions for Top {
@@ -125,6 +125,14 @@ pub struct Dominators {
     /// The format the output should be written in.
     #[structopt(short = "f", long = "format", default_value = "text")]
     pub output_format: OutputFormat,
+
+    /// The maximum depth to print the dominators tree.
+    #[structopt(short = "d")]
+    pub max_depth: Option<usize>,
+
+    /// The maximum number of rows, regardless of depth in the tree, to display.
+    #[structopt(short = "r")]
+    pub max_rows: Option<usize>,
 }
 
 impl CommonOptions for Dominators {
@@ -159,6 +167,14 @@ pub struct Paths {
     /// The format the output should be written in.
     #[structopt(short = "f", long = "format", default_value = "text")]
     pub output_format: OutputFormat,
+
+    /// The maximum depth to print the paths.
+    #[structopt(short = "d", default_value = "10")]
+    pub max_depth: usize,
+
+    /// The maximum number of paths, regardless of depth in the tree, to display.
+    #[structopt(short = "r", default_value = "10")]
+    pub max_paths: usize,
 }
 
 impl CommonOptions for Paths {
@@ -172,25 +188,6 @@ impl CommonOptions for Paths {
 
     fn output_format(&self) -> OutputFormat {
         self.output_format
-    }
-}
-
-/// Whether to sort by shallow or retained size.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub enum SortBy {
-    Shallow,
-    Retained,
-}
-
-impl FromStr for SortBy {
-    type Err = failure::Error;
-
-    fn from_str(s: &str) -> Result<SortBy, failure::Error> {
-        match s {
-            "shallow" => Ok(SortBy::Shallow),
-            "retained" => Ok(SortBy::Retained),
-            _ => bail!("unknown sort order: '{}'", s),
-        }
     }
 }
 
