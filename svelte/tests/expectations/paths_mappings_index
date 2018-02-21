@@ -1,0 +1,5 @@
+ Shallow Bytes │ Shallow % │ Retaining Paths
+───────────────┼───────────┼─────────────────────────────────────────
+           223 ┊     0.49% ┊ by_generated_location
+               ┊           ┊   ⬑ func[4]
+               ┊           ┊       ⬑ export "by_generated_location"

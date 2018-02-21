@@ -396,27 +396,40 @@ impl<'a> Parse<'a> for elements::ExportSection {
         let memories = module.memory_section();
         let globals = module.global_section();
 
+        let mut func_length = 0 as usize;
+        let mut table_length = 0 as usize;
+        let mut mem_length = 0 as usize;
+        let mut global_length = 0 as usize;
+
         for exp in self.entries() {
             match *exp.internal() {
                 elements::Internal::Function(idx) => {
-                    if let Some(func) = funcs.and_then(|fs| fs.entries().get(idx as usize)) {
+                    let index = idx as usize - (table_length + mem_length + global_length);
+                    if let Some(func) = funcs.and_then(|fs| fs.entries().get(index)) {
                         items.add_edge(exp, func);
                     }
+                    func_length += 1;
                 }
                 elements::Internal::Table(idx) => {
-                    if let Some(table) = tables.and_then(|ts| ts.entries().get(idx as usize)) {
+                    let index = idx as usize - (func_length + mem_length + global_length);
+                    if let Some(table) = tables.and_then(|ts| ts.entries().get(index)) {
                         items.add_edge(exp, table);
                     }
+                    table_length += 1;
                 }
                 elements::Internal::Memory(idx) => {
-                    if let Some(memory) = memories.and_then(|ms| ms.entries().get(idx as usize)) {
+                    let index = idx as usize - (func_length + func_length + global_length);
+                    if let Some(memory) = memories.and_then(|ms| ms.entries().get(index)) {
                         items.add_edge(exp, memory);
                     }
+                    mem_length += 1;
                 }
                 elements::Internal::Global(idx) => {
-                    if let Some(global) = globals.and_then(|gs| gs.entries().get(idx as usize)) {
+                    let index = idx as usize - (func_length + func_length + mem_length);
+                    if let Some(global) = globals.and_then(|gs| gs.entries().get(index)) {
                         items.add_edge(exp, global);
                     }
+                    global_length += 1;
                 }
             }
         }
@@ -490,17 +503,17 @@ impl<'a> Parse<'a> for elements::ElementSection {
         let tables = module.table_section();
 
         for elem in self.entries() {
-            tables
-                .and_then(|ts| ts.entries().get(elem.index() as usize))
-                .map(|t| {
-                    items.add_edge(elem, t);
-                });
-
             for f in elem.members() {
                 funcs.and_then(|fs| fs.entries().get(*f as usize)).map(|f| {
                     items.add_edge(elem, f);
                 });
             }
+            
+            tables
+                .and_then(|ts| ts.entries().get(elem.index() as usize))
+                .map(|t| {
+                    items.add_edge(elem, t);
+                });            
         }
         Ok(())
     }

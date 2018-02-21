@@ -1,6 +1,6 @@
  Retained Bytes │ Retained % │ Item
 ────────────────┼────────────┼──────────────────────────────────────────────────────
-           6503 ┊     14.38% ┊ export "allocate_mappings"
+           6500 ┊     14.37% ┊ export "parse_mappings"
            6483 ┊     14.33% ┊ func[2]
            6482 ┊     14.33% ┊ parse_mappings
            5284 ┊     11.68% ┊ _ZN4core3ptr13drop_in_place17hddeb26218033f78bE.1290
