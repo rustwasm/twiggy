@@ -635,12 +635,11 @@ impl<'a> Parse<'a> for elements::CodeSection {
                     I64Load(_, off) | I64Load8S(_, off) | I64Load8U(_, off) | I64Load16S(_, off) | I64Load16U(_, off) | I64Load32S(_, off) | I64Load32U(_, off) |
                     F32Load(_, off) |
                     F64Load(_, off) => {
-                        let mut pos = i;
-                        // println!();
-                        if let Some(base) = pop_stack(code, &mut pos) {
-                            // println!("{:?} -> {}", &code[pos..i], base);
-                            if let Some(data_id) = items.get_data(base as u32 + off) {
-                                items.add_edge(body_id, data_id);
+                        if i > 0 {
+                            if let I32Const(base) = code[i-1] {
+                                if let Some(data_id) = items.get_data(base as u32 + off) {
+                                    items.add_edge(body_id, data_id);
+                                }
                             }
                         }
                     }
@@ -654,25 +653,6 @@ impl<'a> Parse<'a> for elements::CodeSection {
     }
 }
 
-// pos points behind the last position
-fn pop_stack(code: &[elements::Opcode], pos: &mut usize) -> Option<i32> {
-    use parity_wasm::elements::Opcode::*;
-
-    while *pos > 0 {
-        *pos -= 1;
-        // println!("{:?}", code[*pos]);
-
-        match code[*pos] {
-            I32Const(c) => return Some(c), // this was easy
-            Loop(_) | If(_) => {}, // keep going
-            I32Add => return pop_stack(code, pos).and_then(|b| pop_stack(code, pos).map(|a| a + b)),
-            I32Sub => return pop_stack(code, pos).and_then(|b| pop_stack(code, pos).map(|a| a - b)),
-            I32Mul => return pop_stack(code, pos).and_then(|b| pop_stack(code, pos).map(|a| a * b)),
-            _ => return None
-        }
-    }
-    None
-}
 impl<'a> Parse<'a> for elements::DataSection {
     type ItemsExtra = usize;
 
