@@ -65,6 +65,9 @@ impl ItemsBuilder {
     /// Add an edge between the given keys that have already been parsed into
     /// items.
     pub fn add_edge(&mut self, from: Id, to: Id) {
+        debug_assert!(self.items.contains_key(&from), "`from` is not known");
+        debug_assert!(self.items.contains_key(&to), "`to` is not known");
+        
         self.edges
             .entry(from)
             .or_insert(BTreeSet::new())
@@ -91,7 +94,7 @@ impl ItemsBuilder {
 
     /// Finish building the IR graph and return the resulting `Items`.
     pub fn finish(mut self) -> Items {
-        let meta_root_id = Id(u32::MAX, u32::MAX);
+        let meta_root_id = Id::root();
         let meta_root = Item::new(meta_root_id, "<meta root>", 0, Misc::new());
         self.items.insert(meta_root_id, meta_root);
         self.edges.insert(meta_root_id, self.roots.clone());
@@ -384,7 +387,7 @@ impl Item {
         let name = name.into();
         let demangled = demangle(&name);
         Item {
-            id: id,
+            id,
             name,
             demangled,
             size,
