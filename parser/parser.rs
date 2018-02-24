@@ -42,7 +42,7 @@ pub(crate) trait Parse<'a> {
     fn parse_items(
         &self,
         items: &mut ir::ItemsBuilder,
-        extra: Self::ItemsExtra
+        extra: Self::ItemsExtra,
     ) -> Result<(), failure::Error>;
 
     /// Any extra data needed to parse this type's edges.

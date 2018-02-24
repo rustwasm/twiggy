@@ -24,7 +24,7 @@ pub struct ItemsBuilder {
     size: u32,
     parsed: BTreeSet<Id>,
     items: BTreeMap<Id, Item>,
-    data:  BTreeMap<u32, (Id, u32)>, // offset -> (id, len)
+    data: BTreeMap<u32, (Id, u32)>, // offset -> (id, len)
     edges: BTreeMap<Id, BTreeSet<Id>>,
     roots: BTreeSet<Id>,
 }
@@ -36,7 +36,7 @@ impl ItemsBuilder {
             size,
             parsed: Default::default(),
             items: Default::default(),
-            data:  Default::default(),
+            data: Default::default(),
             edges: Default::default(),
             roots: Default::default(),
         }
@@ -49,8 +49,11 @@ impl ItemsBuilder {
         self.items.insert(id, item);
 
         let old_value = self.parsed.insert(id);
-        assert!(old_value, "should not parse the same key into multiple items");
-        
+        assert!(
+            old_value,
+            "should not parse the same key into multiple items"
+        );
+
         id
     }
 
@@ -67,11 +70,8 @@ impl ItemsBuilder {
     pub fn add_edge(&mut self, from: Id, to: Id) {
         debug_assert!(self.items.contains_key(&from), "`from` is not known");
         debug_assert!(self.items.contains_key(&to), "`to` is not known");
-        
-        self.edges
-            .entry(from)
-            .or_insert(BTreeSet::new())
-            .insert(to);
+
+        self.edges.entry(from).or_insert(BTreeSet::new()).insert(to);
     }
 
     /// Add a range of static data and the `Id` that defines it.
@@ -83,13 +83,18 @@ impl ItemsBuilder {
 
     /// locate the data section defining memory at the given offset
     pub fn get_data(&self, offset: u32) -> Option<Id> {
-        self.data.range(offset..).next().and_then(|(start, &(id, len))| {
-            if offset < start + len {
-                Some(id)
-            } else {
-                None
-            }
-        })                                         
+        self.data
+            .range(offset..)
+            .next()
+            .and_then(
+                |(start, &(id, len))| {
+                    if offset < start + len {
+                        Some(id)
+                    } else {
+                        None
+                    }
+                },
+            )
     }
 
     /// Finish building the IR graph and return the resulting `Items`.
@@ -498,7 +503,7 @@ impl Code {
 /// with the executable code.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Data {
-    ty: Option<String>
+    ty: Option<String>,
 }
 
 impl Data {

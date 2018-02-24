@@ -303,7 +303,7 @@ impl<'a> Parse<'a> for elements::FunctionSection {
         (module, idx): Self::EdgesExtra,
     ) -> Result<(), failure::Error> {
         let mut type_section = None;
-        let mut code_section = None; 
+        let mut code_section = None;
         // process type section
         for (mod_id, s) in module.sections().iter().enumerate() {
             match *s {
@@ -324,7 +324,7 @@ impl<'a> Parse<'a> for elements::FunctionSection {
                 items.add_edge(func_id, body_id);
             }
         }
-        
+
         Ok(())
     }
 }
@@ -419,7 +419,7 @@ impl<'a> Parse<'a> for elements::ExportSection {
         let mut table_section = None;
         let mut memory_section = None;
         let mut global_section = None;
-        
+
         for (mod_id, s) in module.sections().iter().enumerate() {
             match *s {
                 Section::Function(_) => func_section = Some(mod_id),
@@ -529,7 +529,7 @@ impl<'a> Parse<'a> for elements::ElementSection {
     ) -> Result<(), failure::Error> {
         let mut func_section = None;
         let mut table_section = None;
-        
+
         for (mod_id, s) in module.sections().iter().enumerate() {
             match *s {
                 Section::Function(_) => func_section = Some(mod_id),
@@ -607,18 +607,18 @@ impl<'a> Parse<'a> for elements::CodeSection {
 
         for (b_i, body) in self.bodies().iter().enumerate() {
             use parity_wasm::elements::Opcode::*;
-            
+
             let body_id = Id::entry(idx, b_i);
             let code = body.code().elements();
 
-            for i in 0 .. code.len() {
+            for i in 0..code.len() {
                 match code[i] {
                     Call(idx) => {
                         if let Some(func_idx) = func_section {
                             let f_id = Id::entry(func_idx as usize, idx as usize);
                             items.add_edge(body_id, f_id);
                         }
-                    },
+                    }
 
                     // TODO: Rather than looking at indirect calls, need to look
                     // at where the vtables get initialized and/or vtable
@@ -630,14 +630,24 @@ impl<'a> Parse<'a> for elements::CodeSection {
                             let g_id = Id::entry(global_idx, idx as usize);
                             items.add_edge(body_id, g_id);
                         }
-                    },
+                    }
 
-                    I32Load(_, off) | I32Load8S(_, off) | I32Load8U(_, off) | I32Load16S(_, off) | I32Load16U(_, off) |
-                    I64Load(_, off) | I64Load8S(_, off) | I64Load8U(_, off) | I64Load16S(_, off) | I64Load16U(_, off) | I64Load32S(_, off) | I64Load32U(_, off) |
-                    F32Load(_, off) |
-                    F64Load(_, off) => {
+                    I32Load(_, off)
+                    | I32Load8S(_, off)
+                    | I32Load8U(_, off)
+                    | I32Load16S(_, off)
+                    | I32Load16U(_, off)
+                    | I64Load(_, off)
+                    | I64Load8S(_, off)
+                    | I64Load8U(_, off)
+                    | I64Load16S(_, off)
+                    | I64Load16U(_, off)
+                    | I64Load32S(_, off)
+                    | I64Load32U(_, off)
+                    | F32Load(_, off)
+                    | F64Load(_, off) => {
                         if i > 0 {
-                            if let I32Const(base) = code[i-1] {
+                            if let I32Const(base) = code[i - 1] {
                                 if let Some(data_id) = items.get_data(base as u32 + off) {
                                     items.add_edge(body_id, data_id);
                                 }
@@ -665,14 +675,14 @@ impl<'a> Parse<'a> for elements::DataSection {
             let mut name = String::with_capacity("data[]".len() + 4);
             write!(&mut name, "data[{}]", i).unwrap();
 
-            let size = serialized_size(d.clone())?;  // serialized size
-            let length = d.value().len();            // size of data
+            let size = serialized_size(d.clone())?; // serialized size
+            let length = d.value().len(); // size of data
             let ty = None;
             let offset_code = d.offset().code();
             let offset = offset_code.get(0).and_then(|op| match *op {
                 I32Const(o) => Some(o as i64),
                 I64Const(o) => Some(o),
-                _ => None
+                _ => None,
             });
 
             items.add_item(ir::Item::new(id, name, size, ir::Data::new(ty)));
