@@ -537,7 +537,8 @@ impl<'a> Parse<'a> for elements::ElementSection {
                 _ => {}
             }
         }
-        
+
+        let num_imported_funcs = module.import_count(elements::ImportCountType::Function);
         for (i, elem) in self.entries().iter().enumerate() {
             let elem_id = Id::entry(idx, i);
             if let Some(table_idx) = table_section {
@@ -546,7 +547,7 @@ impl<'a> Parse<'a> for elements::ElementSection {
             }
             if let Some(func_idx) = func_section {
                 for &f_i in elem.members() {
-                    let f_id = Id::entry(func_idx, f_i as usize);
+                    let f_id = Id::entry(func_idx, f_i as usize - num_imported_funcs);
                     items.add_edge(elem_id, f_id);
                 }
             }
@@ -664,7 +665,8 @@ impl<'a> Parse<'a> for elements::DataSection {
             let mut name = String::with_capacity("data[]".len() + 4);
             write!(&mut name, "data[{}]", i).unwrap();
 
-            let size = serialized_size(d.clone())?;
+            let size = serialized_size(d.clone())?;  // serialized size
+            let length = d.value().len();            // size of data
             let ty = None;
             let offset_code = d.offset().code();
             let offset = offset_code.get(0).and_then(|op| match *op {
@@ -675,10 +677,8 @@ impl<'a> Parse<'a> for elements::DataSection {
 
             items.add_item(ir::Item::new(id, name, size, ir::Data::new(ty)));
 
-            let length = d.value().len();
-            match offset {
-                Some(off) => items.link_data(off, length, id),
-                _ => {}
+            if let Some(off) = offset {
+                items.link_data(off, length, id);
             }
         }
         Ok(())
