@@ -13,7 +13,7 @@ mod graph_impl;
 use frozen::Frozen;
 use std::cmp;
 use std::collections::btree_map;
-use std::collections::{BTreeMap, BTreeSet, HashMap};
+use std::collections::{BTreeMap, BTreeSet};
 use std::ops;
 use std::slice;
 use std::u32;
@@ -21,10 +21,10 @@ use std::u32;
 /// Build up a a set of `Items`.
 #[derive(Debug)]
 pub struct ItemsBuilder {
-    id_counter: u32,
     size: u32,
-    parsed: HashMap<*const (), Id>,
+    parsed: BTreeSet<Id>,
     items: BTreeMap<Id, Item>,
+    data: BTreeMap<u32, (Id, u32)>, // offset -> (id, len)
     edges: BTreeMap<Id, BTreeSet<Id>>,
     roots: BTreeSet<Id>,
 }
@@ -33,32 +33,24 @@ impl ItemsBuilder {
     /// Construct a new builder, with the given size.
     pub fn new(size: u32) -> ItemsBuilder {
         ItemsBuilder {
-            id_counter: 0,
             size,
             parsed: Default::default(),
             items: Default::default(),
+            data: Default::default(),
             edges: Default::default(),
             roots: Default::default(),
         }
     }
 
-    fn next_id(&mut self) -> Id {
-        let id = Id(self.id_counter);
-        self.id_counter += 1;
-        id
-    }
-
     /// Add the given item to to the graph and return the `Id` that it was
     /// assigned.
-    pub fn add_item<T>(&mut self, key: &T, mut item: Item) -> Id {
-        let id = self.next_id();
-
-        item.id = id;
+    pub fn add_item(&mut self, item: Item) -> Id {
+        let id = item.id;
         self.items.insert(id, item);
 
-        let old_value = self.parsed.insert(key as *const T as *const (), id);
+        let old_value = self.parsed.insert(id);
         assert!(
-            old_value.is_none(),
+            old_value,
             "should not parse the same key into multiple items"
         );
 
@@ -67,34 +59,48 @@ impl ItemsBuilder {
 
     /// Add the given item to the graph as a root and return the `Id` that it
     /// was assigned.
-    pub fn add_root<T>(&mut self, key: &T, item: Item) -> Id {
-        let id = self.add_item(key, item);
+    pub fn add_root(&mut self, item: Item) -> Id {
+        let id = self.add_item(item);
         self.roots.insert(id);
         id
     }
 
     /// Add an edge between the given keys that have already been parsed into
     /// items.
-    pub fn add_edge<K, J>(&mut self, from: &K, to: &J) {
-        let from_id = self.id_for_key(from);
-        let to_id = self.id_for_key(to);
-        self.edges
-            .entry(from_id)
-            .or_insert(BTreeSet::new())
-            .insert(to_id);
+    pub fn add_edge(&mut self, from: Id, to: Id) {
+        debug_assert!(self.items.contains_key(&from), "`from` is not known");
+        debug_assert!(self.items.contains_key(&to), "`to` is not known");
+
+        self.edges.entry(from).or_insert(BTreeSet::new()).insert(to);
     }
 
-    /// Get the id for the item we parsed from the given key.
-    pub fn id_for_key<T>(&self, key: &T) -> Id {
-        let key = key as *const T as *const ();
-        self.parsed[&key]
+    /// Add a range of static data and the `Id` that defines it.
+    pub fn link_data(&mut self, offset: i64, len: usize, id: Id) {
+        if offset >= 0 && offset <= u32::MAX as i64 && offset as usize + len < u32::MAX as usize {
+            self.data.insert(offset as u32, (id, len as u32));
+        }
+    }
+
+    /// locate the data section defining memory at the given offset
+    pub fn get_data(&self, offset: u32) -> Option<Id> {
+        self.data
+            .range(offset..)
+            .next()
+            .and_then(
+                |(start, &(id, len))| {
+                    if offset < start + len {
+                        Some(id)
+                    } else {
+                        None
+                    }
+                },
+            )
     }
 
     /// Finish building the IR graph and return the resulting `Items`.
     pub fn finish(mut self) -> Items {
-        let meta_root_id = self.next_id();
-        let mut meta_root = Item::new("<meta root>", 0, Misc::new());
-        meta_root.id = meta_root_id;
+        let meta_root_id = Id::root();
+        let meta_root = Item::new(meta_root_id, "<meta root>", 0, Misc::new());
         self.items.insert(meta_root_id, meta_root);
         self.edges.insert(meta_root_id, self.roots.clone());
 
@@ -348,8 +354,24 @@ impl<'a> Iterator for Iter<'a> {
 
 /// An item's unique identifier.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct Id(u32);
-
+pub struct Id(u32, u32);
+impl Id {
+    /// create `Id` for a the given section
+    pub fn section(section: usize) -> Id {
+        assert!(section < u32::MAX as usize);
+        Id(section as u32, u32::MAX)
+    }
+    /// create `Id` for a given entry if a given section
+    pub fn entry(section: usize, index: usize) -> Id {
+        assert!(section < u32::MAX as usize);
+        assert!(index < u32::MAX as usize);
+        Id(section as u32, index as u32)
+    }
+    /// the root index
+    pub fn root() -> Id {
+        Id(u32::MAX, u32::MAX)
+    }
+}
 /// An item in the binary.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Item {
@@ -362,7 +384,7 @@ pub struct Item {
 
 impl Item {
     /// Construct a new `Item` of the given kind.
-    pub fn new<S, K>(name: S, size: u32, kind: K) -> Item
+    pub fn new<S, K>(id: Id, name: S, size: u32, kind: K) -> Item
     where
         S: Into<String>,
         K: Into<ItemKind>,
@@ -370,7 +392,7 @@ impl Item {
         let name = name.into();
         let demangled = demangle(&name);
         Item {
-            id: Id(u32::MAX),
+            id,
             name,
             demangled,
             size,
