@@ -7,6 +7,6 @@ authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 path = "./traits.rs"
 
 [dependencies]
-failure = "0.1.0"
+failure = "0.1.1"
+parity-wasm = "0.27.1"
 svelte-ir = { version = "0.1.0", path = "../ir" }
-svelte-opt = { version = "0.1.0", path = "../opt" }

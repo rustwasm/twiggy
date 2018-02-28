@@ -7,6 +7,6 @@ authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 path = "./parser.rs"
 
 [dependencies]
-failure = "0.1.1"
 parity-wasm = "0.27.1"
 svelte-ir = { version = "0.1.0", path = "../ir" }
+svelte-traits = { version = "0.1.0", path = "../traits" }

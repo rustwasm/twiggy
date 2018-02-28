@@ -1,24 +1,23 @@
 use super::Parse;
-use failure::{self, ResultExt};
 use ir::{self, Id};
 use parity_wasm::elements::{self, Section};
 use std::fmt::Write;
+use traits;
 
-fn serialized_size<T>(t: T) -> Result<u32, failure::Error>
+fn serialized_size<T>(t: T) -> Result<u32, traits::Error>
 where
     T: elements::Serialize,
-    <T as elements::Serialize>::Error: failure::Fail,
+    traits::Error: From<<T as elements::Serialize>::Error>,
 {
     let mut buf = vec![];
-    t.serialize(&mut buf)
-        .context("could not determine the size of an item")?;
+    t.serialize(&mut buf)?;
     Ok(buf.len() as u32)
 }
 
 impl<'a> Parse<'a> for elements::Module {
     type ItemsExtra = ();
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, _extra: ()) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, _extra: ()) -> Result<(), traits::Error> {
         let mut function_names = None;
 
         // The custom name sections. Parse these first since they also give us
@@ -97,7 +96,7 @@ impl<'a> Parse<'a> for elements::Module {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, items: &mut ir::ItemsBuilder, _extra: ()) -> Result<(), failure::Error> {
+    fn parse_edges(&self, items: &mut ir::ItemsBuilder, _extra: ()) -> Result<(), traits::Error> {
         for (idx, section) in self.sections().iter().enumerate() {
             match *section {
                 Section::Name(elements::NameSection::Unparsed { .. })
@@ -159,7 +158,7 @@ impl<'a> Parse<'a> for elements::Module {
 impl<'a> Parse<'a> for elements::ModuleNameSection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         let id = Id::section(idx);
         let name = "\"module name\" subsection";
         let size = serialized_size(self.clone())?;
@@ -169,7 +168,7 @@ impl<'a> Parse<'a> for elements::ModuleNameSection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), failure::Error> {
+    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
@@ -177,7 +176,7 @@ impl<'a> Parse<'a> for elements::ModuleNameSection {
 impl<'a> Parse<'a> for elements::FunctionNameSection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         let id = Id::section(idx);
         let name = "\"function names\" subsection";
         let size = serialized_size(self.clone())?;
@@ -187,7 +186,7 @@ impl<'a> Parse<'a> for elements::FunctionNameSection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), failure::Error> {
+    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
@@ -195,7 +194,7 @@ impl<'a> Parse<'a> for elements::FunctionNameSection {
 impl<'a> Parse<'a> for elements::LocalNameSection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         let id = Id::section(idx);
         let name = "\"local names\" subsection";
         let size = serialized_size(self.clone())?;
@@ -205,7 +204,7 @@ impl<'a> Parse<'a> for elements::LocalNameSection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), failure::Error> {
+    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
@@ -213,7 +212,7 @@ impl<'a> Parse<'a> for elements::LocalNameSection {
 impl<'a> Parse<'a> for elements::CustomSection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         let id = Id::section(idx);
         let size = serialized_size(self.clone())?;
 
@@ -228,7 +227,7 @@ impl<'a> Parse<'a> for elements::CustomSection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), failure::Error> {
+    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
@@ -236,7 +235,7 @@ impl<'a> Parse<'a> for elements::CustomSection {
 impl<'a> Parse<'a> for elements::TypeSection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, ty) in self.types().iter().enumerate() {
             let id = Id::entry(idx, i);
             let size = serialized_size(ty.clone())?;
@@ -249,7 +248,7 @@ impl<'a> Parse<'a> for elements::TypeSection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), failure::Error> {
+    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
@@ -257,7 +256,7 @@ impl<'a> Parse<'a> for elements::TypeSection {
 impl<'a> Parse<'a> for elements::ImportSection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, imp) in self.entries().iter().enumerate() {
             let id = Id::entry(idx, i);
             let size = serialized_size(imp.clone())?;
@@ -272,7 +271,7 @@ impl<'a> Parse<'a> for elements::ImportSection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), failure::Error> {
+    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
@@ -280,7 +279,7 @@ impl<'a> Parse<'a> for elements::ImportSection {
 impl<'a> Parse<'a> for elements::FunctionSection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, func) in self.entries().iter().enumerate() {
             let id = Id::entry(idx, i);
             let size = serialized_size(func.clone())?;
@@ -297,7 +296,7 @@ impl<'a> Parse<'a> for elements::FunctionSection {
         &self,
         items: &mut ir::ItemsBuilder,
         (module, idx): Self::EdgesExtra,
-    ) -> Result<(), failure::Error> {
+    ) -> Result<(), traits::Error> {
         let mut type_section = None;
         let mut code_section = None;
 
@@ -330,7 +329,7 @@ impl<'a> Parse<'a> for elements::FunctionSection {
 impl<'a> Parse<'a> for elements::TableSection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, entry) in self.entries().iter().enumerate() {
             let id = Id::entry(idx, i);
             let size = serialized_size(entry.clone())?;
@@ -343,7 +342,7 @@ impl<'a> Parse<'a> for elements::TableSection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), failure::Error> {
+    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
@@ -351,7 +350,7 @@ impl<'a> Parse<'a> for elements::TableSection {
 impl<'a> Parse<'a> for elements::MemorySection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, mem) in self.entries().iter().enumerate() {
             let id = Id::entry(idx, i);
             let size = serialized_size(mem.clone())?;
@@ -364,7 +363,7 @@ impl<'a> Parse<'a> for elements::MemorySection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), failure::Error> {
+    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
@@ -372,7 +371,7 @@ impl<'a> Parse<'a> for elements::MemorySection {
 impl<'a> Parse<'a> for elements::GlobalSection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, g) in self.entries().iter().enumerate() {
             let id = Id::entry(idx, i);
             let mut name = String::with_capacity("global[]".len() + 4);
@@ -387,7 +386,7 @@ impl<'a> Parse<'a> for elements::GlobalSection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), failure::Error> {
+    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
@@ -395,7 +394,7 @@ impl<'a> Parse<'a> for elements::GlobalSection {
 impl<'a> Parse<'a> for elements::ExportSection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, exp) in self.entries().iter().enumerate() {
             let id = Id::entry(idx, i);
             let mut name = String::with_capacity("export \"\"".len() + exp.field().len());
@@ -412,7 +411,7 @@ impl<'a> Parse<'a> for elements::ExportSection {
         &self,
         items: &mut ir::ItemsBuilder,
         (module, idx): Self::EdgesExtra,
-    ) -> Result<(), failure::Error> {
+    ) -> Result<(), traits::Error> {
         let mut func_section = None;
         let mut table_section = None;
         let mut memory_section = None;
@@ -464,7 +463,7 @@ struct StartSection<'a>(&'a Section);
 impl<'a> Parse<'a> for StartSection<'a> {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         assert!(match *self.0 {
             Section::Start(_) => true,
             _ => false,
@@ -483,7 +482,7 @@ impl<'a> Parse<'a> for StartSection<'a> {
         &self,
         items: &mut ir::ItemsBuilder,
         (module, idx): Self::EdgesExtra,
-    ) -> Result<(), failure::Error> {
+    ) -> Result<(), traits::Error> {
         let f_i = match *self.0 {
             Section::Start(i) => i,
             _ => unreachable!(),
@@ -509,7 +508,7 @@ impl<'a> Parse<'a> for StartSection<'a> {
 impl<'a> Parse<'a> for elements::ElementSection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, elem) in self.entries().iter().enumerate() {
             let id = Id::entry(idx, i);
             let size = serialized_size(elem.clone())?;
@@ -526,7 +525,7 @@ impl<'a> Parse<'a> for elements::ElementSection {
         &self,
         items: &mut ir::ItemsBuilder,
         (module, idx): Self::EdgesExtra,
-    ) -> Result<(), failure::Error> {
+    ) -> Result<(), traits::Error> {
         let mut func_section = None;
         let mut table_section = None;
 
@@ -563,7 +562,7 @@ impl<'a> Parse<'a> for elements::CodeSection {
         &self,
         items: &mut ir::ItemsBuilder,
         (module, function_names, idx): Self::ItemsExtra,
-    ) -> Result<(), failure::Error> {
+    ) -> Result<(), traits::Error> {
         let table_offset = module.import_count(elements::ImportCountType::Function);
 
         for (i, body) in self.bodies().iter().enumerate() {
@@ -593,7 +592,7 @@ impl<'a> Parse<'a> for elements::CodeSection {
         &self,
         items: &mut ir::ItemsBuilder,
         (module, idx): Self::EdgesExtra,
-    ) -> Result<(), failure::Error> {
+    ) -> Result<(), traits::Error> {
         let mut func_section = None;
         let mut global_section = None;
 
@@ -667,7 +666,7 @@ impl<'a> Parse<'a> for elements::CodeSection {
 impl<'a> Parse<'a> for elements::DataSection {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, d) in self.entries().iter().enumerate() {
             use parity_wasm::elements::Opcode::*;
 
@@ -696,7 +695,7 @@ impl<'a> Parse<'a> for elements::DataSection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), failure::Error> {
+    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }

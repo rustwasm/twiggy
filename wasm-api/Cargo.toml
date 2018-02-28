@@ -1,0 +1,24 @@
+[package]
+name = "svelte-wasm-api"
+version = "0.1.0"
+authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
+
+[lib]
+crate-type = ["cdylib"]
+path = "./wasm-api.rs"
+
+[dependencies.svelte-ir]
+version = "0.1.0"
+path = "../ir"
+
+[dependencies.svelte-analyze]
+version = "0.1.0"
+path = "../analyze"
+
+[dependencies.svelte-opt]
+version = "0.1.0"
+path = "../opt"
+
+[dependencies.svelte-traits]
+version = "0.1.0"
+path = "../traits"
