@@ -6,5 +6,18 @@ rust:
   - beta
   - nightly
 
+env:
+  matrix:
+    - JOB="test"
+
+matrix:
+  fast_finish: true
+  include:
+    - rust: nightly
+      env: JOB="wasm"
+  allow_failures:
+    # Not yet implemented.
+    - env: JOB="wasm"
+
 script:
-  - cargo test --all
+  - ./ci/script.sh
