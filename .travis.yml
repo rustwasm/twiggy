@@ -15,9 +15,6 @@ matrix:
   include:
     - rust: nightly
       env: JOB="wasm"
-  allow_failures:
-    # Not yet implemented.
-    - env: JOB="wasm"
 
 script:
   - ./ci/script.sh
