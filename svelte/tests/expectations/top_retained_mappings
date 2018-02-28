@@ -1,12 +1,12 @@
  Retained Bytes │ Retained % │ Item
 ────────────────┼────────────┼──────────────────────────────────────────────────────
-           6530 ┊     14.44% ┊ export "allocate_mappings"
-           6510 ┊     14.39% ┊ func[2]
-           6506 ┊     14.38% ┊ parse_mappings
+           6503 ┊     14.38% ┊ export "allocate_mappings"
+           6483 ┊     14.33% ┊ func[2]
+           6482 ┊     14.33% ┊ parse_mappings
            5284 ┊     11.68% ┊ _ZN4core3ptr13drop_in_place17hddeb26218033f78bE.1290
            4337 ┊      9.59% ┊ "function names" subsection
-           2977 ┊      6.58% ┊ func[77]
-           2973 ┊      6.57% ┊ __divmoddi4
-           2125 ┊      4.70% ┊ func[43]
-           2115 ┊      4.68% ┊ <&'a T as core::fmt::Display>::fmt::hd32eb77bd8601d5e
+           2965 ┊      6.56% ┊ func[77]
+           2964 ┊      6.55% ┊ __divmoddi4
+           2119 ┊      4.68% ┊ func[43]
+           2112 ┊      4.67% ┊ <&'a T as core::fmt::Display>::fmt::hd32eb77bd8601d5e
            1975 ┊      4.37% ┊ memmove

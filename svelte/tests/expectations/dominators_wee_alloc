@@ -1,18 +1,18 @@
  Retained Bytes │ Retained % │ Dominator Tree
 ────────────────┼────────────┼────────────────────────────────────────────────────────────────────────
             774 ┊     27.48% ┊ "function names" subsection
-            582 ┊     20.66% ┊ export "hello"
-            574 ┊     20.38% ┊   ⤷ func[8]
-            566 ┊     20.09% ┊       ⤷ hello
-            393 ┊     13.95% ┊           ⤷ func[2]
-            381 ┊     13.53% ┊               ⤷ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
-            229 ┊      8.13% ┊                   ⤷ func[3]
+            573 ┊     20.34% ┊ export "hello"
+            565 ┊     20.06% ┊   ⤷ func[8]
+            560 ┊     19.88% ┊       ⤷ hello
+            387 ┊     13.74% ┊           ⤷ func[2]
+            378 ┊     13.42% ┊               ⤷ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+            226 ┊      8.02% ┊                   ⤷ func[3]
             225 ┊      7.99% ┊                       ⤷ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
               8 ┊      0.28% ┊               ⤷ type[4]
               9 ┊      0.32% ┊           ⤷ data[0]
               4 ┊      0.14% ┊       ⤷ type[5]
-             62 ┊      2.20% ┊ export "goodbye"
-             52 ┊      1.85% ┊   ⤷ func[9]
+             59 ┊      2.09% ┊ export "goodbye"
+             49 ┊      1.74% ┊   ⤷ func[9]
              44 ┊      1.56% ┊       ⤷ goodbye
               4 ┊      0.14% ┊       ⤷ type[3]
              11 ┊      0.39% ┊ export "memory"

@@ -281,13 +281,9 @@ impl<'a> Parse<'a> for elements::FunctionSection {
     type ItemsExtra = usize;
 
     fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), failure::Error> {
-        for (i, _func) in self.entries().iter().enumerate() {
-            // Unfortunately, `Func` does not implement `Serialize`, so we are
-            // left with a default size of 4.
-            //
-            // https://github.com/paritytech/parity-wasm/issues/171
+        for (i, func) in self.entries().iter().enumerate() {
             let id = Id::entry(idx, i);
-            let size = 4;
+            let size = serialized_size(func.clone())?;
             let mut name = String::with_capacity("func[]".len() + 4);
             write!(&mut name, "func[{}]", i)?;
             items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
