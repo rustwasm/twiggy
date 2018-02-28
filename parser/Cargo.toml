@@ -8,5 +8,5 @@ path = "./parser.rs"
 
 [dependencies]
 failure = "0.1.1"
-parity-wasm = "0.24.1"
+parity-wasm = "0.27.1"
 svelte-ir = { version = "0.1.0", path = "../ir" }
