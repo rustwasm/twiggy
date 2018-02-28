@@ -304,14 +304,16 @@ impl<'a> Parse<'a> for elements::FunctionSection {
     ) -> Result<(), failure::Error> {
         let mut type_section = None;
         let mut code_section = None;
-        // process type section
-        for (mod_id, s) in module.sections().iter().enumerate() {
+
+        // Get the indices for the type and code sections.
+        for (sect_idx, s) in module.sections().iter().enumerate() {
             match *s {
-                Section::Type(_) => type_section = Some(mod_id),
-                Section::Code(_) => code_section = Some(mod_id),
+                Section::Type(_) => type_section = Some(sect_idx),
+                Section::Code(_) => code_section = Some(sect_idx),
                 _ => {}
             }
         }
+
         for (func_i, func) in self.entries().iter().enumerate() {
             let func_id = Id::entry(idx, func_i);
 
@@ -420,12 +422,12 @@ impl<'a> Parse<'a> for elements::ExportSection {
         let mut memory_section = None;
         let mut global_section = None;
 
-        for (mod_id, s) in module.sections().iter().enumerate() {
+        for (sect_idx, s) in module.sections().iter().enumerate() {
             match *s {
-                Section::Function(_) => func_section = Some(mod_id),
-                Section::Table(_) => table_section = Some(mod_id),
-                Section::Memory(_) => memory_section = Some(mod_id),
-                Section::Global(_) => global_section = Some(mod_id),
+                Section::Function(_) => func_section = Some(sect_idx),
+                Section::Table(_) => table_section = Some(sect_idx),
+                Section::Memory(_) => memory_section = Some(sect_idx),
+                Section::Global(_) => global_section = Some(sect_idx),
                 _ => {}
             }
         }
@@ -492,12 +494,14 @@ impl<'a> Parse<'a> for StartSection<'a> {
         };
 
         let mut func_section = None;
-        for (mod_id, s) in module.sections().iter().enumerate() {
+
+        for (sect_idx, s) in module.sections().iter().enumerate() {
             match *s {
-                Section::Function(_) => func_section = Some(mod_id),
+                Section::Function(_) => func_section = Some(sect_idx),
                 _ => {}
             }
         }
+
         if let Some(func_idx) = func_section {
             items.add_edge(Id::section(idx), Id::entry(func_idx, f_i as usize));
         }
@@ -530,10 +534,10 @@ impl<'a> Parse<'a> for elements::ElementSection {
         let mut func_section = None;
         let mut table_section = None;
 
-        for (mod_id, s) in module.sections().iter().enumerate() {
+        for (sect_idx, s) in module.sections().iter().enumerate() {
             match *s {
-                Section::Function(_) => func_section = Some(mod_id),
-                Section::Table(_) => table_section = Some(mod_id),
+                Section::Function(_) => func_section = Some(sect_idx),
+                Section::Table(_) => table_section = Some(sect_idx),
                 _ => {}
             }
         }
@@ -597,10 +601,10 @@ impl<'a> Parse<'a> for elements::CodeSection {
         let mut func_section = None;
         let mut global_section = None;
 
-        for (mod_id, s) in module.sections().iter().enumerate() {
+        for (sect_idx, s) in module.sections().iter().enumerate() {
             match *s {
-                Section::Function(_) => func_section = Some(mod_id),
-                Section::Global(_) => global_section = Some(mod_id),
+                Section::Function(_) => func_section = Some(sect_idx),
+                Section::Global(_) => global_section = Some(sect_idx),
                 _ => {}
             }
         }

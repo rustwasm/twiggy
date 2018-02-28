@@ -24,9 +24,12 @@ pub struct ItemsBuilder {
     size: u32,
     parsed: BTreeSet<Id>,
     items: BTreeMap<Id, Item>,
-    data: BTreeMap<u32, (Id, u32)>, // offset -> (id, len)
     edges: BTreeMap<Id, BTreeSet<Id>>,
     roots: BTreeSet<Id>,
+
+    // Maps the offset some data begins at to its IR item's identifier, and the
+    // byte length of the data.
+    data: BTreeMap<u32, (Id, u32)>,
 }
 
 impl ItemsBuilder {
@@ -36,9 +39,9 @@ impl ItemsBuilder {
             size,
             parsed: Default::default(),
             items: Default::default(),
-            data: Default::default(),
             edges: Default::default(),
             roots: Default::default(),
+            data: Default::default(),
         }
     }
 
@@ -81,7 +84,7 @@ impl ItemsBuilder {
         }
     }
 
-    /// locate the data section defining memory at the given offset
+    /// Locate the data section defining memory at the given offset.
     pub fn get_data(&self, offset: u32) -> Option<Id> {
         self.data
             .range(offset..)
@@ -355,23 +358,27 @@ impl<'a> Iterator for Iter<'a> {
 /// An item's unique identifier.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Id(u32, u32);
+
 impl Id {
-    /// create `Id` for a the given section
+    /// Create an `Id` for a the given section.
     pub fn section(section: usize) -> Id {
         assert!(section < u32::MAX as usize);
         Id(section as u32, u32::MAX)
     }
-    /// create `Id` for a given entry if a given section
+
+    /// Create an `Id` for a given entry in a given section.
     pub fn entry(section: usize, index: usize) -> Id {
         assert!(section < u32::MAX as usize);
         assert!(index < u32::MAX as usize);
         Id(section as u32, index as u32)
     }
-    /// the root index
+
+    /// Create the `Id` for the "meta root".
     pub fn root() -> Id {
         Id(u32::MAX, u32::MAX)
     }
 }
+
 /// An item in the binary.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Item {
