@@ -3,16 +3,14 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-#[macro_use]
-extern crate failure;
 extern crate svelte_ir as ir;
 extern crate svelte_opt as opt;
 extern crate svelte_traits as traits;
 
-use failure::ResultExt;
 use std::cmp;
 use std::collections::{BTreeMap, BTreeSet};
 use std::fmt;
+use std::io;
 
 #[derive(Debug, Clone, Copy)]
 enum Align {
@@ -119,13 +117,7 @@ struct Top {
 }
 
 impl traits::Emit for Top {
-    fn emit_text(
-        &self,
-        items: &ir::Items,
-        dest: &opt::OutputDestination,
-    ) -> Result<(), failure::Error> {
-        let mut dest = dest.open().context("could not open output destination")?;
-
+    fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let sort_label = if self.opts.retained {
             "Retained"
         } else {
@@ -155,15 +147,17 @@ impl traits::Emit for Top {
             ]);
         }
 
-        write!(&mut dest, "{}", &table)?;
+        write!(dest, "{}", &table)?;
         Ok(())
     }
 }
 
 /// Run the `top` analysis on the given IR items.
-pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, failure::Error> {
+pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, traits::Error> {
     if opts.retaining_paths {
-        bail!("retaining paths are not yet implemented");
+        return Err(traits::Error::with_msg(
+            "retaining paths are not yet implemented",
+        ));
     }
 
     if opts.retained {
@@ -202,13 +196,7 @@ struct DominatorTree {
 }
 
 impl traits::Emit for DominatorTree {
-    fn emit_text(
-        &self,
-        items: &ir::Items,
-        dest: &opt::OutputDestination,
-    ) -> Result<(), failure::Error> {
-        let mut dest = dest.open().context("could not open output destination")?;
-
+    fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut table = Table::with_header(vec![
             (Align::Right, "Retained Bytes".to_string()),
             (Align::Right, "Retained %".to_string()),
@@ -291,7 +279,7 @@ impl traits::Emit for DominatorTree {
             &opts,
             items.meta_root(),
         );
-        write!(&mut dest, "{}", &table)?;
+        write!(dest, "{}", &table)?;
         Ok(())
     }
 }
@@ -300,7 +288,7 @@ impl traits::Emit for DominatorTree {
 pub fn dominators(
     items: &mut ir::Items,
     opts: &opt::Dominators,
-) -> Result<Box<traits::Emit>, failure::Error> {
+) -> Result<Box<traits::Emit>, traits::Error> {
     items.compute_dominator_tree();
     items.compute_retained_sizes();
 
@@ -318,11 +306,7 @@ struct Paths {
 }
 
 impl traits::Emit for Paths {
-    fn emit_text(
-        &self,
-        items: &ir::Items,
-        dest: &opt::OutputDestination,
-    ) -> Result<(), failure::Error> {
+    fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         fn recursive_callers(
             items: &ir::Items,
             seen: &mut BTreeSet<ir::Id>,
@@ -390,17 +374,13 @@ impl traits::Emit for Paths {
             recursive_callers(items, &mut seen, &mut table, 0, &mut paths, &opts, *id);
         }
 
-        let mut dest = dest.open().context("could not open output destination")?;
-        write!(&mut dest, "{}", table)?;
+        write!(dest, "{}", table)?;
         Ok(())
     }
 }
 
 /// Find all retaining paths for the given items.
-pub fn paths(
-    items: &mut ir::Items,
-    opts: &opt::Paths,
-) -> Result<Box<traits::Emit>, failure::Error> {
+pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emit>, traits::Error> {
     items.compute_predecessors();
 
     let mut paths = Paths {

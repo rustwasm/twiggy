@@ -5,5 +5,9 @@ members = [
   "./opt",
   "./parser",
   "./svelte",
-  "./traits"
+  "./traits",
+  "./wasm-api"
 ]
+
+[profile.release]
+debug = true

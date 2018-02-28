@@ -7,7 +7,7 @@ authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 path = "./ir.rs"
 
 [dependencies]
-cpp_demangle = "0.2.7"
+cpp_demangle = { version = "0.2.7", default-features = false }
 frozen = "1"
 petgraph = "0.4.11"
 rustc-demangle = "0.1.5"

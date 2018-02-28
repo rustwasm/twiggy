@@ -7,5 +7,8 @@ authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 path = "opt.rs"
 
 [dependencies]
-failure = "0.1.1"
-structopt = "0.2"
+structopt = { version = "0.2", optional = true }
+svelte-traits = { version = "0.1.0", path = "../traits" }
+
+[features]
+cli = ["structopt"]

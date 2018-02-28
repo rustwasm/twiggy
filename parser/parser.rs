@@ -3,25 +3,23 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-#[macro_use]
-extern crate failure;
 extern crate parity_wasm;
 extern crate svelte_ir as ir;
+extern crate svelte_traits as traits;
 
 mod wasm;
 
-use failure::{Fail, ResultExt};
 use parity_wasm::elements;
 use std::fs;
 use std::io::Read;
 use std::path;
 
 /// Parse the file at the given path into IR items.
-pub fn parse<P: AsRef<path::Path>>(path: P) -> Result<ir::Items, failure::Error> {
+pub fn read_and_parse<P: AsRef<path::Path>>(path: P) -> Result<ir::Items, traits::Error> {
     let path = path.as_ref();
-    let mut file = fs::File::open(path).context("opening input file")?;
+    let mut file = fs::File::open(path)?;
     let mut data = vec![];
-    file.read_to_end(&mut data).context("reading input file")?;
+    file.read_to_end(&mut data)?;
 
     match path.extension().and_then(|s| s.to_str()) {
         Some("wasm") => if let Ok(items) = parse_wasm(&data) {
@@ -30,7 +28,12 @@ pub fn parse<P: AsRef<path::Path>>(path: P) -> Result<ir::Items, failure::Error>
         _ => {}
     }
 
-    parse_fallback(path, &data)
+    parse_fallback(&data)
+}
+
+/// TODO FITZGEN
+pub fn parse(data: &[u8]) -> Result<ir::Items, traits::Error> {
+    parse_fallback(data)
 }
 
 /// A trait for parsing things into `ir::Item`s.
@@ -43,7 +46,7 @@ pub(crate) trait Parse<'a> {
         &self,
         items: &mut ir::ItemsBuilder,
         extra: Self::ItemsExtra,
-    ) -> Result<(), failure::Error>;
+    ) -> Result<(), traits::Error>;
 
     /// Any extra data needed to parse this type's edges.
     type EdgesExtra;
@@ -54,10 +57,10 @@ pub(crate) trait Parse<'a> {
         &self,
         items: &mut ir::ItemsBuilder,
         extra: Self::EdgesExtra,
-    ) -> Result<(), failure::Error>;
+    ) -> Result<(), traits::Error>;
 }
 
-fn parse_wasm(data: &[u8]) -> Result<ir::Items, failure::Error> {
+fn parse_wasm(data: &[u8]) -> Result<ir::Items, traits::Error> {
     let mut items = ir::ItemsBuilder::new(data.len() as u32);
 
     let module: elements::Module = elements::deserialize_buffer(data)?;
@@ -73,19 +76,8 @@ fn parse_wasm(data: &[u8]) -> Result<ir::Items, failure::Error> {
     Ok(items.finish())
 }
 
-fn parse_fallback(path: &path::Path, data: &[u8]) -> Result<ir::Items, failure::Error> {
+fn parse_fallback(data: &[u8]) -> Result<ir::Items, traits::Error> {
     parse_wasm(data)
-        .context("could not parse as wasm")
-        // This is how we would chain multiple parse failures together:
-        //
-        // .or_else(|e| {
-        //     parse_elf(data)
-        //         .context(e)
-        //         .context("could not parse as ELF")
-        // })
-        .map_err(|e| {
-            e.context(format_err!("could not parse {}", path.display())).into()
-        })
 }
 
 #[cfg(test)]

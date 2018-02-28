@@ -8,21 +8,8 @@ case "$JOB" in
     "wasm")
         rustup target add wasm32-unknown-unknown
 
-        cd analyze
+        cd wasm-api
         cargo build --release --target wasm32-unknown-unknown
-        cd -
-
-        cd ir
-        cargo build --release --target wasm32-unknown-unknown
-        cd -
-
-        cd parser
-        cargo build --release --target wasm32-unknown-unknown
-        cd -
-
-        cd traits
-        cargo build --release --target wasm32-unknown-unknown
-        cd -
         ;;
 
     *)
