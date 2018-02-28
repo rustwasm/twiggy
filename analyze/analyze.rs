@@ -175,7 +175,7 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
         .filter(|item| item.id() != items.meta_root())
         .collect();
 
-    top_items.sort_unstable_by(|a, b| match opts.retained {
+    top_items.sort_by(|a, b| match opts.retained {
         false => b.size().cmp(&a.size()),
         true => items
             .retained_size(b.id())
@@ -266,8 +266,7 @@ impl traits::Emit for DominatorTree {
 
             if let Some(children) = dominator_tree.get(&id) {
                 let mut children: Vec<_> = children.iter().cloned().collect();
-                children
-                    .sort_unstable_by(|a, b| items.retained_size(*b).cmp(&items.retained_size(*a)));
+                children.sort_by(|a, b| items.retained_size(*b).cmp(&items.retained_size(*a)));
                 for child in children {
                     *row += 1;
                     recursive_add_rows(
