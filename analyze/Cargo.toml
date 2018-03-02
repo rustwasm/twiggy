@@ -8,5 +8,5 @@ path = "./analyze.rs"
 
 [dependencies]
 twiggy-ir = { version = "0.1.0", path = "../ir" }
-twiggy-opt = { version = "0.1.0", path = "../opt" }
+twiggy-opt = { version = "0.1.0", path = "../opt", default-features = false }
 twiggy-traits = { version = "0.1.0", path = "../traits" }

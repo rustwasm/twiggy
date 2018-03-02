@@ -16,9 +16,18 @@ version = "0.1.0"
 path = "../analyze"
 
 [dependencies.twiggy-opt]
+default-features = false
+features = ["wasm"]
 version = "0.1.0"
 path = "../opt"
+
+[dependencies.twiggy-parser]
+version = "0.1.0"
+path = "../parser"
 
 [dependencies.twiggy-traits]
 version = "0.1.0"
 path = "../traits"
+
+[dependencies.wasm-bindgen]
+version = "0.2.3"

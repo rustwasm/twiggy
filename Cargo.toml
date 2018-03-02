@@ -10,4 +10,10 @@ members = [
 ]
 
 [profile.release]
+lto = true
 debug = true
+opt-level = "s"
+
+[patch.crates-io.structopt]
+git = "https://github.com/fitzgen/structopt.git"
+branch = "proc-macro2-nightly-feature-workaround"

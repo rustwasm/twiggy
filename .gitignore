@@ -1,5 +1,10 @@
-
 /target
 **/*.rs.bk
 Cargo.lock
 twiggy/tests/whatever-output.txt
+wasm-api/.crates.toml
+wasm-api/bin
+twiggy_wasm_api.d.ts
+twiggy_wasm_api.js
+twiggy_wasm_api.wasm
+twiggy_wasm_api_bg.wasm

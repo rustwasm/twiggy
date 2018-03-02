@@ -9,6 +9,10 @@ path = "opt.rs"
 [dependencies]
 structopt = { version = "0.2", optional = true }
 twiggy-traits = { version = "0.1.0", path = "../traits" }
+wasm-bindgen = { version = "0.2.3", optional = true }
+cfg-if = "0.1.2"
 
 [features]
+default = ["cli"]
 cli = ["structopt"]
+wasm = ["wasm-bindgen"]
