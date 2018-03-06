@@ -2,3 +2,4 @@
 /target
 **/*.rs.bk
 Cargo.lock
+svelte/tests/whatever-output.txt

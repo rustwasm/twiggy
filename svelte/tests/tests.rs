@@ -134,3 +134,12 @@ test!(
     "-r",
     "2"
 );
+
+// This should not fail to open and write `whatever-output.txt`.
+test!(
+    output_to_file,
+    "top",
+    "./fixtures/wee_alloc.wasm",
+    "-o",
+    "whatever-output.txt"
+);
