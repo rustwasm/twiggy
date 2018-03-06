@@ -229,7 +229,7 @@ impl OutputDestination {
     pub fn open(&self) -> Result<Box<io::Write>, traits::Error> {
         Ok(match *self {
             OutputDestination::Path(ref path) => {
-                Box::new(io::BufWriter::new(fs::File::open(path)?)) as Box<io::Write>
+                Box::new(io::BufWriter::new(fs::File::create(path)?)) as Box<io::Write>
             }
             OutputDestination::Stdout => Box::new(io::stdout()) as Box<io::Write>,
         })
