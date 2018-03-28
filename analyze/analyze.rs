@@ -52,6 +52,7 @@ impl fmt::Display for Table {
         let last = self.header.len() - 1;
 
         for (i, h) in self.header.iter().map(|h| &h.1).enumerate() {
+
             if i == 0 {
                 write!(f, " ")?;
             } else {
@@ -139,7 +140,7 @@ impl traits::Emit for Top {
                 item.size()
             };
 
-            let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+            let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
             table.add_row(vec![
                 size.to_string(),
                 format!("{:.2}%", size_percent),
@@ -234,7 +235,7 @@ impl traits::Emit for DominatorTree {
                 let item = &items[id];
 
                 let size = items.retained_size(id);
-                let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+                let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
 
                 let mut label = String::with_capacity(depth * 4 + item.name().len() + "⤷ ".len());
                 for _ in 2..depth {
@@ -342,7 +343,7 @@ impl traits::Emit for Paths {
                     "".to_string()
                 },
                 if depth == 0 {
-                    let size_percent = (item.size() as f64) / (items.size() as f64) * 100.0;
+                    let size_percent = (f64::from(item.size())) / (f64::from(items.size())) * 100.0;
                     format!("{:.2}%", size_percent)
                 } else {
                     "".to_string()

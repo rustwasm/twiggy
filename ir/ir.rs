@@ -79,7 +79,7 @@ impl ItemsBuilder {
 
     /// Add a range of static data and the `Id` that defines it.
     pub fn link_data(&mut self, offset: i64, len: usize, id: Id) {
-        if offset >= 0 && offset <= u32::MAX as i64 && offset as usize + len < u32::MAX as usize {
+        if offset >= 0 && offset <= i64::from(u32::MAX) && offset as usize + len < u32::MAX as usize {
             self.data.insert(offset as u32, (id, len as u32));
         }
     }

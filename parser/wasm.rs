@@ -679,7 +679,7 @@ impl<'a> Parse<'a> for elements::DataSection {
             let ty = None;
             let offset_code = d.offset().code();
             let offset = offset_code.get(0).and_then(|op| match *op {
-                I32Const(o) => Some(o as i64),
+                I32Const(o) => Some(i64::from(o)),
                 I64Const(o) => Some(o),
                 _ => None,
             });
