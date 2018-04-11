@@ -88,6 +88,9 @@ impl<'a> Parse<'a> for elements::Module {
                 Section::Data(ref data) => {
                     data.parse_items(items, idx)?;
                 }
+                Section::Reloc(ref reloc) => {
+                    reloc.parse_items(items, idx)?;
+                }
             }
         }
 
@@ -148,6 +151,9 @@ impl<'a> Parse<'a> for elements::Module {
                 }
                 Section::Data(ref data) => {
                     data.parse_edges(items, ())?;
+                }
+                Section::Reloc(ref reloc) => {
+                    reloc.parse_edges(items, ())?;
                 }
             }
         }
@@ -689,6 +695,27 @@ impl<'a> Parse<'a> for elements::DataSection {
             if let Some(off) = offset {
                 items.link_data(off, length, id);
             }
+        }
+        Ok(())
+    }
+
+    type EdgesExtra = ();
+
+    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
+        Ok(())
+    }
+}
+
+impl<'a> Parse<'a> for elements::RelocSection {
+    type ItemsExtra = usize;
+
+    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
+        for (i, rel) in self.entries().iter().enumerate() {
+            let id = Id::entry(idx, i);
+            let size = serialized_size(rel.clone())?;
+            let mut name = String::with_capacity("reloc[]".len() + 4);
+            write!(&mut name, "reloc[{}]", i)?;
+            items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
         }
         Ok(())
     }
