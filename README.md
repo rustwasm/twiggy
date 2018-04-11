@@ -17,6 +17,8 @@ It analyzes a binary's call graph to answer questions like:
 
 Use `twiggy` to make your binaries slim!
 
+![Twiggy](./twiggy.png)
+
 --------------------------------------------------------------------------------
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
