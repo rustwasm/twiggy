@@ -1,4 +1,4 @@
-//! The `svelte` code size profiler.
+//! The `twiggy` code size profiler.
 
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]

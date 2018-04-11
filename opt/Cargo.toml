@@ -1,5 +1,5 @@
 [package]
-name = "svelte-opt"
+name = "twiggy-opt"
 version = "0.1.0"
 authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 
@@ -8,7 +8,7 @@ path = "opt.rs"
 
 [dependencies]
 structopt = { version = "0.2", optional = true }
-svelte-traits = { version = "0.1.0", path = "../traits" }
+twiggy-traits = { version = "0.1.0", path = "../traits" }
 
 [features]
 cli = ["structopt"]

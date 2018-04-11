@@ -4,7 +4,7 @@ members = [
   "./ir",
   "./opt",
   "./parser",
-  "./svelte",
+  "./twiggy",
   "./traits",
   "./wasm-api"
 ]

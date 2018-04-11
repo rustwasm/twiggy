@@ -1,5 +1,5 @@
 [package]
-name = "svelte-wasm-api"
+name = "twiggy-wasm-api"
 version = "0.1.0"
 authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 
@@ -7,18 +7,18 @@ authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 crate-type = ["cdylib"]
 path = "./wasm-api.rs"
 
-[dependencies.svelte-ir]
+[dependencies.twiggy-ir]
 version = "0.1.0"
 path = "../ir"
 
-[dependencies.svelte-analyze]
+[dependencies.twiggy-analyze]
 version = "0.1.0"
 path = "../analyze"
 
-[dependencies.svelte-opt]
+[dependencies.twiggy-opt]
 version = "0.1.0"
 path = "../opt"
 
-[dependencies.svelte-traits]
+[dependencies.twiggy-traits]
 version = "0.1.0"
 path = "../traits"

@@ -1,0 +1,21 @@
+[package]
+description = "A code size profiler"
+name = "twiggy"
+version = "0.1.0"
+authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
+
+[[bin]]
+name = "twiggy"
+path = "./twiggy.rs"
+
+[dependencies]
+failure = "0.1.1"
+structopt = "0.2"
+twiggy-analyze = { version = "0.1.0", path = "../analyze" }
+twiggy-ir = { version = "0.1.0", path = "../ir" }
+twiggy-opt = { version = "0.1.0", path = "../opt", features = ["cli"] }
+twiggy-parser = { version = "0.1.0", path = "../parser" }
+twiggy-traits = { version = "0.1.0", path = "../traits" }
+
+[dev-dependencies]
+diff = "0.1.11"

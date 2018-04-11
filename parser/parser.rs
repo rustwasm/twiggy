@@ -1,11 +1,11 @@
-//! Parses binaries into `svelte_ir::Items`.
+//! Parses binaries into `twiggy_ir::Items`.
 
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
 extern crate parity_wasm;
-extern crate svelte_ir as ir;
-extern crate svelte_traits as traits;
+extern crate twiggy_ir as ir;
+extern crate twiggy_traits as traits;
 
 mod wasm;
 
