@@ -1,5 +1,5 @@
 [package]
-name = "svelte-ir"
+name = "twiggy-ir"
 version = "0.1.0"
 authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 

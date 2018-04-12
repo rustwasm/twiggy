@@ -1,5 +1,5 @@
 [package]
-name = "svelte-analyze"
+name = "twiggy-analyze"
 version = "0.1.0"
 authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 
@@ -7,6 +7,6 @@ authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
 path = "./analyze.rs"
 
 [dependencies]
-svelte-ir = { version = "0.1.0", path = "../ir" }
-svelte-opt = { version = "0.1.0", path = "../opt" }
-svelte-traits = { version = "0.1.0", path = "../traits" }
+twiggy-ir = { version = "0.1.0", path = "../ir" }
+twiggy-opt = { version = "0.1.0", path = "../opt" }
+twiggy-traits = { version = "0.1.0", path = "../traits" }

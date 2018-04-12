@@ -47,7 +47,7 @@ macro_rules! test {
             let expected = slurp(expected_path).unwrap_or(vec![]);
 
             if output.stdout != expected {
-                let mut cmd = "svelte".to_string();
+                let mut cmd = "twiggy".to_string();
                 $(
                     cmd.push(' ');
                     cmd.push_str($args);

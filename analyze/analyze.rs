@@ -1,11 +1,11 @@
-//! Implementations of the analyses that `svelte` runs on its IR.
+//! Implementations of the analyses that `twiggy` runs on its IR.
 
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-extern crate svelte_ir as ir;
-extern crate svelte_opt as opt;
-extern crate svelte_traits as traits;
+extern crate twiggy_ir as ir;
+extern crate twiggy_opt as opt;
+extern crate twiggy_traits as traits;
 
 use std::cmp;
 use std::collections::{BTreeMap, BTreeSet};

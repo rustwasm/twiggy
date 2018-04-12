@@ -1,4 +1,4 @@
-//! Common traits and types used throughout all of `svelte`.
+//! Common traits and types used throughout all of `twiggy`.
 
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
@@ -7,7 +7,7 @@
 extern crate failure;
 
 extern crate parity_wasm as wasm;
-extern crate svelte_ir as ir;
+extern crate twiggy_ir as ir;
 
 use std::fmt;
 use std::io;

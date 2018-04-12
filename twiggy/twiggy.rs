@@ -1,14 +1,14 @@
-//! The `svelte` code size profiler.
+//! The `twiggy` code size profiler.
 
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
 extern crate failure;
 extern crate structopt;
-extern crate svelte_analyze as analyze;
-extern crate svelte_opt as opt;
-extern crate svelte_parser as parser;
-extern crate svelte_traits as traits;
+extern crate twiggy_analyze as analyze;
+extern crate twiggy_opt as opt;
+extern crate twiggy_parser as parser;
+extern crate twiggy_traits as traits;
 
 use failure::Fail;
 use opt::CommonOptions;

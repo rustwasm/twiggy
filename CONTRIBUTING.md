@@ -1,4 +1,4 @@
-# Contributing to `svelte`
+# Contributing to `twiggy`
 
 Hi! We'd love to have your contributions! If you want help or mentorship, reach
 out to us in a GitHub issue, or ping `fitzgen` in [`#rust-wasm` on
@@ -42,20 +42,20 @@ $ cargo test --all
 
 #### Authoring New Tests
 
-Integration tests live in the `svelte/tests` directory:
+Integration tests live in the `twiggy/tests` directory:
 
 ```
-svelte/tests
+twiggy/tests
 ├── expectations
 ├── fixtures
 └── tests.rs
 ```
 
-* The `svelte/tests/tests.rs` file contains the `#[test]` definitions.
+* The `twiggy/tests/tests.rs` file contains the `#[test]` definitions.
 
-* The `svelte/tests/fixtures` directory contains input binaries for tests.
+* The `twiggy/tests/fixtures` directory contains input binaries for tests.
 
-* The `svelte/tests/expectations` directory contains the expected output of test
+* The `twiggy/tests/expectations` directory contains the expected output of test
   commands.
 
 ## Automatic Code Formatting
@@ -111,10 +111,10 @@ Where we need help:
 * Issues labeled ["good first issue"][gfi] are issues where fixing them would be
   a great introduction to the code base.
 
-[more-formats]: https://github.com/fitzgen/svelte/issues/4
-[help-wanted]: https://github.com/fitzgen/svelte/labels/help%20wanted
-[mentored]: https://github.com/fitzgen/svelte/labels/mentored
-[gfi]: https://github.com/fitzgen/svelte/labels/good%20first%20issue
+[more-formats]: https://github.com/fitzgen/twiggy/issues/4
+[help-wanted]: https://github.com/fitzgen/twiggy/labels/help%20wanted
+[mentored]: https://github.com/fitzgen/twiggy/labels/mentored
+[gfi]: https://github.com/fitzgen/twiggy/labels/good%20first%20issue
 
 ## Team
 
@@ -125,10 +125,10 @@ Where we need help:
 Larger, more nuanced decisions about design, architecture, breaking changes,
 trade offs, etc are made by team consensus. In other words, decisions on things
 that aren't straightforward improvements or bug fixes to things that already
-exist in `svelte`. If consensus can't be made, then `fitzgen` has the last
+exist in `twiggy`. If consensus can't be made, then `fitzgen` has the last
 word.
 
 **We need more team members!**
 [Drop a comment on this issue if you are interested in joining.][join]
 
-[join]: https://github.com/fitzgen/svelte/issues/3
+[join]: https://github.com/fitzgen/twiggy/issues/3
