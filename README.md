@@ -41,7 +41,7 @@ Ensure that you have the [Rust toolchain installed](https://www.rust-lang.org/),
 then run:
 
 ```
-$ cargo install --git https://github.com/fitzgen/twiggy.git
+$ cargo install --git https://github.com/rustwasm/twiggy.git
 ```
 
 ## Usage
