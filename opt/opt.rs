@@ -26,6 +26,7 @@ use std::fs;
 use std::io;
 use std::path;
 use std::str::FromStr;
+use std::u32;
 
 /// Options that are common to all commands.
 pub trait CommonOptions {
