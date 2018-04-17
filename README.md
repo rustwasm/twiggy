@@ -1,6 +1,6 @@
 # `twiggy`!
-!
-[![](https://docs.rs/twiggy/badge.svg)](https://docs.rs/twiggy/)!
+
+[![](https://docs.rs/twiggy/badge.svg)](https://docs.rs/twiggy/)
 [![](https://img.shields.io/crates/v/twiggy.svg)](https://crates.io/crates/twiggy)
 [![](https://img.shields.io/crates/d/twiggy.svg)](https://crates.io/crates/twiggy)
 [![Build Status](https://travis-ci.org/rustwasm/twiggy.svg?branch=master)](https://travis-ci.org/rustwasm/twiggy)

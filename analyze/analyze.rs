@@ -232,14 +232,14 @@ impl traits::Emit for DominatorTree {
 
         let opts = &self.opts;
 
-        let mut row = 0 as usize;
+        let mut row = 0 as u32;
 
         fn recursive_add_rows(
             table: &mut Table,
             items: &ir::Items,
             dominator_tree: &BTreeMap<ir::Id, Vec<ir::Id>>,
-            depth: usize,
-            mut row: &mut usize,
+            depth: u32,
+            mut row: &mut u32,
             opts: &opt::Dominators,
             id: ir::Id,
         ) {
@@ -263,7 +263,8 @@ impl traits::Emit for DominatorTree {
                 let size = items.retained_size(id);
                 let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
 
-                let mut label = String::with_capacity(depth * 4 + item.name().len() + "⤷ ".len());
+                let mut label =
+                    String::with_capacity(depth as usize * 4 + item.name().len() + "⤷ ".len());
                 for _ in 2..depth {
                     label.push_str("    ");
                 }
@@ -382,8 +383,8 @@ impl traits::Emit for Paths {
             items: &ir::Items,
             seen: &mut BTreeSet<ir::Id>,
             table: &mut Table,
-            depth: usize,
-            mut paths: &mut usize,
+            depth: u32,
+            mut paths: &mut u32,
             opts: &opt::Paths,
             id: ir::Id,
         ) {
@@ -397,7 +398,7 @@ impl traits::Emit for Paths {
 
             let item = &items[id];
 
-            let mut label = String::with_capacity(depth * 4 + item.name().len());
+            let mut label = String::with_capacity(depth as usize * 4 + item.name().len());
             for _ in 1..depth {
                 label.push_str("    ");
             }
@@ -440,7 +441,7 @@ impl traits::Emit for Paths {
         let opts = &self.opts;
 
         for id in &self.items {
-            let mut paths = 0 as usize;
+            let mut paths = 0 as u32;
             let mut seen = BTreeSet::new();
             recursive_callers(items, &mut seen, &mut table, 0, &mut paths, &opts, *id);
         }
@@ -454,8 +455,8 @@ impl traits::Emit for Paths {
             items: &ir::Items,
             seen: &mut BTreeSet<ir::Id>,
             obj: &mut json::Object,
-            depth: usize,
-            mut paths: &mut usize,
+            depth: u32,
+            mut paths: &mut u32,
             opts: &opt::Paths,
             id: ir::Id,
         ) -> io::Result<()> {
@@ -496,7 +497,7 @@ impl traits::Emit for Paths {
 
         let mut arr = json::array(dest)?;
         for id in &self.items {
-            let mut paths = 0 as usize;
+            let mut paths = 0 as u32;
             let mut seen = BTreeSet::new();
             let mut obj = arr.object()?;
             recursive_callers(items, &mut seen, &mut obj, 0, &mut paths, &self.opts, *id)?;
