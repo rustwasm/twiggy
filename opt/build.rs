@@ -11,6 +11,8 @@ fn main() {
 
     cli.push("cli.rs");
 
+    println!("cargo:rerun-if-changed=./definitions.js");
+
     run(format!(
         "cat ./definitions.rs | grep -vi wasm_bindgen > '{}'",
         cli.display()
