@@ -112,9 +112,8 @@ pub enum OutputFormat {
 
     // /// Comma-separated values (CSV) format.
     // Csv,
-
-    // /// JavaScript Object Notation format.
-    // Json,
+    /// JavaScript Object Notation format.
+    Json,
 }
 
 impl Default for OutputFormat {
@@ -129,6 +128,7 @@ impl FromStr for OutputFormat {
     fn from_str(s: &str) -> Result<Self, Error> {
         match s {
             "text" => Ok(OutputFormat::Text),
+            "json" => Ok(OutputFormat::Json),
             _ => Err(Error::with_msg(format!("Unknown output format: {}", s))),
         }
     }
@@ -149,7 +149,7 @@ pub trait Emit {
             // OutputFormat::Html => self.emit_html(destination),
             // OutputFormat::Dot => self.emit_dot(destination),
             // OutputFormat::Csv => self.emit_csv(destination),
-            // OutputFormat::Json => self.emit_json(destination),
+            OutputFormat::Json => self.emit_json(items, destination),
         }
     }
 
@@ -165,8 +165,8 @@ pub trait Emit {
     // /// Emit CSV.
     // fn emit_csv(&self, destination: &mut io::Write) -> Result<(), Error>;
 
-    // /// Emit JSON.
-    // fn emit_json(&self, destination: &mut io::Write) -> Result<(), Error>;
+    /// Emit JSON.
+    fn emit_json(&self, items: &ir::Items, destination: &mut io::Write) -> Result<(), Error>;
 }
 
 #[cfg(test)]
