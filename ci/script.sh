@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 
 case "$JOB" in
     "test")
-        cargo test --all
+        cargo test --all --exclude twiggy-wasm-api
         ;;
 
     "wasm")

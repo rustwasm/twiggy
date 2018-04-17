@@ -548,11 +548,6 @@ name = "winapi-x86_64-pc-windows-gnu"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
-[[patch.unused]]
-name = "structopt"
-version = "0.2.4"
-source = "git+https://github.com/fitzgen/structopt.git?branch=proc-macro2-nightly-feature-workaround#a028c45d67f6b92b3db78bc2681d26b34b2335ac"
-
 [metadata]
 "checksum ansi_term 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)" = "ee49baf6cb617b853aa8d93bf420db2383fab46d314482ca2803b40d5fde979b"
 "checksum atty 0.2.8 (registry+https://github.com/rust-lang/crates.io-index)" = "af80143d6f7608d746df1520709e5d141c96f240b0e62b0aa41bdfb53374d9d4"
