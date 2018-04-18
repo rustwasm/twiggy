@@ -438,7 +438,14 @@ impl<'a> Parse<'a> for elements::ExportSection {
             match *exp.internal() {
                 elements::Internal::Function(f_i) => {
                     if let Some(func_idx) = func_section {
-                        items.add_edge(exp_id, Id::entry(func_idx, f_i as usize));
+                        items.add_edge(
+                            exp_id,
+                            Id::entry(
+                                func_idx,
+                                f_i as usize
+                                    - module.import_count(elements::ImportCountType::Function),
+                            ),
+                        );
                     }
                 }
                 elements::Internal::Table(f_i) => {
