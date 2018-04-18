@@ -23,28 +23,22 @@ Use `twiggy` to make your binaries slim!
 
 --------------------------------------------------------------------------------
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
 - [📦 Install](#-install)
 - [💡 Concepts](#-concepts)
-  - [Call Graph](#call-graph)
-  - [Paths](#paths)
-  - [Dominators and Retained Size](#dominators-and-retained-size)
-  - [Generic Functions and Monomorphization](#generic-functions-and-monomorphization)
-- [🏋️‍♀️ Usage](#%EF%B8%8F%E2%80%8D-usage)
-  - [⌨ Command Line Interface](#%E2%8C%A8-command-line-interface)
-    - [`twiggy top`](#twiggy-top)
-    - [`twiggy paths`](#twiggy-paths)
-    - [`twiggy monos`](#twiggy-monos)
-    - [`twiggy dominators`](#twiggy-dominators)
-  - [🦀 As a Crate](#-as-a-crate)
-  - [🕸 On the Web with WebAssembly](#%F0%9F%95%B8-on-the-web-with-webassembly)
+    - [Call Graph](#call-graph)
+    - [Paths](#paths)
+    - [Dominators and Retained Size](#dominators-and-retained-size)
+    - [Generic Functions and Monomorphization](#generic-functions-and-monomorphization)
+- [🏋️‍♀️ Usage](#%EF%B8%8F%EF%B8%8F-usage)
+    - [⌨ Command Line Interface](#-command-line-interface)
+        - [`twiggy top`](#twiggy-top)
+        - [`twiggy paths`](#twiggy-paths)
+        - [`twiggy monos`](#twiggy-monos)
+        - [`twiggy dominators`](#twiggy-dominators)
+    - [🦀 As a Crate](#-as-a-crate)
+    - [🕸 On the Web with WebAssembly](#-on-the-web-with-webassembly)
 - [🔎 Supported Binary Formats](#-supported-binary-formats)
 - [🙌 Contributing](#-contributing)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## 📦 Install
 
