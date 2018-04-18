@@ -1,3 +1,5 @@
+<meta charset="utf-8"/>
+
 # `twiggy`!
 
 [![](https://docs.rs/twiggy/badge.svg)](https://docs.rs/twiggy/)
@@ -25,32 +27,35 @@ Use `twiggy` to make your binaries slim!
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Install](#install)
-- [Usage](#usage)
-- [Concepts](#concepts)
+- [📦 Install](#-install)
+- [💡 Concepts](#-concepts)
   - [Call Graph](#call-graph)
   - [Paths](#paths)
   - [Dominators and Retained Size](#dominators-and-retained-size)
-- [Supported Binary Formats](#supported-binary-formats)
+  - [Generic Functions and Monomorphization](#generic-functions-and-monomorphization)
+- [🏋️‍♀️ Usage](#%EF%B8%8F%E2%80%8D-usage)
+  - [⌨ Command Line Interface](#%E2%8C%A8-command-line-interface)
+    - [`twiggy top`](#twiggy-top)
+    - [`twiggy paths`](#twiggy-paths)
+    - [`twiggy monos`](#twiggy-monos)
+    - [`twiggy dominators`](#twiggy-dominators)
+  - [🦀 As a Crate](#-as-a-crate)
+  - [🕸 On the Web with WebAssembly](#%F0%9F%95%B8-on-the-web-with-webassembly)
+- [🔎 Supported Binary Formats](#-supported-binary-formats)
+- [🙌 Contributing](#-contributing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Install
+## 📦 Install
 
 Ensure that you have the [Rust toolchain installed](https://www.rust-lang.org/),
 then run:
 
 ```
-$ cargo install --git https://github.com/rustwasm/twiggy.git
+cargo install --git https://github.com/rustwasm/twiggy.git
 ```
 
-## Usage
-
-```
-$ twiggy --help
-```
-
-## Concepts
+## 💡 Concepts
 
 ### Call Graph
 
@@ -121,25 +126,6 @@ refactored your code to avoid calling *Y*, then there wouldn't be any paths to
 the unwelcome function anymore, it would be dead code, and the linker would
 remove it.
 
-You can use the `twiggy paths` subcommand to view the paths to a function in a
-given binary's call graph:
-
-```
-$ twiggy paths wee_alloc.wasm 'wee_alloc::alloc_first_fit::h9a72de3af77ef93f'
- Shallow Bytes │ Shallow % │ Retaining Paths
-───────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-           225 ┊     7.99% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
-               ┊           ┊   ⬑ func[3]
-               ┊           ┊       ⬑ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
-               ┊           ┊           ⬑ func[2]
-               ┊           ┊               ⬑ <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
-               ┊           ┊                   ⬑ func[5]
-               ┊           ┊                       ⬑ elem[0]
-               ┊           ┊               ⬑ hello
-               ┊           ┊                   ⬑ func[8]
-               ┊           ┊                       ⬑ export "hello"
-```
-
 ### Dominators and Retained Size
 
 Imagine the `pow` function itself might is not very large. But it calls
@@ -169,43 +155,310 @@ Using the dominator relationship, we can find the *retained size* of some
 function by taking its shallow size and adding the retained sizes of each
 function that it immediately dominates.
 
-You can use the `twiggy dominators` subcommand to view the dominator tree for a
-given binary's call graph:
-
-```
-$ twiggy dominators wee_alloc.wasm
- Retained Bytes │ Retained % │ Dominator Tree
-────────────────┼────────────┼────────────────────────────────────────────────────────────────────────
-            774 ┊     27.48% ┊ "function names" subsection
-            564 ┊     20.02% ┊ export "hello"
-            556 ┊     19.74% ┊   ⤷ func[8]
-            551 ┊     19.56% ┊       ⤷ hello
-            387 ┊     13.74% ┊           ⤷ func[2]
-            378 ┊     13.42% ┊               ⤷ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
-            226 ┊      8.02% ┊                   ⤷ func[3]
-            225 ┊      7.99% ┊                       ⤷ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
-              8 ┊      0.28% ┊               ⤷ type[4]
-              4 ┊      0.14% ┊       ⤷ type[5]
-             59 ┊      2.09% ┊ export "goodbye"
-             49 ┊      1.74% ┊   ⤷ func[9]
-             44 ┊      1.56% ┊       ⤷ goodbye
-              4 ┊      0.14% ┊       ⤷ type[3]
-             11 ┊      0.39% ┊ export "memory"
-              2 ┊      0.07% ┊   ⤷ memory[0]
-```
-
 [dominators]: https://en.wikipedia.org/wiki/Dominator_(graph_theory)
 
-## Supported Binary Formats
+### Generic Functions and Monomorphization
 
-* WebAssembly's `.wasm` format
+Generic functions with type parameters in Rust and template functions in C++ can
+lead to code bloat if you aren't careful. Every time you instantiate these
+generic functions with a concrete set of types, the compiler will *monomorphize*
+the function, creating a copy of its body replacing its generic placeholders
+with the specific operations that apply to the concrete types. This presents
+many opportunities for compiler optimizations based on which particular concrete
+types each copy of the function is working with, but these copies add up quickly
+in terms of code size.
 
-Although `twiggy` doesn't currently support ELF, Mach-O, or PE/COFF, it is
-designed with extensibility in mind. The input is translated into a
-format-agnostic internal representation (IR), and adding support for new formats
-only requires parsing them into this IR. The vast majority of `twiggy` will not
-need modification.
+Example of monomorphization in Rust:
 
-We would love to gain support for new binary formats, and if you're interested
-in doing that implementation work, [check out
-`CONTRIBUTING.md`](./CONTRIBUTING.md).
+```rust
+fn generic_function<T: MyTrait>(t: T) { ... }
+
+// Each of these will generate a new copy of `generic_function`!
+generic_function::<MyTraitImpl>(...);
+generic_function::<AnotherMyTraitImpl>(...);
+generic_function::<MyTraitImplAlso>(...);
+```
+
+Example of monomorphization in C++:
+
+```c++
+template<typename T>
+void generic_function(T t) { ... }
+
+// Each of these will also generate a new copy of `generic_function`!
+generic_function<uint32_t>(...);
+generic_function<bool>(...);
+generic_function<MyClass>(...);
+```
+
+If you can afford the runtime cost of dynamic dispatch, then changing these
+functions to use trait objects in Rust or virtual methods in C++ can likely save
+a significant amounts of code size. With dynamic dispatch, the generic
+function's body is not copied, and the generic bits within the function become
+indirect function calls.
+
+Example of dynamic dispatch in Rust:
+
+```rust
+fn generic_function(t: &MyTrait) { ... }
+// or
+fn generic_function(t: Box<MyTrait>) { ... }
+// etc...
+
+// No more code bloat!
+let x = MyTraitImpl::new();
+generic_function(&x);
+let y = AnotherMyTraitImpl::new();
+generic_function(&y);
+let z = MyTraitImplAlso::new();
+generic_function(&z);
+```
+
+Example of dynamic dispatch in C++:
+
+```c++
+class GenericBase {
+  public:
+    virtual void generic_impl() = 0;
+};
+
+class MyThing : public GenericBase {
+  public
+    virtual void generic_impl() override { ... }
+};
+
+class AnotherThing : public GenericBase {
+  public
+    virtual void generic_impl() override { ... }
+};
+
+class AlsoThing : public GenericBase {
+  public
+    virtual void generic_impl() override { ... }
+};
+
+void generic(GenericBase& thing) { ... }
+
+// No more code bloat!
+MyThing x;
+generic(x);
+AnotherThing y;
+generic(y);
+AlsoThing z;
+generic(z);
+```
+
+`twiggy` can analyze a binary to find which generic functions are being
+monomorphized repeatedly, and calculate an estimation of how much code size
+could be saved by switching from monomorphization to dynamic dispatch.
+
+## 🏋️‍♀️ Usage
+
+### ⌨ Command Line Interface
+
+`twiggy` is primarily a command line tool.
+
+To get the most up-to-date usage for the version of `twiggy` that you've
+installed, you can always run:
+
+```
+twiggy --help
+```
+
+Or, to get more information about a sub-command, run:
+
+```
+twiggy subcmd --help
+```
+
+#### `twiggy top`
+
+The `twiggy top` sub-command summarizes and lists the top code size offenders in
+a binary.
+
+```
+ Shallow Bytes │ Shallow % │ Item
+───────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────────────────
+          1034 ┊    36.71% ┊ data[3]
+           774 ┊    27.48% ┊ "function names" subsection
+           225 ┊     7.99% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+           164 ┊     5.82% ┊ hello
+           152 ┊     5.40% ┊ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+           136 ┊     4.83% ┊ <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
+            76 ┊     2.70% ┊ <wee_alloc::LargeAllocPolicy as wee_alloc::AllocPolicy>::new_cell_for_free_list::h8f071b7bce0301ba
+            44 ┊     1.56% ┊ goodbye
+```
+
+#### `twiggy paths`
+
+The `twiggy paths` sub-command finds the call paths to a function in the given
+binary's call graph. This tells you what other functions are calling this
+function, why this function is not dead code, and therefore why it wasn't
+removed by the linker.
+
+```
+ Shallow Bytes │ Shallow % │ Retaining Paths
+───────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+           152 ┊     5.40% ┊ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+               ┊           ┊   ⬑ func[2]
+               ┊           ┊       ⬑ <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
+               ┊           ┊           ⬑ func[5]
+               ┊           ┊               ⬑ elem[0]
+               ┊           ┊       ⬑ hello
+               ┊           ┊           ⬑ func[8]
+               ┊           ┊               ⬑ export "hello"
+```
+
+#### `twiggy monos`
+
+The `twiggy monos` sub-command lists the generic function monomorphizations that
+are contributing to code bloat.
+
+```
+ Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %     │ Monomorphizations
+────────────────────┼────────────────┼───────┼───────┼────────────────────────────────────────────────────────
+               1977 ┊          3.40% ┊  3003 ┊ 5.16% ┊ alloc::slice::merge_sort
+                    ┊                ┊  1026 ┊ 1.76% ┊     alloc::slice::merge_sort::hb3d195f9800bdad6
+                    ┊                ┊  1026 ┊ 1.76% ┊     alloc::slice::merge_sort::hfcf2318d7dc71d03
+                    ┊                ┊   951 ┊ 1.63% ┊     alloc::slice::merge_sort::hcfca67f5c75a52ef
+               1302 ┊          2.24% ┊  3996 ┊ 6.87% ┊ <&'a T as core::fmt::Debug>::fmt
+                    ┊                ┊  2694 ┊ 4.63% ┊     <&'a T as core::fmt::Debug>::fmt::h1c27955d8de3ff17
+                    ┊                ┊   568 ┊ 0.98% ┊     <&'a T as core::fmt::Debug>::fmt::hea6a77c4dcddb7ac
+                    ┊                ┊   433 ┊ 0.74% ┊     <&'a T as core::fmt::Debug>::fmt::hfbacf6f5c9f53bb2
+                    ┊                ┊   301 ┊ 0.52% ┊     <&'a T as core::fmt::Debug>::fmt::h199e8e1c5752e6f1
+```
+
+#### `twiggy dominators`
+
+The `twiggy dominators` sub-command displays the dominator tree of a binary's
+call graph.
+
+```
+ Retained Bytes │ Retained % │ Dominator Tree
+────────────────┼────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         284691 ┊     47.92% ┊ export "items_parse"
+         284677 ┊     47.91% ┊   ⤷ func[17]
+         284676 ┊     47.91% ┊       ⤷ items_parse
+         128344 ┊     21.60% ┊           ⤷ func[47]
+         128343 ┊     21.60% ┊               ⤷ twiggy_parser::wasm::<impl twiggy_parser::Parse<'a> for parity_wasm::elements::module::Module>::parse_items::h033e4aa1338b4363
+          98403 ┊     16.56% ┊           ⤷ func[232]
+          98402 ┊     16.56% ┊               ⤷ twiggy_ir::demangle::h7fb5cfffc912bc2f
+          34206 ┊      5.76% ┊           ⤷ func[20]
+          34205 ┊      5.76% ┊               ⤷ <parity_wasm::elements::section::Section as parity_wasm::elements::Deserialize>::deserialize::hdd814798147ca8dc
+           2855 ┊      0.48% ┊           ⤷ func[552]
+           2854 ┊      0.48% ┊               ⤷ <alloc::btree::map::BTreeMap<K, V>>::insert::he64f84697ccf122d
+           1868 ┊      0.31% ┊           ⤷ func[53]
+           1867 ┊      0.31% ┊               ⤷ twiggy_ir::ItemsBuilder::finish::h1b98f5cc4c80137d
+```
+
+### 🦀 As a Crate
+
+`twiggy` is divided into a collection of crates that you can use
+programmatically, but no long-term stability is promised. We will follow semver
+as best as we can, but will err on the side of being more conservative with
+breaking version bumps than might be strictly necessary.
+
+Here is a simple example:
+
+```rust
+extern crate twiggy_analyze;
+extern crate twiggy_opt;
+extern crate twiggy_parser;
+
+use std::fs;
+use std::io;
+
+fn main() {
+    let mut file = fs::File::open("path/to/some/binary").unwrap();
+    let mut data = vec![];
+    file.read_to_end(&mut data).unwrap();
+
+    let items = twiggy_parser::parse(&data).unwrap();
+
+    let options = twiggy_opt::Top::default();
+    let top = twiggy_analyze::top(&mut items, &options).unwrap();
+
+    let mut stdout = io::stdout();
+    top.emit_text(&items, &mut stdout).unwrap();
+}
+```
+
+For a more in-depth example, take a look at is the implementation of the
+`twiggy` CLI crate.
+
+### 🕸 On the Web with WebAssembly
+
+First, ensure you have the `wasm32-unknown-unknown` Rust target installed and
+up-to-date:
+
+```
+rustup install nightly
+rustup update nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly
+```
+
+Next, install `wasm-bindgen`:
+
+```
+cargo +nightly install wasm-bindgen-cli
+```
+
+Finally, build `twiggy`'s WebAssembly API with `wasm-bindgen`:
+
+```
+cd twiggy/wasm-api
+cargo +nightly build --release --target wasm32-unknown-unknown
+wasm-bindgen ../target/wasm32-unknown-unknown/release/twiggy_wasm_api.wasm --out-dir .
+```
+
+This should produce two artifacts in the current directory:
+
+1. `twiggy_wasm_api_bg.wasm`: The WebAssembly file containing `twiggy`.
+2. `twiggy_wasm_api.js`: The JavaScript bindings to `twiggy`'s WebAssembly.
+
+You can now use `twiggy` from JavaScript like this:
+
+```js
+import { Items, Monos } from './twiggy_wasm_api';
+
+// Parse a binary's data into a collection of items.
+const items = Items.parse(myData);
+
+// Configure an analysis and its options.
+const opts = Monos.new();
+opts.set_max_generics(10);
+opts.set_max_monos(10);
+
+// Run the analysis on the parsed items.
+const monos = JSON.parse(items.monos(opts));
+```
+
+## 🔎 Supported Binary Formats
+
+`twiggy` currently supports these binary formats:
+
+* ✔️ WebAssembly's `.wasm` format
+
+`twiggy` doesn't support these binary formats (*yet!*):
+
+* ❌ ELF
+* ❌ Mach-O
+* ❌ PE/COFF
+
+Although `twiggy` doesn't currently support these binary formats, it is designed
+with extensibility in mind. The input is translated into a format-agnostic
+internal representation (IR), and adding support for new formats only requires
+parsing them into this IR. The vast majority of `twiggy` will not need
+modification.
+
+**We would love to gain support for new binary formats, and if you're interested
+in doing that implementation work,
+[check out `CONTRIBUTING.md`!](./CONTRIBUTING.md)**
+
+## 🙌 Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for hacking.
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.

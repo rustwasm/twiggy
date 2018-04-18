@@ -2,6 +2,7 @@
 name = "twiggy-ir"
 version = "0.1.0"
 authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
+license = "Apache-2.0/MIT"
 
 [lib]
 path = "./ir.rs"
