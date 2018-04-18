@@ -595,7 +595,8 @@ impl<'a> Parse<'a> for elements::CodeSection {
                 );
 
             let size = serialized_size(body.clone())?;
-            items.add_item(ir::Item::new(id, name, size, ir::Code::new()));
+            let code = ir::Code::new(&name);
+            items.add_item(ir::Item::new(id, name, size, code));
         }
 
         Ok(())
