@@ -187,3 +187,31 @@ test!(
     "./fixtures/mappings.wasm",
     "compute_column_spans"
 );
+
+test!(cpp_monos, "monos", "./fixtures/cpp-monos.wasm");
+
+test!(monos, "monos", "./fixtures/monos.wasm");
+
+test!(
+    monos_maxes,
+    "monos",
+    "./fixtures/monos.wasm",
+    "-m",
+    "2",
+    "-n",
+    "1"
+);
+
+test!(monos_only_generics, "monos", "./fixtures/monos.wasm", "-g");
+
+test!(
+    monos_json,
+    "monos",
+    "./fixtures/monos.wasm",
+    "-m",
+    "2",
+    "-n",
+    "1",
+    "-f",
+    "json"
+);

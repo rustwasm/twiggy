@@ -385,7 +385,6 @@ impl Id {
 pub struct Item {
     id: Id,
     name: String,
-    demangled: Option<String>,
     size: u32,
     kind: ItemKind,
 }
@@ -398,11 +397,9 @@ impl Item {
         K: Into<ItemKind>,
     {
         let name = name.into();
-        let demangled = demangle(&name);
         Item {
             id,
             name,
-            demangled,
             size,
             kind: kind.into(),
         }
@@ -423,24 +420,23 @@ impl Item {
     /// Get this item's name.
     #[inline]
     pub fn name(&self) -> &str {
-        if let Some(ref demangled) = self.demangled {
-            demangled
+        if let ItemKind::Code(ref code) = self.kind {
+            code.demangled().unwrap_or(&self.name)
         } else {
             &self.name
         }
     }
-}
 
-fn demangle(s: &str) -> Option<String> {
-    if let Ok(sym) = rustc_demangle::try_demangle(s) {
-        return Some(sym.to_string());
+    /// The the name of the generic function that this is a monomorphization of
+    /// (if any).
+    #[inline]
+    pub fn monomorphization_of(&self) -> Option<&str> {
+        if let ItemKind::Code(ref code) = self.kind {
+            code.monomorphization_of()
+        } else {
+            None
+        }
     }
-
-    if let Ok(sym) = cpp_demangle::Symbol::new(s) {
-        return Some(sym.to_string());
-    }
-
-    None
 }
 
 impl PartialOrd for Item {
@@ -498,12 +494,94 @@ impl From<Misc> for ItemKind {
 
 /// Executable code. Function bodies.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub struct Code;
+pub struct Code {
+    demangled: Option<String>,
+    monomorphization_of: Option<String>,
+}
 
 impl Code {
     /// Construct a new IR item for executable code.
-    pub fn new() -> Code {
-        Code
+    pub fn new(name: &str) -> Code {
+        let demangled = Self::demangle(&name);
+        let monomorphization_of =
+            Self::extract_generic_function(demangled.as_ref().map(|s| s.as_str()).unwrap_or(name));
+        Code {
+            demangled,
+            monomorphization_of,
+        }
+    }
+
+    /// Get the demangled name of this function, if any.
+    pub fn demangled(&self) -> Option<&str> {
+        self.demangled.as_ref().map(|s| s.as_str())
+    }
+
+    /// Get the name of the generic function that this is a monomorphization of,
+    /// if any.
+    pub fn monomorphization_of(&self) -> Option<&str> {
+        self.monomorphization_of.as_ref().map(|s| s.as_str())
+    }
+
+    fn demangle(s: &str) -> Option<String> {
+        if let Ok(sym) = rustc_demangle::try_demangle(s) {
+            return Some(sym.to_string());
+        }
+
+        if let Ok(sym) = cpp_demangle::Symbol::new(s) {
+            return Some(sym.to_string());
+        }
+
+        None
+    }
+
+    fn extract_generic_function(demangled: &str) -> Option<String> {
+        // XXX: This is some hacky, ad-hoc parsing shit! This should
+        // approximately work for Rust and C++ symbols, but who knows for other
+        // languages. Also, it almost definitely has bugs!
+
+        // First, check for Rust-style symbols by looking for Rust's
+        // "::h1234567890" hash from the end of the symbol. If it's there, the
+        // generic function is just the symbol without that hash, so remove it.
+        //
+        // I know what you're thinking, and it's true: mangled (and therefore
+        // also demangled) Rust symbols don't include the concrete type(s) used
+        // to instantiate the generic function, which gives us much less to work
+        // with than we have with C++ demangled symbols. It would sure be nice
+        // if we could tell the user more about the monomorphization, but
+        // alas... :(
+        if let Some(idx) = demangled.rfind("::h") {
+            let idx2 = demangled.rfind("::").unwrap();
+            assert!(idx2 >= idx);
+            if idx2 == idx {
+                let mut generic = demangled[..idx].to_string();
+                return Some(generic);
+            }
+        }
+
+        // From here on out, we assume we are dealing with C++ symbols.
+        //
+        // Find the '<' and '>' that hug the generic type(s).
+        let open_bracket = match demangled.char_indices().find(|&(_, ch)| ch == '<') {
+            None => return None,
+            Some((idx, _)) => idx,
+        };
+        let close_bracket = match demangled.char_indices().rev().find(|&(_, ch)| ch == '>') {
+            None => return None,
+            Some((idx, _)) => idx,
+        };
+
+        // If the '<' doesn't come before the '>', then we aren't looking at a
+        // generic function instantiation. If there isn't anything proceeding
+        // the '<', then we aren't looking at a generic function instantiation
+        // (most likely looking at a Rust trait method's implementation, like
+        // `<MyType as SomeTrait>::trait_method()`).
+        if close_bracket < open_bracket || open_bracket == 0 {
+            return None;
+        }
+
+        // And now we say that the generic function is the thing proceeding the
+        // '<'. Good enough!
+        Some(demangled[..open_bracket].to_string())
     }
 }
 

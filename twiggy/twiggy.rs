@@ -33,6 +33,7 @@ fn run(opts: opt::Options) -> Result<(), traits::Error> {
         opt::Options::Top(ref top) => analyze::top(&mut items, top)?,
         opt::Options::Dominators(ref doms) => analyze::dominators(&mut items, doms)?,
         opt::Options::Paths(ref paths) => analyze::paths(&mut items, paths)?,
+        opt::Options::Monos(ref monos) => analyze::monos(&mut items, monos)?,
     };
 
     let mut dest = opts.output_destination().open()?;

@@ -46,6 +46,7 @@ impl CommonOptions for Options {
             Options::Top(ref top) => top.input(),
             Options::Dominators(ref doms) => doms.input(),
             Options::Paths(ref paths) => paths.input(),
+            Options::Monos(ref monos) => monos.input(),
         }
     }
 
@@ -54,6 +55,7 @@ impl CommonOptions for Options {
             Options::Top(ref top) => top.output_destination(),
             Options::Dominators(ref doms) => doms.output_destination(),
             Options::Paths(ref paths) => paths.output_destination(),
+            Options::Monos(ref monos) => monos.output_destination(),
         }
     }
 
@@ -62,6 +64,7 @@ impl CommonOptions for Options {
             Options::Top(ref top) => top.output_format(),
             Options::Dominators(ref doms) => doms.output_format(),
             Options::Paths(ref paths) => paths.output_format(),
+            Options::Monos(ref monos) => monos.output_format(),
         }
     }
 }
@@ -95,6 +98,20 @@ impl CommonOptions for Dominators {
 }
 
 impl CommonOptions for Paths {
+    fn input(&self) -> &path::Path {
+        &self.input
+    }
+
+    fn output_destination(&self) -> &OutputDestination {
+        &self.output_destination
+    }
+
+    fn output_format(&self) -> traits::OutputFormat {
+        self.output_format
+    }
+}
+
+impl CommonOptions for Monos {
     fn input(&self) -> &path::Path {
         &self.input
     }

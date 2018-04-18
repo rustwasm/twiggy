@@ -595,7 +595,8 @@ impl<'a> Parse<'a> for elements::CodeSection {
                 );
 
             let size = serialized_size(body.clone())?;
-            items.add_item(ir::Item::new(id, name, size, ir::Code::new()));
+            let code = ir::Code::new(&name);
+            items.add_item(ir::Item::new(id, name, size, code));
         }
 
         Ok(())
@@ -619,6 +620,9 @@ impl<'a> Parse<'a> for elements::CodeSection {
             }
         }
 
+        let function_import_count = module.import_count(elements::ImportCountType::Function);
+        let global_import_count = module.import_count(elements::ImportCountType::Global);
+
         for (b_i, body) in self.bodies().iter().enumerate() {
             use parity_wasm::elements::Opcode::*;
 
@@ -628,8 +632,16 @@ impl<'a> Parse<'a> for elements::CodeSection {
             for i in 0..code.len() {
                 match code[i] {
                     Call(idx) => {
-                        if let Some(func_idx) = func_section {
-                            let f_id = Id::entry(func_idx as usize, idx as usize);
+                        let idx = idx as usize;
+                        if let Some(func_section) = func_section {
+                            let func_section = func_section as usize;
+
+                            if idx < function_import_count {
+                                // Calling an imported function.
+                                continue;
+                            }
+
+                            let f_id = Id::entry(func_section, idx - function_import_count);
                             items.add_edge(body_id, f_id);
                         }
                     }
@@ -637,11 +649,19 @@ impl<'a> Parse<'a> for elements::CodeSection {
                     // TODO: Rather than looking at indirect calls, need to look
                     // at where the vtables get initialized and/or vtable
                     // indices get pushed onto the stack.
-                    //
-                    // elements::Opcode::CallIndirect(idx, _reserved) => {}
+                    CallIndirect(_idx, _reserved) => continue,
+
                     GetGlobal(idx) | SetGlobal(idx) => {
-                        if let Some(global_idx) = global_section {
-                            let g_id = Id::entry(global_idx, idx as usize);
+                        let idx = idx as usize;
+                        if let Some(global_section) = global_section {
+                            let global_section = global_section as usize;
+
+                            if idx < global_import_count {
+                                // Referencing an imported global.
+                                continue;
+                            }
+
+                            let g_id = Id::entry(global_section, idx - global_import_count);
                             items.add_edge(body_id, g_id);
                         }
                     }

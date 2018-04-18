@@ -526,3 +526,168 @@ pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emi
 
     Ok(Box::new(paths) as Box<traits::Emit>)
 }
+
+#[derive(Debug)]
+struct Monos {
+    monos: Vec<MonosEntry>,
+}
+
+#[derive(Debug, PartialEq, Eq)]
+struct MonosEntry {
+    generic: String,
+    insts: Vec<ir::Id>,
+    total: u32,
+    approx_potential_savings: u32,
+}
+
+impl PartialOrd for MonosEntry {
+    fn partial_cmp(&self, rhs: &MonosEntry) -> Option<cmp::Ordering> {
+        Some(self.cmp(rhs))
+    }
+}
+
+impl Ord for MonosEntry {
+    fn cmp(&self, rhs: &MonosEntry) -> cmp::Ordering {
+        rhs.approx_potential_savings
+            .cmp(&self.approx_potential_savings)
+            .then(self.insts.cmp(&rhs.insts))
+            .then(self.generic.cmp(&rhs.generic))
+    }
+}
+
+impl traits::Emit for Monos {
+    fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+        let mut table = Table::with_header(vec![
+            (Align::Right, "Apprx. Bloat Bytes".into()),
+            (Align::Right, "Apprx. Bloat %".into()),
+            (Align::Right, "Bytes".into()),
+            (Align::Right, "%".into()),
+            (Align::Left, "Monomorphizations".to_string()),
+        ]);
+
+        for entry in &self.monos {
+            let total_percent = (f64::from(entry.total)) / (f64::from(items.size())) * 100.0;
+            let approx_potential_savings_percent =
+                (f64::from(entry.approx_potential_savings)) / (f64::from(items.size())) * 100.0;
+            table.add_row(vec![
+                entry.approx_potential_savings.to_string(),
+                format!("{:.2}%", approx_potential_savings_percent),
+                entry.total.to_string(),
+                format!("{:.2}%", total_percent),
+                entry.generic.clone(),
+            ]);
+
+            for &id in &entry.insts {
+                let item = &items[id];
+
+                let size = item.size();
+                let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
+
+                table.add_row(vec![
+                    "".into(),
+                    "".into(),
+                    size.to_string(),
+                    format!("{:.2}%", size_percent),
+                    format!("    {}", item.name()),
+                ]);
+            }
+        }
+
+        write!(dest, "{}", &table)?;
+        Ok(())
+    }
+
+    fn emit_json(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+        let mut arr = json::array(dest)?;
+
+        for entry in &self.monos {
+            let mut obj = arr.object()?;
+            obj.field("generic", &entry.generic[..])?;
+
+            obj.field(
+                "approximate_monomorphization_bloat_bytes",
+                entry.approx_potential_savings,
+            )?;
+            let approx_potential_savings_percent =
+                (f64::from(entry.approx_potential_savings)) / (f64::from(items.size())) * 100.0;
+            obj.field(
+                "approximate_monomorphization_bloat_percent",
+                approx_potential_savings_percent,
+            )?;
+
+            obj.field("total_size", entry.total)?;
+            let total_percent = (f64::from(entry.total)) / (f64::from(items.size())) * 100.0;
+            obj.field("total_size_percent", total_percent)?;
+
+            let mut monos = obj.array("monomorphizations")?;
+            for &id in &entry.insts {
+                let item = &items[id];
+
+                let mut obj = monos.object()?;
+                obj.field("name", item.name())?;
+
+                let size = item.size();
+                obj.field("shallow_size", size)?;
+
+                let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
+                obj.field("shallow_size_percent", size_percent)?;
+            }
+        }
+
+        Ok(())
+    }
+}
+
+/// Find all retaining paths for the given items.
+pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emit>, traits::Error> {
+    let mut monos = BTreeMap::new();
+    for item in items.iter() {
+        if let Some(generic) = item.monomorphization_of() {
+            monos
+                .entry(generic)
+                .or_insert(BTreeSet::new())
+                .insert(item.id());
+        }
+    }
+
+    let mut monos: Vec<_> = monos
+        .into_iter()
+        .filter_map(|(generic, insts)| {
+            if insts.len() <= 1 {
+                return None;
+            }
+
+            let max = insts.iter().map(|id| items[*id].size()).max().unwrap();
+            let total = insts.iter().map(|id| items[*id].size()).sum();
+            let size_per_inst = total / (insts.len() as u32);
+            let approx_potential_savings =
+                cmp::min(size_per_inst * (insts.len() as u32 - 1), total - max);
+
+            let generic = generic.to_string();
+
+            let mut insts: Vec<_> = insts.into_iter().collect();
+            insts.sort_by(|a, b| {
+                let a = &items[*a];
+                let b = &items[*b];
+                b.size().cmp(&a.size())
+            });
+            insts.truncate(if opts.only_generics {
+                0
+            } else {
+                opts.max_monos as usize
+            });
+
+            Some(MonosEntry {
+                generic,
+                insts,
+                total,
+                approx_potential_savings,
+            })
+        })
+        .collect();
+
+    monos.sort();
+    monos.truncate(opts.max_generics as usize);
+
+    Ok(Box::new(Monos { monos }) as Box<traits::Emit>)
+}
