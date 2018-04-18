@@ -3,6 +3,7 @@ description = "A code size profiler"
 name = "twiggy"
 version = "0.1.0"
 authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
+license = "Apache-2.0/MIT"
 
 [[bin]]
 name = "twiggy"
