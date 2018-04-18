@@ -426,6 +426,17 @@ impl Item {
             &self.name
         }
     }
+
+    /// The the name of the generic function that this is a monomorphization of
+    /// (if any).
+    #[inline]
+    pub fn monomorphization_of(&self) -> Option<&str> {
+        if let ItemKind::Code(ref code) = self.kind {
+            code.monomorphization_of()
+        } else {
+            None
+        }
+    }
 }
 
 impl PartialOrd for Item {
@@ -562,7 +573,7 @@ impl Code {
         // If the '<' doesn't come before the '>', then we aren't looking at a
         // generic function instantiation. If there isn't anything proceeding
         // the '<', then we aren't looking at a generic function instantiation
-        // (most likely looking at a trait method's implementation, like
+        // (most likely looking at a Rust trait method's implementation, like
         // `<MyType as SomeTrait>::trait_method()`).
         if close_bracket < open_bracket || open_bracket == 0 {
             return None;

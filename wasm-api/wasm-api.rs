@@ -43,4 +43,11 @@ impl Items {
         paths.emit_json(&self.items, &mut buf).unwrap();
         String::from_utf8(buf).unwrap()
     }
+
+    pub fn monos(&mut self, options: &opt::Monos) -> String {
+        let monos = analyze::monos(&mut self.items, options).unwrap();
+        let mut buf = Vec::new();
+        monos.emit_json(&self.items, &mut buf).unwrap();
+        String::from_utf8(buf).unwrap()
+    }
 }

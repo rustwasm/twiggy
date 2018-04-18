@@ -25,6 +25,11 @@ pub enum Options {
     /// graph.
     #[structopt(name = "paths")]
     Paths(Paths),
+
+    /// List the generic function monomorphizations that are contributing to
+    /// code bloat.
+    #[structopt(name = "monos")]
+    Monos(Monos),
 }
 
 /// List the top code size offenders in a binary.
@@ -235,5 +240,78 @@ impl Paths {
     /// Set the maximum number of paths, regardless of depth in the tree, to display.
     pub fn set_max_paths(&mut self, max_paths: u32) {
         self.max_paths = max_paths;
+    }
+}
+
+/// List the generic function monomorphizations that are contributing to
+/// code bloat.
+#[derive(Clone, Debug, Default)]
+#[derive(StructOpt)]
+#[wasm_bindgen]
+pub struct Monos {
+    /// The path to the input binary to size profile.
+    #[structopt(parse(from_os_str))]
+    pub input: path::PathBuf,
+
+    /// The destination to write the output to. Defaults to `stdout`.
+    #[structopt(short = "o", default_value = "-")]
+    pub output_destination: OutputDestination,
+
+    /// The format the output should be written in.
+    #[structopt(short = "f", long = "format", default_value = "text")]
+    pub output_format: traits::OutputFormat,
+
+    /// Hide individual monomorphizations and only show the generic functions.
+    #[structopt(short = "g", long = "only-generics")]
+    pub only_generics: bool,
+
+    /// The maximum number of generics to list.
+    #[structopt(short = "m", long = "max-generics", default_value = "10")]
+    pub max_generics: u32,
+
+    /// The maximum number of individual monomorphizations to list for each
+    /// generic function.
+    #[structopt(short = "n", long = "max-monos", default_value = "10")]
+    pub max_monos: u32,
+}
+
+#[wasm_bindgen]
+impl Monos {
+    /// Construct a new, default `Monos`.
+    pub fn new() -> Monos {
+        Monos::default()
+    }
+
+    /// Hide individual monomorphizations and only show the generic functions.
+    pub fn only_generics(&self) -> bool {
+        self.only_generics
+    }
+
+    /// The maximum number of generics to list.
+    pub fn max_generics(&self) -> u32 {
+        self.max_generics
+    }
+
+    /// The maximum number of individual monomorphizations to list for each
+    /// generic function.
+    pub fn max_monos(&self) -> u32 {
+        self.max_monos
+    }
+
+    /// Set whether to hide individual monomorphizations and only show the
+    /// generic functions.
+    pub fn set_only_generics(&mut self, do_it: bool) {
+        self.only_generics = do_it;
+    }
+
+    /// Set the maximum number of generics to list.
+    pub fn set_max_generics(&mut self, max: u32) {
+        self.max_generics = max;
+    }
+
+    /// Set the maximum number of individual monomorphizations to list for each
+    /// generic function.
+    pub fn set_max_monos(&mut self, max: u32) {
+        self.max_monos = max;
     }
 }

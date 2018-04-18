@@ -1,0 +1,12 @@
+ Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %     │ Monomorphizations
+────────────────────┼────────────────┼───────┼───────┼─────────────────────────────────────────────────────────────────────────────
+               1977 ┊          3.40% ┊  3003 ┊ 5.16% ┊ alloc::slice::merge_sort
+               1302 ┊          2.24% ┊  3996 ┊ 6.87% ┊ <&'a T as core::fmt::Debug>::fmt
+                973 ┊          1.67% ┊  1118 ┊ 1.92% ┊ core::result::unwrap_failed
+                558 ┊          0.96% ┊   714 ┊ 1.23% ┊ <alloc::raw_vec::RawVec<T, A>>::double
+                512 ┊          0.88% ┊   798 ┊ 1.37% ┊ std::thread::local::os::destroy_value
+                234 ┊          0.40% ┊   354 ┊ 0.61% ┊ alloc::slice::insert_head
+                196 ┊          0.34% ┊   294 ┊ 0.51% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt
+                195 ┊          0.34% ┊   270 ┊ 0.46% ┊ <alloc::vec::Vec<T>>::push
+                119 ┊          0.20% ┊   180 ┊ 0.31% ┊ <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut
+                 95 ┊          0.16% ┊   190 ┊ 0.33% ┊ core::fmt::Write::write_fmt
