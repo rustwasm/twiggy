@@ -433,27 +433,36 @@ impl<'a> Parse<'a> for elements::ExportSection {
             }
         }
 
+        let function_import_count = module.import_count(elements::ImportCountType::Function);
+        let table_import_count = module.import_count(elements::ImportCountType::Table);
+        let memory_import_count = module.import_count(elements::ImportCountType::Memory);
+        let global_import_count = module.import_count(elements::ImportCountType::Global);
+
         for (i, exp) in self.entries().iter().enumerate() {
             let exp_id = Id::entry(idx, i);
             match *exp.internal() {
-                elements::Internal::Function(f_i) => {
-                    if let Some(func_idx) = func_section {
-                        items.add_edge(exp_id, Id::entry(func_idx, f_i as usize));
+                elements::Internal::Function(exported_func_idx) => {
+                    if let Some(func_section) = func_section {
+                        let func_idx = exported_func_idx as usize - function_import_count;
+                        items.add_edge(exp_id, Id::entry(func_section, func_idx));
                     }
                 }
-                elements::Internal::Table(f_i) => {
-                    if let Some(table_idx) = table_section {
-                        items.add_edge(exp_id, Id::entry(table_idx, f_i as usize));
+                elements::Internal::Table(exported_table_idx) => {
+                    if let Some(table_section) = table_section {
+                        let table_idx = exported_table_idx as usize - table_import_count;
+                        items.add_edge(exp_id, Id::entry(table_section, table_idx));
                     }
                 }
-                elements::Internal::Memory(f_i) => {
-                    if let Some(memory_idx) = memory_section {
-                        items.add_edge(exp_id, Id::entry(memory_idx, f_i as usize));
+                elements::Internal::Memory(exported_memory_idx) => {
+                    if let Some(memory_section) = memory_section {
+                        let memory_idx = exported_memory_idx as usize - memory_import_count;
+                        items.add_edge(exp_id, Id::entry(memory_section, memory_idx));
                     }
                 }
-                elements::Internal::Global(f_i) => {
-                    if let Some(global_idx) = global_section {
-                        items.add_edge(exp_id, Id::entry(global_idx, f_i as usize));
+                elements::Internal::Global(exported_global_idx) => {
+                    if let Some(global_section) = global_section {
+                        let global_idx = exported_global_idx as usize - global_import_count;
+                        items.add_edge(exp_id, Id::entry(global_section, global_idx));
                     }
                 }
             }

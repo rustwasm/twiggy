@@ -180,3 +180,10 @@ test!(
     "-f",
     "json"
 );
+
+test!(
+    issue_16,
+    "paths",
+    "./fixtures/mappings.wasm",
+    "compute_column_spans"
+);

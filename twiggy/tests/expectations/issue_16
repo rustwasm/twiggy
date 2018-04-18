@@ -1,0 +1,5 @@
+ Shallow Bytes │ Shallow % │ Retaining Paths
+───────────────┼───────────┼────────────────────────────────────────
+           299 ┊     0.66% ┊ compute_column_spans
+               ┊           ┊   ⬑ func[5]
+               ┊           ┊       ⬑ export "compute_column_spans"
