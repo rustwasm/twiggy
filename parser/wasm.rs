@@ -436,31 +436,31 @@ impl<'a> Parse<'a> for elements::ExportSection {
         for (i, exp) in self.entries().iter().enumerate() {
             let exp_id = Id::entry(idx, i);
             match *exp.internal() {
-                elements::Internal::Function(f_i) => {
-                    if let Some(func_idx) = func_section {
+                elements::Internal::Function(func_idx) => {
+                    if let Some(func_section) = func_section {
                         items.add_edge(
                             exp_id,
                             Id::entry(
-                                func_idx,
-                                f_i as usize
+                                func_section,
+                                func_idx as usize
                                     - module.import_count(elements::ImportCountType::Function),
                             ),
                         );
                     }
                 }
-                elements::Internal::Table(f_i) => {
-                    if let Some(table_idx) = table_section {
-                        items.add_edge(exp_id, Id::entry(table_idx, f_i as usize));
+                elements::Internal::Table(table_idx) => {
+                    if let Some(table_section) = table_section {
+                        items.add_edge(exp_id, Id::entry(table_section, table_idx as usize));
                     }
                 }
-                elements::Internal::Memory(f_i) => {
-                    if let Some(memory_idx) = memory_section {
-                        items.add_edge(exp_id, Id::entry(memory_idx, f_i as usize));
+                elements::Internal::Memory(memory_idx) => {
+                    if let Some(memory_section) = memory_section {
+                        items.add_edge(exp_id, Id::entry(memory_section, memory_idx as usize));
                     }
                 }
-                elements::Internal::Global(f_i) => {
-                    if let Some(global_idx) = global_section {
-                        items.add_edge(exp_id, Id::entry(global_idx, f_i as usize));
+                elements::Internal::Global(global_idx) => {
+                    if let Some(global_section) = global_section {
+                        items.add_edge(exp_id, Id::entry(global_section, global_idx as usize));
                     }
                 }
             }
