@@ -245,7 +245,7 @@ impl Paths {
 
 /// List the generic function monomorphizations that are contributing to
 /// code bloat.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 #[derive(StructOpt)]
 #[wasm_bindgen]
 pub struct Monos {
@@ -273,6 +273,19 @@ pub struct Monos {
     /// generic function.
     #[structopt(short = "n", long = "max-monos", default_value = "10")]
     pub max_monos: u32,
+}
+
+impl Default for Monos {
+    fn default() -> Monos {
+        Monos {
+            input: Default::default(),
+            output_destination: Default::default(),
+            output_format: Default::default(),
+            only_generics: false,
+            max_generics: 10,
+            max_monos: 10,
+        }
+    }
 }
 
 #[wasm_bindgen]
