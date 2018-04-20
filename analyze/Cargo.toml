@@ -15,4 +15,6 @@ path = "./analyze.rs"
 twiggy-ir = { version = "0.1.0", path = "../ir" }
 twiggy-opt = { version = "0.1.0", path = "../opt", default-features = false }
 twiggy-traits = { version = "0.1.0", path = "../traits" }
-petgraph = "0.4.12"
+csv = "1.0.0-beta.5"
+serde = "1.0.40"
+serde_derive = "1.0.40"

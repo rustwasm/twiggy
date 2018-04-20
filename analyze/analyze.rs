@@ -3,7 +3,9 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-extern crate petgraph;
+extern crate csv;
+#[macro_use]
+extern crate serde_derive;
 extern crate twiggy_ir as ir;
 extern crate twiggy_opt as opt;
 extern crate twiggy_traits as traits;
@@ -176,6 +178,46 @@ impl traits::Emit for Top {
             }
         }
 
+        Ok(())
+    }
+
+    fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+        let mut wtr = csv::Writer::from_writer(dest);
+
+        #[derive(Debug, Serialize)]
+        struct Record {
+            name: String,
+            shallow_size: u32,
+            shallow_size_percent: f64,
+            retained_size: Option<u32>,
+            retained_size_percent: Option<f64>,
+        }
+
+        for &id in &self.items {
+            let item = &items[id];
+
+            let (shallow_size, shallow_size_percent) = {
+                let size = item.size();
+                let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+                (size, size_percent)
+            };
+            let (retained_size, retained_size_percent) = if self.opts.retained {
+                let size = items.retained_size(id);
+                let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+                (Some(size), Some(size_percent))
+            } else {
+                (None, None)
+            };
+
+            wtr.serialize(Record {
+                name: item.name().to_string(),
+                shallow_size: shallow_size,
+                shallow_size_percent: shallow_size_percent,
+                retained_size: retained_size,
+                retained_size_percent: retained_size_percent,
+            })?;
+            wtr.flush()?;
+        }
         Ok(())
     }
 }
@@ -353,6 +395,10 @@ impl traits::Emit for DominatorTree {
         let mut obj = json::object(dest)?;
         recursive_add_children(items, &self.opts, &self.tree, self.root_id, &mut obj)
     }
+
+    fn emit_csv(&self, _items: &ir::Items, _dest: &mut io::Write) -> Result<(), traits::Error> {
+        unimplemented!();
+    }
 }
 
 /// Compute the dominator tree for the given IR graph.
@@ -527,6 +573,10 @@ impl traits::Emit for Paths {
 
         Ok(())
     }
+
+    fn emit_csv(&self, _items: &ir::Items, _dest: &mut io::Write) -> Result<(), traits::Error> {
+        unimplemented!();
+    }
 }
 
 /// Find all retaining paths for the given items.
@@ -676,6 +726,10 @@ impl traits::Emit for Monos {
         }
 
         Ok(())
+    }
+
+    fn emit_csv(&self, _items: &ir::Items, _dest: &mut io::Write) -> Result<(), traits::Error> {
+        unimplemented!();
     }
 }
 

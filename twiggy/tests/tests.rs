@@ -242,6 +242,40 @@ test!(
 );
 
 test!(
+    top_2_csv,
+    "top",
+    "./fixtures/wee_alloc.wasm",
+    "-n",
+    "4",
+    "-f",
+    "csv"
+);
+
+test!(
+    top_2_csv_retained,
+    "top",
+    "./fixtures/wee_alloc.wasm",
+    "--retained",
+    "-n",
+    "4",
+    "-f",
+    "csv"
+);
+
+test!(
+    paths_json,
+    "paths",
+    "./fixtures/wee_alloc.wasm",
+    "wee_alloc::alloc_first_fit::h9a72de3af77ef93f",
+    "hello",
+    "goodbye",
+    "-d",
+    "3",
+    "-f",
+    "json"
+);
+
+test!(
     issue_16,
     "paths",
     "./fixtures/mappings.wasm",
