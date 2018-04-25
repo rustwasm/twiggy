@@ -3,13 +3,14 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-extern crate csv;
+extern crate csv as csv_sys;
 #[macro_use]
 extern crate serde_derive;
 extern crate twiggy_ir as ir;
 extern crate twiggy_opt as opt;
 extern crate twiggy_traits as traits;
 
+mod csv;
 mod json;
 
 use std::cmp;
@@ -182,16 +183,7 @@ impl traits::Emit for Top {
     }
 
     fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
-        let mut wtr = csv::Writer::from_writer(dest);
-
-        #[derive(Debug, Serialize)]
-        struct Record {
-            name: String,
-            shallow_size: u32,
-            shallow_size_percent: f64,
-            retained_size: Option<u32>,
-            retained_size_percent: Option<f64>,
-        }
+        let mut wtr = csv_sys::Writer::from_writer(dest);
 
         for &id in &self.items {
             let item = &items[id];
@@ -209,12 +201,13 @@ impl traits::Emit for Top {
                 (None, None)
             };
 
-            wtr.serialize(Record {
+            wtr.serialize(csv::CsvRecord {
                 name: item.name().to_string(),
                 shallow_size: shallow_size,
                 shallow_size_percent: shallow_size_percent,
                 retained_size: retained_size,
                 retained_size_percent: retained_size_percent,
+                ..Default::default()
             })?;
             wtr.flush()?;
         }

@@ -418,7 +418,9 @@ dependencies = [
  "cpp_demangle 0.2.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "frozen 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "petgraph 0.4.12 (registry+https://github.com/rust-lang/crates.io-index)",
- "rustc-demangle 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rustc-demangle 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde 1.0.41 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_derive 1.0.40 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]

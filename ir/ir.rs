@@ -7,6 +7,7 @@ extern crate cpp_demangle;
 extern crate frozen;
 extern crate petgraph;
 extern crate rustc_demangle;
+#[macro_use] extern crate serde_derive;
 
 mod graph_impl;
 
@@ -368,7 +369,7 @@ impl<'a> Iterator for Iter<'a> {
 }
 
 /// An item's unique identifier.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize)]
 pub struct Id(u32, u32);
 
 impl Id {
