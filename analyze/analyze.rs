@@ -764,8 +764,50 @@ impl traits::Emit for Monos {
         Ok(())
     }
 
-    fn emit_csv(&self, _items: &ir::Items, _dest: &mut io::Write) -> Result<(), traits::Error> {
-        unimplemented!();
+    fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+        #[derive(Debug, Default, Serialize)]
+        struct Record {
+            generic: Option<String>,
+            approximate_monomorphization_bloat_bytes: Option<u32>,
+            approximate_monomorphization_bloat_percent: Option<f64>,
+            total_size: Option<u32>,
+            total_size_percent: Option<f64>,
+            monomorphizations: csv::CsvRecord,
+        }
+
+        let mut wtr = csv_sys::Writer::from_writer(dest);
+
+        for entry in &self.monos {
+            let approx_potential_savings_percent =
+                (f64::from(entry.approx_potential_savings)) / (f64::from(items.size())) * 100.0;
+
+            let total_percent = (f64::from(entry.total)) / (f64::from(items.size())) * 100.0;
+            let mut rc = Record {
+                generic: Some(entry.generic[..].to_string()),
+                approximate_monomorphization_bloat_bytes: Some(entry.approx_potential_savings),
+                approximate_monomorphization_bloat_percent: Some(approx_potential_savings_percent),
+                total_size: Some(entry.total),
+                total_size_percent: Some(total_percent),
+                ..Default::default()
+            };
+
+            for &id in &entry.insts {
+                let item = &items[id];
+                let size = item.size();
+                let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
+                rc.monomorphizations = csv::CsvRecord {
+                    name: item.name().to_string(),
+                    shallow_size: size,
+                    shallow_size_percent: size_percent,
+                    ..Default::default()
+                }
+            }
+
+            wtr.serialize(rc)?;
+            wtr.flush()?;
+        }
+
+        Ok(())
     }
 }
 
