@@ -389,8 +389,51 @@ impl traits::Emit for DominatorTree {
         recursive_add_children(items, &self.opts, &self.tree, self.root_id, &mut obj)
     }
 
-    fn emit_csv(&self, _items: &ir::Items, _dest: &mut io::Write) -> Result<(), traits::Error> {
-        unimplemented!();
+    fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+        let mut wtr = csv_sys::Writer::from_writer(dest);
+        fn recursive_add_children<'a>(
+            items: &ir::Items,
+            opts: &opt::Dominators,
+            dominator_tree: &BTreeMap<ir::Id, Vec<ir::Id>>,
+            id: ir::Id,
+            wtr: &mut csv_sys::Writer<&mut io::Write>
+        ) -> Result<(), traits::Error> {
+            let item = &items[id];
+            let (size, size_percent) = (
+                item.size(),
+                (item.size() as f64) / (items.size() as f64) * 100.0,
+            );
+            let (retained_size, retained_size_percent) = (
+                items.retained_size(id),
+                (items.retained_size(id) as f64) / (items.size() as f64) * 100.0,
+            );
+
+            let rc = csv::CsvRecord {
+                id: Some(item.id().0),
+                name: item.name().to_string(),
+                shallow_size: size,
+                shallow_size_percent: size_percent,
+                retained_size: Some(retained_size),
+                retained_size_percent: Some(retained_size_percent),
+                // TODO CSMOE: find immediate dominator
+                immediate_dominator: Some(id.0),
+                ..Default::default()
+            };
+
+            wtr.serialize(rc)?;
+            wtr.flush()?;
+            if let Some(children) = dominator_tree.get(&id) {
+                let mut children: Vec<_> = children.iter().cloned().collect();
+                children.sort_by(|a, b| items.retained_size(*b).cmp(&items.retained_size(*a)));
+                for child in children {
+                    recursive_add_children(items, opts, dominator_tree, child, wtr)?;
+                }
+            }
+            Ok(())
+        }
+
+        recursive_add_children(items, &self.opts, &self.tree, items.meta_root(), &mut wtr)?;
+        Ok(())
     }
 }
 

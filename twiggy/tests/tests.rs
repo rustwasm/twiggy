@@ -115,6 +115,14 @@ test!(
 );
 
 test!(
+    dominators_wee_alloc_csv,
+    "dominators",
+    "./fixtures/wee_alloc.wasm",
+    "-f",
+    "csv"
+);
+
+test!(
     dominators_wee_alloc_with_depth_and_row,
     "dominators",
     "./fixtures/wee_alloc.wasm",
