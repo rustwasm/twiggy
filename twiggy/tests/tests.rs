@@ -194,6 +194,17 @@ test!(
 );
 
 test!(
+    paths_wee_alloc_csv,
+    "paths",
+    "./fixtures/wee_alloc.wasm",
+    "wee_alloc::alloc_first_fit::h9a72de3af77ef93f",
+    "hello",
+    "goodbye",
+    "-f",
+    "csv"
+);
+
+test!(
     paths_wee_alloc_with_depth_and_paths,
     "paths",
     "./fixtures/wee_alloc.wasm",
@@ -307,7 +318,7 @@ test!(
 test!(monos_only_generics, "monos", "./fixtures/monos.wasm", "-g");
 
 test!(
-    monos_json,
+    monos_csv,
     "monos",
     "./fixtures/monos.wasm",
     "-m",
@@ -352,4 +363,16 @@ test!(
     "./fixtures/garbage.wasm",
     "-f",
     "json"
+);
+
+test!(
+    monos_json,
+    "monos",
+    "./fixtures/monos.wasm",
+    "-m",
+    "2",
+    "-n",
+    "1",
+    "-f",
+    "csv"
 );

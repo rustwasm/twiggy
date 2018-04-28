@@ -396,7 +396,7 @@ impl traits::Emit for DominatorTree {
             opts: &opt::Dominators,
             dominator_tree: &BTreeMap<ir::Id, Vec<ir::Id>>,
             id: ir::Id,
-            wtr: &mut csv_sys::Writer<&mut io::Write>
+            wtr: &mut csv_sys::Writer<&mut io::Write>,
         ) -> Result<(), traits::Error> {
             let item = &items[id];
             let (size, size_percent) = (
@@ -610,8 +610,64 @@ impl traits::Emit for Paths {
         Ok(())
     }
 
-    fn emit_csv(&self, _items: &ir::Items, _dest: &mut io::Write) -> Result<(), traits::Error> {
-        unimplemented!();
+    fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+        let mut wtr = csv_sys::Writer::from_writer(dest);
+        fn recursive_callers(
+            items: &ir::Items,
+            seen: &mut BTreeSet<ir::Id>,
+            depth: u32,
+            mut paths: &mut u32,
+            opts: &opt::Paths,
+            id: ir::Id,
+            wtr: &mut csv_sys::Writer<&mut io::Write>,
+        ) -> io::Result<()> {
+            let item = &items[id];
+            let size = item.size();
+            let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+            let mut path = String::with_capacity(item.name().len());
+            path.push_str(item.name());
+
+            let record = csv::CsvRecord {
+                name: item.name().to_owned(),
+                shallow_size: size,
+                shallow_size_percent: size_percent,
+                path: Some(path),
+                ..Default::default()
+            };
+
+            wtr.serialize(record)?;
+            wtr.flush()?;
+
+            let depth = depth + 1;
+            if depth <= opts.max_depth {
+                seen.insert(id);
+                for (i, caller) in items.predecessors(id).enumerate() {
+                    if seen.contains(&caller) || items.meta_root() == caller {
+                        continue;
+                    }
+
+                    if i > 0 {
+                        *paths += 1;
+                    }
+                    if opts.max_paths == *paths {
+                        break;
+                    }
+
+                    recursive_callers(items, seen, depth, &mut paths, &opts, caller, wtr)?;
+                }
+                seen.remove(&id);
+            }
+
+            Ok(())
+        }
+
+        for id in &self.items {
+            let mut paths = 0 as u32;
+            let mut seen = BTreeSet::new();
+            recursive_callers(items, &mut seen, 0, &mut paths, &self.opts, *id, &mut wtr)?;
+        }
+
+        Ok(())
     }
 }
 
