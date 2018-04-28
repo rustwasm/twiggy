@@ -1,5 +1,5 @@
-id,name,shallow_size,shallow_size_percent
-0,data[3],1034,36.7057152999645
-0,"""function names"" subsection",774,27.47603833865815
-0,wee_alloc::alloc_first_fit::h9a72de3af77ef93f,225,7.987220447284344
-0,hello,164,5.8217962371317
+name,shallow_size,shallow_size_percent
+data[3],1034,36.7057152999645
+"""function names"" subsection",774,27.47603833865815
+wee_alloc::alloc_first_fit::h9a72de3af77ef93f,225,7.987220447284344
+hello,164,5.8217962371317
