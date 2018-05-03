@@ -38,28 +38,31 @@ pub enum Options {
 #[wasm_bindgen]
 pub struct Top {
     /// The path to the input binary to size profile.
+    #[cfg(feature = "cli")]
     #[structopt(parse(from_os_str))]
-    pub input: path::PathBuf,
+    input: path::PathBuf,
 
     /// The destination to write the output to. Defaults to `stdout`.
+    #[cfg(feature = "cli")]
     #[structopt(short = "o", default_value = "-")]
-    pub output_destination: OutputDestination,
+    output_destination: OutputDestination,
 
     /// The format the output should be written in.
+    #[cfg(feature = "cli")]
     #[structopt(short = "f", long = "format", default_value = "text")]
-    pub output_format: traits::OutputFormat,
+    output_format: traits::OutputFormat,
 
     /// The maximum number of items to display.
     #[structopt(short = "n")]
-    pub number: Option<u32>,
+    number: Option<u32>,
 
     /// Display retaining paths.
     #[structopt(short = "r", long = "retaining-paths")]
-    pub retaining_paths: bool,
+    retaining_paths: bool,
 
     /// Sort list by retained size, rather than shallow size.
     #[structopt(long = "retained")]
-    pub retained: bool,
+    retained: bool,
 }
 
 #[wasm_bindgen]
@@ -106,24 +109,27 @@ impl Top {
 #[wasm_bindgen]
 pub struct Dominators {
     /// The path to the input binary to size profile.
-    #[structopt(parse(from_os_str))]
-    pub input: path::PathBuf,
+    #[cfg(feature = "cli")]
+   #[structopt(parse(from_os_str))]
+    input: path::PathBuf,
 
     /// The destination to write the output to. Defaults to `stdout`.
+    #[cfg(feature = "cli")]
     #[structopt(short = "o", default_value = "-")]
-    pub output_destination: OutputDestination,
+    output_destination: OutputDestination,
 
     /// The format the output should be written in.
+    #[cfg(feature = "cli")]
     #[structopt(short = "f", long = "format", default_value = "text")]
-    pub output_format: traits::OutputFormat,
+    output_format: traits::OutputFormat,
 
     /// The maximum depth to print the dominators tree.
     #[structopt(short = "d")]
-    pub max_depth: Option<u32>,
+    max_depth: Option<u32>,
 
     /// The maximum number of rows, regardless of depth in the tree, to display.
     #[structopt(short = "r")]
-    pub max_rows: Option<u32>,
+    max_rows: Option<u32>,
 }
 
 #[wasm_bindgen]
@@ -161,39 +167,56 @@ impl Dominators {
 #[wasm_bindgen]
 pub struct Paths {
     /// The path to the input binary to size profile.
+    #[cfg(feature = "cli")]
     #[structopt(parse(from_os_str))]
-    pub input: path::PathBuf,
-
-    /// The functions to find call paths to.
-    pub functions: Vec<String>,
+    input: path::PathBuf,
 
     /// The destination to write the output to. Defaults to `stdout`.
+    #[cfg(feature = "cli")]
     #[structopt(short = "o", default_value = "-")]
-    pub output_destination: OutputDestination,
+    output_destination: OutputDestination,
 
     /// The format the output should be written in.
+    #[cfg(feature = "cli")]
     #[structopt(short = "f", long = "format", default_value = "text")]
-    pub output_format: traits::OutputFormat,
+    output_format: traits::OutputFormat,
+
+    /// The functions to find call paths to.
+    functions: Vec<String>,
 
     /// The maximum depth to print the paths.
     #[structopt(short = "d", default_value = "10")]
-    pub max_depth: u32,
+    max_depth: u32,
 
     /// The maximum number of paths, regardless of depth in the tree, to display.
     #[structopt(short = "r", default_value = "10")]
-    pub max_paths: u32,
+    max_paths: u32,
 }
 
 impl Default for Paths {
     fn default() -> Paths {
         Paths {
+            #[cfg(feature = "cli")]
             input: Default::default(),
-            functions: Default::default(),
+            #[cfg(feature = "cli")]
             output_destination: Default::default(),
+            #[cfg(feature = "cli")]
             output_format: Default::default(),
+
+            functions: Default::default(),
             max_depth: 10,
             max_paths: 10,
         }
+    }
+}
+
+impl Paths {
+    // TODO: wasm-bindgen doesn't support sending Vec<String> across the wasm
+    // ABI boundary yet.
+
+    /// The functions to find call paths to.
+    pub fn functions(&self) -> &[String] {
+        &self.functions
     }
 }
 
@@ -203,19 +226,6 @@ impl Paths {
     pub fn new() -> Paths {
         Paths::default()
     }
-
-    // TODO: wasm-bindgen doesn't support sending Vec<String> across the wasm
-    // ABI boundary yet.
-    //
-    // /// The functions to find call paths to.
-    // pub fn functions(&self) -> Vec<String> {
-    //     self.functions.clone()
-    // }
-    //
-    // /// Set the functions to find call paths to.
-    // pub fn set_functions(&mut self, functions: Vec<String>) {
-    //     self.functions = functions;
-    // }
 
     /// Add a function to find call paths for.
     pub fn add_function(&mut self, function: String) {
@@ -250,37 +260,44 @@ impl Paths {
 #[wasm_bindgen]
 pub struct Monos {
     /// The path to the input binary to size profile.
+    #[cfg(feature = "cli")]
     #[structopt(parse(from_os_str))]
-    pub input: path::PathBuf,
+    input: path::PathBuf,
 
     /// The destination to write the output to. Defaults to `stdout`.
+    #[cfg(feature = "cli")]
     #[structopt(short = "o", default_value = "-")]
-    pub output_destination: OutputDestination,
+    output_destination: OutputDestination,
 
     /// The format the output should be written in.
+    #[cfg(feature = "cli")]
     #[structopt(short = "f", long = "format", default_value = "text")]
-    pub output_format: traits::OutputFormat,
+    output_format: traits::OutputFormat,
 
     /// Hide individual monomorphizations and only show the generic functions.
     #[structopt(short = "g", long = "only-generics")]
-    pub only_generics: bool,
+    only_generics: bool,
 
     /// The maximum number of generics to list.
     #[structopt(short = "m", long = "max-generics", default_value = "10")]
-    pub max_generics: u32,
+    max_generics: u32,
 
     /// The maximum number of individual monomorphizations to list for each
     /// generic function.
     #[structopt(short = "n", long = "max-monos", default_value = "10")]
-    pub max_monos: u32,
+    max_monos: u32,
 }
 
 impl Default for Monos {
     fn default() -> Monos {
         Monos {
+            #[cfg(feature = "cli")]
             input: Default::default(),
+            #[cfg(feature = "cli")]
             output_destination: Default::default(),
+            #[cfg(feature = "cli")]
             output_format: Default::default(),
+
             only_generics: false,
             max_generics: 10,
             max_monos: 10,

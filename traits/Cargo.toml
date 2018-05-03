@@ -1,13 +1,17 @@
 [package]
-name = "twiggy-traits"
-version = "0.1.0"
 authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
+categories = []
+description = "Common traits for the Twiggy code size profiler."
 license = "Apache-2.0/MIT"
+name = "twiggy-traits"
+readme = "../README.md"
+repository = "https://github.com/rustwasm/twiggy"
+version = "0.1.0"
 
 [lib]
 path = "./traits.rs"
 
 [dependencies]
 failure = "0.1.1"
-parity-wasm = "0.27.1"
+parity-wasm = "0.28.0"
 twiggy-ir = { version = "0.1.0", path = "../ir" }

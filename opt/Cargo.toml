@@ -1,8 +1,12 @@
 [package]
-name = "twiggy-opt"
-version = "0.1.0"
 authors = ["Nick Fitzgerald <fitzgen@gmail.com>"]
+categories = []
+description = "Options for the Twiggy code size profiler."
 license = "Apache-2.0/MIT"
+name = "twiggy-opt"
+readme = "../README.md"
+repository = "https://github.com/rustwasm/twiggy"
+version = "0.1.0"
 
 [lib]
 path = "opt.rs"
@@ -10,7 +14,7 @@ path = "opt.rs"
 [dependencies]
 structopt = { version = "0.2", optional = true }
 twiggy-traits = { version = "0.1.0", path = "../traits" }
-wasm-bindgen = { version = "0.2.3", optional = true }
+wasm-bindgen = { version = "0.2.8", optional = true }
 cfg-if = "0.1.2"
 
 [features]
