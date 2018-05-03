@@ -11,7 +11,7 @@ extern crate twiggy_parser as parser;
 extern crate twiggy_traits as traits;
 
 use failure::Fail;
-use opt::CommonOptions;
+use opt::CommonCliOptions;
 use std::process;
 use structopt::StructOpt;
 

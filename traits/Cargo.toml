@@ -9,5 +9,5 @@ path = "./traits.rs"
 
 [dependencies]
 failure = "0.1.1"
-parity-wasm = "0.27.1"
+parity-wasm = "0.28.0"
 twiggy-ir = { version = "0.1.0", path = "../ir" }

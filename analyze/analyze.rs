@@ -120,7 +120,7 @@ struct Top {
 
 impl traits::Emit for Top {
     fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
-        let sort_label = if self.opts.retained {
+        let sort_label = if self.opts.retained() {
             "Retained"
         } else {
             "Shallow"
@@ -135,7 +135,7 @@ impl traits::Emit for Top {
         for &id in &self.items {
             let item = &items[id];
 
-            let size = if self.opts.retained {
+            let size = if self.opts.retained() {
                 items.retained_size(id)
             } else {
                 item.size()
@@ -167,7 +167,7 @@ impl traits::Emit for Top {
             obj.field("shallow_size", size)?;
             obj.field("shallow_size_percent", size_percent)?;
 
-            if self.opts.retained {
+            if self.opts.retained() {
                 let size = items.retained_size(id);
                 let size_percent = (size as f64) / (items.size() as f64) * 100.0;
                 obj.field("retained_size", size)?;
@@ -181,13 +181,13 @@ impl traits::Emit for Top {
 
 /// Run the `top` analysis on the given IR items.
 pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, traits::Error> {
-    if opts.retaining_paths {
+    if opts.retaining_paths() {
         return Err(traits::Error::with_msg(
             "retaining paths are not yet implemented",
         ));
     }
 
-    if opts.retained {
+    if opts.retained() {
         items.compute_retained_sizes();
     }
 
@@ -196,16 +196,14 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
         .filter(|item| item.id() != items.meta_root())
         .collect();
 
-    top_items.sort_by(|a, b| match opts.retained {
+    top_items.sort_by(|a, b| match opts.retained() {
         false => b.size().cmp(&a.size()),
         true => items
             .retained_size(b.id())
             .cmp(&items.retained_size(a.id())),
     });
 
-    if let Some(n) = opts.number {
-        top_items.truncate(n as usize);
-    }
+    top_items.truncate(opts.number() as usize);
 
     let top_items: Vec<_> = top_items.into_iter().map(|i| i.id()).collect();
 
@@ -245,16 +243,12 @@ impl traits::Emit for DominatorTree {
         ) {
             assert_eq!(id == items.meta_root(), depth == 0);
 
-            if let Some(max_rows) = opts.max_rows {
-                if *row == max_rows {
-                    return;
-                }
+            if *row == opts.max_rows() {
+                return;
             }
 
-            if let Some(max_depth) = opts.max_depth {
-                if depth > max_depth {
-                    return;
-                }
+            if depth > opts.max_depth() {
+                return;
             }
 
             if depth > 0 {
@@ -388,7 +382,7 @@ impl traits::Emit for Paths {
             opts: &opt::Paths,
             id: ir::Id,
         ) {
-            if opts.max_paths == *paths || depth > opts.max_depth {
+            if opts.max_paths() == *paths || depth > opts.max_depth() {
                 return;
             }
 
@@ -472,7 +466,7 @@ impl traits::Emit for Paths {
             let mut callers = obj.array("callers")?;
 
             let depth = depth + 1;
-            if depth <= opts.max_depth {
+            if depth <= opts.max_depth() {
                 seen.insert(id);
                 for (i, caller) in items.predecessors(id).enumerate() {
                     if seen.contains(&caller) || items.meta_root() == caller {
@@ -482,7 +476,7 @@ impl traits::Emit for Paths {
                     if i > 0 {
                         *paths += 1;
                     }
-                    if opts.max_paths == *paths {
+                    if opts.max_paths() == *paths {
                         break;
                     }
 
@@ -512,11 +506,11 @@ pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emi
     items.compute_predecessors();
 
     let mut paths = Paths {
-        items: Vec::with_capacity(opts.functions.len()),
+        items: Vec::with_capacity(opts.functions().len()),
         opts: opts.clone(),
     };
 
-    let functions: BTreeSet<_> = opts.functions.iter().map(|s| s.as_str()).collect();
+    let functions: BTreeSet<_> = opts.functions().iter().map(|s| s.as_str()).collect();
 
     for item in items.iter() {
         if functions.contains(item.name()) {
@@ -671,10 +665,10 @@ pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emi
                 let b = &items[*b];
                 b.size().cmp(&a.size())
             });
-            insts.truncate(if opts.only_generics {
+            insts.truncate(if opts.only_generics() {
                 0
             } else {
-                opts.max_monos as usize
+                opts.max_monos() as usize
             });
 
             Some(MonosEntry {
@@ -687,7 +681,7 @@ pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emi
         .collect();
 
     monos.sort();
-    monos.truncate(opts.max_generics as usize);
+    monos.truncate(opts.max_generics() as usize);
 
     Ok(Box::new(Monos { monos }) as Box<traits::Emit>)
 }
