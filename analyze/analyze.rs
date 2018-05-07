@@ -327,9 +327,8 @@ impl traits::Emit for DominatorTree {
             obj.field("retained_size", size)?;
             obj.field("retained_size_percent", size_percent)?;
 
-            // TODO FITZGEN: this needs to do the filtering like how text
-            // formatting does, but it would be ncie to push that earlier, like
-            // `top` does.
+            // TODO: this needs to do the filtering like how text formatting
+            // does, but it would be nice to push that earlier, like `top` does.
 
             if let Some(children) = dominator_tree.get(&id) {
                 let mut children: Vec<_> = children.iter().cloned().collect();
