@@ -30,6 +30,10 @@ pub enum Options {
     /// code bloat.
     #[structopt(name = "monos")]
     Monos(Monos),
+
+    /// Diff the old and new versions of a binary to see what sizes changed.
+    #[structopt(name = "diff")]
+    Diff(Diff)
 }
 
 /// List the top code size offenders in a binary.
@@ -343,5 +347,65 @@ impl Monos {
     /// generic function.
     pub fn set_max_monos(&mut self, max: u32) {
         self.max_monos = max;
+    }
+}
+
+/// Diff the old and new versions of a binary to see what sizes changed.
+#[derive(Clone, Debug)]
+#[derive(StructOpt)]
+#[wasm_bindgen]
+pub struct Diff {
+    /// The path to the old version of the input binary.
+    #[cfg(feature = "cli")]
+    #[structopt(parse(from_os_str))]
+    old_input: path::PathBuf,
+
+    /// The path to the new version of the input binary.
+    #[cfg(feature = "cli")]
+    #[structopt(parse(from_os_str))]
+    new_input: path::PathBuf,
+
+    /// The destination to write the output to. Defaults to `stdout`.
+    #[cfg(feature = "cli")]
+    #[structopt(short = "o", default_value = "-")]
+    output_destination: OutputDestination,
+
+    /// The format the output should be written in.
+    #[cfg(feature = "cli")]
+    #[structopt(short = "f", long = "format", default_value = "text")]
+    output_format: traits::OutputFormat,
+
+    /// The maximum number of items to display.
+    #[structopt(short = "n", default_value = "20")]
+    max_items: u32,
+}
+
+impl Default for Diff {
+    fn default() -> Diff {
+        Diff {
+            #[cfg(feature = "cli")]
+            old_input: Default::default(),
+            #[cfg(feature = "cli")]
+            new_input: Default::default(),
+            #[cfg(feature = "cli")]
+            output_destination: Default::default(),
+            #[cfg(feature = "cli")]
+            output_format: Default::default(),
+
+            max_items: 20,
+        }
+    }
+}
+
+#[wasm_bindgen]
+impl Diff {
+    /// The maximum number of items to display.
+    pub fn max_items(&self) -> u32 {
+        self.max_items
+    }
+
+    /// Set the maximum number of items to display.
+    pub fn set_max_items(&mut self, n: u32) {
+        self.max_items = n;
     }
 }

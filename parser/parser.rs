@@ -31,7 +31,7 @@ pub fn read_and_parse<P: AsRef<path::Path>>(path: P) -> Result<ir::Items, traits
     parse_fallback(&data)
 }
 
-/// TODO FITZGEN
+/// Parse the given data into IR items.
 pub fn parse(data: &[u8]) -> Result<ir::Items, traits::Error> {
     parse_fallback(data)
 }

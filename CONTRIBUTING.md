@@ -28,16 +28,22 @@ We abide by the [Rust Code of Conduct][coc] and ask that you do as well.
 
 ## Building and Testing
 
-### Building
+### Building for the Native Target
 
 ```
-$ cargo build --all
+$ cargo build --all --exclude twiggy-wasm-api
+```
+
+### Building for the `wasm32-unknown-unknown` Target
+
+```
+$ JOB=wasm ./ci/script.sh
 ```
 
 ### Testing
 
 ```
-$ cargo test --all
+$ cargo test --all --exclude twiggy-wasm-api
 ```
 
 #### Authoring New Tests

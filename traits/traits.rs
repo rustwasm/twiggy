@@ -13,7 +13,8 @@ use std::fmt;
 use std::io;
 use std::str::FromStr;
 
-/// TODO FITZGEN
+/// An error that ocurred in `twiggy` when parsing, analyzing, or emitting
+/// items.
 #[derive(Debug)]
 pub struct Error {
     inner: Box<ErrorInner>,
@@ -75,7 +76,7 @@ impl From<fmt::Error> for Error {
 }
 
 impl Error {
-    /// TODO FITZGEN
+    /// Create an error with the given message.
     pub fn with_msg<S: Into<String>>(msg: S) -> Error {
         Error {
             inner: Box::new(ErrorInner::Msg(msg.into())),

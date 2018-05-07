@@ -327,9 +327,8 @@ impl traits::Emit for DominatorTree {
             obj.field("retained_size", size)?;
             obj.field("retained_size_percent", size_percent)?;
 
-            // TODO FITZGEN: this needs to do the filtering like how text
-            // formatting does, but it would be ncie to push that earlier, like
-            // `top` does.
+            // TODO: this needs to do the filtering like how text formatting
+            // does, but it would be nice to push that earlier, like `top` does.
 
             if let Some(children) = dominator_tree.get(&id) {
                 let mut children: Vec<_> = children.iter().cloned().collect();
@@ -632,7 +631,7 @@ impl traits::Emit for Monos {
     }
 }
 
-/// Find all retaining paths for the given items.
+/// Find bloaty monomorphizations of generic functions.
 pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emit>, traits::Error> {
     let mut monos = BTreeMap::new();
     for item in items.iter() {
@@ -684,4 +683,121 @@ pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emi
     monos.truncate(opts.max_generics() as usize);
 
     Ok(Box::new(Monos { monos }) as Box<traits::Emit>)
+}
+
+#[derive(Debug)]
+struct Diff {
+    deltas: Vec<DiffEntry>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+struct DiffEntry {
+    name: String,
+    delta: i64,
+}
+
+impl PartialOrd for DiffEntry {
+    fn partial_cmp(&self, rhs: &DiffEntry) -> Option<cmp::Ordering> {
+        Some(self.cmp(rhs))
+    }
+}
+
+impl Ord for DiffEntry {
+    fn cmp(&self, rhs: &DiffEntry) -> cmp::Ordering {
+        rhs.delta
+            .abs()
+            .cmp(&self.delta.abs())
+            .then(self.name.cmp(&rhs.name))
+    }
+}
+
+impl traits::Emit for Diff {
+    fn emit_text(
+        &self,
+        _items: &ir::Items,
+        dest: &mut std::io::Write,
+    ) -> Result<(), traits::Error> {
+        let mut table = Table::with_header(vec![
+            (Align::Right, "Delta Bytes".into()),
+            (Align::Left, "Item".to_string()),
+        ]);
+
+        for entry in &self.deltas {
+            table.add_row(vec![
+                format!("{:+}", entry.delta),
+                entry.name.clone(),
+            ]);
+        }
+
+        write!(dest, "{}", &table)?;
+        Ok(())
+    }
+
+    fn emit_json(
+        &self,
+        _items: &ir::Items,
+        dest: &mut std::io::Write,
+    ) -> Result<(), traits::Error> {
+        let mut arr = json::array(dest)?;
+
+        for entry in &self.deltas {
+            let mut obj = arr.object()?;
+            obj.field("delta_bytes", entry.delta as f64)?;
+            obj.field("name", entry.name.as_str())?;
+        }
+
+        Ok(())
+    }
+}
+
+/// Compute the diff between two sets of items.
+pub fn diff(
+    old_items: &mut ir::Items,
+    new_items: &mut ir::Items,
+    opts: &opt::Diff,
+) -> Result<Box<traits::Emit>, traits::Error> {
+    let old_items_by_name: BTreeMap<&str, &ir::Item> =
+        old_items.iter().map(|item| (item.name(), item)).collect();
+    let new_items_by_name: BTreeMap<&str, &ir::Item> =
+        new_items.iter().map(|item| (item.name(), item)).collect();
+
+    let mut deltas = vec![];
+
+    for (name, old_item) in &old_items_by_name {
+        match new_items_by_name.get(name) {
+            None => deltas.push(DiffEntry {
+                name: name.to_string(),
+                delta: -(old_item.size() as i64),
+            }),
+            Some(new_item) => {
+                let delta = new_item.size() as i64 - old_item.size() as i64;
+                if delta != 0 {
+                    deltas.push(DiffEntry {
+                        name: name.to_string(),
+                        delta,
+                    });
+                }
+            }
+        }
+    }
+
+    for (name, new_item) in &new_items_by_name {
+        if !old_items_by_name.contains_key(name) {
+            deltas.push(DiffEntry {
+                name: name.to_string(),
+                delta: new_item.size() as i64,
+            });
+        }
+    }
+
+    deltas.push(DiffEntry {
+        name: "<total>".to_string(),
+        delta: new_items.size() as i64 - old_items.size() as i64,
+    });
+
+    deltas.sort();
+    deltas.truncate(opts.max_items() as usize);
+
+    let diff = Diff { deltas };
+    Ok(Box::new(diff) as Box<traits::Emit>)
 }

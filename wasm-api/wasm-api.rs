@@ -50,4 +50,11 @@ impl Items {
         monos.emit_json(&self.items, &mut buf).unwrap();
         String::from_utf8(buf).unwrap()
     }
+
+    pub fn diff(&mut self, new_items: &mut Items, options: &opt::Diff) -> String {
+        let diff = analyze::diff(&mut self.items, &mut new_items.items, options).unwrap();
+        let mut buf = Vec::new();
+        diff.emit_json(&self.items, &mut buf).unwrap();
+        String::from_utf8(buf).unwrap()
+    }
 }

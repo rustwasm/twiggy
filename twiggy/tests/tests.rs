@@ -215,3 +215,21 @@ test!(
     "-f",
     "json"
 );
+
+test!(
+    diff_wee_alloc,
+    "diff",
+    "./fixtures/wee_alloc.wasm",
+    "./fixtures/wee_alloc.2.wasm"
+);
+
+test!(
+    diff_wee_alloc_json,
+    "diff",
+    "./fixtures/wee_alloc.wasm",
+    "./fixtures/wee_alloc.2.wasm",
+    "-f",
+    "json",
+    "-n",
+    "5"
+);
