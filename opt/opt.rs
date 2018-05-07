@@ -50,6 +50,7 @@ cfg_if! {
                     Options::Dominators(ref doms) => doms.input(),
                     Options::Paths(ref paths) => paths.input(),
                     Options::Monos(ref monos) => monos.input(),
+                    Options::Diff(ref diff) => diff.input(),
                 }
             }
 
@@ -59,6 +60,7 @@ cfg_if! {
                     Options::Dominators(ref doms) => doms.output_destination(),
                     Options::Paths(ref paths) => paths.output_destination(),
                     Options::Monos(ref monos) => monos.output_destination(),
+                    Options::Diff(ref diff) => diff.output_destination(),
                 }
             }
 
@@ -68,6 +70,7 @@ cfg_if! {
                     Options::Dominators(ref doms) => doms.output_format(),
                     Options::Paths(ref paths) => paths.output_format(),
                     Options::Monos(ref monos) => monos.output_format(),
+                    Options::Diff(ref diff) => diff.output_format(),
                 }
             }
         }
@@ -125,6 +128,27 @@ cfg_if! {
 
             fn output_format(&self) -> traits::OutputFormat {
                 self.output_format
+            }
+        }
+
+        impl CommonCliOptions for Diff {
+            fn input(&self) -> &path::Path {
+                &self.old_input
+            }
+
+            fn output_destination(&self) -> &OutputDestination {
+                &self.output_destination
+            }
+
+            fn output_format(&self) -> traits::OutputFormat {
+                self.output_format
+            }
+        }
+
+        impl Diff {
+            /// The path to the new version of the input binary.
+            pub fn new_input(&self) -> &path::Path {
+                &self.new_input
             }
         }
 
