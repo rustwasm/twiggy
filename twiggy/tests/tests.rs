@@ -233,3 +233,21 @@ test!(
     "-n",
     "5"
 );
+
+test!(garbage, "garbage", "./fixtures/garbage.wasm");
+
+test!(
+    garbage_top_2,
+    "garbage",
+    "./fixtures/garbage.wasm",
+    "-n",
+    "2"
+);
+
+test!(
+    garbage_json,
+    "garbage",
+    "./fixtures/garbage.wasm",
+    "-f",
+    "json"
+);

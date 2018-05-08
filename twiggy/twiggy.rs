@@ -34,6 +34,7 @@ fn run(opts: opt::Options) -> Result<(), traits::Error> {
         opt::Options::Dominators(ref doms) => analyze::dominators(&mut items, doms)?,
         opt::Options::Paths(ref paths) => analyze::paths(&mut items, paths)?,
         opt::Options::Monos(ref monos) => analyze::monos(&mut items, monos)?,
+        opt::Options::Garbage(ref garbo) => analyze::garbage(&mut items, garbo)?,
         opt::Options::Diff(ref diff) => {
             let mut new_items = parser::read_and_parse(diff.new_input())?;
             analyze::diff(&mut items, &mut new_items, diff)?

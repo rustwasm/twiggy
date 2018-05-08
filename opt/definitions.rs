@@ -33,7 +33,12 @@ pub enum Options {
 
     /// Diff the old and new versions of a binary to see what sizes changed.
     #[structopt(name = "diff")]
-    Diff(Diff)
+    Diff(Diff),
+
+    /// Find and display code and data that is not transitively referenced by
+    /// any exports or public functions.
+    #[structopt(name = "garbage")]
+    Garbage(Garbage)
 }
 
 /// List the top code size offenders in a binary.
@@ -407,5 +412,64 @@ impl Diff {
     /// Set the maximum number of items to display.
     pub fn set_max_items(&mut self, n: u32) {
         self.max_items = n;
+    }
+}
+
+/// Find and display code and data that is not transitively referenced by any
+/// exports or public functions.
+#[derive(Clone, Debug)]
+#[derive(StructOpt)]
+#[wasm_bindgen]
+pub struct Garbage {
+    /// The path to the input binary to size profile.
+    #[cfg(feature = "cli")]
+    #[structopt(parse(from_os_str))]
+    input: path::PathBuf,
+
+    /// The destination to write the output to. Defaults to `stdout`.
+    #[cfg(feature = "cli")]
+    #[structopt(short = "o", default_value = "-")]
+    output_destination: OutputDestination,
+
+    /// The format the output should be written in.
+    #[cfg(feature = "cli")]
+    #[structopt(short = "f", long = "format", default_value = "text")]
+    output_format: traits::OutputFormat,
+
+    /// The maximum number of items to display.
+    #[structopt(short = "n", default_value = "10")]
+    max_items: u32,
+}
+
+impl Default for Garbage {
+    fn default() -> Garbage {
+        Garbage {
+            #[cfg(feature = "cli")]
+            input: Default::default(),
+            #[cfg(feature = "cli")]
+            output_destination: Default::default(),
+            #[cfg(feature = "cli")]
+            output_format: Default::default(),
+
+            max_items: 10,
+        }
+    }
+}
+
+#[wasm_bindgen]
+impl Garbage {
+    /// Construct a new, default `Garbage`
+    pub fn new() -> Garbage {
+        Garbage::default()
+    }
+
+    /// The maximum number of items to display.
+    pub fn max_items(&self) -> u32 {
+        self.max_items
+    }
+
+    /// Set the maximum number of items to display.
+    pub fn set_max_items(&mut self, max: u32) {
+        self.max_items = max;
     }
 }
