@@ -51,6 +51,7 @@ cfg_if! {
                     Options::Paths(ref paths) => paths.input(),
                     Options::Monos(ref monos) => monos.input(),
                     Options::Diff(ref diff) => diff.input(),
+                    Options::Garbage(ref garbo) => garbo.input(),
                 }
             }
 
@@ -61,6 +62,7 @@ cfg_if! {
                     Options::Paths(ref paths) => paths.output_destination(),
                     Options::Monos(ref monos) => monos.output_destination(),
                     Options::Diff(ref diff) => diff.output_destination(),
+                    Options::Garbage(ref garbo) => garbo.output_destination(),
                 }
             }
 
@@ -71,6 +73,7 @@ cfg_if! {
                     Options::Paths(ref paths) => paths.output_format(),
                     Options::Monos(ref monos) => monos.output_format(),
                     Options::Diff(ref diff) => diff.output_format(),
+                    Options::Garbage(ref garbo) => garbo.output_format(),
                 }
             }
         }
@@ -149,6 +152,20 @@ cfg_if! {
             /// The path to the new version of the input binary.
             pub fn new_input(&self) -> &path::Path {
                 &self.new_input
+            }
+        }
+
+        impl CommonCliOptions for Garbage {
+            fn input(&self) -> &path::Path {
+                &self.input
+            }
+
+            fn output_destination(&self) -> &OutputDestination {
+                &self.output_destination
+            }
+
+            fn output_format(&self) -> traits::OutputFormat {
+                self.output_format
             }
         }
 

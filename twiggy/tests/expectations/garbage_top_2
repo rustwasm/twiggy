@@ -1,0 +1,4 @@
+ Bytes │ Size % │ Garbage Item
+───────┼────────┼──────────────────────
+    11 ┊  5.58% ┊ unusedAddThreeNumbers
+     8 ┊  4.06% ┊ unusedAddOne

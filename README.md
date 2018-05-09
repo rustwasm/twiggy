@@ -36,6 +36,7 @@ Use `twiggy` to make your binaries slim!
         - [`twiggy monos`](#twiggy-monos)
         - [`twiggy dominators`](#twiggy-dominators)
         - [`twiggy diff`](#twiggy-diff)
+        - ['twiggy garbage'](#twiggy-garbage)
     - [🦀 As a Crate](#-as-a-crate)
     - [🕸 On the Web with WebAssembly](#-on-the-web-with-webassembly)
 - [🔎 Supported Binary Formats](#-supported-binary-formats)
@@ -362,6 +363,25 @@ and new versions of a binary.
         -225 ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
         -152 ┊ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
         +145 ┊ <wee_alloc::neighbors::Neighbors<'a, T>>::remove::hc9e5d4284e8233b8
+```
+
+#### `twiggy garbage`
+
+The `twiggy garbage` sub-command finds and display code and data that is not
+transitively referenced by any exports or public functions.
+
+```
+ Bytes │ Size % │ Garbage Item
+───────┼────────┼──────────────────────
+    11 ┊  5.58% ┊ unusedAddThreeNumbers
+     8 ┊  4.06% ┊ unusedAddOne
+     7 ┊  3.55% ┊ type[2]
+     5 ┊  2.54% ┊ type[1]
+     5 ┊  2.54% ┊ unusedChild
+     4 ┊  2.03% ┊ type[0]
+     1 ┊  0.51% ┊ func[0]
+     1 ┊  0.51% ┊ func[1]
+     1 ┊  0.51% ┊ func[2]
 ```
 
 ### 🦀 As a Crate

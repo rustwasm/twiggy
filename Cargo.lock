@@ -326,6 +326,7 @@ dependencies = [
 name = "twiggy-analyze"
 version = "0.1.0"
 dependencies = [
+ "petgraph 0.4.12 (registry+https://github.com/rust-lang/crates.io-index)",
  "twiggy-ir 0.1.0",
  "twiggy-opt 0.1.0",
  "twiggy-traits 0.1.0",
