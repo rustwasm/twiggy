@@ -803,7 +803,6 @@ pub fn diff(
 #[derive(Debug)]
 struct Garbage {
     items: Vec<ir::Id>,
-    opts: opt::Garbage,
 }
 
 impl traits::Emit for Garbage {
@@ -811,7 +810,7 @@ impl traits::Emit for Garbage {
         let mut table = Table::with_header(vec![
             (Align::Right, "Bytes".to_string()),
             (Align::Right, "Size %".to_string()),
-            (Align::Right, "Item".to_string()),
+            (Align::Left, "Garbage Item".to_string()),
         ]);
 
         for &id in &self.items {
@@ -849,33 +848,29 @@ impl traits::Emit for Garbage {
 }
 
 /// Find items that are not transitively referenced by any exports or public functions.
-pub fn garbage(
-    _items: &ir::Items,
-    _opts: &opt::Garbage,
-) -> Result<Box<traits::Emit>, traits::Error> {
-    fn get_reachable_items(_items: &ir::Items) -> BTreeSet<ir::Id> {
+pub fn garbage(items: &ir::Items, opts: &opt::Garbage) -> Result<Box<traits::Emit>, traits::Error> {
+    fn get_reachable_items(items: &ir::Items) -> BTreeSet<ir::Id> {
         let mut reachable_items: BTreeSet<ir::Id> = BTreeSet::new();
-        let mut dfs = petgraph::visit::Dfs::new(_items, _items.meta_root());
-        while let Some(id) = dfs.next(&_items) {
+        let mut dfs = petgraph::visit::Dfs::new(items, items.meta_root());
+        while let Some(id) = dfs.next(&items) {
             reachable_items.insert(id);
         }
         reachable_items
     }
 
-    let reachable_items = get_reachable_items(&_items);
-    let mut unreachable_items: Vec<_> = _items
+    let reachable_items = get_reachable_items(&items);
+    let mut unreachable_items: Vec<_> = items
         .iter()
         .filter(|item| !reachable_items.contains(&item.id()))
         .collect();
 
     unreachable_items.sort_by(|a, b| b.size().cmp(&a.size()));
-    unreachable_items.truncate(_opts.max_items() as usize);
+    unreachable_items.truncate(opts.max_items() as usize);
 
     let unreachable_items: Vec<_> = unreachable_items.iter().map(|item| item.id()).collect();
 
     let garbage_items = Garbage {
         items: unreachable_items,
-        opts: _opts.clone(),
     };
 
     Ok(Box::new(garbage_items) as Box<traits::Emit>)

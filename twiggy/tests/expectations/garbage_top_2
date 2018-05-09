@@ -1,4 +1,4 @@
- Bytes │ Size % │ Item
-───────┼────────┼────────
-    11 ┊ 13.10% ┊ code[2]
-     8 ┊  9.52% ┊ code[1]
+ Bytes │ Size % │ Garbage Item
+───────┼────────┼──────────────────────
+    11 ┊  5.58% ┊ unusedAddThreeNumbers
+     8 ┊  4.06% ┊ unusedAddOne
