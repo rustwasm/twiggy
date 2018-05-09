@@ -367,8 +367,8 @@ and new versions of a binary.
 
 #### `twiggy garbage`
 
-The `twiggy garbage` sub-command finds and display code and data that is not
-transitively referenced by any exports or public functions.
+The `twiggy garbage` sub-command finds and displays dead code and data that is
+not transitively referenced by any exports or public functions.
 
 ```
  Bytes │ Size % │ Garbage Item
