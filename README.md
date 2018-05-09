@@ -36,7 +36,7 @@ Use `twiggy` to make your binaries slim!
         - [`twiggy monos`](#twiggy-monos)
         - [`twiggy dominators`](#twiggy-dominators)
         - [`twiggy diff`](#twiggy-diff)
-        - ['twiggy garbage'](#twiggy-garbage)
+        - [`twiggy garbage`](#twiggy-garbage)
     - [🦀 As a Crate](#-as-a-crate)
     - [🕸 On the Web with WebAssembly](#-on-the-web-with-webassembly)
 - [🔎 Supported Binary Formats](#-supported-binary-formats)
