@@ -407,7 +407,11 @@ impl traits::Emit for DominatorTree {
                 items.retained_size(id),
                 (items.retained_size(id) as f64) / (items.size() as f64) * 100.0,
             );
-
+            let idom = if let Some(idom) = items.predecessors(id).last() {
+                idom.0
+            } else {
+                id.0
+            };
             let rc = csv::CsvRecord {
                 id: Some(item.id().0),
                 name: item.name().to_string(),
@@ -416,7 +420,7 @@ impl traits::Emit for DominatorTree {
                 retained_size: Some(retained_size),
                 retained_size_percent: Some(retained_size_percent),
                 // TODO CSMOE: find immediate dominator
-                immediate_dominator: Some(id.0),
+                immediate_dominator: Some(idom),
                 ..Default::default()
             };
 
@@ -444,6 +448,7 @@ pub fn dominators(
 ) -> Result<Box<traits::Emit>, traits::Error> {
     items.compute_dominator_tree();
     items.compute_retained_sizes();
+    items.compute_predecessors();
 
     let subtree = opts.subtree();
     let root_id = match subtree.is_empty() {
