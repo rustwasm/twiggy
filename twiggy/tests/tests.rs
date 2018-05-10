@@ -107,6 +107,14 @@ test!(
 );
 
 test!(
+    dominators_wee_alloc_json,
+    "dominators",
+    "./fixtures/wee_alloc.wasm",
+    "-f",
+    "json"
+);
+
+test!(
     dominators_wee_alloc_with_depth_and_row,
     "dominators",
     "./fixtures/wee_alloc.wasm",
@@ -114,6 +122,24 @@ test!(
     "5",
     "-r",
     "3"
+);
+
+test!(
+    dominators_wee_alloc_subtree,
+    "dominators",
+    "./fixtures/wee_alloc.wasm",
+    "--function",
+    "hello"
+);
+
+test!(
+    dominators_wee_alloc_subtree_json,
+    "dominators",
+    "./fixtures/wee_alloc.wasm",
+    "-f",
+    "json",
+    "--function",
+    "hello"
 );
 
 test!(

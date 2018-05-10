@@ -139,6 +139,10 @@ pub struct Dominators {
     /// The maximum number of rows, regardless of depth in the tree, to display.
     #[structopt(short = "r")]
     max_rows: Option<u32>,
+
+    /// The name of the function whose dominator subtree should be printed.
+    #[structopt(long = "function", default_value = "")]
+    func_name: String,
 }
 
 #[wasm_bindgen]
@@ -166,6 +170,16 @@ impl Dominators {
     /// Set the maximum number of rows, regardless of depth in the tree, to display.
     pub fn set_max_rows(&mut self, max_rows: u32) {
         self.max_rows = Some(max_rows);
+    }
+
+    /// The function whose subtree should be printed.
+    pub fn func_name(&self) -> String {
+        self.func_name.clone()
+    }
+
+    /// Set the function whose subtree should be printed.
+    pub fn set_func_name(&mut self, func_name: &str) {
+        self.func_name = func_name.to_string();
     }
 }
 

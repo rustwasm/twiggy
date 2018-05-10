@@ -218,6 +218,7 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
 
 struct DominatorTree {
     tree: BTreeMap<ir::Id, Vec<ir::Id>>,
+    root_id: Option<ir::Id>,
     opts: opt::Dominators,
 }
 
@@ -230,8 +231,11 @@ impl traits::Emit for DominatorTree {
         ]);
 
         let opts = &self.opts;
-
         let mut row = 0 as u32;
+        let (root_id, start_depth) = match self.root_id {
+            Some(id) => (id, 1),
+            None => (items.meta_root(), 0),
+        };
 
         fn recursive_add_rows(
             table: &mut Table,
@@ -297,10 +301,10 @@ impl traits::Emit for DominatorTree {
             &mut table,
             items,
             &self.tree,
-            0,
+            start_depth,
             &mut row,
             &opts,
-            items.meta_root(),
+            root_id,
         );
         write!(dest, "{}", &table)?;
         Ok(())
@@ -346,7 +350,8 @@ impl traits::Emit for DominatorTree {
         }
 
         let mut obj = json::object(dest)?;
-        recursive_add_children(items, &self.opts, &self.tree, items.meta_root(), &mut obj)
+        let id = self.root_id.unwrap_or(items.meta_root());
+        recursive_add_children(items, &self.opts, &self.tree, id, &mut obj)
     }
 }
 
@@ -358,8 +363,25 @@ pub fn dominators(
     items.compute_dominator_tree();
     items.compute_retained_sizes();
 
+    /// Get the Id of the item with the given name.
+    fn get_item_id(items: &mut ir::Items, name: &str) -> Option<ir::Id> {
+        for item in items.iter() {
+            if item.name() == name {
+                return Some(item.id());
+            }
+        }
+        None // Return `None` if `name` did not match any items.
+    }
+
+    let func_name = opts.func_name();
+    let root_id = match func_name.is_empty() {
+        false => get_item_id(items, &func_name),
+        true => None,
+    };
+
     let tree = DominatorTree {
         tree: items.dominator_tree().clone(),
+        root_id,
         opts: opts.clone(),
     };
 
