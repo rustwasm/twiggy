@@ -419,7 +419,6 @@ impl traits::Emit for DominatorTree {
                 shallow_size_percent: size_percent,
                 retained_size: Some(retained_size),
                 retained_size_percent: Some(retained_size_percent),
-                // TODO CSMOE: find immediate dominator
                 immediate_dominator: Some(idom),
                 ..Default::default()
             };
@@ -629,8 +628,9 @@ impl traits::Emit for Paths {
             let item = &items[id];
             let size = item.size();
             let size_percent = (size as f64) / (items.size() as f64) * 100.0;
-            let mut path = String::with_capacity(item.name().len());
-            path.push_str(item.name());
+            let mut callers = items.predecessors(id).into_iter().map(|i| items[i].name()).collect::<Vec<&str>>();
+            callers.push(item.name());
+            let path = callers.join(" -> ");
 
             let record = csv::CsvRecord {
                 name: item.name().to_owned(),
