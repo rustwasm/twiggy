@@ -1,4 +1,4 @@
-name,shallow_size,shallow_size_percent,path
+Name,ShallowSize,ShallowSizePercent,Path
 wee_alloc::alloc_first_fit::h9a72de3af77ef93f,225,7.987220447284344,func[3] -> wee_alloc::alloc_first_fit::h9a72de3af77ef93f
 func[3],1,0.03549875754348598,wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e -> func[3]
 wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e,152,5.395811146609868,func[2] -> wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e

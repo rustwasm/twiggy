@@ -1,4 +1,4 @@
-name,shallow_size,shallow_size_percent,retained_size,retained_size_percent
+Name,ShallowSize,ShallowSizePercent,RetainedSize,RetainedSizePercent
 data[3],1034,36.7057152999645,1034,36.7057152999645
 """function names"" subsection",774,27.47603833865815,774,27.47603833865815
 "export ""hello""",8,0.2839900603478878,573,20.340788072417464

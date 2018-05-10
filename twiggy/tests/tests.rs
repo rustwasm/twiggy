@@ -318,15 +318,11 @@ test!(
 test!(monos_only_generics, "monos", "./fixtures/monos.wasm", "-g");
 
 test!(
-    monos_csv,
+    monos_wasm_csv,
     "monos",
     "./fixtures/monos.wasm",
-    "-m",
-    "2",
-    "-n",
-    "1",
     "-f",
-    "json"
+    "csv"
 );
 
 test!(
@@ -374,5 +370,5 @@ test!(
     "-n",
     "1",
     "-f",
-    "csv"
+    "json"
 );

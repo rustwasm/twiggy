@@ -369,7 +369,7 @@ impl<'a> Iterator for Iter<'a> {
 
 /// An item's unique identifier.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct Id(pub u32, u32);
+pub struct Id(u32, u32);
 
 impl Id {
     /// Create an `Id` for a the given section.
@@ -388,6 +388,11 @@ impl Id {
     /// Create the `Id` for the "meta root".
     pub fn root() -> Id {
         Id(u32::MAX, u32::MAX)
+    }
+
+    /// Get the real id of a item.
+    pub fn real_id(&self) -> u32 {
+        self.0
     }
 }
 

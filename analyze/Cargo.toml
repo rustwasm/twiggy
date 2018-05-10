@@ -18,3 +18,4 @@ twiggy-traits = { version = "0.1.0", path = "../traits" }
 csv = "1.0.0-beta.5"
 serde = "1.0.40"
 serde_derive = "1.0.40"
+petgraph = "0.4.12"

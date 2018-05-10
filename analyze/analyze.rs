@@ -6,6 +6,7 @@
 extern crate csv as csv_sys;
 #[macro_use]
 extern crate serde_derive;
+extern crate petgraph;
 extern crate twiggy_ir as ir;
 extern crate twiggy_opt as opt;
 extern crate twiggy_traits as traits;
@@ -193,7 +194,7 @@ impl traits::Emit for Top {
                 let size_percent = (size as f64) / (items.size() as f64) * 100.0;
                 (size, size_percent)
             };
-            let (retained_size, retained_size_percent) = if self.opts.retained {
+            let (retained_size, retained_size_percent) = if self.opts.retained() {
                 let size = items.retained_size(id);
                 let size_percent = (size as f64) / (items.size() as f64) * 100.0;
                 (Some(size), Some(size_percent))
@@ -408,12 +409,12 @@ impl traits::Emit for DominatorTree {
                 (items.retained_size(id) as f64) / (items.size() as f64) * 100.0,
             );
             let idom = if let Some(idom) = items.predecessors(id).last() {
-                idom.0
+                idom.real_id()
             } else {
-                id.0
+                id.real_id()
             };
             let rc = csv::CsvRecord {
-                id: Some(item.id().0),
+                id: Some(item.id().real_id()),
                 name: item.name().to_string(),
                 shallow_size: size,
                 shallow_size_percent: size_percent,
@@ -628,7 +629,11 @@ impl traits::Emit for Paths {
             let item = &items[id];
             let size = item.size();
             let size_percent = (size as f64) / (items.size() as f64) * 100.0;
-            let mut callers = items.predecessors(id).into_iter().map(|i| items[i].name()).collect::<Vec<&str>>();
+            let mut callers = items
+                .predecessors(id)
+                .into_iter()
+                .map(|i| items[i].name())
+                .collect::<Vec<&str>>();
             callers.push(item.name());
             let path = callers.join(" -> ");
 
@@ -644,7 +649,7 @@ impl traits::Emit for Paths {
             wtr.flush()?;
 
             let depth = depth + 1;
-            if depth <= opts.max_depth {
+            if depth <= opts.max_depth() {
                 seen.insert(id);
                 for (i, caller) in items.predecessors(id).enumerate() {
                     if seen.contains(&caller) || items.meta_root() == caller {
@@ -654,7 +659,7 @@ impl traits::Emit for Paths {
                     if i > 0 {
                         *paths += 1;
                     }
-                    if opts.max_paths == *paths {
+                    if opts.max_paths() == *paths {
                         break;
                     }
 
@@ -827,23 +832,24 @@ impl traits::Emit for Monos {
 
     fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         #[derive(Debug, Default, Serialize)]
+        #[serde(rename_all = "PascalCase")]
         struct Record {
             generic: Option<String>,
             approximate_monomorphization_bloat_bytes: Option<u32>,
             approximate_monomorphization_bloat_percent: Option<f64>,
             total_size: Option<u32>,
             total_size_percent: Option<f64>,
-            monomorphizations: csv::CsvRecord,
+            monomorphizations: Option<String>,
         }
 
         let mut wtr = csv_sys::Writer::from_writer(dest);
-
+        let mut rc;
         for entry in &self.monos {
             let approx_potential_savings_percent =
                 (f64::from(entry.approx_potential_savings)) / (f64::from(items.size())) * 100.0;
 
             let total_percent = (f64::from(entry.total)) / (f64::from(items.size())) * 100.0;
-            let mut rc = Record {
+            rc = Record {
                 generic: Some(entry.generic[..].to_string()),
                 approximate_monomorphization_bloat_bytes: Some(entry.approx_potential_savings),
                 approximate_monomorphization_bloat_percent: Some(approx_potential_savings_percent),
@@ -852,22 +858,11 @@ impl traits::Emit for Monos {
                 ..Default::default()
             };
 
-            for &id in &entry.insts {
-                let item = &items[id];
-                let size = item.size();
-                let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
-                rc.monomorphizations = csv::CsvRecord {
-                    name: item.name().to_string(),
-                    shallow_size: size,
-                    shallow_size_percent: size_percent,
-                    ..Default::default()
-                }
-            }
-
+            let monos: Vec<&str> = entry.insts.iter().map(|id| items[*id].name()).collect();
+            rc.monomorphizations = Some(monos.join(", "));
             wtr.serialize(rc)?;
             wtr.flush()?;
         }
-
         Ok(())
     }
 }
@@ -986,6 +981,10 @@ impl traits::Emit for Diff {
 
         Ok(())
     }
+
+    fn emit_csv(&self, _items: &ir::Items, _dest: &mut io::Write) -> Result<(), traits::Error> {
+        unimplemented!();
+    }
 }
 
 /// Compute the diff between two sets of items.
@@ -1084,6 +1083,10 @@ impl traits::Emit for Garbage {
         }
 
         Ok(())
+    }
+
+    fn emit_csv(&self, _items: &ir::Items, _dest: &mut io::Write) -> Result<(), traits::Error> {
+        unimplemented!();
     }
 }
 

@@ -1,4 +1,4 @@
-name,shallow_size,shallow_size_percent
+Name,ShallowSize,ShallowSizePercent
 data[3],1034,36.7057152999645
 """function names"" subsection",774,27.47603833865815
 wee_alloc::alloc_first_fit::h9a72de3af77ef93f,225,7.987220447284344

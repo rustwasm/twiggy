@@ -1,4 +1,5 @@
 #[derive(Debug, Default, Serialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct CsvRecord {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<u32>,
@@ -12,5 +13,6 @@ pub struct CsvRecord {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub immediate_dominator: Option<u32>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: Option<String>
+    pub path: Option<String>,
 }
+
