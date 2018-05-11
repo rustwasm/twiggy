@@ -4,7 +4,7 @@ use std::process::Command;
 
 fn main() {
     let mut cli = PathBuf::new();
-    cli.push(env::var("OUT_DIR").unwrap());
+    cli.push(env::var("OUT_DIR").expect("should have OUT_DIR env var"));
 
     let mut wasm = cli.clone();
     wasm.push("wasm.rs");
@@ -25,6 +25,10 @@ fn main() {
 
 fn run<S: AsRef<str>>(cmd: S) {
     let cmd = cmd.as_ref();
-    let status = Command::new("sh").arg("-c").arg(cmd).status().unwrap();
+    let status = Command::new("sh")
+        .arg("-c")
+        .arg(cmd)
+        .status()
+        .expect("should run `{}` ok", cmd);
     assert!(status.success());
 }
