@@ -11,6 +11,9 @@ version = "0.1.0"
 [lib]
 path = "opt.rs"
 
+[build-dependencies]
+regex = "1.0"
+
 [dependencies]
 structopt = { version = "0.2", optional = true }
 twiggy-traits = { version = "0.1.0", path = "../traits" }
