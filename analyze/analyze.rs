@@ -363,21 +363,9 @@ pub fn dominators(
     items.compute_dominator_tree();
     items.compute_retained_sizes();
 
-    /// Get the Id of the item with the given name.
-    fn get_item_id(items: &mut ir::Items, name: &str) -> Option<ir::Id> {
-        for item in items.iter() {
-            if item.name() == name {
-                return Some(item.id());
-            }
-        }
-        None // Return `None` if `name` did not match any items.
-    }
-
-    let func_name = opts.func_name();
-    let root_id = match func_name.is_empty() {
-        false => get_item_id(items, &func_name),
-        true => None,
-    };
+    let root_id = items
+        .get_item_by_name(&opts.subtree())
+        .map(|item| item.id());
 
     let tree = DominatorTree {
         tree: items.dominator_tree().clone(),

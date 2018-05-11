@@ -142,7 +142,7 @@ pub struct Dominators {
 
     /// The name of the function whose dominator subtree should be printed.
     #[structopt(long = "function", default_value = "")]
-    func_name: String,
+    subtree: String,
 }
 
 #[wasm_bindgen]
@@ -173,13 +173,13 @@ impl Dominators {
     }
 
     /// The function whose subtree should be printed.
-    pub fn func_name(&self) -> String {
-        self.func_name.clone()
+    pub fn subtree(&self) -> String {
+        self.subtree.clone()
     }
 
     /// Set the function whose subtree should be printed.
-    pub fn set_func_name(&mut self, func_name: &str) {
-        self.func_name = func_name.to_string();
+    pub fn set_subtree(&mut self, subtree: &str) {
+        self.subtree = subtree.to_string();
     }
 }
 
