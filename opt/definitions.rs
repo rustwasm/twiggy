@@ -1,3 +1,4 @@
+
 // Fun times ahead!
 //
 // Apparently, proc-macros don't play well with `cfg_attr` yet, and their
@@ -132,6 +133,9 @@ pub struct Dominators {
     #[structopt(short = "f", long = "format", default_value = "text")]
     output_format: traits::OutputFormat,
 
+    /// The name of the function whose dominator subtree should be printed.
+    subtree: Option<String>,
+
     /// The maximum depth to print the dominators tree.
     #[structopt(short = "d")]
     max_depth: Option<u32>,
@@ -139,10 +143,6 @@ pub struct Dominators {
     /// The maximum number of rows, regardless of depth in the tree, to display.
     #[structopt(short = "r")]
     max_rows: Option<u32>,
-
-    /// The name of the function whose dominator subtree should be printed.
-    #[structopt(long = "function", default_value = "")]
-    subtree: String,
 }
 
 #[wasm_bindgen]
@@ -172,14 +172,20 @@ impl Dominators {
         self.max_rows = Some(max_rows);
     }
 
+    // TODO: wasm-bindgen does not support sending Option<String> across
+    // the wasm ABI boundary, return an empty string if `subtree` is None.
+
     /// The function whose subtree should be printed.
     pub fn subtree(&self) -> String {
-        self.subtree.clone()
+        match &self.subtree {
+            Some(s) => s.clone(),
+            None => String::new(),
+        }
     }
 
     /// Set the function whose subtree should be printed.
     pub fn set_subtree(&mut self, subtree: &str) {
-        self.subtree = subtree.to_string();
+        self.subtree = Some(subtree.to_string());
     }
 }
 

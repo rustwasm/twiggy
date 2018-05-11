@@ -128,7 +128,6 @@ test!(
     dominators_wee_alloc_subtree,
     "dominators",
     "./fixtures/wee_alloc.wasm",
-    "--function",
     "hello"
 );
 
@@ -138,7 +137,6 @@ test!(
     "./fixtures/wee_alloc.wasm",
     "-f",
     "json",
-    "--function",
     "hello"
 );
 

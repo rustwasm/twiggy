@@ -313,7 +313,7 @@ impl Items {
 
     /// Get an item with the given name.
     pub fn get_item_by_name(&self, name: &str) -> Option<&Item> {
-        for (_id, item) in self.items.iter() {
+        for item in self.iter() {
             if item.name() == name {
                 return Some(item);
             }
