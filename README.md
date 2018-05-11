@@ -273,6 +273,7 @@ The `twiggy top` sub-command summarizes and lists the top code size offenders in
 a binary.
 
 ```
+$ twiggy top path/to/wee_alloc.wasm
  Shallow Bytes │ Shallow % │ Item
 ───────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────────────────
           1034 ┊    36.71% ┊ data[3]
@@ -293,6 +294,7 @@ function, why this function is not dead code, and therefore why it wasn't
 removed by the linker.
 
 ```
+$ twiggy paths path/to/wee_alloc.wasm 'wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e'
  Shallow Bytes │ Shallow % │ Retaining Paths
 ───────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
            152 ┊     5.40% ┊ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
@@ -311,6 +313,7 @@ The `twiggy monos` sub-command lists the generic function monomorphizations that
 are contributing to code bloat.
 
 ```
+$ twiggy monos path/to/input.wasm
  Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %     │ Monomorphizations
 ────────────────────┼────────────────┼───────┼───────┼────────────────────────────────────────────────────────
                1977 ┊          3.40% ┊  3003 ┊ 5.16% ┊ alloc::slice::merge_sort
@@ -330,6 +333,7 @@ The `twiggy dominators` sub-command displays the dominator tree of a binary's
 call graph.
 
 ```
+$ twiggy dominators path/to/input.wasm
  Retained Bytes │ Retained % │ Dominator Tree
 ────────────────┼────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
          284691 ┊     47.92% ┊ export "items_parse"
@@ -353,6 +357,7 @@ The `twiggy diff` sub-command computes the delta size of each item between old
 and new versions of a binary.
 
 ```
+$ twiggy diff path/to/old.wasm path/to/new.wasm
  Delta Bytes │ Item
 ─────────────┼────────────────────────────────────────────────────────────────────
        -1476 ┊ <total>
@@ -371,6 +376,7 @@ The `twiggy garbage` sub-command finds and displays dead code and data that is
 not transitively referenced by any exports or public functions.
 
 ```
+$ twiggy garbage path/to/input.wasm
  Bytes │ Size % │ Garbage Item
 ───────┼────────┼──────────────────────
     11 ┊  5.58% ┊ unusedAddThreeNumbers
