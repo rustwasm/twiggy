@@ -218,6 +218,7 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
 
 struct DominatorTree {
     tree: BTreeMap<ir::Id, Vec<ir::Id>>,
+    root_id: ir::Id,
     opts: opt::Dominators,
 }
 
@@ -230,8 +231,12 @@ impl traits::Emit for DominatorTree {
         ]);
 
         let opts = &self.opts;
-
         let mut row = 0 as u32;
+        let start_depth = if self.root_id == items.meta_root() {
+            0
+        } else {
+            1
+        };
 
         fn recursive_add_rows(
             table: &mut Table,
@@ -297,10 +302,10 @@ impl traits::Emit for DominatorTree {
             &mut table,
             items,
             &self.tree,
-            0,
+            start_depth,
             &mut row,
             &opts,
-            items.meta_root(),
+            self.root_id,
         );
         write!(dest, "{}", &table)?;
         Ok(())
@@ -346,7 +351,7 @@ impl traits::Emit for DominatorTree {
         }
 
         let mut obj = json::object(dest)?;
-        recursive_add_children(items, &self.opts, &self.tree, items.meta_root(), &mut obj)
+        recursive_add_children(items, &self.opts, &self.tree, self.root_id, &mut obj)
     }
 }
 
@@ -358,8 +363,18 @@ pub fn dominators(
     items.compute_dominator_tree();
     items.compute_retained_sizes();
 
+    let subtree = opts.subtree();
+    let root_id = match subtree.is_empty() {
+        true => items.meta_root(),
+        false => items
+            .get_item_by_name(&subtree)
+            .map(|item| item.id())
+            .unwrap_or(items.meta_root()),
+    };
+
     let tree = DominatorTree {
         tree: items.dominator_tree().clone(),
+        root_id,
         opts: opts.clone(),
     };
 

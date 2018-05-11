@@ -310,6 +310,17 @@ impl Items {
             .cloned()
             .unwrap()
     }
+
+    /// Get an item with the given name.
+    pub fn get_item_by_name(&self, name: &str) -> Option<&Item> {
+        for item in self.iter() {
+            if item.name() == name {
+                return Some(item);
+            }
+        }
+
+        None // Return `None` if `name` did not match any items.
+    }
 }
 
 /// An iterator over an item's neighbors.
