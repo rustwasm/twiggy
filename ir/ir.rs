@@ -167,7 +167,7 @@ impl Items {
         }
     }
 
-    /// Iterate over an item's neighbors.
+    /// Iterate over an item's predecessors.
     pub fn predecessors(&self, id: Id) -> Predecessors {
         Predecessors {
             inner: self.predecessors
