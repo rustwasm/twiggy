@@ -124,7 +124,7 @@ Where we need help:
 
 ## Team
 
-| [<img alt="fitzgen" src="https://avatars2.githubusercontent.com/u/74571?s=117&v=4" width="117">](https://github.com/fitzgen) | [<img alt="data-pup" src="https://avatars0.githubusercontent.com/u/16364986?s=117&v=4" width="117">](https://github.com/data-pup) |
+| [<img alt="fitzgen" src="https://github.com/fitzgen.png" width="117">](https://github.com/fitzgen) | [<img alt="data-pup" src="https://github.com/data-pup.png" width="117">](https://github.com/data-pup) |
 |:---:|:---:|
 | [`fitzgen`](https://github.com/fitzgen) | [`data-pup`](https://github.com/data-pup) |
 
