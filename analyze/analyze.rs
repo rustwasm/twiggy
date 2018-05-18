@@ -412,7 +412,11 @@ impl traits::Emit for Paths {
                 label.push_str("    ");
             }
             if depth > 0 {
-                label.push_str("  ⬑ ");
+                if opts.descending() {
+                    label.push_str("  ↳ ");
+                } else {
+                    label.push_str("  ⬑ ");
+                }
             }
             label.push_str(item.name());
 
@@ -432,12 +436,21 @@ impl traits::Emit for Paths {
             ]);
 
             seen.insert(id);
-            for (i, caller) in items.predecessors(id).enumerate() {
-                if i > 0 {
+
+            if opts.descending() {
+                for callee in items.neighbors(id) {
                     *paths += 1;
+                    recursive_callers(items, seen, table, depth + 1, &mut paths, &opts, callee);
                 }
-                recursive_callers(items, seen, table, depth + 1, &mut paths, &opts, caller);
+            } else {
+                for (i, caller) in items.predecessors(id).enumerate() {
+                    if i > 0 {
+                        *paths += 1;
+                    }
+                    recursive_callers(items, seen, table, depth + 1, &mut paths, &opts, caller);
+                }
             }
+
             seen.remove(&id);
         }
 
@@ -518,20 +531,39 @@ impl traits::Emit for Paths {
 
 /// Find all retaining paths for the given items.
 pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emit>, traits::Error> {
-    items.compute_predecessors();
+    if !opts.descending() {
+        items.compute_predecessors();
+    }
 
-    let mut paths = Paths {
-        items: Vec::with_capacity(opts.functions().len()),
-        opts: opts.clone(),
+    let functions: Vec<ir::Id> = match opts.functions().is_empty() {
+        true => {
+            if opts.descending() {
+                let mut roots: Vec<_> = items
+                    .neighbors(items.meta_root())
+                    .map(|id| &items[id])
+                    .collect();
+                roots.sort_by(|a, b| b.size().cmp(&a.size()));
+                roots.into_iter().map(|item| item.id()).collect()
+            } else {
+                let mut sorted_items: Vec<_> = items
+                    .iter()
+                    .filter(|item| item.id() != items.meta_root())
+                    .collect();
+                sorted_items.sort_by(|a, b| b.size().cmp(&a.size()));
+                sorted_items.iter().map(|item| item.id()).collect()
+            }
+        }
+        false => opts.functions()
+            .iter()
+            .filter_map(|s| items.get_item_by_name(s))
+            .map(|item| item.id())
+            .collect(),
     };
 
-    let functions: BTreeSet<_> = opts.functions().iter().map(|s| s.as_str()).collect();
-
-    for item in items.iter() {
-        if functions.contains(item.name()) {
-            paths.items.push(item.id());
-        }
-    }
+    let paths = Paths {
+        items: functions,
+        opts: opts.clone(),
+    };
 
     Ok(Box::new(paths) as Box<traits::Emit>)
 }

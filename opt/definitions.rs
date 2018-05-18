@@ -220,6 +220,10 @@ pub struct Paths {
     /// The maximum number of paths, regardless of depth in the tree, to display.
     #[structopt(short = "r", default_value = "10")]
     max_paths: u32,
+
+    /// This direction of the path traversal.
+    #[structopt(long = "descending")]
+    descending: bool,
 }
 
 impl Default for Paths {
@@ -235,6 +239,7 @@ impl Default for Paths {
             functions: Default::default(),
             max_depth: 10,
             max_paths: 10,
+            descending: false,
         }
     }
 }
@@ -271,6 +276,11 @@ impl Paths {
         self.max_paths
     }
 
+    /// The direction in which the call paths are traversed.
+    pub fn descending(&self) -> bool {
+        self.descending
+    }
+
     /// Set the maximum depth to print the paths.
     pub fn set_max_depth(&mut self, max_depth: u32) {
         self.max_depth = max_depth;
@@ -280,6 +290,12 @@ impl Paths {
     pub fn set_max_paths(&mut self, max_paths: u32) {
         self.max_paths = max_paths;
     }
+
+    /// Set the call path traversal direction.
+    pub fn set_descending(&mut self, descending: bool) {
+        self.descending = descending;
+    }
+
 }
 
 /// List the generic function monomorphizations that are contributing to

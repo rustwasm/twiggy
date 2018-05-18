@@ -1,0 +1,81 @@
+ Shallow Bytes │ Shallow % │ Retaining Paths
+───────────────┼───────────┼────────────────────────────────────────
+            44 ┊    30.56% ┊ "function names" subsection
+             8 ┊     5.56% ┊ woof
+               ┊           ┊   ⬑ func[3]
+               ┊           ┊       ⬑ export "woof"
+             7 ┊     4.86% ┊ export "awoo"
+             7 ┊     4.86% ┊ export "bark"
+             7 ┊     4.86% ┊ export "woof"
+             5 ┊     3.47% ┊ calledOnce
+               ┊           ┊   ⬑ func[0]
+               ┊           ┊       ⬑ woof
+               ┊           ┊           ⬑ func[3]
+               ┊           ┊               ⬑ export "woof"
+             5 ┊     3.47% ┊ calledTwice
+               ┊           ┊   ⬑ func[1]
+               ┊           ┊       ⬑ bark
+               ┊           ┊           ⬑ func[2]
+               ┊           ┊               ⬑ export "bark"
+               ┊           ┊               ⬑ awoo
+               ┊           ┊                   ⬑ func[4]
+               ┊           ┊                       ⬑ export "awoo"
+               ┊           ┊       ⬑ woof
+               ┊           ┊           ⬑ func[3]
+               ┊           ┊               ⬑ export "woof"
+             5 ┊     3.47% ┊ bark
+               ┊           ┊   ⬑ func[2]
+               ┊           ┊       ⬑ export "bark"
+               ┊           ┊       ⬑ awoo
+               ┊           ┊           ⬑ func[4]
+               ┊           ┊               ⬑ export "awoo"
+             5 ┊     3.47% ┊ awoo
+               ┊           ┊   ⬑ func[4]
+               ┊           ┊       ⬑ export "awoo"
+             4 ┊     2.78% ┊ type[0]
+               ┊           ┊   ⬑ func[0]
+               ┊           ┊       ⬑ woof
+               ┊           ┊           ⬑ func[3]
+               ┊           ┊               ⬑ export "woof"
+               ┊           ┊   ⬑ func[1]
+               ┊           ┊       ⬑ bark
+               ┊           ┊           ⬑ func[2]
+               ┊           ┊               ⬑ export "bark"
+               ┊           ┊               ⬑ awoo
+               ┊           ┊                   ⬑ func[4]
+               ┊           ┊                       ⬑ export "awoo"
+               ┊           ┊       ⬑ woof
+               ┊           ┊           ⬑ func[3]
+               ┊           ┊               ⬑ export "woof"
+               ┊           ┊   ⬑ func[2]
+               ┊           ┊       ⬑ export "bark"
+               ┊           ┊       ⬑ awoo
+               ┊           ┊           ⬑ func[4]
+               ┊           ┊               ⬑ export "awoo"
+               ┊           ┊   ⬑ func[3]
+               ┊           ┊       ⬑ export "woof"
+               ┊           ┊   ⬑ func[4]
+               ┊           ┊       ⬑ export "awoo"
+             1 ┊     0.69% ┊ func[0]
+               ┊           ┊   ⬑ woof
+               ┊           ┊       ⬑ func[3]
+               ┊           ┊           ⬑ export "woof"
+             1 ┊     0.69% ┊ func[1]
+               ┊           ┊   ⬑ bark
+               ┊           ┊       ⬑ func[2]
+               ┊           ┊           ⬑ export "bark"
+               ┊           ┊           ⬑ awoo
+               ┊           ┊               ⬑ func[4]
+               ┊           ┊                   ⬑ export "awoo"
+               ┊           ┊   ⬑ woof
+               ┊           ┊       ⬑ func[3]
+               ┊           ┊           ⬑ export "woof"
+             1 ┊     0.69% ┊ func[2]
+               ┊           ┊   ⬑ export "bark"
+               ┊           ┊   ⬑ awoo
+               ┊           ┊       ⬑ func[4]
+               ┊           ┊           ⬑ export "awoo"
+             1 ┊     0.69% ┊ func[3]
+               ┊           ┊   ⬑ export "woof"
+             1 ┊     0.69% ┊ func[4]
+               ┊           ┊   ⬑ export "awoo"
