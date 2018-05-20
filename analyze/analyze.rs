@@ -411,6 +411,7 @@ impl traits::Emit for DominatorTree {
             #[derive(Serialize, Debug)]
             #[serde(rename_all = "PascalCase")]
             struct CsvRecord {
+                id: u64,
                 name: String,
                 shallow_size: u32,
                 shallow_size_percent: f64,
@@ -435,6 +436,7 @@ impl traits::Emit for DominatorTree {
             };
 
             let rc = CsvRecord {
+                id: item.id().serializable(),
                 name: item.name().to_string(),
                 shallow_size: size,
                 shallow_size_percent: size_percent,

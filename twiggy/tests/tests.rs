@@ -282,19 +282,6 @@ test!(
 );
 
 test!(
-    paths_json,
-    "paths",
-    "./fixtures/wee_alloc.wasm",
-    "wee_alloc::alloc_first_fit::h9a72de3af77ef93f",
-    "hello",
-    "goodbye",
-    "-d",
-    "3",
-    "-f",
-    "json"
-);
-
-test!(
     issue_16,
     "paths",
     "./fixtures/mappings.wasm",
