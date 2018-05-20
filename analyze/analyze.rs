@@ -3,15 +3,14 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-extern crate csv as csv_sys;
 #[macro_use]
 extern crate serde_derive;
 extern crate petgraph;
 extern crate twiggy_ir as ir;
 extern crate twiggy_opt as opt;
 extern crate twiggy_traits as traits;
+extern crate csv;
 
-mod csv;
 mod json;
 
 use std::cmp;
@@ -184,7 +183,17 @@ impl traits::Emit for Top {
     }
 
     fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
-        let mut wtr = csv_sys::Writer::from_writer(dest);
+        let mut wtr = csv::Writer::from_writer(dest);
+
+        #[derive(Serialize, Debug)]
+        #[serde(rename_all = "PascalCase")]
+        struct CsvRecord {
+            name: String,
+            shallow_size: u32,
+            shallow_size_percent: f64,
+            retained_size: Option<u32>,
+            retained_size_percent: Option<f64>,
+        }
 
         for &id in &self.items {
             let item = &items[id];
@@ -202,13 +211,12 @@ impl traits::Emit for Top {
                 (None, None)
             };
 
-            wtr.serialize(csv::CsvRecord {
+            wtr.serialize(CsvRecord {
                 name: item.name().to_string(),
                 shallow_size: shallow_size,
                 shallow_size_percent: shallow_size_percent,
                 retained_size: retained_size,
                 retained_size_percent: retained_size_percent,
-                ..Default::default()
             })?;
             wtr.flush()?;
         }
@@ -391,14 +399,26 @@ impl traits::Emit for DominatorTree {
     }
 
     fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
-        let mut wtr = csv_sys::Writer::from_writer(dest);
+        let mut wtr = csv::Writer::from_writer(dest);
         fn recursive_add_children<'a>(
             items: &ir::Items,
             opts: &opt::Dominators,
             dominator_tree: &BTreeMap<ir::Id, Vec<ir::Id>>,
             id: ir::Id,
-            wtr: &mut csv_sys::Writer<&mut io::Write>,
+            wtr: &mut csv::Writer<&mut io::Write>,
         ) -> Result<(), traits::Error> {
+
+            #[derive(Serialize, Debug)]
+            #[serde(rename_all = "PascalCase")]
+            struct CsvRecord {
+                name: String,
+                shallow_size: u32,
+                shallow_size_percent: f64,
+                retained_size: u32,
+                retained_size_percent: f64,
+                immediate_dominator: u64,
+            }
+
             let item = &items[id];
             let (size, size_percent) = (
                 item.size(),
@@ -408,20 +428,19 @@ impl traits::Emit for DominatorTree {
                 items.retained_size(id),
                 (items.retained_size(id) as f64) / (items.size() as f64) * 100.0,
             );
-            let idom = if let Some(idom) = items.predecessors(id).last() {
-                idom.real_id()
+            let idom = if let Some(idom) = items.immediate_dominators().get(&id) {
+                idom.serializable()
             } else {
-                id.real_id()
+                id.serializable()
             };
-            let rc = csv::CsvRecord {
-                id: Some(item.id().real_id()),
+
+            let rc = CsvRecord {
                 name: item.name().to_string(),
                 shallow_size: size,
                 shallow_size_percent: size_percent,
-                retained_size: Some(retained_size),
-                retained_size_percent: Some(retained_size_percent),
-                immediate_dominator: Some(idom),
-                ..Default::default()
+                retained_size: retained_size,
+                retained_size_percent: retained_size_percent,
+                immediate_dominator: idom,
             };
 
             wtr.serialize(rc)?;
@@ -447,6 +466,7 @@ pub fn dominators(
     opts: &opt::Dominators,
 ) -> Result<Box<traits::Emit>, traits::Error> {
     items.compute_dominator_tree();
+    items.compute_dominators();
     items.compute_retained_sizes();
     items.compute_predecessors();
 
@@ -616,7 +636,7 @@ impl traits::Emit for Paths {
     }
 
     fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
-        let mut wtr = csv_sys::Writer::from_writer(dest);
+        let mut wtr = csv::Writer::from_writer(dest);
         fn recursive_callers(
             items: &ir::Items,
             seen: &mut BTreeSet<ir::Id>,
@@ -624,8 +644,17 @@ impl traits::Emit for Paths {
             mut paths: &mut u32,
             opts: &opt::Paths,
             id: ir::Id,
-            wtr: &mut csv_sys::Writer<&mut io::Write>,
+            wtr: &mut csv::Writer<&mut io::Write>,
         ) -> io::Result<()> {
+            #[derive(Serialize, Debug)]
+            #[serde(rename_all = "PascalCase")]
+            struct CsvRecord {
+                name: String,
+                shallow_size: u32,
+                shallow_size_percent: f64,
+                path: Option<String>,
+            }
+
             let item = &items[id];
             let size = item.size();
             let size_percent = (size as f64) / (items.size() as f64) * 100.0;
@@ -637,12 +666,11 @@ impl traits::Emit for Paths {
             callers.push(item.name());
             let path = callers.join(" -> ");
 
-            let record = csv::CsvRecord {
+            let record = CsvRecord {
                 name: item.name().to_owned(),
                 shallow_size: size,
                 shallow_size_percent: size_percent,
                 path: Some(path),
-                ..Default::default()
             };
 
             wtr.serialize(record)?;
@@ -842,7 +870,7 @@ impl traits::Emit for Monos {
             monomorphizations: Option<String>,
         }
 
-        let mut wtr = csv_sys::Writer::from_writer(dest);
+        let mut wtr = csv::Writer::from_writer(dest);
         let mut rc;
         for entry in &self.monos {
             let approx_potential_savings_percent =

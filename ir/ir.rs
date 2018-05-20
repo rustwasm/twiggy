@@ -113,6 +113,7 @@ impl ItemsBuilder {
             dominator_tree: None,
             retained_sizes: None,
             predecessors: None,
+            immediate_dominators: None,
             items: Frozen::freeze(self.items),
             edges: Frozen::freeze(
                 self.edges
@@ -134,6 +135,7 @@ impl ItemsBuilder {
 pub struct Items {
     size: u32,
     dominator_tree: Option<BTreeMap<Id, Vec<Id>>>,
+    immediate_dominators: Option<BTreeMap<Id, Id>>,
     retained_sizes: Option<BTreeMap<Id, u32>>,
     predecessors: Option<BTreeMap<Id, Vec<Id>>>,
     items: Frozen<BTreeMap<Id, Item>>,
@@ -212,6 +214,31 @@ impl Items {
                 .map(|(k, v)| (k, v.into_iter().collect()))
                 .collect(),
         );
+    }
+
+    /// Compute dominators for each item.
+    pub fn compute_dominators(&mut self) {
+        if self.immediate_dominators.is_some() {
+            return;
+        }
+
+        let mut immediate_dominators = BTreeMap::new();
+        let dominators = petgraph::algo::dominators::simple_fast(&*self, self.meta_root);
+
+        for item in self.iter() {
+            if let Some(idom) = dominators.immediate_dominator(item.id()) {
+                immediate_dominators.insert(item.id(), idom);
+            }
+        }
+
+        self.immediate_dominators = Some(immediate_dominators);
+    }
+
+    /// Get a refercence to immediate dominators
+    pub fn immediate_dominators(&self) -> &BTreeMap<Id, Id> {
+        self.immediate_dominators
+            .as_ref()
+            .expect("must call compute_immediate_dominators before calling immediate_dominators")
     }
 
     /// Force computation of the dominator tree.
@@ -368,6 +395,7 @@ impl<'a> Iterator for Iter<'a> {
 }
 
 /// An item's unique identifier.
+/// (section index, item within that section index)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Id(u32, u32);
 
@@ -391,8 +419,9 @@ impl Id {
     }
 
     /// Get the real id of a item.
-    pub fn real_id(&self) -> u32 {
-        self.0
+    pub fn serializable(&self) -> u64 {
+        let top = (self.0 as u64) << 32;
+        top | (self.1 as u64)
     }
 }
 
