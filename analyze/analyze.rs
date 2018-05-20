@@ -6,6 +6,7 @@
 #[macro_use]
 extern crate serde_derive;
 extern crate petgraph;
+extern crate regex;
 extern crate twiggy_ir as ir;
 extern crate twiggy_opt as opt;
 extern crate twiggy_traits as traits;
@@ -17,6 +18,7 @@ use std::cmp;
 use std::collections::{BTreeMap, BTreeSet};
 use std::fmt;
 use std::io;
+use std::str::FromStr;
 
 #[derive(Debug, Clone, Copy)]
 enum Align {
@@ -713,33 +715,67 @@ impl traits::Emit for Paths {
 
 /// Find all retaining paths for the given items.
 pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emit>, traits::Error> {
+    // The predecessor tree only needs to be computed if we are ascending through the retaining paths.
     if !opts.descending() {
         items.compute_predecessors();
     }
 
-    let functions: Vec<ir::Id> = match opts.functions().is_empty() {
-        true => {
-            if opts.descending() {
-                let mut roots: Vec<_> = items
-                    .neighbors(items.meta_root())
-                    .map(|id| &items[id])
-                    .collect();
-                roots.sort_by(|a, b| b.size().cmp(&a.size()));
-                roots.into_iter().map(|item| item.id()).collect()
-            } else {
-                let mut sorted_items: Vec<_> = items
-                    .iter()
-                    .filter(|item| item.id() != items.meta_root())
-                    .collect();
-                sorted_items.sort_by(|a, b| b.size().cmp(&a.size()));
-                sorted_items.iter().map(|item| item.id()).collect()
-            }
-        }
-        false => opts.functions()
+    // Initializes `functions` if no arguments are given, if we are ascending the retaining paths.
+    let get_functions_default = || {
+        let mut sorted_items: Vec<_> = items
             .iter()
-            .filter_map(|s| items.get_item_by_name(s))
-            .map(|item| item.id())
-            .collect(),
+            .filter(|item| item.id() != items.meta_root())
+            .collect();
+        sorted_items.sort_by(|a, b| b.size().cmp(&a.size()));
+        sorted_items.iter().map(|item| item.id()).collect()
+    };
+
+    // Initializes `functions` if no arguments are given, if we are descending the retaining paths.
+    let get_functions_default_desc = || {
+        let mut roots: Vec<_> = items
+            .neighbors(items.meta_root())
+            .map(|id| &items[id])
+            .collect();
+        roots.sort_by(|a, b| b.size().cmp(&a.size()));
+        roots.into_iter().map(|item| item.id()).collect()
+    };
+
+    // Initialize the collection of Id values whose retaining paths we will emit.
+    let functions: Vec<ir::Id> = if opts.functions().is_empty() {
+        match opts.descending() {
+            true => get_functions_default_desc(),
+            false => get_functions_default(),
+        }
+    } else {
+        match opts.using_regexps() {
+            true => {
+                // Build a Regex object using each of the `functions` arguments.
+                let regexps: Vec<regex::Regex> = opts
+                    .functions()
+                    .iter()
+                    .map(|f| regex::Regex::from_str(f).unwrap()) // FIXUP: Added ? operator etc.
+                    .collect();
+                // Collect the Id's of items that is a match with at least one
+                // of the patterns in the regular expressions collection.
+                items
+                    .iter()
+                    .filter(|item| {
+                        let name = item.name();
+                        regexps
+                            .iter()
+                            .map(|r| r.is_match(&name))
+                            .fold(false, |match_exists, is_match| match_exists || is_match)
+                    })
+                    .map(|item| item.id())
+                    .collect()
+            }
+            false => opts
+                .functions()
+                .iter()
+                .filter_map(|s| items.get_item_by_name(s))
+                .map(|item| item.id())
+                .collect(),
+        }
     };
 
     let paths = Paths {

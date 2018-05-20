@@ -163,7 +163,8 @@ impl Items {
     /// Iterate over an item's neighbors.
     pub fn neighbors(&self, id: Id) -> Neighbors {
         Neighbors {
-            inner: self.edges
+            inner: self
+                .edges
                 .get(&id)
                 .map_or_else(|| [].iter(), |edges| edges.iter()),
         }
@@ -172,7 +173,8 @@ impl Items {
     /// Iterate over an item's predecessors.
     pub fn predecessors(&self, id: Id) -> Predecessors {
         Predecessors {
-            inner: self.predecessors
+            inner: self
+                .predecessors
                 .as_ref()
                 .expect("To access predecessors, must have already called compute_predecessors")
                 .get(&id)

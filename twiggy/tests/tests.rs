@@ -230,6 +230,31 @@ test!(
     "json"
 );
 
+test!(
+    paths_test_regex_called_any,
+    "paths",
+    "./fixtures/paths_test.wasm",
+    "called*",
+    "--regex"
+);
+
+test!(
+    paths_test_regex_exports,
+    "paths",
+    "./fixtures/paths_test.wasm",
+    "export \"*\"",
+    "--regex"
+);
+
+test!(
+    paths_test_regex_exports_desc,
+    "paths",
+    "./fixtures/paths_test.wasm",
+    "export \"*\"",
+    "--descending",
+    "--regex"
+);
+
 // This should not fail to open and write `whatever-output.txt`.
 test!(
     output_to_file,
