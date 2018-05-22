@@ -234,7 +234,7 @@ test!(
     paths_test_regex_called_any,
     "paths",
     "./fixtures/paths_test.wasm",
-    "called*",
+    "called.*",
     "--regex"
 );
 
@@ -242,7 +242,7 @@ test!(
     paths_test_regex_exports,
     "paths",
     "./fixtures/paths_test.wasm",
-    "export \"*\"",
+    "export \".*\"",
     "--regex"
 );
 
@@ -250,7 +250,7 @@ test!(
     paths_test_regex_exports_desc,
     "paths",
     "./fixtures/paths_test.wasm",
-    "export \"*\"",
+    "export \".*\"",
     "--descending",
     "--regex"
 );

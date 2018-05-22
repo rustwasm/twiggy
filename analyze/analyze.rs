@@ -18,7 +18,6 @@ use std::cmp;
 use std::collections::{BTreeMap, BTreeSet};
 use std::fmt;
 use std::io;
-use std::str::FromStr;
 
 #[derive(Debug, Clone, Copy)]
 enum Align {
@@ -714,12 +713,14 @@ impl traits::Emit for Paths {
 
 /// Find all retaining paths for the given items.
 pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emit>, traits::Error> {
-    // The predecessor tree only needs to be computed if we are ascending through the retaining paths.
+    // The predecessor tree only needs to be computed if we are ascending
+    // through the retaining paths.
     if !opts.descending() {
         items.compute_predecessors();
     }
 
-    // Initializes `functions` if no arguments are given, if we are ascending the retaining paths.
+    // This closure is used to initialize `functions` if no arguments are given
+    // and we are ascending the retaining paths.
     let get_functions_default = || {
         let mut sorted_items: Vec<_> = items
             .iter()
@@ -729,7 +730,8 @@ pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emi
         sorted_items.iter().map(|item| item.id()).collect()
     };
 
-    // Initializes `functions` if no arguments are given, if we are descending the retaining paths.
+    // This closure is used to initialize `functions` if no arguments are given
+    // and we are descending the retaining paths.
     let get_functions_default_desc = || {
         let mut roots: Vec<_> = items
             .neighbors(items.meta_root())
@@ -748,23 +750,10 @@ pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emi
     } else {
         match opts.using_regexps() {
             true => {
-                // Build a Regex object using each of the `functions` arguments.
-                let regexps: Vec<regex::Regex> = opts
-                    .functions()
-                    .iter()
-                    .map(|f| regex::Regex::from_str(f).unwrap()) // FIXUP: Added ? operator etc.
-                    .collect();
-                // Collect the Id's of items that is a match with at least one
-                // of the patterns in the regular expressions collection.
+                let regexps = regex::RegexSet::new(opts.functions())?;
                 items
                     .iter()
-                    .filter(|item| {
-                        let name = item.name();
-                        regexps
-                            .iter()
-                            .map(|r| r.is_match(&name))
-                            .fold(false, |match_exists, is_match| match_exists || is_match)
-                    })
+                    .filter(|item| regexps.is_match(&item.name()))
                     .map(|item| item.id())
                     .collect()
             }

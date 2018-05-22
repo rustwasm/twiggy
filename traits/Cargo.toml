@@ -16,3 +16,4 @@ failure = "0.1.1"
 parity-wasm = "0.28.0"
 twiggy-ir = { version = "0.1.0", path = "../ir" }
 csv = "1.0.0-beta.5"
+regex = "1.0.0"
