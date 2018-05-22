@@ -3,6 +3,7 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
+extern crate csv;
 #[macro_use]
 extern crate failure;
 
@@ -49,6 +50,9 @@ enum ErrorInner {
 
     #[fail(display = "formatting error: {}", _0)]
     Fmt(#[cause] fmt::Error),
+
+    #[fail(display = "CSV error: {}", _0)]
+    Csv(#[cause] csv::Error),
 }
 
 impl From<io::Error> for Error {
@@ -71,6 +75,14 @@ impl From<fmt::Error> for Error {
     fn from(e: fmt::Error) -> Error {
         Error {
             inner: Box::new(ErrorInner::Fmt(e)),
+        }
+    }
+}
+
+impl From<csv::Error> for Error {
+    fn from(e: csv::Error) -> Error {
+        Error {
+            inner: Box::new(ErrorInner::Csv(e)),
         }
     }
 }
@@ -111,8 +123,8 @@ pub enum OutputFormat {
     // /// Graphviz dot format.
     // Dot,
 
-    // /// Comma-separated values (CSV) format.
-    // Csv,
+    /// Comma-separated values (CSV) format.
+    Csv,
     /// JavaScript Object Notation format.
     Json,
 }
@@ -130,6 +142,7 @@ impl FromStr for OutputFormat {
         match s {
             "text" => Ok(OutputFormat::Text),
             "json" => Ok(OutputFormat::Json),
+            "csv" => Ok(OutputFormat::Csv),
             _ => Err(Error::with_msg(format!("Unknown output format: {}", s))),
         }
     }
@@ -149,7 +162,7 @@ pub trait Emit {
             OutputFormat::Text => self.emit_text(items, destination),
             // OutputFormat::Html => self.emit_html(destination),
             // OutputFormat::Dot => self.emit_dot(destination),
-            // OutputFormat::Csv => self.emit_csv(destination),
+            OutputFormat::Csv => self.emit_csv(items, destination),
             OutputFormat::Json => self.emit_json(items, destination),
         }
     }
@@ -163,8 +176,8 @@ pub trait Emit {
     // /// Emit Graphviz's dot format.
     // fn emit_dot(&self, destination: &mut io::Write) -> Result<(), Error>;
 
-    // /// Emit CSV.
-    // fn emit_csv(&self, destination: &mut io::Write) -> Result<(), Error>;
+    /// Emit CSV.
+    fn emit_csv(&self, items: &ir::Items, destination: &mut io::Write) -> Result<(), Error>;
 
     /// Emit JSON.
     fn emit_json(&self, items: &ir::Items, destination: &mut io::Write) -> Result<(), Error>;
