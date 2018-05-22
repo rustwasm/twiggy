@@ -5,12 +5,12 @@
 
 #[macro_use]
 extern crate serde_derive;
+extern crate csv;
 extern crate petgraph;
 extern crate regex;
 extern crate twiggy_ir as ir;
 extern crate twiggy_opt as opt;
 extern crate twiggy_traits as traits;
-extern crate csv;
 
 mod json;
 
@@ -409,7 +409,6 @@ impl traits::Emit for DominatorTree {
             id: ir::Id,
             wtr: &mut csv::Writer<&mut io::Write>,
         ) -> Result<(), traits::Error> {
-
             #[derive(Serialize, Debug)]
             #[serde(rename_all = "PascalCase")]
             struct CsvRecord {

@@ -122,7 +122,6 @@ pub enum OutputFormat {
 
     // /// Graphviz dot format.
     // Dot,
-
     /// Comma-separated values (CSV) format.
     Csv,
     /// JavaScript Object Notation format.
