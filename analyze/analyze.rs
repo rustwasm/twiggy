@@ -5,11 +5,12 @@
 
 #[macro_use]
 extern crate serde_derive;
+extern crate csv;
 extern crate petgraph;
+extern crate regex;
 extern crate twiggy_ir as ir;
 extern crate twiggy_opt as opt;
 extern crate twiggy_traits as traits;
-extern crate csv;
 
 mod json;
 
@@ -407,7 +408,6 @@ impl traits::Emit for DominatorTree {
             id: ir::Id,
             wtr: &mut csv::Writer<&mut io::Write>,
         ) -> Result<(), traits::Error> {
-
             #[derive(Serialize, Debug)]
             #[serde(rename_all = "PascalCase")]
             struct CsvRecord {
@@ -713,33 +713,57 @@ impl traits::Emit for Paths {
 
 /// Find all retaining paths for the given items.
 pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emit>, traits::Error> {
+    // The predecessor tree only needs to be computed if we are ascending
+    // through the retaining paths.
     if !opts.descending() {
         items.compute_predecessors();
     }
 
-    let functions: Vec<ir::Id> = match opts.functions().is_empty() {
-        true => {
-            if opts.descending() {
-                let mut roots: Vec<_> = items
-                    .neighbors(items.meta_root())
-                    .map(|id| &items[id])
-                    .collect();
-                roots.sort_by(|a, b| b.size().cmp(&a.size()));
-                roots.into_iter().map(|item| item.id()).collect()
-            } else {
-                let mut sorted_items: Vec<_> = items
-                    .iter()
-                    .filter(|item| item.id() != items.meta_root())
-                    .collect();
-                sorted_items.sort_by(|a, b| b.size().cmp(&a.size()));
-                sorted_items.iter().map(|item| item.id()).collect()
-            }
-        }
-        false => opts.functions()
+    // This closure is used to initialize `functions` if no arguments are given
+    // and we are ascending the retaining paths.
+    let get_functions_default = || {
+        let mut sorted_items: Vec<_> = items
             .iter()
-            .filter_map(|s| items.get_item_by_name(s))
-            .map(|item| item.id())
-            .collect(),
+            .filter(|item| item.id() != items.meta_root())
+            .collect();
+        sorted_items.sort_by(|a, b| b.size().cmp(&a.size()));
+        sorted_items.iter().map(|item| item.id()).collect()
+    };
+
+    // This closure is used to initialize `functions` if no arguments are given
+    // and we are descending the retaining paths.
+    let get_functions_default_desc = || {
+        let mut roots: Vec<_> = items
+            .neighbors(items.meta_root())
+            .map(|id| &items[id])
+            .collect();
+        roots.sort_by(|a, b| b.size().cmp(&a.size()));
+        roots.into_iter().map(|item| item.id()).collect()
+    };
+
+    // Initialize the collection of Id values whose retaining paths we will emit.
+    let functions: Vec<ir::Id> = if opts.functions().is_empty() {
+        match opts.descending() {
+            true => get_functions_default_desc(),
+            false => get_functions_default(),
+        }
+    } else {
+        match opts.using_regexps() {
+            true => {
+                let regexps = regex::RegexSet::new(opts.functions())?;
+                items
+                    .iter()
+                    .filter(|item| regexps.is_match(&item.name()))
+                    .map(|item| item.id())
+                    .collect()
+            }
+            false => opts
+                .functions()
+                .iter()
+                .filter_map(|s| items.get_item_by_name(s))
+                .map(|item| item.id())
+                .collect(),
+        }
     };
 
     let paths = Paths {

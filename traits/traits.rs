@@ -6,6 +6,7 @@
 extern crate csv;
 #[macro_use]
 extern crate failure;
+extern crate regex;
 
 extern crate parity_wasm as wasm;
 extern crate twiggy_ir as ir;
@@ -53,6 +54,9 @@ enum ErrorInner {
 
     #[fail(display = "CSV error: {}", _0)]
     Csv(#[cause] csv::Error),
+
+    #[fail(display = "Regex error: {}", _0)]
+    Regex(#[cause] regex::Error),
 }
 
 impl From<io::Error> for Error {
@@ -83,6 +87,14 @@ impl From<csv::Error> for Error {
     fn from(e: csv::Error) -> Error {
         Error {
             inner: Box::new(ErrorInner::Csv(e)),
+        }
+    }
+}
+
+impl From<regex::Error> for Error {
+    fn from(e: regex::Error) -> Error {
+        Error {
+            inner: Box::new(ErrorInner::Regex(e)),
         }
     }
 }
@@ -122,7 +134,6 @@ pub enum OutputFormat {
 
     // /// Graphviz dot format.
     // Dot,
-
     /// Comma-separated values (CSV) format.
     Csv,
     /// JavaScript Object Notation format.

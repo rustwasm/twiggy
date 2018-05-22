@@ -224,6 +224,10 @@ pub struct Paths {
     /// This direction of the path traversal.
     #[structopt(long = "descending")]
     descending: bool,
+
+    /// Whether or not `functions` should be treated as regular expressions.
+    #[structopt(long = "regex")]
+    using_regexps: bool,
 }
 
 impl Default for Paths {
@@ -240,6 +244,7 @@ impl Default for Paths {
             max_depth: 10,
             max_paths: 10,
             descending: false,
+            using_regexps: false,
         }
     }
 }
@@ -281,6 +286,11 @@ impl Paths {
         self.descending
     }
 
+    /// Whether or not `functions` should be treated as regular expressions.
+    pub fn using_regexps(&self) -> bool {
+        self.using_regexps
+    }
+
     /// Set the maximum depth to print the paths.
     pub fn set_max_depth(&mut self, max_depth: u32) {
         self.max_depth = max_depth;
@@ -296,6 +306,10 @@ impl Paths {
         self.descending = descending;
     }
 
+    /// Set Whether or not `functions` should be treated as regular expressions.
+    pub fn set_using_regexps(&mut self, using_regexps: bool) {
+        self.using_regexps = using_regexps;
+    }
 }
 
 /// List the generic function monomorphizations that are contributing to
