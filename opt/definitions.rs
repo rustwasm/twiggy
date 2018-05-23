@@ -120,7 +120,7 @@ impl Top {
 pub struct Dominators {
     /// The path to the input binary to size profile.
     #[cfg(feature = "cli")]
-   #[structopt(parse(from_os_str))]
+    #[structopt(parse(from_os_str))]
     input: path::PathBuf,
 
     /// The destination to write the output to. Defaults to `stdout`.
