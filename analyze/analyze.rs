@@ -263,7 +263,7 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
 
 struct DominatorTree {
     tree: BTreeMap<ir::Id, Vec<ir::Id>>,
-    root_id: ir::Id,
+    items: Vec<ir::Id>,
     opts: opt::Dominators,
 }
 
@@ -277,11 +277,6 @@ impl traits::Emit for DominatorTree {
 
         let opts = &self.opts;
         let mut row = 0 as u32;
-        let start_depth = if self.root_id == items.meta_root() {
-            0
-        } else {
-            1
-        };
 
         fn recursive_add_rows(
             table: &mut Table,
@@ -343,15 +338,19 @@ impl traits::Emit for DominatorTree {
             }
         }
 
-        recursive_add_rows(
-            &mut table,
-            items,
-            &self.tree,
-            start_depth,
-            &mut row,
-            &opts,
-            self.root_id,
-        );
+        for id in &self.items {
+            let start_depth = if *id == items.meta_root() { 0 } else { 1 };
+            recursive_add_rows(
+                &mut table,
+                items,
+                &self.tree,
+                start_depth,
+                &mut row,
+                &opts,
+                *id,
+            );
+        }
+
         write!(dest, "{}", &table)?;
         Ok(())
     }
@@ -396,7 +395,11 @@ impl traits::Emit for DominatorTree {
         }
 
         let mut obj = json::object(dest)?;
-        recursive_add_children(items, &self.opts, &self.tree, self.root_id, &mut obj)
+        for curr_id in &self.items {
+            recursive_add_children(items, &self.opts, &self.tree, *curr_id, &mut obj)?;
+        }
+
+        Ok(())
     }
 
     fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
@@ -472,18 +475,32 @@ pub fn dominators(
     items.compute_retained_sizes();
     items.compute_predecessors();
 
-    let subtree = opts.subtree();
-    let root_id = match subtree.is_empty() {
-        true => items.meta_root(),
-        false => items
-            .get_item_by_name(&subtree)
-            .map(|item| item.id())
-            .unwrap_or(items.meta_root()),
+    let arguments = opts.items();
+    let dominator_items = match arguments.is_empty() {
+        true => vec![items.meta_root()],
+        false => {
+            if opts.using_regexps() {
+                let regexps = regex::RegexSet::new(arguments)?;
+                let mut sorted_items: Vec<_> = items
+                    .iter()
+                    .filter(|item| regexps.is_match(&item.name()))
+                    .map(|item| item.id())
+                    .collect();
+                sorted_items.sort_by_key(|id| items.retained_size(*id) as i32 * -1);
+                sorted_items
+            } else {
+                arguments
+                    .iter()
+                    .filter_map(|name| items.get_item_by_name(name))
+                    .map(|item| item.id())
+                    .collect()
+            }
+        }
     };
 
     let tree = DominatorTree {
         tree: items.dominator_tree().clone(),
-        root_id,
+        items: dominator_items,
         opts: opts.clone(),
     };
 
