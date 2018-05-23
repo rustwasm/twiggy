@@ -79,11 +79,3 @@ fn parse_wasm(data: &[u8]) -> Result<ir::Items, traits::Error> {
 fn parse_fallback(data: &[u8]) -> Result<ir::Items, traits::Error> {
     parse_wasm(data)
 }
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
