@@ -134,7 +134,7 @@ pub struct Dominators {
     output_format: traits::OutputFormat,
 
     /// The name of the function whose dominator subtree should be printed.
-    subtree: Option<String>,
+    items: Vec<String>,
 
     /// The maximum depth to print the dominators tree.
     #[structopt(short = "d")]
@@ -143,6 +143,20 @@ pub struct Dominators {
     /// The maximum number of rows, regardless of depth in the tree, to display.
     #[structopt(short = "r")]
     max_rows: Option<u32>,
+
+    /// Whether or not `items` should be treated as regular expressions.
+    #[structopt(long = "regex")]
+    using_regexps: bool,
+}
+
+impl Dominators {
+    // TODO: wasm-bindgen does not support sending Vec<String> across
+    // the wasm ABI boundary yet.
+
+    /// The items whose dominators subtree should be printed.
+    pub fn items(&self) -> &[String] {
+        &self.items
+    }
 }
 
 #[wasm_bindgen]
@@ -162,6 +176,11 @@ impl Dominators {
         self.max_rows.unwrap_or(u32::MAX)
     }
 
+    /// Whether or not `items` should be treated as regular expressions.
+    pub fn using_regexps(&self) -> bool {
+        self.using_regexps
+    }
+
     /// Set the maximum depth to print the dominators tree.
     pub fn set_max_depth(&mut self, max_depth: u32) {
         self.max_depth = Some(max_depth);
@@ -172,20 +191,9 @@ impl Dominators {
         self.max_rows = Some(max_rows);
     }
 
-    // TODO: wasm-bindgen does not support sending Option<String> across
-    // the wasm ABI boundary, return an empty string if `subtree` is None.
-
-    /// The function whose subtree should be printed.
-    pub fn subtree(&self) -> String {
-        match &self.subtree {
-            Some(s) => s.clone(),
-            None => String::new(),
-        }
-    }
-
-    /// Set the function whose subtree should be printed.
-    pub fn set_subtree(&mut self, subtree: &str) {
-        self.subtree = Some(subtree.to_string());
+    /// Set whether or not `items` should be treated as regular expressions.
+    pub fn set_using_regexps(&mut self, using_regexps: bool) {
+        self.using_regexps = using_regexps;
     }
 }
 

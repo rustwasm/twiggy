@@ -149,6 +149,14 @@ test!(
 );
 
 test!(
+    dominators_regex_any_func,
+    "dominators",
+    "./fixtures/paths_test.wasm",
+    "--regex",
+    "func\\[[0-9]+\\]"
+);
+
+test!(
     paths_test_called_once,
     "paths",
     "./fixtures/paths_test.wasm",

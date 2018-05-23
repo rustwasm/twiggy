@@ -1,0 +1,14 @@
+ Retained Bytes │ Retained % │ Dominator Tree
+────────────────┼────────────┼─────────────────────────
+             15 ┊     10.42% ┊ func[3]
+             14 ┊      9.72% ┊   ⤷ woof
+              6 ┊      4.17% ┊       ⤷ func[0]
+              5 ┊      3.47% ┊           ⤷ calledOnce
+              6 ┊      4.17% ┊ func[0]
+              5 ┊      3.47% ┊   ⤷ calledOnce
+              6 ┊      4.17% ┊ func[1]
+              5 ┊      3.47% ┊   ⤷ calledTwice
+              6 ┊      4.17% ┊ func[2]
+              5 ┊      3.47% ┊   ⤷ bark
+              6 ┊      4.17% ┊ func[4]
+              5 ┊      3.47% ┊   ⤷ awoo
