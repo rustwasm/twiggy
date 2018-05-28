@@ -3,11 +3,17 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
+extern crate fallible_iterator;
+extern crate gimli;
+extern crate object;
 extern crate parity_wasm;
+extern crate typed_arena;
+
 extern crate twiggy_ir as ir;
 extern crate twiggy_traits as traits;
 
-mod wasm;
+mod object_parse;
+mod wasm_parse;
 
 use parity_wasm::elements;
 use std::fs;
@@ -22,13 +28,9 @@ pub fn read_and_parse<P: AsRef<path::Path>>(path: P) -> Result<ir::Items, traits
     file.read_to_end(&mut data)?;
 
     match path.extension().and_then(|s| s.to_str()) {
-        Some("wasm") => if let Ok(items) = parse_wasm(&data) {
-            return Ok(items);
-        },
-        _ => {}
+        Some("wasm") => parse_wasm(&data),
+        _ => parse_other(&data),
     }
-
-    parse_fallback(&data)
 }
 
 /// Parse the given data into IR items.
@@ -72,6 +74,17 @@ fn parse_wasm(data: &[u8]) -> Result<ir::Items, traits::Error> {
 
     module.parse_items(&mut items, ())?;
     module.parse_edges(&mut items, ())?;
+
+    Ok(items.finish())
+}
+
+fn parse_other(data: &[u8]) -> Result<ir::Items, traits::Error> {
+    let mut items = ir::ItemsBuilder::new(data.len() as u32);
+
+    let file: object::File = object::File::parse(data)?;
+
+    file.parse_items(&mut items, ())?;
+    file.parse_edges(&mut items, ())?;
 
     Ok(items.finish())
 }

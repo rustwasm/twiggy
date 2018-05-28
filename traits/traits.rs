@@ -6,6 +6,7 @@
 extern crate csv;
 #[macro_use]
 extern crate failure;
+extern crate gimli;
 extern crate regex;
 
 extern crate parity_wasm as wasm;
@@ -57,6 +58,15 @@ enum ErrorInner {
 
     #[fail(display = "Regex error: {}", _0)]
     Regex(#[cause] regex::Error),
+
+    #[fail(display = "Gimli error: {}", _0)]
+    Gimli(#[cause] gimli::Error),
+}
+
+impl<'a> From<&'a str> for Error {
+    fn from(msg: &'a str) -> Error {
+        Error::with_msg(msg)
+    }
 }
 
 impl From<io::Error> for Error {
@@ -95,6 +105,14 @@ impl From<regex::Error> for Error {
     fn from(e: regex::Error) -> Error {
         Error {
             inner: Box::new(ErrorInner::Regex(e)),
+        }
+    }
+}
+
+impl From<gimli::Error> for Error {
+    fn from(e: gimli::Error) -> Error {
+        Error {
+            inner: Box::new(ErrorInner::Gimli(e)),
         }
     }
 }
