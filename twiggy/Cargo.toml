@@ -15,6 +15,10 @@ travis-ci = { repository = "rustwasm/twiggy" }
 name = "twiggy"
 path = "./twiggy.rs"
 
+[[bin]]
+name = "cargo-twiggy"
+path = "./cargo-twiggy.rs"
+
 [dependencies]
 failure = "0.1.1"
 structopt = "0.2"
