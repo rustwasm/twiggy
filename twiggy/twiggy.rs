@@ -1,47 +1,18 @@
-//! The `twiggy` code size profiler.
+extern crate twiggy_opt;
 
-#![deny(missing_docs)]
-#![deny(missing_debug_implementations)]
+mod cli;
 
-extern crate failure;
-extern crate structopt;
-extern crate twiggy_analyze as analyze;
-extern crate twiggy_opt as opt;
-extern crate twiggy_parser as parser;
-extern crate twiggy_traits as traits;
-
-use failure::Fail;
-use opt::CommonCliOptions;
 use std::process;
-use structopt::StructOpt;
+use cli::structopt::StructOpt;
+use cli::failure::Fail;
 
 fn main() {
-    let options = opt::Options::from_args();
-    if let Err(e) = run(options) {
+    let options = twiggy_opt::Options::from_args();
+    if let Err(e) = cli::run_twiggy(options) {
         eprintln!("error: {}", e);
         for c in e.causes().skip(1) {
             eprintln!("  caused by: {}", c);
         }
         process::exit(1);
     }
-}
-
-fn run(opts: opt::Options) -> Result<(), traits::Error> {
-    let mut items = parser::read_and_parse(opts.input())?;
-
-    let data = match opts {
-        opt::Options::Top(ref top) => analyze::top(&mut items, top)?,
-        opt::Options::Dominators(ref doms) => analyze::dominators(&mut items, doms)?,
-        opt::Options::Paths(ref paths) => analyze::paths(&mut items, paths)?,
-        opt::Options::Monos(ref monos) => analyze::monos(&mut items, monos)?,
-        opt::Options::Garbage(ref garbo) => analyze::garbage(&mut items, garbo)?,
-        opt::Options::Diff(ref diff) => {
-            let mut new_items = parser::read_and_parse(diff.new_input())?;
-            analyze::diff(&mut items, &mut new_items, diff)?
-        }
-    };
-
-    let mut dest = opts.output_destination().open()?;
-
-    data.emit(&items, &mut *dest, opts.output_format())
 }

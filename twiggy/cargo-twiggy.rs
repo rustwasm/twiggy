@@ -1,10 +1,10 @@
 #[macro_use]
 extern crate structopt;
-extern crate twiggy_opt;
 
 mod cli;
 
 use cli::failure::Fail;
+use cli::opt;
 use std::process;
 use structopt::StructOpt;
 
@@ -12,7 +12,7 @@ use structopt::StructOpt;
 #[structopt(bin_name = "cargo")]
 pub enum App {
     #[structopt(name = "twiggy")]
-    Opt(twiggy_opt::Options),
+    Opt(opt::Options),
 }
 
 fn main() {
