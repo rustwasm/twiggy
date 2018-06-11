@@ -18,7 +18,8 @@ macro_rules! test {
         fn $name() {
             let output = Command::new("cargo")
                 .arg("run")
-                .arg("--")
+                .arg("--bin")
+                .arg("twiggy")
                 $(
                     .arg($args)
                 )*
