@@ -15,6 +15,7 @@ path = "../ir"
 [dependencies.twiggy-analyze]
 version = "0.1.0"
 path = "../analyze"
+features = ["emit_json"]
 
 [dependencies.twiggy-opt]
 default-features = false
@@ -32,3 +33,7 @@ path = "../traits"
 
 [dependencies.wasm-bindgen]
 version = "0.2.8"
+
+[features]
+default = ["emit_json"]
+emit_json = ["twiggy-traits/emit_json"]
