@@ -124,6 +124,7 @@ struct Top {
 }
 
 impl traits::Emit for Top {
+    #[cfg(feature = "emit_text")]
     fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let sort_label = if self.opts.retained() {
             "Retained"
@@ -158,6 +159,7 @@ impl traits::Emit for Top {
         Ok(())
     }
 
+    #[cfg(feature = "emit_json")]
     fn emit_json(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut arr = json::array(dest)?;
 
@@ -183,6 +185,7 @@ impl traits::Emit for Top {
         Ok(())
     }
 
+    #[cfg(feature = "emit_csv")]
     fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut wtr = csv::Writer::from_writer(dest);
 
@@ -268,6 +271,7 @@ struct DominatorTree {
 }
 
 impl traits::Emit for DominatorTree {
+    #[cfg(feature = "emit_text")]
     fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut table = Table::with_header(vec![
             (Align::Right, "Retained Bytes".to_string()),
@@ -355,6 +359,7 @@ impl traits::Emit for DominatorTree {
         Ok(())
     }
 
+    #[cfg(feature = "emit_json")]
     fn emit_json(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         fn recursive_add_children(
             items: &ir::Items,
@@ -402,6 +407,7 @@ impl traits::Emit for DominatorTree {
         Ok(())
     }
 
+    #[cfg(feature = "emit_csv")]
     fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut wtr = csv::Writer::from_writer(dest);
         fn recursive_add_children<'a>(
@@ -513,6 +519,7 @@ struct Paths {
 }
 
 impl traits::Emit for Paths {
+    #[cfg(feature = "emit_text")]
     fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         fn recursive_callers(
             items: &ir::Items,
@@ -598,6 +605,7 @@ impl traits::Emit for Paths {
         Ok(())
     }
 
+    #[cfg(feature = "emit_json")]
     fn emit_json(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         fn recursive_callers(
             items: &ir::Items,
@@ -654,6 +662,7 @@ impl traits::Emit for Paths {
         Ok(())
     }
 
+    #[cfg(feature = "emit_csv")]
     fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut wtr = csv::Writer::from_writer(dest);
         fn recursive_callers(
@@ -820,6 +829,7 @@ impl Ord for MonosEntry {
 }
 
 impl traits::Emit for Monos {
+    #[cfg(feature = "emit_text")]
     fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut table = Table::with_header(vec![
             (Align::Right, "Apprx. Bloat Bytes".into()),
@@ -861,6 +871,7 @@ impl traits::Emit for Monos {
         Ok(())
     }
 
+    #[cfg(feature = "emit_json")]
     fn emit_json(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut arr = json::array(dest)?;
 
@@ -901,6 +912,7 @@ impl traits::Emit for Monos {
         Ok(())
     }
 
+    #[cfg(feature = "emit_csv")]
     fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         #[derive(Debug, Default, Serialize)]
         #[serde(rename_all = "PascalCase")]
@@ -1019,6 +1031,7 @@ impl Ord for DiffEntry {
 }
 
 impl traits::Emit for Diff {
+    #[cfg(feature = "emit_text")]
     fn emit_text(
         &self,
         _items: &ir::Items,
@@ -1037,6 +1050,7 @@ impl traits::Emit for Diff {
         Ok(())
     }
 
+    #[cfg(feature = "emit_json")]
     fn emit_json(
         &self,
         _items: &ir::Items,
@@ -1053,6 +1067,7 @@ impl traits::Emit for Diff {
         Ok(())
     }
 
+    #[cfg(feature = "emit_csv")]
     fn emit_csv(&self, _items: &ir::Items, _dest: &mut io::Write) -> Result<(), traits::Error> {
         unimplemented!();
     }
@@ -1116,6 +1131,7 @@ struct Garbage {
 }
 
 impl traits::Emit for Garbage {
+    #[cfg(feature = "emit_text")]
     fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut table = Table::with_header(vec![
             (Align::Right, "Bytes".to_string()),
@@ -1138,6 +1154,7 @@ impl traits::Emit for Garbage {
         Ok(())
     }
 
+    #[cfg(feature = "emit_json")]
     fn emit_json(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut arr = json::array(dest)?;
 
@@ -1156,6 +1173,7 @@ impl traits::Emit for Garbage {
         Ok(())
     }
 
+    #[cfg(feature = "emit_csv")]
     fn emit_csv(&self, _items: &ir::Items, _dest: &mut io::Write) -> Result<(), traits::Error> {
         unimplemented!();
     }

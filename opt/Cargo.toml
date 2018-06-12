@@ -21,6 +21,9 @@ wasm-bindgen = { version = "0.2.8", optional = true }
 cfg-if = "0.1.2"
 
 [features]
-default = ["cli"]
+default = ["cli", "emit_csv", "emit_json", "emit_text"]
 cli = ["structopt"]
 wasm = ["wasm-bindgen"]
+emit_json = ["twiggy-traits/emit_json"]
+emit_text = ["twiggy-traits/emit_text"]
+emit_csv = ["twiggy-traits/emit_csv"]

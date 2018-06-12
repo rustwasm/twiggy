@@ -128,6 +128,7 @@ pub trait Analyze {
 #[derive(Clone, Copy, Debug)]
 pub enum OutputFormat {
     /// Human readable text.
+    #[cfg(feature = "emit_text")]
     Text,
     // /// Hyper Text Markup Language.
     // Html,
@@ -135,11 +136,16 @@ pub enum OutputFormat {
     // /// Graphviz dot format.
     // Dot,
     /// Comma-separated values (CSV) format.
+    #[cfg(feature = "emit_csv")]
     Csv,
     /// JavaScript Object Notation format.
+    #[cfg(feature = "emit_json")]
     Json,
 }
 
+#[cfg(feature = "emit_text")]
+#[cfg(feature = "emit_csv")]
+#[cfg(feature = "emit_json")]
 impl Default for OutputFormat {
     fn default() -> OutputFormat {
         OutputFormat::Text
@@ -151,8 +157,11 @@ impl FromStr for OutputFormat {
 
     fn from_str(s: &str) -> Result<Self, Error> {
         match s {
+            #[cfg(feature = "emit_text")]
             "text" => Ok(OutputFormat::Text),
+            #[cfg(feature = "emit_json")]
             "json" => Ok(OutputFormat::Json),
+            #[cfg(feature = "emit_csv")]
             "csv" => Ok(OutputFormat::Csv),
             _ => Err(Error::with_msg(format!("Unknown output format: {}", s))),
         }
@@ -170,15 +179,19 @@ pub trait Emit {
         format: OutputFormat,
     ) -> Result<(), Error> {
         match format {
+            #[cfg(feature = "emit_text")]
             OutputFormat::Text => self.emit_text(items, destination),
             // OutputFormat::Html => self.emit_html(destination),
             // OutputFormat::Dot => self.emit_dot(destination),
+            #[cfg(feature = "emit_csv")]
             OutputFormat::Csv => self.emit_csv(items, destination),
+            #[cfg(feature = "emit_json")]
             OutputFormat::Json => self.emit_json(items, destination),
         }
     }
 
     /// Emit human readable text.
+    #[cfg(feature = "emit_text")]
     fn emit_text(&self, items: &ir::Items, destination: &mut io::Write) -> Result<(), Error>;
 
     // /// Emit HTML.
@@ -188,9 +201,11 @@ pub trait Emit {
     // fn emit_dot(&self, destination: &mut io::Write) -> Result<(), Error>;
 
     /// Emit CSV.
+    #[cfg(feature = "emit_csv")]
     fn emit_csv(&self, items: &ir::Items, destination: &mut io::Write) -> Result<(), Error>;
 
     /// Emit JSON.
+    #[cfg(feature = "emit_json")]
     fn emit_json(&self, items: &ir::Items, destination: &mut io::Write) -> Result<(), Error>;
 }
 
