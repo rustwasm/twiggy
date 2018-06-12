@@ -20,3 +20,9 @@ regex = "1.0.0"
 serde = "1.0.58"
 serde_derive = "1.0.58"
 petgraph = "0.4.12"
+
+[features]
+default = ["emit_csv", "emit_json", "emit_text"]
+emit_json = ["twiggy-traits/emit_json"]
+emit_csv = ["twiggy-traits/emit_csv"]
+emit_text = ["twiggy-traits/emit_text"]
