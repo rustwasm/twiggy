@@ -6,7 +6,7 @@ license = "Apache-2.0/MIT"
 name = "twiggy"
 readme = "../README.md"
 repository = "https://github.com/rustwasm/twiggy"
-version = "0.1.0"
+version = "0.2.0"
 
 [badges]
 travis-ci = { repository = "rustwasm/twiggy" }
@@ -18,11 +18,11 @@ path = "./twiggy.rs"
 [dependencies]
 failure = "0.1.1"
 structopt = "0.2"
-twiggy-analyze = { version = "0.1.0", path = "../analyze" }
-twiggy-ir = { version = "0.1.0", path = "../ir" }
-twiggy-opt = { version = "0.1.0", path = "../opt", features = ["cli"] }
-twiggy-parser = { version = "0.1.0", path = "../parser" }
-twiggy-traits = { version = "0.1.0", path = "../traits" }
+twiggy-analyze = { version = "=0.2.0", path = "../analyze" }
+twiggy-ir = { version = "=0.2.0", path = "../ir" }
+twiggy-opt = { version = "=0.2.0", path = "../opt", features = ["cli"] }
+twiggy-parser = { version = "=0.2.0", path = "../parser" }
+twiggy-traits = { version = "=0.2.0", path = "../traits" }
 
 [dev-dependencies]
 diff = "0.1.11"
