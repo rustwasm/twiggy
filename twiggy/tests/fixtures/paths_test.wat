@@ -11,10 +11,10 @@
     ;;                  |
     ;;                  v
     ;;     [woof]     [bark]
-    ;;       |         | |
-    ;;       |  -------- |
-    ;;       |  |        |
-    ;;       v  v        v
+    ;;      |  |          |
+    ;;      |  --------   |
+    ;;      |         |   |
+    ;;      v         v   v
     ;; 'calledOnce' 'calledTwice'
     ;; ------------------------------------------------------------------------
     ;; NOTE: The test cases expect that this module is compiled with debug
