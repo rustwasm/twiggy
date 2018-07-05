@@ -16,5 +16,6 @@ fallible-iterator = "0.1.4"
 gimli = "0.16.0"
 object = "0.8.0"
 parity-wasm = "0.28.0"
+typed-arena = "1.4.0"
 twiggy-ir = { version = "=0.2.0", path = "../ir" }
 twiggy-traits = { version = "=0.2.0", path = "../traits" }
