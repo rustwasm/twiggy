@@ -51,7 +51,6 @@ impl<'input> Parse<'input> for object::File<'input> {
 
         // Load the sections of the file containing debugging information.
         let debug_abbrev: gimli::DebugAbbrev<_> = load_section(&arena, self, endian);
-        let _debug_aranges: gimli::DebugAranges<_> = load_section(&arena, self, endian);
         let debug_ranges: gimli::DebugRanges<_> = load_section(&arena, self, endian);
         let debug_rnglists: gimli::DebugRngLists<_> = load_section(&arena, self, endian);
         let debug_str: gimli::DebugStr<_> = load_section(&arena, self, endian);
