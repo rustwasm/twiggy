@@ -19,7 +19,7 @@ type FallilbleOption<T> = Result<Option<T>, traits::Error>;
 /// This struct represents the extra items required by the Parse trait's
 /// `parse_items` method. This is constructed by the compilation unit's
 /// own implementation of `parse_items`.
-pub struct DIEItemsExtra<'unit, R>
+pub struct DieItemsExtra<'unit, R>
 where
     R: 'unit + gimli::Reader,
 {
@@ -38,7 +38,7 @@ impl<'abbrev, 'unit, R> Parse<'unit>
 where
     R: gimli::Reader,
 {
-    type ItemsExtra = DIEItemsExtra<'unit, R>;
+    type ItemsExtra = DieItemsExtra<'unit, R>;
 
     fn parse_items(
         &self,

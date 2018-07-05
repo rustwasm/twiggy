@@ -2,7 +2,7 @@ use gimli;
 use ir;
 use traits;
 
-use super::die_parse::DIEItemsExtra;
+use super::die_parse::DieItemsExtra;
 use super::Parse;
 
 pub struct CompUnitItemsExtra<'input, R>
@@ -71,7 +71,7 @@ where
                 break;
             }
 
-            let die_extra = DIEItemsExtra {
+            let die_extra = DieItemsExtra {
                 entry_id,
                 unit_id,
                 addr_size,
