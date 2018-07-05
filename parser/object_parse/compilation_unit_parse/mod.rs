@@ -51,11 +51,15 @@ where
 
         // Find the abbreviations associated with this compilation unit.
         // Use the abbreviations to create an entries cursor, and move it to the root.
-        let abbrevs = self
-            .abbreviations(&debug_abbrev)
-            .expect("Could not find abbreviations");
+        let abbrevs = self.abbreviations(&debug_abbrev)?;
         let mut die_cursor = self.entries(&abbrevs);
-        assert!(die_cursor.next_dfs().unwrap().is_some());
+
+        if die_cursor.next_dfs()?.is_none() {
+            let e = traits::Error::with_msg(
+                "Unexpected error while traversing debugging information entries.",
+            );
+            return Err(e);
+        }
 
         // Parse the contained debugging information entries in depth-first order.
         let mut depth = 0;
@@ -63,7 +67,6 @@ where
             // Update depth value, and break out of the loop when we
             // return to the original starting position.
             depth += delta;
-            assert!(depth >= 0);
             if depth <= 0 {
                 break;
             }
@@ -102,11 +105,15 @@ where
 
         // Find the abbreviations associated with this compilation unit.
         // Use the abbreviations to create an entries cursor, and move it to the root.
-        let abbrevs = self
-            .abbreviations(&debug_abbrev)
-            .expect("Could not find abbreviations");
+        let abbrevs = self.abbreviations(&debug_abbrev)?;
         let mut die_cursor = self.entries(&abbrevs);
-        assert!(die_cursor.next_dfs().unwrap().is_some());
+
+        if die_cursor.next_dfs()?.is_none() {
+            let e = traits::Error::with_msg(
+                "Unexpected error while traversing debugging information entries.",
+            );
+            return Err(e);
+        }
 
         // Parse the contained debugging information entries in depth-first order.
         let mut depth = 0;
@@ -114,7 +121,6 @@ where
             // Update depth value, and break out of the loop when we
             // return to the original starting position.
             depth += delta;
-            assert!(depth >= 0);
             if depth <= 0 {
                 break;
             }
