@@ -56,22 +56,26 @@ where
             comp_unit,
         } = extra;
 
-        let item = match item_kind(self, debug_types, comp_unit)? {
+        let id = ir::Id::entry(unit_id, entry_id);
+
+        let item: ir::Item = match item_kind(self, debug_types, comp_unit)? {
             Some(kind @ ir::ItemKind::Subroutine(_)) => {
                 let name = item_name(self, debug_str)?
                     .unwrap_or(format!("Subroutine[{}][{}]", unit_id, entry_id));
-                let id = ir::Id::entry(unit_id, entry_id);
-                DieLocationAttributes::try_from(self)?
-                    .entity_size(addr_size, dwarf_version, rnglists)?
-                    .map(|size| ir::Item::new(id, name, size as u32, kind))
+                if let Some(size) = DieLocationAttributes::try_from(self)?.entity_size(
+                    addr_size,
+                    dwarf_version,
+                    rnglists,
+                )? {
+                    ir::Item::new(id, name, size as u32, kind)
+                } else {
+                    return Ok(());
+                }
             }
-            _ => None,
+            _ => return Ok(()),
         };
 
-        if let Some(item) = item {
-            items.add_item(item);
-        }
-
+        items.add_item(item);
         Ok(())
     }
 
