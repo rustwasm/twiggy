@@ -513,9 +513,6 @@ pub enum ItemKind {
 
     /// Miscellaneous item. Perhaps metadata. Perhaps something else.
     Misc(Misc),
-
-    /// Subroutine item.
-    Subroutine(Subroutine),
 }
 
 impl From<Code> for ItemKind {
@@ -539,12 +536,6 @@ impl From<DebugInfo> for ItemKind {
 impl From<Misc> for ItemKind {
     fn from(m: Misc) -> ItemKind {
         ItemKind::Misc(m)
-    }
-}
-
-impl From<Subroutine> for ItemKind {
-    fn from(s: Subroutine) -> ItemKind {
-        ItemKind::Subroutine(s)
     }
 }
 
@@ -674,16 +665,5 @@ impl Misc {
     /// Construct a new miscellaneous IR item.
     pub fn new() -> Misc {
         Misc
-    }
-}
-
-/// Subroutine.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub struct Subroutine;
-
-impl Subroutine {
-    /// Construct a new subroutine item.
-    pub fn new() -> Subroutine {
-        Subroutine
     }
 }

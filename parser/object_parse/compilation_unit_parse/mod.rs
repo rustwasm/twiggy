@@ -14,7 +14,6 @@ where
     pub unit_id: usize,
     pub debug_abbrev: gimli::DebugAbbrev<R>,
     pub debug_str: gimli::DebugStr<R>,
-    pub debug_types: gimli::DebugTypes<R>,
     pub rnglists: &'input gimli::RangeLists<R>,
 }
 
@@ -44,7 +43,6 @@ where
             unit_id,
             debug_abbrev,
             debug_str,
-            debug_types,
             rnglists,
         } = extra;
 
@@ -81,9 +79,7 @@ where
                 addr_size,
                 dwarf_version,
                 debug_str: &debug_str,
-                debug_types: &debug_types,
                 rnglists,
-                comp_unit: self,
             };
             entry.parse_items(items, die_extra)?;
             entry_id += 1;

@@ -5,11 +5,9 @@ use traits;
 
 use super::Parse;
 
-mod item_kind;
 mod item_name;
 mod location_attrs;
 
-use self::item_kind::item_kind;
 use self::item_name::item_name;
 use self::location_attrs::DieLocationAttributes;
 
@@ -29,9 +27,7 @@ where
     pub addr_size: u8,
     pub dwarf_version: u16,
     pub debug_str: &'unit gimli::DebugStr<R>,
-    pub debug_types: &'unit gimli::DebugTypes<R>,
     pub rnglists: &'unit gimli::RangeLists<R>,
-    pub comp_unit: &'unit gimli::CompilationUnitHeader<R, <R as gimli::Reader>::Offset>,
 }
 
 impl<'abbrev, 'unit, R> Parse<'unit>
@@ -52,22 +48,20 @@ where
             addr_size,
             dwarf_version,
             debug_str,
-            debug_types,
             rnglists,
-            comp_unit,
         } = extra;
 
-        let id = ir::Id::entry(unit_id, entry_id);
-
-        let item: ir::Item = match item_kind(self, debug_types, comp_unit)? {
-            Some(kind @ ir::ItemKind::Subroutine(_)) => {
-                let name = item_name(self, debug_str)?
-                    .unwrap_or(format!("Subroutine[{}][{}]", unit_id, entry_id));
+        let item: ir::Item = match self.tag() {
+            gimli::DW_TAG_subprogram => {
                 if let Some(size) = DieLocationAttributes::try_from(self)?.entity_size(
                     addr_size,
                     dwarf_version,
                     rnglists,
                 )? {
+                    let id = ir::Id::entry(unit_id, entry_id);
+                    let name = item_name(self, debug_str)?
+                        .unwrap_or(format!("Subroutine[{}][{}]", unit_id, entry_id));
+                    let kind: ir::ItemKind = ir::Code::new(&name).into();
                     ir::Item::new(id, name, size as u32, kind)
                 } else {
                     return Ok(());

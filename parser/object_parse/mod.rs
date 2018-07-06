@@ -1,4 +1,3 @@
-use std::borrow::{Borrow, Cow};
 #[cfg(feature = "dwarf")]
 use fallible_iterator::FallibleIterator;
 #[cfg(feature = "dwarf")]
@@ -6,6 +5,7 @@ use gimli;
 use ir;
 #[cfg(feature = "dwarf")]
 use object::{self, Object};
+use std::borrow::{Borrow, Cow};
 use traits;
 #[cfg(feature = "dwarf")]
 use typed_arena::Arena;
@@ -60,7 +60,6 @@ impl<'input> Parse<'input> for object::File<'input> {
         let debug_ranges: gimli::DebugRanges<_> = load_section(&arena, self, endian);
         let debug_rnglists: gimli::DebugRngLists<_> = load_section(&arena, self, endian);
         let debug_str: gimli::DebugStr<_> = load_section(&arena, self, endian);
-        let debug_types: gimli::DebugTypes<_> = load_section(&arena, self, endian);
 
         let rnglists = &gimli::RangeLists::new(debug_ranges, debug_rnglists)?;
 
@@ -72,7 +71,6 @@ impl<'input> Parse<'input> for object::File<'input> {
                 unit_id,
                 debug_abbrev,
                 debug_str,
-                debug_types,
                 rnglists,
             };
             unit.parse_items(items, extra)?
