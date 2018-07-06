@@ -29,7 +29,10 @@ pub fn read_and_parse<P: AsRef<path::Path>>(path: P) -> Result<ir::Items, traits
 
     match path.extension().and_then(|s| s.to_str()) {
         Some("wasm") => parse_wasm(&data),
+        #[cfg(feature = "dwarf")]
         _ => parse_other(&data),
+        #[cfg(not(feature = "dwarf"))]
+        _ => parse_fallback(&data),
     }
 }
 

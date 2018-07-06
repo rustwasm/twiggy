@@ -24,6 +24,7 @@ version = "=0.2.0"
 path = "../opt"
 
 [dependencies.twiggy-parser]
+default-features = false
 version = "=0.2.0"
 path = "../parser"
 

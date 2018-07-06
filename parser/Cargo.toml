@@ -12,10 +12,14 @@ version = "0.2.0"
 path = "./parser.rs"
 
 [dependencies]
-fallible-iterator = "0.1.4"
-gimli = "0.16.0"
-object = "0.8.0"
+fallible-iterator = { version = "0.1.4", optional = true }
+gimli = { version = "0.16.0", optional = true }
+object = { version = "0.8.0", optional = true }
 parity-wasm = "0.28.0"
-typed-arena = "1.4.0"
+typed-arena = { version = "1.4.0", optional = true }
 twiggy-ir = { version = "=0.2.0", path = "../ir" }
 twiggy-traits = { version = "=0.2.0", path = "../traits" }
+
+[features]
+default = ["dwarf"]
+dwarf = ["fallible-iterator", "gimli", "object", "typed-arena"]
