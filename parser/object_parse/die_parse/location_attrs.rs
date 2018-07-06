@@ -1,5 +1,6 @@
+#[cfg(feature = "dwarf")]
 use fallible_iterator::FallibleIterator;
-
+#[cfg(feature = "dwarf")]
 use gimli;
 use traits;
 
@@ -13,12 +14,14 @@ use super::FallilbleOption;
 ///
 /// For more information about these attributes, refer to Chapter 2.17 'Code
 /// Addresses, Ranges, and Base Addresses' (pg. 51) in the DWARF5 specification.
+#[cfg(feature = "dwarf")]
 pub struct DieLocationAttributes<R: gimli::Reader> {
     dw_at_low_pc: Option<gimli::AttributeValue<R>>,
     dw_at_high_pc: Option<gimli::AttributeValue<R>>,
     dw_at_ranges: Option<gimli::AttributeValue<R>>,
 }
 
+#[cfg(feature = "dwarf")]
 impl<R: gimli::Reader> DieLocationAttributes<R> {
     /// Try to create a new location attributes instance using the given
     /// debugging information entry (DIE). Reading these attributes may fail,

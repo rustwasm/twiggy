@@ -3,10 +3,14 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
+#[cfg(feature = "dwarf")]
 extern crate fallible_iterator;
+#[cfg(feature = "dwarf")]
 extern crate gimli;
+#[cfg(feature = "dwarf")]
 extern crate object;
 extern crate parity_wasm;
+#[cfg(feature = "dwarf")]
 extern crate typed_arena;
 
 extern crate twiggy_ir as ir;
@@ -81,6 +85,7 @@ fn parse_wasm(data: &[u8]) -> Result<ir::Items, traits::Error> {
     Ok(items.finish())
 }
 
+#[cfg(feature = "dwarf")]
 fn parse_other(data: &[u8]) -> Result<ir::Items, traits::Error> {
     let mut items = ir::ItemsBuilder::new(data.len() as u32);
 

@@ -1,10 +1,13 @@
 use std::borrow::{Borrow, Cow};
-
+#[cfg(feature = "dwarf")]
 use fallible_iterator::FallibleIterator;
+#[cfg(feature = "dwarf")]
 use gimli;
 use ir;
+#[cfg(feature = "dwarf")]
 use object::{self, Object};
 use traits;
+#[cfg(feature = "dwarf")]
 use typed_arena::Arena;
 
 use super::Parse;
@@ -12,8 +15,10 @@ use super::Parse;
 mod compilation_unit_parse;
 mod die_parse;
 
+#[cfg(feature = "dwarf")]
 use self::compilation_unit_parse::{CompUnitEdgesExtra, CompUnitItemsExtra};
 
+#[cfg(feature = "dwarf")]
 // Helper function used to load a given section of the file.
 fn load_section<'a, 'file, 'input, Sect, Endian>(
     arena: &'a Arena<Cow<'file, [u8]>>,
@@ -33,6 +38,7 @@ where
     Sect::from(gimli::EndianSlice::new(data_ref, endian))
 }
 
+#[cfg(feature = "dwarf")]
 impl<'input> Parse<'input> for object::File<'input> {
     type ItemsExtra = ();
 

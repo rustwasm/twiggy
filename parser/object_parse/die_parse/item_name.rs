@@ -1,3 +1,4 @@
+#[cfg(feature = "dwarf")]
 use gimli;
 
 use super::FallilbleOption;
@@ -10,6 +11,7 @@ use super::FallilbleOption;
 ///
 /// If no name was assigned, a name will be decided elsewhere using the
 /// ir::ItemKind variant that was determined for the entity.
+#[cfg(feature = "dwarf")]
 pub fn item_name<R>(
     die: &gimli::DebuggingInformationEntry<R, R::Offset>,
     debug_str: &gimli::DebugStr<R>,
