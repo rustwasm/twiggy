@@ -17,7 +17,7 @@ twiggy-opt = { version = "=0.2.0", path = "../opt", default-features = false }
 twiggy-traits = { version = "=0.2.0", path = "../traits" }
 csv = "1.0.0"
 regex = "1.0.0"
-serde = "1.0.69"
+serde = "1.0.70"
 serde_derive = "1.0.69"
 petgraph = "0.4.12"
 
