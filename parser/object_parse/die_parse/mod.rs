@@ -1,4 +1,3 @@
-#[cfg(feature = "dwarf")]
 use gimli;
 use ir;
 use traits;

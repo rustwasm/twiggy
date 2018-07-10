@@ -16,6 +16,7 @@ extern crate typed_arena;
 extern crate twiggy_ir as ir;
 extern crate twiggy_traits as traits;
 
+#[cfg(feature = "dwarf")]
 mod object_parse;
 mod wasm_parse;
 

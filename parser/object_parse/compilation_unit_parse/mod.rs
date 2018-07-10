@@ -1,4 +1,3 @@
-#[cfg(feature = "dwarf")]
 use gimli;
 use ir;
 use traits;
@@ -6,7 +5,6 @@ use traits;
 use super::die_parse::DieItemsExtra;
 use super::Parse;
 
-#[cfg(feature = "dwarf")]
 pub struct CompUnitItemsExtra<'input, R>
 where
     R: 'input + gimli::Reader,
@@ -17,7 +15,6 @@ where
     pub rnglists: &'input gimli::RangeLists<R>,
 }
 
-#[cfg(feature = "dwarf")]
 pub struct CompUnitEdgesExtra<R>
 where
     R: gimli::Reader,
@@ -26,7 +23,6 @@ where
     pub debug_abbrev: gimli::DebugAbbrev<R>,
 }
 
-#[cfg(feature = "dwarf")]
 impl<'input, R> Parse<'input> for gimli::CompilationUnitHeader<R, R::Offset>
 where
     R: 'input + gimli::Reader,
