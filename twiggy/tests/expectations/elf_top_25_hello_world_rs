@@ -1,0 +1,27 @@
+ Shallow Bytes │ Shallow % │ Item
+───────────────┼───────────┼────────────────────────────
+          9751 ┊     0.46% ┊ stats_arena_print
+          9503 ┊     0.45% ┊ output
+          7917 ┊     0.38% ┊ je_stats_print
+          7852 ┊     0.37% ┊ mallocx
+          7019 ┊     0.33% ┊ je_arena_boot
+          6221 ┊     0.30% ┊ je_malloc_vsnprintf
+          6198 ┊     0.30% ┊ {{closure}}
+          4313 ┊     0.21% ┊ je_arena_palloc
+          4028 ┊     0.19% ┊ realloc
+          3908 ┊     0.19% ┊ malloc_init_hard_a0_locked
+          3510 ┊     0.17% ┊ output_fileline
+          3185 ┊     0.15% ┊ calloc
+          3178 ┊     0.15% ┊ malloc
+          3093 ┊     0.15% ┊ rallocx
+          3086 ┊     0.15% ┊ je_arena_ralloc_no_move
+          3015 ┊     0.14% ┊ rust_panic_with_hook
+          2952 ┊     0.14% ┊ je_arena_ralloc
+          2696 ┊     0.13% ┊ arena_run_dalloc
+          2302 ┊     0.11% ┊ arena_purge_to_limit
+          2286 ┊     0.11% ┊ new
+          2194 ┊     0.10% ┊ arena_run_heap_remove
+          2168 ┊     0.10% ┊ je_prof_free_sampled_object
+          2158 ┊     0.10% ┊ prof_tdata_destroy_locked
+          2041 ┊     0.10% ┊ stats_print_helper
+          1897 ┊     0.09% ┊ imemalign
