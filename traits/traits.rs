@@ -110,6 +110,7 @@ impl From<regex::Error> for Error {
     }
 }
 
+#[cfg(feature = "dwarf")]
 impl From<gimli::Error> for Error {
     fn from(e: gimli::Error) -> Error {
         Error {
