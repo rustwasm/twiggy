@@ -59,6 +59,7 @@ enum ErrorInner {
     #[fail(display = "Regex error: {}", _0)]
     Regex(#[cause] regex::Error),
 
+    #[cfg(feature = "dwarf")]
     #[fail(display = "Gimli error: {}", _0)]
     Gimli(#[cause] gimli::Error),
 }
