@@ -228,11 +228,3 @@ pub trait Emit {
     #[cfg(feature = "emit_json")]
     fn emit_json(&self, items: &ir::Items, destination: &mut io::Write) -> Result<(), Error>;
 }
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
