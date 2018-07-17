@@ -1,7 +1,10 @@
 //! Options for running `twiggy`.
 
 #![deny(missing_debug_implementations)]
-#![cfg_attr(feature = "wasm", feature(proc_macro, wasm_custom_section, wasm_import_module))]
+#![cfg_attr(
+    feature = "wasm",
+    feature(use_extern_macros, wasm_custom_section, wasm_import_module)
+)]
 
 #[macro_use]
 extern crate cfg_if;

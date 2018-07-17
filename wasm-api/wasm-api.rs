@@ -1,6 +1,6 @@
 #![cfg(target_arch = "wasm32")]
 #![cfg(feature = "emit_json")]
-#![feature(proc_macro, wasm_custom_section, wasm_import_module)]
+#![feature(use_extern_macros, wasm_custom_section, wasm_import_module)]
 
 extern crate wasm_bindgen;
 

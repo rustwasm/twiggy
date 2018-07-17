@@ -18,11 +18,18 @@ case "$JOB" in
 
         # Install wasm-bindgen at the correct version, if necessary.
         test -x ./bin/wasm-bindgen \
-            && test "$(./bin/wasm-bindgen --version | xargs)" == "wasm-bindgen 0.2.8" \
-                || cargo +nightly install -f wasm-bindgen-cli --version 0.2.8 --root "$(pwd)"
+            && test "$(./bin/wasm-bindgen --version | xargs)" == "wasm-bindgen 0.2.11" \
+                || cargo +nightly install -f wasm-bindgen-cli --version 0.2.11 --root "$(pwd)"
 
         ./bin/wasm-bindgen --out-dir . ../target/wasm32-unknown-unknown/release/twiggy_wasm_api.wasm
-        wc -c *.wasm
+
+        if [[ $(which wasm-opt) != "" ]]; then
+            temp=$(mktemp "twiggy-XXXXXX.wasm")
+            cp twiggy_wasm_api_bg.wasm "$temp"
+            wasm-opt -Oz -g "$temp" -o twiggy_wasm_api_bg.wasm
+        fi
+
+        wc -c twiggy_wasm_api_bg.wasm
         ;;
 
     *)
