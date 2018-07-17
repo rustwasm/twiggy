@@ -22,7 +22,14 @@ case "$JOB" in
                 || cargo +nightly install -f wasm-bindgen-cli --version 0.2.11 --root "$(pwd)"
 
         ./bin/wasm-bindgen --out-dir . ../target/wasm32-unknown-unknown/release/twiggy_wasm_api.wasm
-        wc -c *.wasm
+
+        if [[ $(which wasm-opt) != "" ]]; then
+            temp=$(mktemp "twiggy-XXXXXX.wasm")
+            cp twiggy_wasm_api_bg.wasm "$temp"
+            wasm-opt -Oz -g "$temp" -o twiggy_wasm_api_bg.wasm
+        fi
+
+        wc -c twiggy_wasm_api_bg.wasm
         ;;
 
     *)
