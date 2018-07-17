@@ -1128,6 +1128,7 @@ pub fn diff(
 #[derive(Debug)]
 struct Garbage {
     items: Vec<ir::Id>,
+    limit: usize,
 }
 
 impl traits::Emit for Garbage {
@@ -1139,7 +1140,7 @@ impl traits::Emit for Garbage {
             (Align::Left, "Garbage Item".to_string()),
         ]);
 
-        for &id in &self.items {
+        for &id in self.items.iter().take(self.limit) {
             let item = &items[id];
             let size = item.size();
             let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
@@ -1150,6 +1151,22 @@ impl traits::Emit for Garbage {
             ]);
         }
 
+        if self.items.len() > self.limit {
+            table.add_row(vec![
+                "...".to_string(),
+                "...".to_string(),
+                format!("... and {} more", self.items.len() - self.limit),
+            ]);
+        }
+
+        let total_size: u32 = self.items.iter().map(|&id| items[id].size()).sum();
+        let total_percent = (f64::from(total_size)) / (f64::from(items.size())) * 100.0;
+        table.add_row(vec![
+            total_size.to_string(),
+            format!("{:.2}%", total_percent),
+            "Σ".to_string(),
+        ]);
+
         write!(dest, "{}", &table)?;
         Ok(())
     }
@@ -1158,7 +1175,7 @@ impl traits::Emit for Garbage {
     fn emit_json(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut arr = json::array(dest)?;
 
-        for &id in &self.items {
+        for &id in self.items.iter().take(self.limit) {
             let item = &items[id];
 
             let mut obj = arr.object()?;
@@ -1197,12 +1214,12 @@ pub fn garbage(items: &ir::Items, opts: &opt::Garbage) -> Result<Box<traits::Emi
         .collect();
 
     unreachable_items.sort_by(|a, b| b.size().cmp(&a.size()));
-    unreachable_items.truncate(opts.max_items() as usize);
 
     let unreachable_items: Vec<_> = unreachable_items.iter().map(|item| item.id()).collect();
 
     let garbage_items = Garbage {
         items: unreachable_items,
+        limit: opts.max_items() as usize,
     };
 
     Ok(Box::new(garbage_items) as Box<traits::Emit>)
