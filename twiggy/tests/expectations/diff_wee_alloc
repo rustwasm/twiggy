@@ -1,6 +1,5 @@
  Delta Bytes │ Item
 ─────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-       -1476 ┊ <total>
        -1034 ┊ data[3]
         -593 ┊ "function names" subsection
         +395 ┊ wee_alloc::alloc_first_fit::he2a4ddf96981c0ce
@@ -20,3 +19,6 @@
           -8 ┊ type[4]
           -6 ┊ <wee_alloc::LargeAllocPolicy as wee_alloc::AllocPolicy>::min_cell_size::hc7cee2a550987099
           +6 ┊ alloc::alloc::oom::h45ae3f22a516fb04
+          -5 ┊ <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::min_cell_size::h6f746be886573355
+         -21 ┊ ... and 13 more.
+       -1476 ┊ Σ [33 Total Rows]
