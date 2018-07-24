@@ -43,7 +43,7 @@ pub enum Options {
 }
 
 /// List the top code size offenders in a binary.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 #[derive(StructOpt)]
 #[wasm_bindgen]
 pub struct Top {
@@ -63,8 +63,8 @@ pub struct Top {
     output_format: traits::OutputFormat,
 
     /// The maximum number of items to display.
-    #[structopt(short = "n")]
-    number: Option<u32>,
+    #[structopt(short = "n", default_value = "4294967295")]
+    max_items: u32,
 
     /// Display retaining paths.
     #[structopt(short = "r", long = "retaining-paths")]
@@ -75,6 +75,23 @@ pub struct Top {
     retained: bool,
 }
 
+impl Default for Top {
+    fn default() -> Top {
+        Top {
+            #[cfg(feature = "cli")]
+            input: Default::default(),
+            #[cfg(feature = "cli")]
+            output_destination: Default::default(),
+            #[cfg(feature = "cli")]
+            output_format: Default::default(),
+
+            max_items: 4294967295,
+            retaining_paths: false,
+            retained: false,
+        }
+    }
+}
+
 #[wasm_bindgen]
 impl Top {
     /// Construct a new, default `Top`.
@@ -83,8 +100,8 @@ impl Top {
     }
 
     /// The maximum number of items to display.
-    pub fn number(&self) -> u32 {
-        self.number.unwrap_or(u32::MAX)
+    pub fn max_items(&self) -> u32 {
+        self.max_items
     }
 
     /// Display retaining paths.
@@ -98,8 +115,8 @@ impl Top {
     }
 
     /// Set the maximum number of items to display.
-    pub fn set_number(&mut self, n: u32) {
-        self.number = Some(n);
+    pub fn set_max_items(&mut self, n: u32) {
+        self.max_items = n;
     }
 
     /// Set whether to display and compute retaining paths.

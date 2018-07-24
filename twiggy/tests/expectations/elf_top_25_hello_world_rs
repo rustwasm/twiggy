@@ -25,3 +25,5 @@
           2158 ┊     0.10% ┊ prof_tdata_destroy_locked
           2041 ┊     0.10% ┊ stats_print_helper
           1897 ┊     0.09% ┊ imemalign
+        150168 ┊     7.15% ┊ ... and 753 more.
+        256639 ┊    12.23% ┊ Σ [778 Total Rows]

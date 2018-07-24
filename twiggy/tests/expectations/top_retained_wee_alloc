@@ -10,3 +10,5 @@
             226 ┊      8.02% ┊ func[3]
             225 ┊      7.99% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
             136 ┊      4.83% ┊ <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
+            ... ┊        ... ┊ ... and 29 more.
+            ... ┊        ... ┊ Σ [39 Total Rows]
