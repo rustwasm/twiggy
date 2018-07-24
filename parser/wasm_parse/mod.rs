@@ -624,7 +624,7 @@ impl<'a> Parse<'a> for elements::CodeSection {
         let global_import_count = module.import_count(elements::ImportCountType::Global);
 
         for (b_i, body) in self.bodies().iter().enumerate() {
-            use parity_wasm::elements::Opcode::*;
+            use parity_wasm::elements::Instruction::*;
 
             let body_id = Id::entry(idx, b_i);
             let code = body.code().elements();
@@ -703,7 +703,7 @@ impl<'a> Parse<'a> for elements::DataSection {
 
     fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, d) in self.entries().iter().enumerate() {
-            use parity_wasm::elements::Opcode::*;
+            use parity_wasm::elements::Instruction::*;
 
             let id = Id::entry(idx, i);
             let mut name = String::with_capacity("data[]".len() + 4);
