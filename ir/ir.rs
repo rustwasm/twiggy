@@ -334,8 +334,7 @@ impl Items {
             .expect(
                 "Cannot call retained_sizes unless compute_retained_sizes \
                  has already been called",
-            )
-            .get(&id)
+            ).get(&id)
             .cloned()
             .unwrap()
     }
