@@ -3,6 +3,7 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
+extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 extern crate csv;
@@ -14,8 +15,9 @@ extern crate twiggy_traits as traits;
 
 mod json;
 
+use serde::ser::SerializeStruct;
 use std::cmp;
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::fmt;
 use std::io;
 
@@ -1119,6 +1121,18 @@ impl Ord for DiffEntry {
     }
 }
 
+impl serde::Serialize for DiffEntry {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let mut state = serializer.serialize_struct("DiffEntry", 2)?;
+        state.serialize_field("DeltaBytes", &format!("{:+}", self.delta))?;
+        state.serialize_field("Item", &self.name)?;
+        state.end()
+    }
+}
+
 impl traits::Emit for Diff {
     #[cfg(feature = "emit_text")]
     fn emit_text(
@@ -1131,9 +1145,10 @@ impl traits::Emit for Diff {
             (Align::Left, "Item".to_string()),
         ]);
 
-        for entry in &self.deltas {
-            table.add_row(vec![format!("{:+}", entry.delta), entry.name.clone()]);
-        }
+        self.deltas
+            .iter()
+            .map(|entry| vec![format!("{:+}", entry.delta), entry.name.clone()])
+            .for_each(|row| table.add_row(row));
 
         write!(dest, "{}", &table)?;
         Ok(())
@@ -1147,7 +1162,7 @@ impl traits::Emit for Diff {
     ) -> Result<(), traits::Error> {
         let mut arr = json::array(dest)?;
 
-        for entry in &self.deltas {
+        for entry in self.deltas.iter() {
             let mut obj = arr.object()?;
             obj.field("delta_bytes", entry.delta as f64)?;
             obj.field("name", entry.name.as_str())?;
@@ -1157,8 +1172,15 @@ impl traits::Emit for Diff {
     }
 
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, _items: &ir::Items, _dest: &mut io::Write) -> Result<(), traits::Error> {
-        unimplemented!();
+    fn emit_csv(&self, _items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+        let mut wtr = csv::Writer::from_writer(dest);
+
+        for entry in self.deltas.iter() {
+            wtr.serialize(entry)?;
+            wtr.flush()?;
+        }
+
+        Ok(())
     }
 }
 
@@ -1168,48 +1190,92 @@ pub fn diff(
     new_items: &mut ir::Items,
     opts: &opt::Diff,
 ) -> Result<Box<traits::Emit>, traits::Error> {
-    let old_items_by_name: BTreeMap<&str, &ir::Item> =
-        old_items.iter().map(|item| (item.name(), item)).collect();
-    let new_items_by_name: BTreeMap<&str, &ir::Item> =
-        new_items.iter().map(|item| (item.name(), item)).collect();
+    let max_items = opts.max_items() as usize;
 
-    let mut deltas = vec![];
+    // Given a set of items, create a HashMap of the items' names and sizes.
+    fn get_names_and_sizes(items: &ir::Items) -> HashMap<&str, i64> {
+        items
+            .iter()
+            .map(|item| (item.name(), item.size() as i64))
+            .collect()
+    }
 
-    for (name, old_item) in &old_items_by_name {
-        match new_items_by_name.get(name) {
-            None => deltas.push(DiffEntry {
-                name: name.to_string(),
-                delta: -(old_item.size() as i64),
-            }),
-            Some(new_item) => {
-                let delta = new_item.size() as i64 - old_item.size() as i64;
-                if delta != 0 {
-                    deltas.push(DiffEntry {
-                        name: name.to_string(),
-                        delta,
-                    });
-                }
+    // Collect the names and sizes of the items in the old and new collections.
+    let old_sizes = get_names_and_sizes(old_items);
+    let new_sizes = get_names_and_sizes(new_items);
+
+    // Given an item name, create a `DiffEntry` object representing the
+    // change in size, or an error if the name could not be found in
+    // either of the item collections.
+    let get_item_delta = |name: String| -> Result<DiffEntry, traits::Error> {
+        let old_size = old_sizes.get::<str>(&name);
+        let new_size = new_sizes.get::<str>(&name);
+        let delta: i64 = match (old_size, new_size) {
+            (Some(old_size), Some(new_size)) => new_size - old_size,
+            (Some(old_size), None) => -old_size,
+            (None, Some(new_size)) => *new_size,
+            (None, None) => {
+                return Err(traits::Error::with_msg(format!(
+                    "Could not find item with name `{}`",
+                    name
+                )))
             }
+        };
+        Ok(DiffEntry { name, delta })
+    };
+
+    // Given a result returned by `get_item_delta`, return false if the result
+    // represents an unchanged item. Ignore errors, these are handled separately.
+    let unchanged_items_filter = |res: &Result<DiffEntry, traits::Error>| -> bool {
+        if let Ok(DiffEntry { name: _, delta: 0 }) = res {
+            false
+        } else {
+            true
         }
-    }
+    };
 
-    for (name, new_item) in &new_items_by_name {
-        if !old_items_by_name.contains_key(name) {
-            deltas.push(DiffEntry {
-                name: name.to_string(),
-                delta: new_item.size() as i64,
-            });
-        }
-    }
+    // Create a set of item names from the new and old item collections.
+    let names = old_sizes
+        .keys()
+        .chain(new_sizes.keys())
+        .map(|k| k.to_string())
+        .collect::<HashSet<_>>();
 
-    deltas.push(DiffEntry {
-        name: "<total>".to_string(),
-        delta: new_items.size() as i64 - old_items.size() as i64,
-    });
-
+    // Iterate through the set of item names, and use the closure above to map
+    // each item into a `DiffEntry` object. Then, sort the collection.
+    let mut deltas = names
+        .into_iter()
+        .map(get_item_delta)
+        .filter(unchanged_items_filter)
+        .collect::<Result<Vec<_>, traits::Error>>()?;
     deltas.sort();
-    deltas.truncate(opts.max_items() as usize);
 
+    // Create an entry to summarize the diff rows that will be truncated.
+    let (rem_cnt, rem_delta): (u32, i64) = deltas
+        .iter()
+        .skip(max_items)
+        .fold((0, 0), |(cnt, rem_delta), DiffEntry { name: _, delta }| {
+            (cnt + 1, rem_delta + delta)
+        });
+    let remaining = DiffEntry {
+        name: format!("... and {} more.", rem_cnt),
+        delta: rem_delta,
+    };
+
+    // Create a `DiffEntry` representing the net change, and total row count.
+    let total = DiffEntry {
+        name: format!("Σ [{} Total Rows]", deltas.len()),
+        delta: new_items.size() as i64 - old_items.size() as i64,
+    };
+
+    // Now that the 'remaining' and 'total' summary entries have been created,
+    // truncate the vector of deltas before we box up the result, and push
+    // the remaining and total rows to the deltas vector.
+    deltas.truncate(max_items);
+    deltas.push(remaining);
+    deltas.push(total);
+
+    // Return the results so that they can be emitted.
     let diff = Diff { deltas };
     Ok(Box::new(diff) as Box<traits::Emit>)
 }

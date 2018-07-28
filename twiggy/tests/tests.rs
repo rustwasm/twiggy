@@ -353,12 +353,50 @@ test!(
 );
 
 test!(
+    diff_wee_alloc_top_5,
+    "diff",
+    "./fixtures/wee_alloc.wasm",
+    "./fixtures/wee_alloc.2.wasm",
+    "-n",
+    "5"
+);
+
+test!(
     diff_wee_alloc_json,
     "diff",
     "./fixtures/wee_alloc.wasm",
     "./fixtures/wee_alloc.2.wasm",
     "-f",
+    "json"
+);
+
+test!(
+    diff_wee_alloc_json_top_5,
+    "diff",
+    "./fixtures/wee_alloc.wasm",
+    "./fixtures/wee_alloc.2.wasm",
+    "-f",
     "json",
+    "-n",
+    "5"
+);
+
+test!(
+    diff_wee_alloc_csv,
+    "diff",
+    "./fixtures/wee_alloc.wasm",
+    "./fixtures/wee_alloc.2.wasm",
+    "-f",
+    "csv"
+);
+
+test!(
+    diff_wee_alloc_csv_top_5,
+    "diff",
+    "./fixtures/wee_alloc.wasm",
+    "./fixtures/wee_alloc.2.wasm",
+    "-f",
+    "csv",
     "-n",
     "5"
 );
