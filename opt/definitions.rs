@@ -85,7 +85,7 @@ impl Default for Top {
             #[cfg(feature = "cli")]
             output_format: Default::default(),
 
-            max_items: 4294967295,
+            max_items: 4_294_967_295,
             retaining_paths: false,
             retained: false,
         }

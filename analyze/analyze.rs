@@ -1157,7 +1157,7 @@ impl traits::Emit for Diff {
     ) -> Result<(), traits::Error> {
         let mut arr = json::array(dest)?;
 
-        for entry in self.deltas.iter() {
+        for entry in &self.deltas {
             let mut obj = arr.object()?;
             obj.field("delta_bytes", entry.delta as f64)?;
             obj.field("name", entry.name.as_str())?;
@@ -1170,7 +1170,7 @@ impl traits::Emit for Diff {
     fn emit_csv(&self, _items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut wtr = csv::Writer::from_writer(dest);
 
-        for entry in self.deltas.iter() {
+        for entry in &self.deltas {
             wtr.serialize(entry)?;
             wtr.flush()?;
         }
@@ -1191,7 +1191,7 @@ pub fn diff(
     fn get_names_and_sizes(items: &ir::Items) -> HashMap<&str, i64> {
         items
             .iter()
-            .map(|item| (item.name(), item.size() as i64))
+            .map(|item| (item.name(), i64::from(item.size())))
             .collect()
     }
 
@@ -1222,7 +1222,7 @@ pub fn diff(
     // Given a result returned by `get_item_delta`, return false if the result
     // represents an unchanged item. Ignore errors, these are handled separately.
     let unchanged_items_filter = |res: &Result<DiffEntry, traits::Error>| -> bool {
-        if let Ok(DiffEntry { name: _, delta: 0 }) = res {
+        if let Ok(DiffEntry { delta: 0, .. }) = res {
             false
         } else {
             true
@@ -1249,7 +1249,7 @@ pub fn diff(
     let (rem_cnt, rem_delta): (u32, i64) = deltas
         .iter()
         .skip(max_items)
-        .fold((0, 0), |(cnt, rem_delta), DiffEntry { name: _, delta }| {
+        .fold((0, 0), |(cnt, rem_delta), DiffEntry { delta, .. }| {
             (cnt + 1, rem_delta + delta)
         });
     let remaining = DiffEntry {
@@ -1260,7 +1260,7 @@ pub fn diff(
     // Create a `DiffEntry` representing the net change, and total row count.
     let total = DiffEntry {
         name: format!("Σ [{} Total Rows]", deltas.len()),
-        delta: new_items.size() as i64 - old_items.size() as i64,
+        delta: i64::from(new_items.size()) - i64::from(old_items.size()),
     };
 
     // Now that the 'remaining' and 'total' summary entries have been created,
