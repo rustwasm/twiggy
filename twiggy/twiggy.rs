@@ -17,7 +17,7 @@ use structopt::StructOpt;
 
 fn main() {
     let options = opt::Options::from_args();
-    if let Err(e) = run(options) {
+    if let Err(e) = run(&options) {
         eprintln!("error: {}", e);
         for c in e.causes().skip(1) {
             eprintln!("  caused by: {}", c);
@@ -26,7 +26,7 @@ fn main() {
     }
 }
 
-fn run(opts: opt::Options) -> Result<(), traits::Error> {
+fn run(opts: &opt::Options) -> Result<(), traits::Error> {
     let mut items = parser::read_and_parse(opts.input())?;
 
     let data = match opts {
@@ -34,7 +34,7 @@ fn run(opts: opt::Options) -> Result<(), traits::Error> {
         opt::Options::Dominators(ref doms) => analyze::dominators(&mut items, doms)?,
         opt::Options::Paths(ref paths) => analyze::paths(&mut items, paths)?,
         opt::Options::Monos(ref monos) => analyze::monos(&mut items, monos)?,
-        opt::Options::Garbage(ref garbo) => analyze::garbage(&mut items, garbo)?,
+        opt::Options::Garbage(ref garbo) => analyze::garbage(&items, garbo)?,
         opt::Options::Diff(ref diff) => {
             let mut new_items = parser::read_and_parse(diff.new_input())?;
             analyze::diff(&mut items, &mut new_items, diff)?

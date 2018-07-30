@@ -74,19 +74,19 @@ impl fmt::Display for Table {
                 }
             }
         }
-        write!(f, "\n")?;
+        writeln!(f)?;
 
-        for i in 0..self.header.len() {
+        for (i, max_len) in maxs.iter().enumerate().take(self.header.len()) {
             if i == 0 {
                 write!(f, "─")?;
             } else {
                 write!(f, "─┼─")?;
             }
-            for _ in 0..maxs[i] {
+            for _ in 0..*max_len {
                 write!(f, "─")?;
             }
         }
-        write!(f, "\n")?;
+        writeln!(f)?;
 
         for row in &self.rows {
             for (i, (x, align)) in row.iter().zip(self.header.iter().map(|h| h.0)).enumerate() {
@@ -113,7 +113,7 @@ impl fmt::Display for Table {
                     }
                 }
             }
-            write!(f, "\n")?;
+            writeln!(f)?;
         }
 
         Ok(())
@@ -161,9 +161,7 @@ impl traits::Emit for Top {
                 (0, 0.0, 0),
                 |(total_size, total_percent, remaining_count),
                  TableRow {
-                     size,
-                     size_percent,
-                     name: _,
+                     size, size_percent, ..
                  }| {
                     (
                         total_size + size,
@@ -260,13 +258,13 @@ impl traits::Emit for Top {
             obj.field("name", item.name())?;
 
             let size = item.size();
-            let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+            let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
             obj.field("shallow_size", size)?;
             obj.field("shallow_size_percent", size_percent)?;
 
             if self.opts.retained() {
                 let size = items.retained_size(id);
-                let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+                let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
                 obj.field("retained_size", size)?;
                 obj.field("retained_size_percent", size_percent)?;
             }
@@ -297,12 +295,12 @@ impl traits::Emit for Top {
 
             let (shallow_size, shallow_size_percent) = {
                 let size = item.size();
-                let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+                let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
                 (size, size_percent)
             };
             let (retained_size, retained_size_percent) = if self.opts.retained() {
                 let size = items.retained_size(id);
-                let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+                let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
                 (Some(size), Some(size_percent))
             } else {
                 (None, None)
@@ -310,10 +308,10 @@ impl traits::Emit for Top {
 
             wtr.serialize(CsvRecord {
                 name: item.name().to_string(),
-                shallow_size: shallow_size,
-                shallow_size_percent: shallow_size_percent,
-                retained_size: retained_size,
-                retained_size_percent: retained_size_percent,
+                shallow_size,
+                shallow_size_percent,
+                retained_size,
+                retained_size_percent,
             })?;
             wtr.flush()?;
         }
@@ -338,11 +336,14 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
         .filter(|item| item.id() != items.meta_root())
         .collect();
 
-    top_items.sort_by(|a, b| match opts.retained() {
-        false => b.size().cmp(&a.size()),
-        true => items
-            .retained_size(b.id())
-            .cmp(&items.retained_size(a.id())),
+    top_items.sort_by(|a, b| {
+        if opts.retained() {
+            items
+                .retained_size(b.id())
+                .cmp(&items.retained_size(a.id()))
+        } else {
+            b.size().cmp(&a.size())
+        }
     });
 
     let top_items: Vec<_> = top_items.into_iter().map(|i| i.id()).collect();
@@ -416,7 +417,7 @@ impl traits::Emit for DominatorTree {
             }
 
             if let Some(children) = dominator_tree.get(&id) {
-                let mut children: Vec<_> = children.iter().cloned().collect();
+                let mut children = children.to_vec();
                 children.sort_by(|a, b| items.retained_size(*b).cmp(&items.retained_size(*a)));
                 for child in children {
                     *row += 1;
@@ -464,12 +465,12 @@ impl traits::Emit for DominatorTree {
             obj.field("name", item.name())?;
 
             let size = item.size();
-            let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+            let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
             obj.field("shallow_size", size)?;
             obj.field("shallow_size_percent", size_percent)?;
 
             let size = items.retained_size(id);
-            let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+            let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
             obj.field("retained_size", size)?;
             obj.field("retained_size_percent", size_percent)?;
 
@@ -477,7 +478,7 @@ impl traits::Emit for DominatorTree {
             // does, but it would be nice to push that earlier, like `top` does.
 
             if let Some(children) = dominator_tree.get(&id) {
-                let mut children: Vec<_> = children.iter().cloned().collect();
+                let mut children = children.to_vec();
                 children.sort_by(|a, b| items.retained_size(*b).cmp(&items.retained_size(*a)));
 
                 let mut arr = obj.array("children")?;
@@ -501,7 +502,7 @@ impl traits::Emit for DominatorTree {
     #[cfg(feature = "emit_csv")]
     fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut wtr = csv::Writer::from_writer(dest);
-        fn recursive_add_children<'a>(
+        fn recursive_add_children(
             items: &ir::Items,
             opts: &opt::Dominators,
             dominator_tree: &BTreeMap<ir::Id, Vec<ir::Id>>,
@@ -523,11 +524,11 @@ impl traits::Emit for DominatorTree {
             let item = &items[id];
             let (size, size_percent) = (
                 item.size(),
-                (item.size() as f64) / (items.size() as f64) * 100.0,
+                f64::from(item.size()) / f64::from(items.size()) * 100.0,
             );
             let (retained_size, retained_size_percent) = (
                 items.retained_size(id),
-                (items.retained_size(id) as f64) / (items.size() as f64) * 100.0,
+                f64::from(items.retained_size(id)) / f64::from(items.size()) * 100.0,
             );
             let idom = if let Some(idom) = items.immediate_dominators().get(&id) {
                 idom.serializable()
@@ -540,15 +541,15 @@ impl traits::Emit for DominatorTree {
                 name: item.name().to_string(),
                 shallow_size: size,
                 shallow_size_percent: size_percent,
-                retained_size: retained_size,
-                retained_size_percent: retained_size_percent,
+                retained_size,
+                retained_size_percent,
                 immediate_dominator: idom,
             };
 
             wtr.serialize(rc)?;
             wtr.flush()?;
             if let Some(children) = dominator_tree.get(&id) {
-                let mut children: Vec<_> = children.iter().cloned().collect();
+                let mut children = children.to_vec();
                 children.sort_by(|a, b| items.retained_size(*b).cmp(&items.retained_size(*a)));
                 for child in children {
                     recursive_add_children(items, opts, dominator_tree, child, wtr)?;
@@ -573,26 +574,23 @@ pub fn dominators(
     items.compute_predecessors();
 
     let arguments = opts.items();
-    let dominator_items = match arguments.is_empty() {
-        true => vec![items.meta_root()],
-        false => {
-            if opts.using_regexps() {
-                let regexps = regex::RegexSet::new(arguments)?;
-                let mut sorted_items: Vec<_> = items
-                    .iter()
-                    .filter(|item| regexps.is_match(&item.name()))
-                    .map(|item| item.id())
-                    .collect();
-                sorted_items.sort_by_key(|id| items.retained_size(*id) as i32 * -1);
-                sorted_items
-            } else {
-                arguments
-                    .iter()
-                    .filter_map(|name| items.get_item_by_name(name))
-                    .map(|item| item.id())
-                    .collect()
-            }
-        }
+    let dominator_items = if arguments.is_empty() {
+        vec![items.meta_root()]
+    } else if opts.using_regexps() {
+        let regexps = regex::RegexSet::new(arguments)?;
+        let mut sorted_items: Vec<_> = items
+            .iter()
+            .filter(|item| regexps.is_match(&item.name()))
+            .map(|item| item.id())
+            .collect();
+        sorted_items.sort_by_key(|id| -i64::from(items.retained_size(*id)));
+        sorted_items
+    } else {
+        arguments
+            .iter()
+            .filter_map(|name| items.get_item_by_name(name))
+            .map(|item| item.id())
+            .collect()
     };
 
     let tree = DominatorTree {
@@ -712,7 +710,7 @@ impl traits::Emit for Paths {
             obj.field("name", item.name())?;
 
             let size = item.size();
-            let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+            let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
             obj.field("shallow_size", size)?;
             obj.field("shallow_size_percent", size_percent)?;
 
@@ -776,7 +774,7 @@ impl traits::Emit for Paths {
 
             let item = &items[id];
             let size = item.size();
-            let size_percent = (size as f64) / (items.size() as f64) * 100.0;
+            let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
             let mut callers = items
                 .predecessors(id)
                 .into_iter()
@@ -860,27 +858,24 @@ pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emi
 
     // Initialize the collection of Id values whose retaining paths we will emit.
     let functions: Vec<ir::Id> = if opts.functions().is_empty() {
-        match opts.descending() {
-            true => get_functions_default_desc(),
-            false => get_functions_default(),
+        if opts.descending() {
+            get_functions_default_desc()
+        } else {
+            get_functions_default()
         }
+    } else if opts.using_regexps() {
+        let regexps = regex::RegexSet::new(opts.functions())?;
+        items
+            .iter()
+            .filter(|item| regexps.is_match(&item.name()))
+            .map(|item| item.id())
+            .collect()
     } else {
-        match opts.using_regexps() {
-            true => {
-                let regexps = regex::RegexSet::new(opts.functions())?;
-                items
-                    .iter()
-                    .filter(|item| regexps.is_match(&item.name()))
-                    .map(|item| item.id())
-                    .collect()
-            }
-            false => opts
-                .functions()
-                .iter()
-                .filter_map(|s| items.get_item_by_name(s))
-                .map(|item| item.id())
-                .collect(),
-        }
+        opts.functions()
+            .iter()
+            .filter_map(|s| items.get_item_by_name(s))
+            .map(|item| item.id())
+            .collect()
     };
 
     let paths = Paths {
@@ -1048,7 +1043,7 @@ pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emi
         if let Some(generic) = item.monomorphization_of() {
             monos
                 .entry(generic)
-                .or_insert(BTreeSet::new())
+                .or_insert_with(BTreeSet::new)
                 .insert(item.id());
         }
     }
@@ -1162,7 +1157,7 @@ impl traits::Emit for Diff {
     ) -> Result<(), traits::Error> {
         let mut arr = json::array(dest)?;
 
-        for entry in self.deltas.iter() {
+        for entry in &self.deltas {
             let mut obj = arr.object()?;
             obj.field("delta_bytes", entry.delta as f64)?;
             obj.field("name", entry.name.as_str())?;
@@ -1175,7 +1170,7 @@ impl traits::Emit for Diff {
     fn emit_csv(&self, _items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
         let mut wtr = csv::Writer::from_writer(dest);
 
-        for entry in self.deltas.iter() {
+        for entry in &self.deltas {
             wtr.serialize(entry)?;
             wtr.flush()?;
         }
@@ -1196,7 +1191,7 @@ pub fn diff(
     fn get_names_and_sizes(items: &ir::Items) -> HashMap<&str, i64> {
         items
             .iter()
-            .map(|item| (item.name(), item.size() as i64))
+            .map(|item| (item.name(), i64::from(item.size())))
             .collect()
     }
 
@@ -1227,7 +1222,7 @@ pub fn diff(
     // Given a result returned by `get_item_delta`, return false if the result
     // represents an unchanged item. Ignore errors, these are handled separately.
     let unchanged_items_filter = |res: &Result<DiffEntry, traits::Error>| -> bool {
-        if let Ok(DiffEntry { name: _, delta: 0 }) = res {
+        if let Ok(DiffEntry { delta: 0, .. }) = res {
             false
         } else {
             true
@@ -1254,7 +1249,7 @@ pub fn diff(
     let (rem_cnt, rem_delta): (u32, i64) = deltas
         .iter()
         .skip(max_items)
-        .fold((0, 0), |(cnt, rem_delta), DiffEntry { name: _, delta }| {
+        .fold((0, 0), |(cnt, rem_delta), DiffEntry { delta, .. }| {
             (cnt + 1, rem_delta + delta)
         });
     let remaining = DiffEntry {
@@ -1265,7 +1260,7 @@ pub fn diff(
     // Create a `DiffEntry` representing the net change, and total row count.
     let total = DiffEntry {
         name: format!("Σ [{} Total Rows]", deltas.len()),
-        delta: new_items.size() as i64 - old_items.size() as i64,
+        delta: i64::from(new_items.size()) - i64::from(old_items.size()),
     };
 
     // Now that the 'remaining' and 'total' summary entries have been created,

@@ -15,7 +15,7 @@ impl<'a> JsonPrimitive for &'a str {
             match c {
                 '"' => write!(w, "\\\"")?,
                 '\\' => write!(w, "\\")?,
-                '\n' => write!(w, "\\n")?,
+                '\n' => writeln!(w,)?,
                 c => write!(w, "{}", c)?,
             }
         }
