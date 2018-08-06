@@ -19,7 +19,7 @@ fn main() {
     let options = opt::Options::from_args();
     if let Err(e) = run(&options) {
         eprintln!("error: {}", e);
-        for c in e.causes().skip(1) {
+        for c in Fail::iter_causes(&e) {
             eprintln!("  caused by: {}", c);
         }
         process::exit(1);
