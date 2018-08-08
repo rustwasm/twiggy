@@ -420,6 +420,16 @@ test!(
 );
 
 test!(
+    garbage_top_2_json,
+    "garbage",
+    "./fixtures/garbage.wasm",
+    "-f",
+    "json",
+    "-n",
+    "2"
+);
+
+test!(
     monos_json,
     "monos",
     "./fixtures/monos.wasm",

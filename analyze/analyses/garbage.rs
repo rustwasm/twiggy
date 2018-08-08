@@ -35,12 +35,22 @@ impl traits::Emit for Garbage {
             ]);
         }
 
-        if self.items.len() > self.limit {
-            table.add_row(vec![
-                "...".to_string(),
-                "...".to_string(),
-                format!("... and {} more", self.items.len() - self.limit),
-            ]);
+        match self
+            .items
+            .iter()
+            .skip(self.limit)
+            .map(|id| &items[*id])
+            .fold((0, 0), |(size, cnt), item| (size + item.size(), cnt + 1))
+        {
+            (size, cnt) if cnt > 0 => {
+                let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
+                table.add_row(vec![
+                    size.to_string(),
+                    format!("{:.2}%", size_percent),
+                    format!("... and {} more", cnt),
+                ]);
+            }
+            _ => {}
         }
 
         let total_size: u32 = self.items.iter().map(|&id| items[id].size()).sum();
@@ -48,7 +58,7 @@ impl traits::Emit for Garbage {
         table.add_row(vec![
             total_size.to_string(),
             format!("{:.2}%", total_percent),
-            "Σ".to_string(),
+            format!("Σ [{} Total Rows]", self.items.len()),
         ]);
 
         write!(dest, "{}", &table)?;
@@ -70,6 +80,32 @@ impl traits::Emit for Garbage {
             obj.field("bytes", size)?;
             obj.field("size_percent", size_percent)?;
         }
+
+        match self
+            .items
+            .iter()
+            .skip(self.limit)
+            .map(|id| &items[*id])
+            .fold((0, 0), |(size, cnt), item| (size + item.size(), cnt + 1))
+        {
+            (size, cnt) if cnt > 0 => {
+                let name = format!("... and {} more", cnt);
+                let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
+                let mut obj = arr.object()?;
+                obj.field("name", name.as_str())?;
+                obj.field("bytes", size)?;
+                obj.field("size_percent", size_percent)?;
+            }
+            _ => {}
+        }
+
+        let total_name = format!("Σ [{} Total Rows]", self.items.len());
+        let total_size: u32 = self.items.iter().map(|&id| items[id].size()).sum();
+        let total_size_percent = (f64::from(total_size)) / (f64::from(items.size())) * 100.0;
+        let mut obj = arr.object()?;
+        obj.field("name", total_name.as_str())?;
+        obj.field("bytes", total_size)?;
+        obj.field("size_percent", total_size_percent)?;
 
         Ok(())
     }
