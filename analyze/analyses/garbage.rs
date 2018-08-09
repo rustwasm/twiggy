@@ -81,22 +81,19 @@ impl traits::Emit for Garbage {
             obj.field("size_percent", size_percent)?;
         }
 
-        match self
+        let (total_size, total_cnt) = self
             .items
             .iter()
             .skip(self.limit)
             .map(|id| &items[*id])
-            .fold((0, 0), |(size, cnt), item| (size + item.size(), cnt + 1))
-        {
-            (size, cnt) if cnt > 0 => {
-                let name = format!("... and {} more", cnt);
-                let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
-                let mut obj = arr.object()?;
-                obj.field("name", name.as_str())?;
-                obj.field("bytes", size)?;
-                obj.field("size_percent", size_percent)?;
-            }
-            _ => {}
+            .fold((0, 0), |(size, cnt), item| (size + item.size(), cnt + 1));
+        if total_cnt > 0 {
+            let name = format!("... and {} more", total_cnt);
+            let total_size_percent = (f64::from(total_size)) / (f64::from(items.size())) * 100.0;
+            let mut obj = arr.object()?;
+            obj.field("name", name.as_str())?;
+            obj.field("bytes", total_size)?;
+            obj.field("size_percent", total_size_percent)?;
         }
 
         let total_name = format!("Σ [{} Total Rows]", self.items.len());
