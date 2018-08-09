@@ -89,9 +89,10 @@ dependencies = [
 
 [[package]]
 name = "cpp_demangle"
-version = "0.2.9"
+version = "0.2.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
+ "cfg-if 0.1.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "glob 0.2.11 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -482,7 +483,7 @@ dependencies = [
 name = "twiggy-ir"
 version = "0.2.0"
 dependencies = [
- "cpp_demangle 0.2.9 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cpp_demangle 0.2.11 (registry+https://github.com/rust-lang/crates.io-index)",
  "frozen 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "petgraph 0.4.12 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustc-demangle 0.1.9 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -662,7 +663,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum cc 1.0.18 (registry+https://github.com/rust-lang/crates.io-index)" = "2119ea4867bd2b8ed3aecab467709720b2d55b1bcfe09f772fd68066eaf15275"
 "checksum cfg-if 0.1.4 (registry+https://github.com/rust-lang/crates.io-index)" = "efe5c877e17a9c717a0bf3613b2709f723202c4e4675cc8f12926ded29bcb17e"
 "checksum clap 2.32.0 (registry+https://github.com/rust-lang/crates.io-index)" = "b957d88f4b6a63b9d70d5f454ac8011819c6efa7727858f458ab71c756ce2d3e"
-"checksum cpp_demangle 0.2.9 (registry+https://github.com/rust-lang/crates.io-index)" = "59f21019cf64a5de42e82a006df0a925ad5dc49b44e5a33aa5475d16f7ba0224"
+"checksum cpp_demangle 0.2.11 (registry+https://github.com/rust-lang/crates.io-index)" = "1bad6c0663aa0c1b88d556e2860694abd1dcfdd3ec36d20e76bbbf4bd6e5d9b8"
 "checksum csv 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)" = "71903184af9960c555e7f3b32ff17390d20ecaaf17d4f18c4a0993f2df8a49e3"
 "checksum csv-core 0.1.4 (registry+https://github.com/rust-lang/crates.io-index)" = "4dd8e6d86f7ba48b4276ef1317edc8cc36167546d8972feb4a2b5fec0b374105"
 "checksum diff 0.1.11 (registry+https://github.com/rust-lang/crates.io-index)" = "3c2b69f912779fbb121ceb775d74d51e915af17aaebc38d28a592843a2dd0a3a"
