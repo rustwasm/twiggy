@@ -429,6 +429,32 @@ test!(
     "2"
 );
 
+test!(garbage_wee_alloc_top_10, "garbage", "./fixtures/wee_alloc.wasm");
+
+test!(
+    garbage_wee_alloc_all,
+    "garbage",
+    "./fixtures/wee_alloc.wasm",
+    "-a"
+);
+
+test!(
+    garbage_wee_alloc_top_10_json,
+    "garbage",
+    "./fixtures/wee_alloc.wasm",
+    "-f",
+    "json"
+);
+
+test!(
+    garbage_wee_alloc_all_json,
+    "garbage",
+    "./fixtures/wee_alloc.wasm",
+    "-f",
+    "json",
+    "-a"
+);
+
 test!(
     monos_json,
     "monos",

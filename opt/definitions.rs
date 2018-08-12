@@ -514,6 +514,10 @@ pub struct Garbage {
     /// The maximum number of items to display.
     #[structopt(short = "n", default_value = "10")]
     max_items: u32,
+
+    /// Display all items. Overrides -n <max_items>
+    #[structopt(short = "a", long = "all")]
+    all_items: bool,
 }
 
 impl Default for Garbage {
@@ -527,6 +531,7 @@ impl Default for Garbage {
             output_format: Default::default(),
 
             max_items: 10,
+            all_items: false,
         }
     }
 }
@@ -540,11 +545,12 @@ impl Garbage {
 
     /// The maximum number of items to display.
     pub fn max_items(&self) -> u32 {
-        self.max_items
+        if self.all_items { u32::MAX } else { self.max_items }
     }
 
     /// Set the maximum number of items to display.
     pub fn set_max_items(&mut self, max: u32) {
         self.max_items = max;
+        self.all_items = false;
     }
 }

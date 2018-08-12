@@ -1,0 +1,14 @@
+ Bytes │ Size % │ Garbage Item
+───────┼────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  1034 ┊ 36.71% ┊ data[3]
+   136 ┊  4.83% ┊ <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
+    76 ┊  2.70% ┊ <wee_alloc::LargeAllocPolicy as wee_alloc::AllocPolicy>::new_cell_for_free_list::h8f071b7bce0301ba
+    25 ┊  0.89% ┊ data[1]
+    25 ┊  0.89% ┊ data[2]
+    12 ┊  0.43% ┊ elem[0]
+     6 ┊  0.21% ┊ type[0]
+     6 ┊  0.21% ┊ type[1]
+     6 ┊  0.21% ┊ <wee_alloc::LargeAllocPolicy as wee_alloc::AllocPolicy>::min_cell_size::hc7cee2a550987099
+     5 ┊  0.18% ┊ <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::min_cell_size::h6f746be886573355
+    24 ┊  0.85% ┊ ... and 12 more
+  1355 ┊ 48.10% ┊ Σ [22 Total Rows]
