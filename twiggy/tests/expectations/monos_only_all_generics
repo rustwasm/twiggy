@@ -1,0 +1,94 @@
+ Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %      │ Monomorphizations
+────────────────────┼────────────────┼───────┼────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+               1977 ┊          3.40% ┊  3003 ┊  5.16% ┊ alloc::slice::merge_sort
+               1302 ┊          2.24% ┊  3996 ┊  6.87% ┊ <&'a T as core::fmt::Debug>::fmt
+                973 ┊          1.67% ┊  1118 ┊  1.92% ┊ core::result::unwrap_failed
+                558 ┊          0.96% ┊   714 ┊  1.23% ┊ <alloc::raw_vec::RawVec<T, A>>::double
+                512 ┊          0.88% ┊   798 ┊  1.37% ┊ std::thread::local::os::destroy_value
+                234 ┊          0.40% ┊   354 ┊  0.61% ┊ alloc::slice::insert_head
+                196 ┊          0.34% ┊   294 ┊  0.51% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt
+                195 ┊          0.34% ┊   270 ┊  0.46% ┊ <alloc::vec::Vec<T>>::push
+                119 ┊          0.20% ┊   180 ┊  0.31% ┊ <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut
+                 95 ┊          0.16% ┊   190 ┊  0.33% ┊ core::fmt::Write::write_fmt
+                 90 ┊          0.15% ┊   167 ┊  0.29% ┊ core::ptr::drop_in_place
+                 51 ┊          0.09% ┊    68 ┊  0.12% ┊ <&'a T as core::fmt::Display>::fmt
+                 39 ┊          0.07% ┊    78 ┊  0.13% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeFrom<usize>>::index::{{closure}}
+                 30 ┊          0.05% ┊    45 ┊  0.08% ┊ <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop
+                 20 ┊          0.03% ┊    40 ┊  0.07% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeTo<usize>>::index::{{closure}}
+                 19 ┊          0.03% ┊    73 ┊  0.13% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str
+                 17 ┊          0.03% ┊   367 ┊  0.63% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char
+                 14 ┊          0.02% ┊    21 ┊  0.04% ┊ monos::generic
+                 13 ┊          0.02% ┊    26 ┊  0.04% ┊ <T as core::any::Any>::get_type_id
+                  5 ┊          0.01% ┊   256 ┊  0.44% ┊ core::fmt::Write::write_char
+                  0 ┊          0.00% ┊  3350 ┊  5.76% ┊ dlmalloc::dlmalloc::Dlmalloc::malloc
+                  0 ┊          0.00% ┊  1633 ┊  2.81% ┊ core::fmt::Formatter::pad
+                  0 ┊          0.00% ┊  1483 ┊  2.55% ┊ std::panicking::rust_panic_with_hook
+                  0 ┊          0.00% ┊  1241 ┊  2.13% ┊ core::fmt::Formatter::pad_integral
+                  0 ┊          0.00% ┊  1187 ┊  2.04% ┊ core::str::slice_error_fail
+                  0 ┊          0.00% ┊  1113 ┊  1.91% ┊ core::fmt::write
+                  0 ┊          0.00% ┊   902 ┊  1.55% ┊ <char as core::fmt::Debug>::fmt
+                  0 ┊          0.00% ┊   897 ┊  1.54% ┊ dlmalloc::dlmalloc::Dlmalloc::free
+                  0 ┊          0.00% ┊   728 ┊  1.25% ┊ core::slice::memchr::memchr
+                  0 ┊          0.00% ┊   702 ┊  1.21% ┊ <core::fmt::builders::PadAdapter<'a> as core::fmt::Write>::write_str
+                  0 ┊          0.00% ┊   657 ┊  1.13% ┊ std::panicking::default_hook::{{closure}}
+                  0 ┊          0.00% ┊   638 ┊  1.10% ┊ dlmalloc::dlmalloc::Dlmalloc::dispose_chunk
+                  0 ┊          0.00% ┊   513 ┊  0.88% ┊ std::thread::Thread::new
+                  0 ┊          0.00% ┊   473 ┊  0.81% ┊ <core::alloc::LayoutErr as core::fmt::Debug>::fmt
+                  0 ┊          0.00% ┊   384 ┊  0.66% ┊ std::io::Write::write_fmt
+                  0 ┊          0.00% ┊   366 ┊  0.63% ┊ dlmalloc::dlmalloc::Dlmalloc::memalign
+                  0 ┊          0.00% ┊   358 ┊  0.62% ┊ core::fmt::Formatter::pad_integral::{{closure}}
+                  0 ┊          0.00% ┊   350 ┊  0.60% ┊ core::unicode::printable::check
+                  0 ┊          0.00% ┊   346 ┊  0.59% ┊ core::fmt::builders::DebugTuple::field
+                  0 ┊          0.00% ┊   332 ┊  0.57% ┊ dlmalloc::dlmalloc::Dlmalloc::insert_large_chunk
+                  0 ┊          0.00% ┊   311 ┊  0.53% ┊ core::fmt::num::<impl core::fmt::Display for u32>::fmt
+                  0 ┊          0.00% ┊   311 ┊  0.53% ┊ core::fmt::num::<impl core::fmt::Display for usize>::fmt
+                  0 ┊          0.00% ┊   309 ┊  0.53% ┊ dlmalloc::dlmalloc::Dlmalloc::unlink_large_chunk
+                  0 ┊          0.00% ┊   294 ┊  0.51% ┊ core::fmt::num::<impl core::fmt::Debug for usize>::fmt
+                  0 ┊          0.00% ┊   288 ┊  0.49% ┊ <std::thread::local::os::Key<T>>::get
+                  0 ┊          0.00% ┊   288 ┊  0.49% ┊ std::panicking::LOCAL_STDERR::__getit
+                  0 ┊          0.00% ┊   288 ┊  0.49% ┊ std::sys_common::thread_info::THREAD_INFO::__getit
+                  0 ┊          0.00% ┊   218 ┊  0.37% ┊ alloc::slice::merge_sort::collapse
+                  0 ┊          0.00% ┊   187 ┊  0.32% ┊ core::fmt::builders::DebugTuple::finish
+                  0 ┊          0.00% ┊   173 ┊  0.30% ┊ std::panicking::begin_panic_fmt
+                  0 ┊          0.00% ┊   168 ┊  0.29% ┊ core::unicode::printable::is_printable
+                  0 ┊          0.00% ┊   158 ┊  0.27% ┊ std::sys_common::util::dumb_print
+                  0 ┊          0.00% ┊   154 ┊  0.26% ┊ core::alloc::Layout::repeat
+                  0 ┊          0.00% ┊   147 ┊  0.25% ┊ <core::ops::range::Range<Idx> as core::fmt::Debug>::fmt
+                  0 ┊          0.00% ┊   133 ┊  0.23% ┊ core::slice::slice_index_len_fail
+                  0 ┊          0.00% ┊   133 ┊  0.23% ┊ core::slice::slice_index_order_fail
+                  0 ┊          0.00% ┊   132 ┊  0.23% ┊ core::panicking::panic_bounds_check
+                  0 ┊          0.00% ┊   130 ┊  0.22% ┊ <alloc::raw_vec::RawVec<T, A>>::reserve
+                  0 ┊          0.00% ┊   120 ┊  0.21% ┊ <std::ffi::c_str::NulError as core::fmt::Debug>::fmt
+                  0 ┊          0.00% ┊   110 ┊  0.19% ┊ core::option::expect_failed
+                  0 ┊          0.00% ┊   109 ┊  0.19% ┊ <alloc::raw_vec::RawVec<T, A>>::reserve_exact
+                  0 ┊          0.00% ┊   103 ┊  0.18% ┊ core::panicking::panic
+                  0 ┊          0.00% ┊    96 ┊  0.16% ┊ <alloc::arc::Arc<T>>::drop_slow
+                  0 ┊          0.00% ┊    96 ┊  0.16% ┊ <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Debug>::fmt
+                  0 ┊          0.00% ┊    87 ┊  0.15% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::write_fmt
+                  0 ┊          0.00% ┊    76 ┊  0.13% ┊ <alloc::string::String as core::convert::From<&'a str>>::from
+                  0 ┊          0.00% ┊    73 ┊  0.13% ┊ <alloc::vec::Vec<T>>::remove
+                  0 ┊          0.00% ┊    62 ┊  0.11% ┊ core::panicking::panic_fmt
+                  0 ┊          0.00% ┊    61 ┊  0.10% ┊ <core::alloc::CollectionAllocErr as core::fmt::Debug>::fmt
+                  0 ┊          0.00% ┊    44 ┊  0.08% ┊ std::panicking::begin_panic
+                  0 ┊          0.00% ┊    42 ┊  0.07% ┊ <alloc::vec::Vec<T> as core::ops::index::Index<I>>::index
+                  0 ┊          0.00% ┊    42 ┊  0.07% ┊ <alloc::vec::Vec<T> as core::ops::index::IndexMut<I>>::index_mut
+                  0 ┊          0.00% ┊    39 ┊  0.07% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::Range<usize>>::index::{{closure}}
+                  0 ┊          0.00% ┊    31 ┊  0.05% ┊ <core::result::Result<T, E>>::unwrap
+                  0 ┊          0.00% ┊    27 ┊  0.05% ┊ <core::cell::BorrowError as core::fmt::Debug>::fmt
+                  0 ┊          0.00% ┊    27 ┊  0.05% ┊ <core::cell::BorrowMutError as core::fmt::Debug>::fmt
+                  0 ┊          0.00% ┊    27 ┊  0.05% ┊ <std::thread::local::AccessError as core::fmt::Debug>::fmt
+                  0 ┊          0.00% ┊    26 ┊  0.04% ┊ <core::result::Result<T, E>>::expect
+                  0 ┊          0.00% ┊    23 ┊  0.04% ┊ <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as std::error::Error>::description
+                  0 ┊          0.00% ┊    19 ┊  0.03% ┊ <core::option::Option<T>>::expect
+                  0 ┊          0.00% ┊    17 ┊  0.03% ┊ <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Display>::fmt
+                  0 ┊          0.00% ┊    17 ┊  0.03% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::write
+                  0 ┊          0.00% ┊    14 ┊  0.02% ┊ std::error::Error::type_id
+                  0 ┊          0.00% ┊    10 ┊  0.02% ┊ std::error::Error::cause
+                  0 ┊          0.00% ┊    10 ┊  0.02% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::flush
+                  0 ┊          0.00% ┊    10 ┊  0.02% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::write_all
+                  0 ┊          0.00% ┊     9 ┊  0.02% ┊ core::fmt::ArgumentV1::show_usize
+                  0 ┊          0.00% ┊     5 ┊  0.01% ┊ <monos::One as monos::Code>::code
+                  0 ┊          0.00% ┊     5 ┊  0.01% ┊ <monos::Two as monos::Code>::code
+                  0 ┊          0.00% ┊     5 ┊  0.01% ┊ <monos::Zero as monos::Code>::code
+                  0 ┊          0.00% ┊     5 ┊  0.01% ┊ <std::io::Write::write_fmt::Adaptor<'a, T> as core::fmt::Write>::write_str
+               6459 ┊         11.10% ┊ 34980 ┊ 60.10% ┊ Σ [91 Total Rows]

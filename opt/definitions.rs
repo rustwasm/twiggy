@@ -367,9 +367,24 @@ pub struct Monos {
     max_generics: u32,
 
     /// The maximum number of individual monomorphizations to list for each
-    /// generic function.
+    /// listed generic function.
     #[structopt(short = "n", long = "max-monos", default_value = "10")]
     max_monos: u32,
+
+    /// List all generics and all of their individual monomorphizations.
+    /// If combined with -g then monomorphizations are hidden.
+    /// Overrides -m <max_generics> and -n <max_monos>
+    #[structopt(short = "a", long = "all")]
+    all_generics_and_monos: bool,
+
+    /// List all generics. Overrides -m <max_generics>
+    #[structopt(long = "all-generics")]
+    all_generics: bool,
+
+    /// List all individual monomorphizations for each listed generic
+    /// function. Overrides -n <max_monos>
+    #[structopt(long = "all-monos")]
+    all_monos: bool,
 }
 
 impl Default for Monos {
@@ -385,6 +400,10 @@ impl Default for Monos {
             only_generics: false,
             max_generics: 10,
             max_monos: 10,
+
+            all_generics_and_monos: false,
+            all_generics: false,
+            all_monos: false,
         }
     }
 }
@@ -403,13 +422,21 @@ impl Monos {
 
     /// The maximum number of generics to list.
     pub fn max_generics(&self) -> u32 {
-        self.max_generics
+        if self.all_generics_and_monos || self.all_generics {
+            u32::MAX
+        } else {
+            self.max_generics
+        }
     }
 
     /// The maximum number of individual monomorphizations to list for each
     /// generic function.
     pub fn max_monos(&self) -> u32 {
-        self.max_monos
+        if self.all_generics_and_monos || self.all_monos {
+            u32::MAX
+        } else {
+            self.max_monos
+        }
     }
 
     /// Set whether to hide individual monomorphizations and only show the
@@ -421,12 +448,22 @@ impl Monos {
     /// Set the maximum number of generics to list.
     pub fn set_max_generics(&mut self, max: u32) {
         self.max_generics = max;
+        self.all_generics = false;
+        if self.all_generics_and_monos {
+            self.all_generics_and_monos = false;
+            self.all_monos = true;
+        }
     }
 
     /// Set the maximum number of individual monomorphizations to list for each
     /// generic function.
     pub fn set_max_monos(&mut self, max: u32) {
         self.max_monos = max;
+        self.all_monos = false;
+        if self.all_generics_and_monos {
+            self.all_generics_and_monos = false;
+            self.all_generics = true;
+        }
     }
 }
 
