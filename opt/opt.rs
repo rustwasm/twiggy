@@ -3,7 +3,7 @@
 #![deny(missing_debug_implementations)]
 #![cfg_attr(
     feature = "wasm",
-    feature(use_extern_macros, wasm_custom_section, wasm_import_module)
+    feature(use_extern_macros)
 )]
 
 #[macro_use]
