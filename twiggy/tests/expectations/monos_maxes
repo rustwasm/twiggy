@@ -1,4 +1,4 @@
-Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %      │ Monomorphizations
+ Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %      │ Monomorphizations
 ────────────────────┼────────────────┼───────┼────────┼────────────────────────────────────────────────────────
                1977 ┊          3.40% ┊  3003 ┊  5.16% ┊ alloc::slice::merge_sort
                     ┊                ┊  1026 ┊  1.76% ┊     alloc::slice::merge_sort::hb3d195f9800bdad6
