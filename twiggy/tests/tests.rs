@@ -445,7 +445,11 @@ test!(
     "2"
 );
 
-test!(garbage_wee_alloc_top_10, "garbage", "./fixtures/wee_alloc.wasm");
+test!(
+    garbage_wee_alloc_top_10,
+    "garbage",
+    "./fixtures/wee_alloc.wasm"
+);
 
 test!(
     garbage_wee_alloc_all,
