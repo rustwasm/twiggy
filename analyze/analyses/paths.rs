@@ -242,43 +242,50 @@ pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emi
         items.compute_predecessors();
     }
 
-    // This closure is used to initialize `functions` if no arguments are given
-    // and we are ascending the retaining paths.
-    let get_functions_default = || {
-        let mut sorted_items: Vec<_> = items
+    // Initialize the collection of Id values whose retaining paths we will emit.
+    let opts = opts.clone();
+    let items = get_items(&items, &opts)?;
+    let paths = Paths { items, opts };
+
+    Ok(Box::new(paths) as Box<traits::Emit>)
+}
+
+/// This helper function is used to collect ir::Id values for the `items` member
+/// of the `Paths` object, based on the given options.
+pub fn get_items(items: &ir::Items, opts: &opt::Paths) -> Result<Vec<ir::Id>, traits::Error> {
+    // Collect Id's if no arguments are given and we are ascending the retaining paths.
+    let get_functions_default = || -> Vec<ir::Id> {
+        let mut sorted_items = items
             .iter()
             .filter(|item| item.id() != items.meta_root())
-            .collect();
+            .collect::<Vec<_>>();
         sorted_items.sort_by(|a, b| b.size().cmp(&a.size()));
         sorted_items.iter().map(|item| item.id()).collect()
     };
 
-    // This closure is used to initialize `functions` if no arguments are given
-    // and we are descending the retaining paths.
-    let get_functions_default_desc = || {
-        let mut roots: Vec<_> = items
+    // Collect Id's if no arguments are given and we are descending the retaining paths.
+    let get_functions_default_desc = || -> Vec<ir::Id> {
+        let mut roots = items
             .neighbors(items.meta_root())
             .map(|id| &items[id])
-            .collect();
+            .collect::<Vec<_>>();
         roots.sort_by(|a, b| b.size().cmp(&a.size()));
         roots.into_iter().map(|item| item.id()).collect()
     };
 
-    // Initialize the collection of Id values whose retaining paths we will emit.
-    let functions: Vec<ir::Id> = if opts.functions().is_empty() {
-        if opts.descending() {
-            get_functions_default_desc()
-        } else {
-            get_functions_default()
-        }
-    } else if opts.using_regexps() {
+    // Collect Id's if arguments were given that should be used as regular expressions.
+    let get_regexp_matches = || -> Result<Vec<ir::Id>, traits::Error> {
         let regexps = regex::RegexSet::new(opts.functions())?;
-        items
+        let matches = items
             .iter()
             .filter(|item| regexps.is_match(&item.name()))
             .map(|item| item.id())
-            .collect()
-    } else {
+            .collect();
+        Ok(matches)
+    };
+
+    // Collect Id's if arguments were given that should be used as exact names.
+    let get_exact_matches = || -> Vec<ir::Id> {
         opts.functions()
             .iter()
             .filter_map(|s| items.get_item_by_name(s))
@@ -286,10 +293,19 @@ pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emi
             .collect()
     };
 
-    let paths = Paths {
-        items: functions,
-        opts: opts.clone(),
+    // Collect the starting positions based on the relevant options given.
+    // If arguments were given, search for matches depending on whether or
+    // not these should be treated as regular expressions. Otherwise, collect
+    // the starting positions based on the direction we will be traversing.
+    let args_given = !opts.functions().is_empty();
+    let using_regexps = opts.using_regexps();
+    let descending = opts.descending();
+    let res = match (args_given, using_regexps, descending) {
+        (true, true, _) => get_regexp_matches()?,
+        (true, false, _) => get_exact_matches(),
+        (false, _, true) => get_functions_default_desc(),
+        (false, _, false) => get_functions_default(),
     };
 
-    Ok(Box::new(paths) as Box<traits::Emit>)
+    Ok(res)
 }
