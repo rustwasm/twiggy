@@ -1,10 +1,7 @@
 //! Options for running `twiggy`.
 
 #![deny(missing_debug_implementations)]
-#![cfg_attr(
-    feature = "wasm",
-    feature(use_extern_macros)
-)]
+#![cfg_attr(feature = "wasm", feature(use_extern_macros))]
 
 #[macro_use]
 extern crate cfg_if;
