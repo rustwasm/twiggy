@@ -455,9 +455,16 @@ pub struct Diff {
     #[structopt(short = "f", long = "format", default_value = "text")]
     output_format: traits::OutputFormat,
 
+    /// The name of the item(s) whose diff should be printed.
+    items: Vec<String>,
+
     /// The maximum number of items to display.
     #[structopt(short = "n", default_value = "20")]
     max_items: u32,
+
+    /// Whether or not `items` should be treated as regular expressions.
+    #[structopt(long = "regex")]
+    using_regexps: bool,
 }
 
 impl Default for Diff {
@@ -472,8 +479,20 @@ impl Default for Diff {
             #[cfg(feature = "cli")]
             output_format: Default::default(),
 
+            items: Default::default(),
             max_items: 20,
+            using_regexps: false,
         }
+    }
+}
+
+impl Diff {
+    // TODO: wasm-bindgen does not support sending Vec<String> across
+    // the wasm ABI boundary yet.
+
+    /// The items whose dominators subtree should be printed.
+    pub fn items(&self) -> &[String] {
+        &self.items
     }
 }
 
@@ -484,9 +503,19 @@ impl Diff {
         self.max_items
     }
 
+    /// Whether or not `items` should be treated as regular expressions.
+    pub fn using_regexps(&self) -> bool {
+        self.using_regexps
+    }
+
     /// Set the maximum number of items to display.
     pub fn set_max_items(&mut self, n: u32) {
         self.max_items = n;
+    }
+
+    /// Set whether or not `items` should be treated as regular expressions.
+    pub fn set_using_regexps(&mut self, using_regexps: bool) {
+        self.using_regexps = using_regexps;
     }
 }
 

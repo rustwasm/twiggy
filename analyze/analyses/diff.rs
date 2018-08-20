@@ -3,6 +3,7 @@ use std::collections::{HashMap, HashSet};
 use std::io;
 
 use csv;
+use regex;
 use serde::{self, ser::SerializeStruct};
 
 use formats::json;
@@ -146,8 +147,21 @@ pub fn diff(
     let names = old_sizes
         .keys()
         .chain(new_sizes.keys())
-        .map(|k| k.to_string())
-        .collect::<HashSet<_>>();
+        .map(|k| k.to_string());
+
+    // If arguments were given to the command, we should filter out items that
+    // do not match any of the given names or expressions.
+    let names: HashSet<String> = if !opts.items().is_empty() {
+        if opts.using_regexps() {
+            let regexps = regex::RegexSet::new(opts.items())?;
+            names.filter(|name| regexps.is_match(name)).collect()
+        } else {
+            let item_names = opts.items().iter().collect::<HashSet<_>>();
+            names.filter(|name| item_names.contains(&name)).collect()
+        }
+    } else {
+        names.collect()
+    };
 
     // Iterate through the set of item names, and use the closure above to map
     // each item into a `DiffEntry` object. Then, sort the collection.
@@ -171,16 +185,32 @@ pub fn diff(
     };
 
     // Create a `DiffEntry` representing the net change, and total row count.
+    // If specifying arguments were not given, calculate the total net changes,
+    // otherwise find the total values only for items in the the deltas collection.
+    let (total_cnt, total_delta) = if opts.items().is_empty() {
+        (
+            deltas.len(),
+            i64::from(new_items.size()) - i64::from(old_items.size()),
+        )
+    } else {
+        deltas
+            .iter()
+            .fold((0, 0), |(cnt, rem_delta), DiffEntry { delta, .. }| {
+                (cnt + 1, rem_delta + delta)
+            })
+    };
     let total = DiffEntry {
-        name: format!("Σ [{} Total Rows]", deltas.len()),
-        delta: i64::from(new_items.size()) - i64::from(old_items.size()),
+        name: format!("Σ [{} Total Rows]", total_cnt),
+        delta: total_delta,
     };
 
     // Now that the 'remaining' and 'total' summary entries have been created,
     // truncate the vector of deltas before we box up the result, and push
     // the remaining and total rows to the deltas vector.
     deltas.truncate(max_items);
-    deltas.push(remaining);
+    if rem_cnt > 0 {
+        deltas.push(remaining);
+    }
     deltas.push(total);
 
     // Return the results so that they can be emitted.

@@ -417,6 +417,24 @@ test!(
     "5"
 );
 
+test!(
+    diff_test_regex_wee_alloc,
+    "diff",
+    "./fixtures/wee_alloc.wasm",
+    "./fixtures/wee_alloc.2.wasm",
+    "--regex",
+    "(data|type)\\[\\d*\\]"
+);
+
+test!(
+    diff_test_exact_wee_alloc,
+    "diff",
+    "./fixtures/wee_alloc.wasm",
+    "./fixtures/wee_alloc.2.wasm",
+    "hello",
+    "goodbye"
+);
+
 test!(garbage, "garbage", "./fixtures/garbage.wasm");
 
 test!(
