@@ -1,80 +1,80 @@
 Name,ShallowSize,ShallowSizePercent,Path
-"""function names"" subsection",44,30.555555555555557,"<meta root> -> ""function names"" subsection"
+"""function names"" subsection",44,30.555555555555557,
 woof,8,5.555555555555555,func[3] -> woof
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
-"export ""woof""",7,4.861111111111112,"<meta root> -> export ""woof"""
-"export ""awoo""",7,4.861111111111112,"<meta root> -> export ""awoo"""
-"export ""bark""",7,4.861111111111112,"<meta root> -> export ""bark"""
-"export ""woof""",7,4.861111111111112,"<meta root> -> export ""woof"""
+"export ""woof""",7,4.861111111111112,
+"export ""awoo""",7,4.861111111111112,
+"export ""bark""",7,4.861111111111112,
+"export ""woof""",7,4.861111111111112,
 calledOnce,5,3.4722222222222223,func[0] -> calledOnce
 func[0],1,0.6944444444444444,woof -> func[0]
 woof,8,5.555555555555555,func[3] -> woof
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
-"export ""woof""",7,4.861111111111112,"<meta root> -> export ""woof"""
+"export ""woof""",7,4.861111111111112,
 calledTwice,5,3.4722222222222223,func[1] -> calledTwice
 func[1],1,0.6944444444444444,bark -> woof -> func[1]
 bark,5,3.4722222222222223,func[2] -> bark
 func[2],1,0.6944444444444444,"export ""bark"" -> awoo -> func[2]"
-"export ""bark""",7,4.861111111111112,"<meta root> -> export ""bark"""
+"export ""bark""",7,4.861111111111112,
 awoo,5,3.4722222222222223,func[4] -> awoo
 func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
-"export ""awoo""",7,4.861111111111112,"<meta root> -> export ""awoo"""
+"export ""awoo""",7,4.861111111111112,
 woof,8,5.555555555555555,func[3] -> woof
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
-"export ""woof""",7,4.861111111111112,"<meta root> -> export ""woof"""
+"export ""woof""",7,4.861111111111112,
 bark,5,3.4722222222222223,func[2] -> bark
 func[2],1,0.6944444444444444,"export ""bark"" -> awoo -> func[2]"
-"export ""bark""",7,4.861111111111112,"<meta root> -> export ""bark"""
+"export ""bark""",7,4.861111111111112,
 awoo,5,3.4722222222222223,func[4] -> awoo
 func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
-"export ""awoo""",7,4.861111111111112,"<meta root> -> export ""awoo"""
+"export ""awoo""",7,4.861111111111112,
 awoo,5,3.4722222222222223,func[4] -> awoo
 func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
-"export ""awoo""",7,4.861111111111112,"<meta root> -> export ""awoo"""
+"export ""awoo""",7,4.861111111111112,
 type[0],4,2.7777777777777777,func[0] -> func[1] -> func[2] -> func[3] -> func[4] -> type[0]
 func[0],1,0.6944444444444444,woof -> func[0]
 woof,8,5.555555555555555,func[3] -> woof
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
-"export ""woof""",7,4.861111111111112,"<meta root> -> export ""woof"""
+"export ""woof""",7,4.861111111111112,
 func[1],1,0.6944444444444444,bark -> woof -> func[1]
 bark,5,3.4722222222222223,func[2] -> bark
 func[2],1,0.6944444444444444,"export ""bark"" -> awoo -> func[2]"
-"export ""bark""",7,4.861111111111112,"<meta root> -> export ""bark"""
+"export ""bark""",7,4.861111111111112,
 awoo,5,3.4722222222222223,func[4] -> awoo
 func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
-"export ""awoo""",7,4.861111111111112,"<meta root> -> export ""awoo"""
+"export ""awoo""",7,4.861111111111112,
 woof,8,5.555555555555555,func[3] -> woof
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
-"export ""woof""",7,4.861111111111112,"<meta root> -> export ""woof"""
+"export ""woof""",7,4.861111111111112,
 func[2],1,0.6944444444444444,"export ""bark"" -> awoo -> func[2]"
-"export ""bark""",7,4.861111111111112,"<meta root> -> export ""bark"""
+"export ""bark""",7,4.861111111111112,
 awoo,5,3.4722222222222223,func[4] -> awoo
 func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
-"export ""awoo""",7,4.861111111111112,"<meta root> -> export ""awoo"""
+"export ""awoo""",7,4.861111111111112,
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
-"export ""woof""",7,4.861111111111112,"<meta root> -> export ""woof"""
+"export ""woof""",7,4.861111111111112,
 func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
-"export ""awoo""",7,4.861111111111112,"<meta root> -> export ""awoo"""
+"export ""awoo""",7,4.861111111111112,
 func[0],1,0.6944444444444444,woof -> func[0]
 woof,8,5.555555555555555,func[3] -> woof
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
-"export ""woof""",7,4.861111111111112,"<meta root> -> export ""woof"""
+"export ""woof""",7,4.861111111111112,
 func[1],1,0.6944444444444444,bark -> woof -> func[1]
 bark,5,3.4722222222222223,func[2] -> bark
 func[2],1,0.6944444444444444,"export ""bark"" -> awoo -> func[2]"
-"export ""bark""",7,4.861111111111112,"<meta root> -> export ""bark"""
+"export ""bark""",7,4.861111111111112,
 awoo,5,3.4722222222222223,func[4] -> awoo
 func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
-"export ""awoo""",7,4.861111111111112,"<meta root> -> export ""awoo"""
+"export ""awoo""",7,4.861111111111112,
 woof,8,5.555555555555555,func[3] -> woof
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
-"export ""woof""",7,4.861111111111112,"<meta root> -> export ""woof"""
+"export ""woof""",7,4.861111111111112,
 func[2],1,0.6944444444444444,"export ""bark"" -> awoo -> func[2]"
-"export ""bark""",7,4.861111111111112,"<meta root> -> export ""bark"""
+"export ""bark""",7,4.861111111111112,
 awoo,5,3.4722222222222223,func[4] -> awoo
 func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
-"export ""awoo""",7,4.861111111111112,"<meta root> -> export ""awoo"""
+"export ""awoo""",7,4.861111111111112,
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
-"export ""woof""",7,4.861111111111112,"<meta root> -> export ""woof"""
+"export ""woof""",7,4.861111111111112,
 func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
-"export ""awoo""",7,4.861111111111112,"<meta root> -> export ""awoo"""
+"export ""awoo""",7,4.861111111111112,
