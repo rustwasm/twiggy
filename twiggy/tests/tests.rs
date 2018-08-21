@@ -361,6 +361,30 @@ test!(
     "csv"
 );
 
+test!(monos_all, "monos", "./fixtures/monos.wasm", "-a");
+
+test!(
+    monos_only_all_generics,
+    "monos",
+    "./fixtures/monos.wasm",
+    "-g",
+    "-a"
+);
+
+test!(
+    monos_all_generics,
+    "monos",
+    "./fixtures/monos.wasm",
+    "--all-generics"
+);
+
+test!(
+    monos_all_monos,
+    "monos",
+    "./fixtures/monos.wasm",
+    "--all-monos"
+);
+
 test!(
     diff_wee_alloc,
     "diff",
