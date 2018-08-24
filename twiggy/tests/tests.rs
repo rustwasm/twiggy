@@ -90,6 +90,9 @@ macro_rules! test {
     }
 }
 
+// Top Tests:
+// ----------------------------------------------------------------------------
+
 test!(
     top_wee_alloc,
     "top",
@@ -115,6 +118,60 @@ test!(
     "--retained",
     "./fixtures/mappings.wasm"
 );
+
+// This should not fail to open and write `whatever-output.txt`.
+test!(
+    output_to_file,
+    "top",
+    "./fixtures/wee_alloc.wasm",
+    "-o",
+    "whatever-output.txt"
+);
+
+test!(
+    top_2_json,
+    "top",
+    "./fixtures/wee_alloc.wasm",
+    "-n",
+    "2",
+    "-f",
+    "json"
+);
+
+test!(
+    top_2_json_retained,
+    "top",
+    "./fixtures/wee_alloc.wasm",
+    "--retained",
+    "-n",
+    "2",
+    "-f",
+    "json"
+);
+
+test!(
+    top_2_csv,
+    "top",
+    "./fixtures/wee_alloc.wasm",
+    "-n",
+    "4",
+    "-f",
+    "csv"
+);
+
+test!(
+    top_2_csv_retained,
+    "top",
+    "./fixtures/wee_alloc.wasm",
+    "--retained",
+    "-n",
+    "4",
+    "-f",
+    "csv"
+);
+
+// Dominators Tests:
+// ----------------------------------------------------------------------------
 
 test!(
     dominators_wee_alloc,
@@ -171,6 +228,9 @@ test!(
     "--regex",
     "func\\[[0-9]+\\]"
 );
+
+// Paths Tests:
+// ----------------------------------------------------------------------------
 
 test!(
     paths_test_called_once,
@@ -279,56 +339,6 @@ test!(
     "--regex"
 );
 
-// This should not fail to open and write `whatever-output.txt`.
-test!(
-    output_to_file,
-    "top",
-    "./fixtures/wee_alloc.wasm",
-    "-o",
-    "whatever-output.txt"
-);
-
-test!(
-    top_2_json,
-    "top",
-    "./fixtures/wee_alloc.wasm",
-    "-n",
-    "2",
-    "-f",
-    "json"
-);
-
-test!(
-    top_2_json_retained,
-    "top",
-    "./fixtures/wee_alloc.wasm",
-    "--retained",
-    "-n",
-    "2",
-    "-f",
-    "json"
-);
-
-test!(
-    top_2_csv,
-    "top",
-    "./fixtures/wee_alloc.wasm",
-    "-n",
-    "4",
-    "-f",
-    "csv"
-);
-
-test!(
-    top_2_csv_retained,
-    "top",
-    "./fixtures/wee_alloc.wasm",
-    "--retained",
-    "-n",
-    "4",
-    "-f",
-    "csv"
-);
 
 test!(
     issue_16,
@@ -336,6 +346,9 @@ test!(
     "./fixtures/mappings.wasm",
     "compute_column_spans"
 );
+
+// Monos Tests:
+// ----------------------------------------------------------------------------
 
 test!(cpp_monos, "monos", "./fixtures/cpp-monos.wasm");
 
@@ -384,6 +397,21 @@ test!(
     "./fixtures/monos.wasm",
     "--all-monos"
 );
+
+test!(
+    monos_json,
+    "monos",
+    "./fixtures/monos.wasm",
+    "-m",
+    "2",
+    "-n",
+    "1",
+    "-f",
+    "json"
+);
+
+// Diff Tests:
+// ----------------------------------------------------------------------------
 
 test!(
     diff_wee_alloc,
@@ -459,6 +487,9 @@ test!(
     "goodbye"
 );
 
+// Garbage Tests:
+// ----------------------------------------------------------------------------
+
 test!(garbage, "garbage", "./fixtures/garbage.wasm");
 
 test!(
@@ -517,17 +548,8 @@ test!(
     "-a"
 );
 
-test!(
-    monos_json,
-    "monos",
-    "./fixtures/monos.wasm",
-    "-m",
-    "2",
-    "-n",
-    "1",
-    "-f",
-    "json"
-);
+// ELF Tests:
+// ----------------------------------------------------------------------------
 
 test!(
     elf_top_25_hello_world_rs,
