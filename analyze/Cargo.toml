@@ -18,7 +18,7 @@ twiggy-traits = { version = "=0.2.0", path = "../traits" }
 csv = "1.0.0"
 regex = "1.0.2"
 serde = "1.0.73"
-serde_derive = "1.0.73"
+serde_derive = "1.0.74"
 petgraph = "0.4.12"
 
 [features]
