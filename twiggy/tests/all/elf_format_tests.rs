@@ -1,12 +1,3 @@
-extern crate colored;
-extern crate diff;
-
-use std::process::Command;
-
-use colored::Colorize;
-
-use slurp;
-
 test!(
     elf_top_25_hello_world_rs,
     "top",

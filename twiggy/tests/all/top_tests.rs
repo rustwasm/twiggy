@@ -1,12 +1,3 @@
-extern crate colored;
-extern crate diff;
-
-use std::process::Command;
-
-use colored::Colorize;
-
-use slurp;
-
 test!(top_mappings, "top", "-n", "10", "./fixtures/mappings.wasm");
 
 test!(

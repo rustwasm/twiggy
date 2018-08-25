@@ -1,12 +1,3 @@
-extern crate colored;
-extern crate diff;
-
-use std::process::Command;
-
-use colored::Colorize;
-
-use slurp;
-
 test!(cpp_monos, "monos", "./fixtures/cpp-monos.wasm");
 
 test!(monos, "monos", "./fixtures/monos.wasm");

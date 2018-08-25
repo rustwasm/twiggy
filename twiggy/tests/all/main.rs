@@ -16,6 +16,13 @@ macro_rules! test {
     ( $name:ident $( , $args:expr )* ) => {
         #[test]
         fn $name() {
+            extern crate colored;
+            extern crate diff;
+
+            use std::process::Command;
+            use colored::Colorize;
+            use slurp;
+
             let output = Command::new("cargo")
                 .arg("run")
                 .arg("--")
