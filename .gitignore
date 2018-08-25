@@ -1,7 +1,7 @@
 /target
 **/*.rs.bk
 Cargo.lock
-twiggy/tests/whatever-output.txt
+twiggy/tests/all/whatever-output.txt
 wasm-api/.crates.toml
 wasm-api/bin
 twiggy_wasm_api.d.ts
