@@ -1,0 +1,12 @@
+Name,ShallowSize,ShallowSizePercent,Path
+calledTwice,5,3.4722222222222223,func[1] -> calledTwice
+func[1],1,0.6944444444444444,bark -> woof -> func[1]
+bark,5,3.4722222222222223,func[2] -> bark
+func[2],1,0.6944444444444444,"export ""bark"" -> awoo -> func[2]"
+"export ""bark""",7,4.861111111111112,"<meta root> -> export ""bark"""
+awoo,5,3.4722222222222223,func[4] -> awoo
+func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
+"export ""awoo""",7,4.861111111111112,"<meta root> -> export ""awoo"""
+woof,8,5.555555555555555,func[3] -> woof
+func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
+"export ""woof""",7,4.861111111111112,"<meta root> -> export ""woof"""
