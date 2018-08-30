@@ -27,23 +27,22 @@ pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emi
 
     // Initialize the collection of Id values whose retaining paths we will emit.
     let opts = opts.clone();
-    let starting_positions = get_items(&items, &opts)?;
-    let entries = starting_positions
+    let entries = get_starting_positions(&items, &opts)?
         .iter()
         .map(|id| create_entry(*id, &items, &opts, &mut BTreeSet::new()))
         .collect();
 
-    let paths = Paths {
-        opts,
-        entries,
-    };
+    let paths = Paths { opts, entries };
 
     Ok(Box::new(paths) as Box<traits::Emit>)
 }
 
-/// This helper function is used to collect ir::Id values for the `items` member
-/// of the `Paths` object, based on the given options.
-pub fn get_items(items: &ir::Items, opts: &opt::Paths) -> Result<Vec<ir::Id>, traits::Error> {
+/// This helper function is used to collect the `ir::Id` values for the top-most
+/// path entries for the `Paths` object, based on the given options.
+fn get_starting_positions(
+    items: &ir::Items,
+    opts: &opt::Paths,
+) -> Result<Vec<ir::Id>, traits::Error> {
     // Collect Id's if no arguments are given and we are ascending the retaining paths.
     let get_functions_default = || -> Vec<ir::Id> {
         let mut sorted_items = items
@@ -108,10 +107,13 @@ fn create_entry(
     opts: &opt::Paths,
     seen: &mut BTreeSet<ir::Id>,
 ) -> PathsEntry {
+    // Determine the item's name and size.
     let item = &items[id];
     let name = item.name().to_string();
     let size = item.size();
 
+    // Collect the `ir::Id` values of this entry's children, depending on
+    // whether we are ascending or descending the IR-tree.
     let children_ids: Vec<ir::Id> = if opts.descending() {
         items
             .neighbors(id)
@@ -128,6 +130,8 @@ fn create_entry(
             .collect()
     };
 
+    // Temporarily add the current item to the set of discovered nodes, and
+    // create an entry for each child. Collect these into a `children` vector.
     seen.insert(id);
     let children = children_ids
         .into_iter()
