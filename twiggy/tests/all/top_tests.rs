@@ -76,3 +76,12 @@ test!(
     "-o",
     "whatever-output.txt"
 );
+
+// Regression test for https://github.com/rustwasm/twiggy/issues/151
+test!(
+    top_mono,
+    "top",
+    "./fixtures/mono.wasm",
+    "-n",
+    "10"
+);

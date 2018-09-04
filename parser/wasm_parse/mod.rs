@@ -541,13 +541,15 @@ impl<'a> Parse<'a> for elements::ElementSection {
         items: &mut ir::ItemsBuilder,
         (module, idx): Self::EdgesExtra,
     ) -> Result<(), traits::Error> {
-        let mut func_section = None;
-        let mut table_section = None;
+        let mut func_section_idx = None;
+        let mut table_section_idx = None;
+        let mut import_section_idx = None;
 
-        for (sect_idx, s) in module.sections().iter().enumerate() {
+        for (idx, s) in module.sections().iter().enumerate() {
             match *s {
-                Section::Function(_) => func_section = Some(sect_idx),
-                Section::Table(_) => table_section = Some(sect_idx),
+                Section::Function(_) => func_section_idx = Some(idx),
+                Section::Table(_) => table_section_idx = Some(idx),
+                Section::Import(_) => import_section_idx = Some(idx),
                 _ => {}
             }
         }
@@ -555,17 +557,31 @@ impl<'a> Parse<'a> for elements::ElementSection {
         let num_imported_funcs = module.import_count(elements::ImportCountType::Function);
         for (i, elem) in self.entries().iter().enumerate() {
             let elem_id = Id::entry(idx, i);
-            if let Some(table_idx) = table_section {
-                let entry_id = Id::entry(table_idx, elem.index() as usize);
+            if let Some(table_section_idx) = table_section_idx {
+                let entry_id = Id::entry(table_section_idx, elem.index() as usize);
                 items.add_edge(elem_id, entry_id);
             }
-            if let Some(func_idx) = func_section {
-                for &f_i in elem.members() {
-                    let f_id = Id::entry(func_idx, f_i as usize - num_imported_funcs);
-                    items.add_edge(elem_id, f_id);
+            for &func_idx in elem.members() {
+                // A table element's initializer function can be an imported
+                // function or locally defined function. Compare the index
+                // against the number of imported functions to determine
+                // which we are dealing with.
+                if func_idx < num_imported_funcs as u32 {
+                    // Add an edge to the function import.
+                    if let Some(import_section_idx) = import_section_idx {
+                        let import_id = Id::entry(import_section_idx, func_idx as usize);
+                        items.add_edge(elem_id, import_id);
+                    }
+                } else {
+                    // Add an edge to the local function entry.
+                    if let Some(func_section_idx) = func_section_idx {
+                        let func_id = Id::entry(func_section_idx, func_idx as usize - num_imported_funcs);
+                        items.add_edge(elem_id, func_id);
+                    }
                 }
             }
         }
+
         Ok(())
     }
 }
