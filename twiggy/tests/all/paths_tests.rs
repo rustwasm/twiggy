@@ -187,10 +187,65 @@ test!(
     "--regex"
 );
 
-
 test!(
     issue_16,
     "paths",
     "./fixtures/mappings.wasm",
     "compute_column_spans"
+);
+
+test!(
+    paths_error_test_no_max_paths,
+    "paths",
+    "./fixtures/mappings.wasm",
+    "std::io::error::Error::new::h8c006d5367bc92ed"
+);
+
+test!(
+    paths_error_test_no_max_paths_csv,
+    "paths",
+    "-f",
+    "csv",
+    "./fixtures/mappings.wasm",
+    "std::io::error::Error::new::h8c006d5367bc92ed"
+);
+
+test!(
+    paths_error_test_no_max_paths_json,
+    "paths",
+    "-f",
+    "json",
+    "./fixtures/mappings.wasm",
+    "std::io::error::Error::new::h8c006d5367bc92ed"
+);
+
+test!(
+    paths_error_test_one_path,
+    "paths",
+    "-r",
+    "1",
+    "./fixtures/mappings.wasm",
+    "std::io::error::Error::new::h8c006d5367bc92ed"
+);
+
+test!(
+    paths_error_test_one_path_csv,
+    "paths",
+    "-f",
+    "csv",
+    "-r",
+    "1",
+    "./fixtures/mappings.wasm",
+    "std::io::error::Error::new::h8c006d5367bc92ed"
+);
+
+test!(
+    paths_error_test_one_path_json,
+    "paths",
+    "-f",
+    "json",
+    "-r",
+    "1",
+    "./fixtures/mappings.wasm",
+    "std::io::error::Error::new::h8c006d5367bc92ed"
 );
