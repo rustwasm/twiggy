@@ -1,0 +1,14 @@
+ Shallow Bytes │ Shallow % │ Item
+───────────────┼───────────┼───────────────────────────────────
+        876519 ┊    15.62% ┊ "function names" subsection
+        205501 ┊     3.66% ┊ elem[0]
+        190603 ┊     3.40% ┊ data[3154]
+        177025 ┊     3.16% ┊ _interp_exec_method_full
+        157089 ┊     2.80% ┊ _generate
+         47889 ┊     0.85% ┊ data[3088]
+         39528 ┊     0.70% ┊ data[2041]
+         32684 ┊     0.58% ┊ _SHA1Transform
+         27794 ┊     0.50% ┊ _major_scan_object_with_evacuation
+         26912 ┊     0.48% ┊ _major_scan_object_no_evacuation
+       3828116 ┊    68.24% ┊ ... and 157729 more.
+       5609660 ┊   100.00% ┊ Σ [157739 Total Rows]
