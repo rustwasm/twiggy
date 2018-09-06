@@ -559,7 +559,7 @@ impl<'a> Parse<'a> for elements::ElementSection {
             let elem_id = Id::entry(idx, i);
             if let Some(table_section_idx) = table_section_idx {
                 let entry_id = Id::entry(table_section_idx, elem.index() as usize);
-                items.add_edge(elem_id, entry_id);
+                items.add_edge(entry_id, elem_id);
             }
             for &func_idx in elem.members() {
                 // A table element's initializer function can be an imported
