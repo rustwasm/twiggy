@@ -341,7 +341,7 @@ impl<'a> Parse<'a> for elements::TableSection {
             let size = serialized_size(entry.clone())?;
             let mut name = String::with_capacity("table[]".len() + 4);
             write!(&mut name, "table[{}]", i)?;
-            items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
+            items.add_root(ir::Item::new(id, name, size, ir::Misc::new()));
         }
         Ok(())
     }
