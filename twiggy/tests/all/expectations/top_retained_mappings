@@ -1,14 +1,14 @@
  Retained Bytes │ Retained % │ Item
 ────────────────┼────────────┼─────────────────────────────────────────────────
+          14492 ┊     32.04% ┊ table[0]
+          14488 ┊     32.03% ┊ elem[0]
            5285 ┊     11.68% ┊ func[40]
            5284 ┊     11.68% ┊ core::ptr::drop_in_place::hddeb26218033f78b.1290
            4337 ┊      9.59% ┊ "function names" subsection
            3440 ┊      7.61% ┊ export "parse_mappings"
            3423 ┊      7.57% ┊ func[2]
            3422 ┊      7.57% ┊ parse_mappings
-           3160 ┊      6.99% ┊ func[70]
-           3149 ┊      6.96% ┊ __powidf2
-           2722 ┊      6.02% ┊ func[78]
-           2721 ┊      6.02% ┊ __divsf3
+           3091 ┊      6.83% ┊ func[70]
+           3090 ┊      6.83% ┊ __powidf2
             ... ┊        ... ┊ ... and 338 more.
             ... ┊        ... ┊ Σ [348 Total Rows]

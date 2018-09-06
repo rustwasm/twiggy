@@ -1,10 +1,35 @@
  Retained Bytes │ Retained % │ Dominator Tree
-────────────────┼────────────┼────────────────────────────
+────────────────┼────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
             774 ┊     27.48% ┊ "function names" subsection
-            573 ┊     20.34% ┊ export "hello"
-             59 ┊      2.09% ┊ export "goodbye"
-             49 ┊      1.74% ┊   ⤷ func[9]
+            387 ┊     13.74% ┊ func[2]
+              8 ┊      0.28% ┊   ⤷ type[4]
+            271 ┊      9.62% ┊ table[0]
+            267 ┊      9.48% ┊   ⤷ elem[0]
+            137 ┊      4.86% ┊       ⤷ func[5]
+            136 ┊      4.83% ┊           ⤷ <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
+             77 ┊      2.73% ┊       ⤷ func[0]
+             76 ┊      2.70% ┊           ⤷ <wee_alloc::LargeAllocPolicy as wee_alloc::AllocPolicy>::new_cell_for_free_list::h8f071b7bce0301ba
+              8 ┊      0.28% ┊       ⤷ func[10]
+              4 ┊      0.14% ┊           ⤷ __wasm_nullptr
+              3 ┊      0.11% ┊           ⤷ type[2]
+              7 ┊      0.25% ┊       ⤷ func[1]
+              6 ┊      0.21% ┊           ⤷ <wee_alloc::LargeAllocPolicy as wee_alloc::AllocPolicy>::min_cell_size::hc7cee2a550987099
+              6 ┊      0.21% ┊       ⤷ type[0]
+              6 ┊      0.21% ┊       ⤷ type[1]
+              6 ┊      0.21% ┊       ⤷ func[7]
+              5 ┊      0.18% ┊           ⤷ <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::min_cell_size::h6f746be886573355
+              4 ┊      0.14% ┊       ⤷ func[4]
+              3 ┊      0.11% ┊           ⤷ core::ptr::drop_in_place::h8e9fdc2437d43666
+              4 ┊      0.14% ┊       ⤷ func[6]
+              3 ┊      0.11% ┊           ⤷ core::ptr::drop_in_place::h4e5cdfd7b9310648.18
+            177 ┊      6.28% ┊ export "hello"
+            169 ┊      6.00% ┊   ⤷ func[8]
+            164 ┊      5.82% ┊       ⤷ hello
+              4 ┊      0.14% ┊       ⤷ type[5]
+             55 ┊      1.95% ┊ export "goodbye"
+             45 ┊      1.60% ┊   ⤷ func[9]
              44 ┊      1.56% ┊       ⤷ goodbye
-              4 ┊      0.14% ┊       ⤷ type[3]
              11 ┊      0.39% ┊ export "memory"
               2 ┊      0.07% ┊   ⤷ memory[0]
+              9 ┊      0.32% ┊ data[0]
+              4 ┊      0.14% ┊ type[3]
