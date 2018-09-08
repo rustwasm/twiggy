@@ -19,6 +19,7 @@ macro_rules! test {
             extern crate colored;
             extern crate diff;
 
+            use std::fs;
             use std::process::Command;
             use colored::Colorize;
             use slurp;
@@ -56,6 +57,12 @@ macro_rules! test {
             let expected_lines = expected.lines().collect::<Vec<&str>>();
 
             let actual = String::from_utf8_lossy(&output.stdout);
+
+            if ::std::env::var("TWIGGY_UPDATE_TEST_EXPECTATIONS").is_ok() {
+                fs::write(expected_path, actual.as_ref()).unwrap();
+                return;
+            }
+
             let actual_lines = actual.lines().collect::<Vec<&str>>();
 
             if actual_lines != expected_lines {

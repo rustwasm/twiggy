@@ -10,9 +10,11 @@ out to us in a GitHub issue, or ping `fitzgen` in [`#rust-wasm` on
 
 - [Code of Conduct](#code-of-conduct)
 - [Building and Testing](#building-and-testing)
-  - [Building](#building)
+  - [Building for the Native Target](#building-for-the-native-target)
+  - [Building for the `wasm32-unknown-unknown` Target](#building-for-the-wasm32-unknown-unknown-target)
   - [Testing](#testing)
     - [Authoring New Tests](#authoring-new-tests)
+    - [Updating Test Expectations](#updating-test-expectations)
 - [Automatic Code Formatting](#automatic-code-formatting)
 - [Pull Requests](#pull-requests)
 - [Contributions We Want](#contributions-we-want)
@@ -63,6 +65,12 @@ twiggy/tests
 
 * The `twiggy/tests/expectations` directory contains the expected output of test
   commands.
+
+#### Updating Test Expectations
+
+To automatically update all test expectations, you can run the tests with the
+`TWIGGY_UPDATE_TEST_EXPECTATIONS=1` environment variable set. Make sure that you
+look at the changes before committing them, and that they match your intentions!
 
 ## Automatic Code Formatting
 
