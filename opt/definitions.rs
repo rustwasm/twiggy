@@ -43,9 +43,9 @@ pub enum Options {
 }
 
 /// List the top code size offenders in a binary.
+#[wasm_bindgen]
 #[derive(Clone, Debug)]
 #[derive(StructOpt)]
-#[wasm_bindgen]
 pub struct Top {
     /// The path to the input binary to size profile.
     #[cfg(feature = "cli")]
@@ -131,9 +131,9 @@ impl Top {
 }
 
 /// Compute and display the dominator tree for a binary's call graph.
+#[wasm_bindgen]
 #[derive(Clone, Debug, Default)]
 #[derive(StructOpt)]
-#[wasm_bindgen]
 pub struct Dominators {
     /// The path to the input binary to size profile.
     #[cfg(feature = "cli")]
@@ -216,9 +216,9 @@ impl Dominators {
 
 /// Find and display the call paths to a function in the given binary's call
 /// graph.
+#[wasm_bindgen]
 #[derive(Clone, Debug)]
 #[derive(StructOpt)]
-#[wasm_bindgen]
 pub struct Paths {
     /// The path to the input binary to size profile.
     #[cfg(feature = "cli")]
@@ -339,9 +339,9 @@ impl Paths {
 
 /// List the generic function monomorphizations that are contributing to
 /// code bloat.
+#[wasm_bindgen]
 #[derive(Clone, Debug)]
 #[derive(StructOpt)]
-#[wasm_bindgen]
 pub struct Monos {
     /// The path to the input binary to size profile.
     #[cfg(feature = "cli")]
@@ -468,9 +468,9 @@ impl Monos {
 }
 
 /// Diff the old and new versions of a binary to see what sizes changed.
+#[wasm_bindgen]
 #[derive(Clone, Debug)]
 #[derive(StructOpt)]
-#[wasm_bindgen]
 pub struct Diff {
     /// The path to the old version of the input binary.
     #[cfg(feature = "cli")]
@@ -558,9 +558,9 @@ impl Diff {
 
 /// Find and display code and data that is not transitively referenced by any
 /// exports or public functions.
+#[wasm_bindgen]
 #[derive(Clone, Debug)]
 #[derive(StructOpt)]
-#[wasm_bindgen]
 pub struct Garbage {
     /// The path to the input binary to size profile.
     #[cfg(feature = "cli")]

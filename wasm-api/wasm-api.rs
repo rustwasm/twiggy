@@ -1,6 +1,5 @@
 #![cfg(target_arch = "wasm32")]
 #![cfg(feature = "emit_json")]
-#![feature(use_extern_macros)]
 
 extern crate wasm_bindgen;
 
