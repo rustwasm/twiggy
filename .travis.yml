@@ -28,7 +28,7 @@ matrix:
         provider: pages
         skip-cleanup: true
         github-token: $GITHUB_TOKEN
-        local-dir: guide
+        local-dir: guide/book
         keep-history: false
         on:
           branch: master
