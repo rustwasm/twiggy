@@ -2,6 +2,6 @@
 authors = ["Nick Fitzgerald"]
 multilingual = false
 src = "src"
-title = "Twiggy"
+title = "Twiggy🌱"
 [output.html]
 theme = "src/theme"
