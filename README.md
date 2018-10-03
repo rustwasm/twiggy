@@ -1,6 +1,6 @@
 <meta charset="utf-8"/>
 
-# Twiggy!
+# Twiggy🌱
 
 [![](https://docs.rs/twiggy/badge.svg)](https://docs.rs/twiggy/)
 [![](https://img.shields.io/crates/v/twiggy.svg)](https://crates.io/crates/twiggy)
