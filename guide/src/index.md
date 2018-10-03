@@ -1,5 +1,3 @@
-<meta charset="utf-8"/>
-
 # Twiggy!
 
 [![](https://docs.rs/twiggy/badge.svg)](https://docs.rs/twiggy/)
@@ -19,19 +17,4 @@ It analyzes a binary's call graph to answer questions like:
 
 Use `twiggy` to make your binaries slim!
 
-## Install Twiggy
-
-Ensure that you have [the Rust toolchain installed](https://www.rust-lang.org/),
-then run:
-
-```
-cargo install twiggy
-```
-
-## Learn More!
-
-[**Read the Twiggy guide!**](https://rustwasm.github.io/twiggy)
-
---------------------------------------------------------------------------------
-
-![Twiggy](./guide/src/twiggy.png)
+![Twiggy](./twiggy.png)

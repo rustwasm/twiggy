@@ -1,0 +1,7 @@
+[book]
+authors = ["Nick Fitzgerald"]
+multilingual = false
+src = "src"
+title = "Twiggy"
+[output.html]
+theme = "src/theme"
