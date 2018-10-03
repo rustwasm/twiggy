@@ -6,15 +6,15 @@ license = "Apache-2.0/MIT"
 name = "twiggy-analyze"
 readme = "../README.md"
 repository = "https://github.com/rustwasm/twiggy"
-version = "0.2.0"
+version = "0.3.0"
 
 [lib]
 path = "./analyze.rs"
 
 [dependencies]
-twiggy-ir = { version = "=0.2.0", path = "../ir" }
-twiggy-opt = { version = "=0.2.0", path = "../opt", default-features = false }
-twiggy-traits = { version = "=0.2.0", path = "../traits" }
+twiggy-ir = { version = "=0.3.0", path = "../ir" }
+twiggy-opt = { version = "=0.3.0", path = "../opt", default-features = false }
+twiggy-traits = { version = "=0.3.0", path = "../traits" }
 csv = "1.0.2"
 regex = "1.0.5"
 serde = "1.0.79"

@@ -15,6 +15,23 @@ matrix:
   include:
     - rust: nightly
       env: JOB="wasm"
+    # Build and deploy the mdbook guide.
+    - rust: stable
+      env: JOB="guide"
+      before_script:
+        - (test -x $HOME/.cargo/bin/cargo-install-update || cargo install cargo-update)
+        - (test -x $HOME/.cargo/bin/mdbook || cargo install --vers "^0.2" mdbook)
+        - cargo install-update -a
+      script:
+        - cd guide && mdbook build
+      deploy:
+        provider: pages
+        skip-cleanup: true
+        github-token: $GITHUB_TOKEN
+        local-dir: guide
+        keep-history: false
+        on:
+          branch: master
 
 script:
   - ./ci/script.sh
