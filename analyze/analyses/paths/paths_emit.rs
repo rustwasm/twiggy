@@ -29,10 +29,10 @@ impl traits::Emit for Paths {
                      name,
                  }| {
                     vec![
-                        size.map(|size| size.to_string()).unwrap_or("".to_string()),
+                        size.map(|size| size.to_string()).unwrap_or_else(String::new),
                         size_percent
                             .map(|size_percent| format!("{:.2}%", size_percent))
-                            .unwrap_or("".to_string()),
+                            .unwrap_or_else(String::new),
                         name,
                     ]
                 },
