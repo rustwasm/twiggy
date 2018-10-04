@@ -272,7 +272,7 @@ pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emi
     // Find the approximate potential savings by calculating the benefits of
     // removing the largest instantiation, and the benefits of removing an
     // average instantiation. Returns a tuple containing total size, and bloat.
-    fn calculate_total_and_bloat<'a>(insts: &[(String, u32)]) -> Option<(u32, u32)> {
+    fn calculate_total_and_bloat(insts: &[(String, u32)]) -> Option<(u32, u32)> {
         if let Some(max) = insts.iter().map(|(_, size)| size).max() {
             let total_size = insts.iter().map(|(_, size)| size).sum::<u32>();
             let inst_cnt = insts.len() as u32;

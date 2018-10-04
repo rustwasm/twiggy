@@ -59,7 +59,7 @@ where
                 )? {
                     let id = ir::Id::entry(unit_id, entry_id);
                     let name = item_name(self, debug_str)?
-                        .unwrap_or(format!("Subroutine[{}][{}]", unit_id, entry_id));
+                        .unwrap_or_else(|| format!("Subroutine[{}][{}]", unit_id, entry_id));
                     let kind: ir::ItemKind = ir::Code::new(&name).into();
                     ir::Item::new(id, name, size as u32, kind)
                 } else {

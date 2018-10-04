@@ -288,7 +288,7 @@ impl<'a> Parse<'a> for elements::FunctionSection {
     fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, func) in self.entries().iter().enumerate() {
             let id = Id::entry(idx, i);
-            let size = serialized_size(func.clone())?;
+            let size = serialized_size(*func)?;
             let mut name = String::with_capacity("func[]".len() + 4);
             write!(&mut name, "func[{}]", i)?;
             items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
@@ -338,7 +338,7 @@ impl<'a> Parse<'a> for elements::TableSection {
     fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, entry) in self.entries().iter().enumerate() {
             let id = Id::entry(idx, i);
-            let size = serialized_size(entry.clone())?;
+            let size = serialized_size(*entry)?;
             let mut name = String::with_capacity("table[]".len() + 4);
             write!(&mut name, "table[{}]", i)?;
             items.add_root(ir::Item::new(id, name, size, ir::Misc::new()));
@@ -359,7 +359,7 @@ impl<'a> Parse<'a> for elements::MemorySection {
     fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, mem) in self.entries().iter().enumerate() {
             let id = Id::entry(idx, i);
-            let size = serialized_size(mem.clone())?;
+            let size = serialized_size(*mem)?;
             let mut name = String::with_capacity("memory[]".len() + 4);
             write!(&mut name, "memory[{}]", i)?;
             items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
@@ -506,9 +506,8 @@ impl<'a> Parse<'a> for StartSection<'a> {
         let mut func_section = None;
 
         for (sect_idx, s) in module.sections().iter().enumerate() {
-            match *s {
-                Section::Function(_) => func_section = Some(sect_idx),
-                _ => {}
+            if let Section::Function(_) = *s {
+                func_section = Some(sect_idx);
             }
         }
 
@@ -572,12 +571,10 @@ impl<'a> Parse<'a> for elements::ElementSection {
                         let import_id = Id::entry(import_section_idx, func_idx as usize);
                         items.add_edge(elem_id, import_id);
                     }
-                } else {
+                } else if let Some(func_section_idx) = func_section_idx {
                     // Add an edge to the local function entry.
-                    if let Some(func_section_idx) = func_section_idx {
-                        let func_id = Id::entry(func_section_idx, func_idx as usize - num_imported_funcs);
-                        items.add_edge(elem_id, func_id);
-                    }
+                    let func_id = Id::entry(func_section_idx, func_idx as usize - num_imported_funcs);
+                    items.add_edge(elem_id, func_id);
                 }
             }
         }
@@ -757,7 +754,7 @@ impl<'a> Parse<'a> for elements::RelocSection {
     fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
         for (i, rel) in self.entries().iter().enumerate() {
             let id = Id::entry(idx, i);
-            let size = serialized_size(rel.clone())?;
+            let size = serialized_size(*rel)?;
             let mut name = String::with_capacity("reloc[]".len() + 4);
             write!(&mut name, "reloc[{}]", i)?;
             items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
