@@ -528,7 +528,7 @@ dependencies = [
  "regex 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "structopt 0.2.11 (registry+https://github.com/rust-lang/crates.io-index)",
  "twiggy-traits 0.3.0",
- "wasm-bindgen 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasm-bindgen 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -565,7 +565,7 @@ dependencies = [
  "twiggy-opt 0.3.0",
  "twiggy-parser 0.3.0",
  "twiggy-traits 0.3.0",
- "wasm-bindgen 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasm-bindgen 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -613,15 +613,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "wasm-bindgen"
-version = "0.2.23"
+version = "0.2.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
- "wasm-bindgen-macro 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasm-bindgen-macro 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "wasm-bindgen-backend"
-version = "0.2.23"
+version = "0.2.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "lazy_static 1.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -630,33 +630,33 @@ dependencies = [
  "quote 0.6.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.27 (registry+https://github.com/rust-lang/crates.io-index)",
  "syn 0.15.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "wasm-bindgen-shared 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasm-bindgen-shared 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "wasm-bindgen-macro"
-version = "0.2.23"
+version = "0.2.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "quote 0.6.8 (registry+https://github.com/rust-lang/crates.io-index)",
- "wasm-bindgen-macro-support 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasm-bindgen-macro-support 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "wasm-bindgen-macro-support"
-version = "0.2.23"
+version = "0.2.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "proc-macro2 0.4.18 (registry+https://github.com/rust-lang/crates.io-index)",
  "quote 0.6.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "syn 0.15.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "wasm-bindgen-backend 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)",
- "wasm-bindgen-shared 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasm-bindgen-backend 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wasm-bindgen-shared 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "wasm-bindgen-shared"
-version = "0.2.23"
+version = "0.2.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "serde 1.0.79 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -752,11 +752,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum uuid 0.6.5 (registry+https://github.com/rust-lang/crates.io-index)" = "e1436e58182935dcd9ce0add9ea0b558e8a87befe01c1a301e6020aeb0876363"
 "checksum vec_map 0.8.1 (registry+https://github.com/rust-lang/crates.io-index)" = "05c78687fb1a80548ae3250346c3db86a80a7cdd77bda190189f2d0a0987c81a"
 "checksum version_check 0.1.4 (registry+https://github.com/rust-lang/crates.io-index)" = "7716c242968ee87e5542f8021178248f267f295a5c4803beae8b8b7fd9bc6051"
-"checksum wasm-bindgen 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)" = "ca02f9f467aead7511e0cb2e711cc7c82e6e791f146c11d806cf5cb042451ef9"
-"checksum wasm-bindgen-backend 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)" = "588156f36452982bc76a34d5a5f537b10b6f46316dbeac157ad46371f7841ab3"
-"checksum wasm-bindgen-macro 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)" = "6901e35c8ae8381df8c59597e1efb969ea818189f33ca38b55dfabfdaa9ba448"
-"checksum wasm-bindgen-macro-support 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)" = "063424439da3012728c7e1a3ad79ecbbe3a877ea865fe6dfb87f03defce87c10"
-"checksum wasm-bindgen-shared 0.2.23 (registry+https://github.com/rust-lang/crates.io-index)" = "6b23abaedb6f88833bfa693ef799df33969286245653b76d0bad87a6c357d56f"
+"checksum wasm-bindgen 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)" = "992ee9aa1502b4143fa07287b55653e046ecc7722172b31a254d33f6b91b1b71"
+"checksum wasm-bindgen-backend 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)" = "310eb3f8ffc7703da939a7969d25991302ea10b5a9374dfc07cf88771f5c8e1a"
+"checksum wasm-bindgen-macro 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)" = "e080ee1bb1e217f0dcb7b184e2abfce9bccbe59d28c26e0138a6d081a0bee042"
+"checksum wasm-bindgen-macro-support 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)" = "e234cae6d3c0cbf8cceb42e768c064b23d9dfa0c3ee886c41fcaf15441de0ac7"
+"checksum wasm-bindgen-shared 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)" = "3fb964cac1f7d5c8e92ee28336ef453cae403cb8e7249fff8b3b202bbe818ae2"
 "checksum winapi 0.3.5 (registry+https://github.com/rust-lang/crates.io-index)" = "773ef9dcc5f24b7d850d0ff101e542ff24c3b090a9768e03ff889fdef41f00fd"
 "checksum winapi-i686-pc-windows-gnu 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6"
 "checksum winapi-x86_64-pc-windows-gnu 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
