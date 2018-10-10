@@ -1,6 +1,6 @@
 use super::Parse;
 use ir::{self, Id};
-use parity_wasm::elements::{self, Section};
+use parity_wasm::elements::{self, Section, Type};
 use std::fmt::Write;
 use traits;
 
@@ -245,8 +245,33 @@ impl<'a> Parse<'a> for elements::TypeSection {
         for (i, ty) in self.types().iter().enumerate() {
             let id = Id::entry(idx, i);
             let size = serialized_size(ty.clone())?;
-            let mut name = String::with_capacity("type[]".len() + 4);
-            write!(&mut name, "type[{}]", i)?;
+            // Get the structure of function signature type.
+            let Type::Function(func_type) = ty.clone();
+            let n_params = func_type.params().len();
+
+            // Third member of expression shows the length of comma separated types of parameter.
+            // Hold extra capacity by adding one more sets of type signature,
+            // because 'nil' should be outputted even if the function has no parameters.
+            let mut name =
+                String::with_capacity("type[]: () -> ".len() + 4 + (5 * (n_params + 1)) + 3);
+            write!(&mut name, "type[{}]: (", i)?;
+            if n_params == 0 {
+                write!(&mut name, "nil")?;
+            }
+            for (j, pty) in func_type.params().iter().enumerate() {
+                if j != 0 {
+                    write!(&mut name, ", ");
+                }
+                write!(&mut name, "{}", pty)?;
+            }
+            write!(&mut name, ") -> ");
+
+            if func_type.return_type().is_none() {
+                write!(&mut name, "nil")?;
+            } else {
+                write!(&mut name, "{}", func_type.return_type().unwrap());
+            }
+
             items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
         }
         Ok(())
@@ -573,7 +598,8 @@ impl<'a> Parse<'a> for elements::ElementSection {
                     }
                 } else if let Some(func_section_idx) = func_section_idx {
                     // Add an edge to the local function entry.
-                    let func_id = Id::entry(func_section_idx, func_idx as usize - num_imported_funcs);
+                    let func_id =
+                        Id::entry(func_section_idx, func_idx as usize - num_imported_funcs);
                     items.add_edge(elem_id, func_id);
                 }
             }

@@ -1,29 +1,29 @@
  Shallow Bytes │ Shallow % │ Retaining Paths
-───────────────┼───────────┼──────────────────────────────────────
+───────────────┼───────────┼────────────────────────────────────────────────
              7 ┊     4.86% ┊ export "awoo"
                ┊           ┊   ↳ func[4]
-               ┊           ┊       ↳ type[0]
+               ┊           ┊       ↳ type[0]: (nil) -> i32
                ┊           ┊       ↳ awoo
                ┊           ┊           ↳ func[2]
-               ┊           ┊               ↳ type[0]
+               ┊           ┊               ↳ type[0]: (nil) -> i32
                ┊           ┊               ↳ bark
                ┊           ┊                   ↳ func[1]
-               ┊           ┊                       ↳ type[0]
+               ┊           ┊                       ↳ type[0]: (nil) -> i32
                ┊           ┊                       ↳ calledTwice
              7 ┊     4.86% ┊ export "bark"
                ┊           ┊   ↳ func[2]
-               ┊           ┊       ↳ type[0]
+               ┊           ┊       ↳ type[0]: (nil) -> i32
                ┊           ┊       ↳ bark
                ┊           ┊           ↳ func[1]
-               ┊           ┊               ↳ type[0]
+               ┊           ┊               ↳ type[0]: (nil) -> i32
                ┊           ┊               ↳ calledTwice
              7 ┊     4.86% ┊ export "woof"
                ┊           ┊   ↳ func[3]
-               ┊           ┊       ↳ type[0]
+               ┊           ┊       ↳ type[0]: (nil) -> i32
                ┊           ┊       ↳ woof
                ┊           ┊           ↳ func[0]
-               ┊           ┊               ↳ type[0]
+               ┊           ┊               ↳ type[0]: (nil) -> i32
                ┊           ┊               ↳ calledOnce
                ┊           ┊           ↳ func[1]
-               ┊           ┊               ↳ type[0]
+               ┊           ┊               ↳ type[0]: (nil) -> i32
                ┊           ┊               ↳ calledTwice
