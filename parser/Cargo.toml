@@ -22,4 +22,4 @@ twiggy-traits = { version = "=0.3.0", path = "../traits" }
 
 [features]
 default = ["dwarf"]
-dwarf = ["fallible-iterator", "gimli", "object", "typed-arena"]
+dwarf = ["fallible-iterator", "gimli", "object", "typed-arena", "twiggy-traits/dwarf"]
