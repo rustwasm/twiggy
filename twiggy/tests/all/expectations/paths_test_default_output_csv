@@ -31,7 +31,7 @@ func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
 awoo,5,3.4722222222222223,func[4] -> awoo
 func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
 "export ""awoo""",7,4.861111111111112,
-type[0],4,2.7777777777777777,func[0] -> func[1] -> func[2] -> func[3] -> func[4] -> type[0]
+type[0]: (nil) -> i32,4,2.7777777777777777,func[0] -> func[1] -> func[2] -> func[3] -> func[4] -> type[0]: (nil) -> i32
 func[0],1,0.6944444444444444,woof -> func[0]
 woof,8,5.555555555555555,func[3] -> woof
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"

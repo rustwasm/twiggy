@@ -32,7 +32,7 @@
              5 ┊     3.47% ┊ awoo
                ┊           ┊   ⬑ func[4]
                ┊           ┊       ⬑ export "awoo"
-             4 ┊     2.78% ┊ type[0]
+             4 ┊     2.78% ┊ type[0]: (nil) -> i32
                ┊           ┊   ⬑ func[0]
                ┊           ┊       ⬑ woof
                ┊           ┊           ⬑ func[3]

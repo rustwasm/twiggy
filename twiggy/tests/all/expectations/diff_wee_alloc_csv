@@ -15,9 +15,9 @@ DeltaBytes,Item
 +12,custom section 'linking'
 -12,elem[0]
 +8,global[0]
--8,type[4]
+-8,"type[4]: (i32, i32, i32, i32, i32) -> nil"
 -6,<wee_alloc::LargeAllocPolicy as wee_alloc::AllocPolicy>::min_cell_size::hc7cee2a550987099
 +6,alloc::alloc::oom::h45ae3f22a516fb04
--5,<wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::min_cell_size::h6f746be886573355
--21,... and 13 more.
--1476,Σ [33 Total Rows]
+-6,"type[0]: (i32, i32, i32) -> nil"
+-20,... and 15 more.
+-1476,Σ [35 Total Rows]
