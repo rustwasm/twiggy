@@ -52,6 +52,11 @@ pub struct Top {
     #[structopt(parse(from_os_str))]
     input: path::PathBuf,
 
+    /// The parse mode for the input binary data.
+    #[cfg(feature = "cli")]
+    #[structopt(long = "mode", default_value = "auto")]
+    parse_mode: traits::ParseMode,
+
     /// The destination to write the output to. Defaults to `stdout`.
     #[cfg(feature = "cli")]
     #[structopt(short = "o", default_value = "-")]
@@ -80,6 +85,8 @@ impl Default for Top {
         Top {
             #[cfg(feature = "cli")]
             input: Default::default(),
+            #[cfg(feature = "cli")]
+            parse_mode: Default::default(),
             #[cfg(feature = "cli")]
             output_destination: Default::default(),
             #[cfg(feature = "cli")]
@@ -139,6 +146,11 @@ pub struct Dominators {
     #[cfg(feature = "cli")]
     #[structopt(parse(from_os_str))]
     input: path::PathBuf,
+
+    /// The parse mode for the input binary data.
+    #[cfg(feature = "cli")]
+    #[structopt(long = "mode", default_value = "auto")]
+    parse_mode: traits::ParseMode,
 
     /// The destination to write the output to. Defaults to `stdout`.
     #[cfg(feature = "cli")]
@@ -225,6 +237,11 @@ pub struct Paths {
     #[structopt(parse(from_os_str))]
     input: path::PathBuf,
 
+    /// The parse mode for the input binary data.
+    #[cfg(feature = "cli")]
+    #[structopt(long = "mode", default_value = "auto")]
+    parse_mode: traits::ParseMode,
+
     /// The destination to write the output to. Defaults to `stdout`.
     #[cfg(feature = "cli")]
     #[structopt(short = "o", default_value = "-")]
@@ -260,6 +277,8 @@ impl Default for Paths {
         Paths {
             #[cfg(feature = "cli")]
             input: Default::default(),
+            #[cfg(feature = "cli")]
+            parse_mode: Default::default(),
             #[cfg(feature = "cli")]
             output_destination: Default::default(),
             #[cfg(feature = "cli")]
@@ -348,6 +367,11 @@ pub struct Monos {
     #[structopt(parse(from_os_str))]
     input: path::PathBuf,
 
+    /// The parse mode for the input binary data.
+    #[cfg(feature = "cli")]
+    #[structopt(short = "d", long = "mode", default_value = "auto")]
+    parse_mode: traits::ParseMode,
+
     /// The destination to write the output to. Defaults to `stdout`.
     #[cfg(feature = "cli")]
     #[structopt(short = "o", default_value = "-")]
@@ -392,6 +416,8 @@ impl Default for Monos {
         Monos {
             #[cfg(feature = "cli")]
             input: Default::default(),
+            #[cfg(feature = "cli")]
+            parse_mode: Default::default(),
             #[cfg(feature = "cli")]
             output_destination: Default::default(),
             #[cfg(feature = "cli")]
@@ -477,6 +503,11 @@ pub struct Diff {
     #[structopt(parse(from_os_str))]
     old_input: path::PathBuf,
 
+    /// The parse mode for the input binary data.
+    #[cfg(feature = "cli")]
+    #[structopt(long = "mode", default_value = "auto")]
+    parse_mode: traits::ParseMode,
+
     /// The path to the new version of the input binary.
     #[cfg(feature = "cli")]
     #[structopt(parse(from_os_str))]
@@ -509,6 +540,8 @@ impl Default for Diff {
         Diff {
             #[cfg(feature = "cli")]
             old_input: Default::default(),
+            #[cfg(feature = "cli")]
+            parse_mode: Default::default(),
             #[cfg(feature = "cli")]
             new_input: Default::default(),
             #[cfg(feature = "cli")]
@@ -567,6 +600,11 @@ pub struct Garbage {
     #[structopt(parse(from_os_str))]
     input: path::PathBuf,
 
+    /// The parse mode for the input binary data.
+    #[cfg(feature = "cli")]
+    #[structopt(long = "mode", default_value = "auto")]
+    parse_mode: traits::ParseMode,
+
     /// The destination to write the output to. Defaults to `stdout`.
     #[cfg(feature = "cli")]
     #[structopt(short = "o", default_value = "-")]
@@ -591,6 +629,8 @@ impl Default for Garbage {
         Garbage {
             #[cfg(feature = "cli")]
             input: Default::default(),
+            #[cfg(feature = "cli")]
+            parse_mode: Default::default(),
             #[cfg(feature = "cli")]
             output_destination: Default::default(),
             #[cfg(feature = "cli")]
