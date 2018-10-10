@@ -6,6 +6,7 @@
 extern crate csv;
 #[macro_use]
 extern crate failure;
+#[cfg(feature = "dwarf")]
 extern crate gimli;
 extern crate regex;
 
