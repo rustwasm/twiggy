@@ -7,7 +7,7 @@
           -6 ┊ type[0]: (i32, i32, i32) -> nil
           -6 ┊ type[1]: (i32, i32) -> i32
           +5 ┊ type[1]: (i32) -> i32
-          +4 ┊ type[0]: (nil) -> i32
-          -4 ┊ type[5]: (nil) -> i32
+          +4 ┊ type[0]: () -> i32
+          -4 ┊ type[5]: () -> i32
           +2 ┊ data[0]
        -1097 ┊ Σ [10 Total Rows]

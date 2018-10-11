@@ -250,14 +250,8 @@ impl<'a> Parse<'a> for elements::TypeSection {
             let n_params = func_type.params().len();
 
             // Third member of expression shows the length of comma separated types of parameter.
-            // Hold extra capacity by adding one more sets of type signature,
-            // because 'nil' should be outputted even if the function has no parameters.
-            let mut name =
-                String::with_capacity("type[]: () -> ".len() + 4 + (5 * (n_params + 1)) + 3);
+            let mut name = String::with_capacity("type[]: () -> ".len() + 4 + (5 * n_params) + 3);
             write!(&mut name, "type[{}]: (", i)?;
-            if n_params == 0 {
-                write!(&mut name, "nil")?;
-            }
             for (j, pty) in func_type.params().iter().enumerate() {
                 if j != 0 {
                     write!(&mut name, ", ");
