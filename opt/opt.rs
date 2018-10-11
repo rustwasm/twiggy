@@ -35,6 +35,9 @@ cfg_if! {
             /// Get the input file path.
             fn input(&self) -> &path::Path;
 
+            /// Get the input data parse mode.
+            fn parse_mode(&self) -> traits::ParseMode;
+
             /// Get the output destination.
             fn output_destination(&self) -> &OutputDestination;
 
@@ -51,6 +54,17 @@ cfg_if! {
                     Options::Monos(ref monos) => monos.input(),
                     Options::Diff(ref diff) => diff.input(),
                     Options::Garbage(ref garbo) => garbo.input(),
+                }
+            }
+
+            fn parse_mode(&self) -> traits::ParseMode {
+                match *self {
+                    Options::Top(ref top) => top.parse_mode(),
+                    Options::Dominators(ref doms) => doms.parse_mode(),
+                    Options::Paths(ref paths) => paths.parse_mode(),
+                    Options::Monos(ref monos) => monos.parse_mode(),
+                    Options::Diff(ref diff) => diff.parse_mode(),
+                    Options::Garbage(ref garbo) => garbo.parse_mode(),
                 }
             }
 
@@ -82,6 +96,10 @@ cfg_if! {
                 &self.input
             }
 
+            fn parse_mode(&self) -> traits::ParseMode {
+                self.parse_mode
+            }
+
             fn output_destination(&self) -> &OutputDestination {
                 &self.output_destination
             }
@@ -94,6 +112,10 @@ cfg_if! {
         impl CommonCliOptions for Dominators {
             fn input(&self) -> &path::Path {
                 &self.input
+            }
+
+            fn parse_mode(&self) -> traits::ParseMode {
+                self.parse_mode
             }
 
             fn output_destination(&self) -> &OutputDestination {
@@ -110,6 +132,10 @@ cfg_if! {
                 &self.input
             }
 
+            fn parse_mode(&self) -> traits::ParseMode {
+                self.parse_mode
+            }
+
             fn output_destination(&self) -> &OutputDestination {
                 &self.output_destination
             }
@@ -124,6 +150,10 @@ cfg_if! {
                 &self.input
             }
 
+            fn parse_mode(&self) -> traits::ParseMode {
+                self.parse_mode
+            }
+
             fn output_destination(&self) -> &OutputDestination {
                 &self.output_destination
             }
@@ -136,6 +166,10 @@ cfg_if! {
         impl CommonCliOptions for Diff {
             fn input(&self) -> &path::Path {
                 &self.old_input
+            }
+
+            fn parse_mode(&self) -> traits::ParseMode {
+                self.parse_mode
             }
 
             fn output_destination(&self) -> &OutputDestination {
@@ -157,6 +191,10 @@ cfg_if! {
         impl CommonCliOptions for Garbage {
             fn input(&self) -> &path::Path {
                 &self.input
+            }
+
+            fn parse_mode(&self) -> traits::ParseMode {
+                self.parse_mode
             }
 
             fn output_destination(&self) -> &OutputDestination {

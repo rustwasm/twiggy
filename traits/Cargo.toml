@@ -20,7 +20,7 @@ csv = "1.0.2"
 regex = "1.0.5"
 
 [features]
-default = ["dwarf"]
+default = []
 dwarf = ["gimli"]
 emit_json = []
 emit_csv = []

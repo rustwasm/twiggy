@@ -6,6 +6,7 @@
 extern crate csv;
 #[macro_use]
 extern crate failure;
+#[cfg(feature = "dwarf")]
 extern crate gimli;
 extern crate regex;
 
@@ -142,6 +143,38 @@ pub trait Analyze {
 
     /// Run this analysis on the given IR items.
     fn analyze(items: &mut ir::Items) -> Result<Self::Data, Error>;
+}
+
+/// Selects the parse mode for the input data.
+#[derive(Clone, Copy, Debug)]
+pub enum ParseMode {
+    /// WebAssembly file parse mode.
+    Wasm,
+    /// DWARF sections parse mode.
+    #[cfg(feature = "dwarf")]
+    Dwarf,
+    /// Automatically determined mode of parsing, e.g. based on file extension.
+    Auto,
+}
+
+impl Default for ParseMode {
+    fn default() -> ParseMode {
+        ParseMode::Auto
+    }
+}
+
+impl FromStr for ParseMode {
+    type Err = Error;
+
+    fn from_str(s: &str) -> Result<Self, Error> {
+        match s {
+            "wasm" => Ok(ParseMode::Wasm),
+            #[cfg(feature = "dwarf")]
+            "dwarf" => Ok(ParseMode::Dwarf),
+            "auto" => Ok(ParseMode::Auto),
+            _ => Err(Error::with_msg(format!("Unknown parse mode: {}", s))),
+        }
+    }
 }
 
 /// The format of the output.

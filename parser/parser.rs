@@ -26,18 +26,25 @@ use std::io::Read;
 use std::path;
 
 /// Parse the file at the given path into IR items.
-pub fn read_and_parse<P: AsRef<path::Path>>(path: P) -> Result<ir::Items, traits::Error> {
+pub fn read_and_parse<P: AsRef<path::Path>>(path: P, mode: traits::ParseMode) -> Result<ir::Items, traits::Error> {
     let path = path.as_ref();
     let mut file = fs::File::open(path)?;
     let mut data = vec![];
     file.read_to_end(&mut data)?;
 
-    match path.extension().and_then(|s| s.to_str()) {
-        Some("wasm") => parse_wasm(&data),
+    match mode {
+        traits::ParseMode::Wasm => parse_wasm(&data),
         #[cfg(feature = "dwarf")]
-        _ => parse_other(&data),
-        #[cfg(not(feature = "dwarf"))]
-        _ => parse_fallback(&data),
+        traits::ParseMode::Dwarf => parse_other(&data),
+        traits::ParseMode::Auto => {
+            match path.extension().and_then(|s| s.to_str()) {
+                Some("wasm") => parse_wasm(&data),
+                #[cfg(feature = "dwarf")]
+                _ => parse_other(&data),
+                #[cfg(not(feature = "dwarf"))]
+                _ => parse_fallback(&data),
+            }
+        }
     }
 }
 

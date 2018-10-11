@@ -27,7 +27,7 @@ fn main() {
 }
 
 fn run(opts: &opt::Options) -> Result<(), traits::Error> {
-    let mut items = parser::read_and_parse(opts.input())?;
+    let mut items = parser::read_and_parse(opts.input(), opts.parse_mode())?;
 
     let data = match opts {
         opt::Options::Top(ref top) => analyze::top(&mut items, top)?,
@@ -36,7 +36,7 @@ fn run(opts: &opt::Options) -> Result<(), traits::Error> {
         opt::Options::Monos(ref monos) => analyze::monos(&mut items, monos)?,
         opt::Options::Garbage(ref garbo) => analyze::garbage(&items, garbo)?,
         opt::Options::Diff(ref diff) => {
-            let mut new_items = parser::read_and_parse(diff.new_input())?;
+            let mut new_items = parser::read_and_parse(diff.new_input(), opts.parse_mode())?;
             analyze::diff(&mut items, &mut new_items, diff)?
         }
     };

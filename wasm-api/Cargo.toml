@@ -13,6 +13,7 @@ version = "=0.3.0"
 path = "../ir"
 
 [dependencies.twiggy-analyze]
+default-features = false
 version = "=0.3.0"
 path = "../analyze"
 features = ["emit_json"]
