@@ -1,15 +1,15 @@
  Shallow Bytes │ Shallow % │ Retaining Paths
-───────────────┼───────────┼────────────────────────────────
+───────────────┼───────────┼─────────────────────────────
             44 ┊    30.56% ┊ "function names" subsection
              7 ┊     4.86% ┊ export "awoo"
                ┊           ┊   ↳ func[4]
-               ┊           ┊       ↳ type[0]: (nil) -> i32
+               ┊           ┊       ↳ type[0]: () -> i32
                ┊           ┊       ↳ awoo
              7 ┊     4.86% ┊ export "bark"
                ┊           ┊   ↳ func[2]
-               ┊           ┊       ↳ type[0]: (nil) -> i32
+               ┊           ┊       ↳ type[0]: () -> i32
                ┊           ┊       ↳ bark
              7 ┊     4.86% ┊ export "woof"
                ┊           ┊   ↳ func[3]
-               ┊           ┊       ↳ type[0]: (nil) -> i32
+               ┊           ┊       ↳ type[0]: () -> i32
                ┊           ┊       ↳ woof
