@@ -622,6 +622,10 @@ pub struct Garbage {
     /// Display all items. Overrides -n <max_items>
     #[structopt(short = "a", long = "all")]
     all_items: bool,
+
+    /// Show data segments rather than summarizing them in a single line.
+    #[structopt(long = "show-data-segments")]
+    show_data_segments: bool,
 }
 
 impl Default for Garbage {
@@ -638,6 +642,7 @@ impl Default for Garbage {
 
             max_items: 10,
             all_items: false,
+            show_data_segments: false,
         }
     }
 }
@@ -658,5 +663,10 @@ impl Garbage {
     pub fn set_max_items(&mut self, max: u32) {
         self.max_items = max;
         self.all_items = false;
+    }
+
+    /// Should data segments be shown normally or summarized in a single line?
+    pub fn show_data_segments(&self) -> bool {
+        self.show_data_segments
     }
 }

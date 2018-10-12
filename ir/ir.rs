@@ -473,6 +473,12 @@ impl Item {
         }
     }
 
+    /// Get this item's kind.
+    #[inline]
+    pub fn kind(&self) -> &ItemKind {
+        &self.kind
+    }
+
     /// The the name of the generic function that this is a monomorphization of
     /// (if any).
     #[inline]
@@ -512,6 +518,16 @@ pub enum ItemKind {
 
     /// Miscellaneous item. Perhaps metadata. Perhaps something else.
     Misc(Misc),
+}
+
+impl ItemKind {
+    /// Returns true if `self` is the `Data` variant
+    pub fn is_data(&self) -> bool {
+        match self {
+            ItemKind::Data(_) => true,
+            _ => false
+        }
+    }
 }
 
 impl From<Code> for ItemKind {

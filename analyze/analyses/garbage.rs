@@ -12,6 +12,7 @@ use twiggy_traits as traits;
 #[derive(Debug)]
 struct Garbage {
     items: Vec<ir::Id>,
+    data_segments: Vec<ir::Id>,
     limit: usize,
 }
 
@@ -23,9 +24,9 @@ impl traits::Emit for Garbage {
             (Align::Right, "Size %".to_string()),
             (Align::Left, "Garbage Item".to_string()),
         ]);
+        let items_iter = self.items.iter().map(|id| &items[*id]);
 
-        for &id in self.items.iter().take(self.limit) {
-            let item = &items[id];
+        for item in items_iter.clone().take(self.limit) {
             let size = item.size();
             let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
             table.add_row(vec![
@@ -35,13 +36,9 @@ impl traits::Emit for Garbage {
             ]);
         }
 
-        match self
-            .items
-            .iter()
+        match items_iter.clone()
             .skip(self.limit)
-            .map(|id| &items[*id])
-            .fold((0, 0), |(size, cnt), item| (size + item.size(), cnt + 1))
-        {
+            .fold((0, 0), |(size, cnt), item| (size + item.size(), cnt + 1)) {
             (size, cnt) if cnt > 0 => {
                 let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
                 table.add_row(vec![
@@ -53,13 +50,23 @@ impl traits::Emit for Garbage {
             _ => {}
         }
 
-        let total_size: u32 = self.items.iter().map(|&id| items[id].size()).sum();
+        let total_size: u32 = items_iter.map(|item| item.size()).sum();
         let total_percent = (f64::from(total_size)) / (f64::from(items.size())) * 100.0;
         table.add_row(vec![
             total_size.to_string(),
             format!("{:.2}%", total_percent),
             format!("Σ [{} Total Rows]", self.items.len()),
         ]);
+
+        if self.data_segments.len() > 0 {
+            let total_size: u32 = self.data_segments.iter().map(|&id| items[id].size()).sum();
+            let size_percent = f64::from(total_size) / f64::from(items.size()) * 100.0;
+            table.add_row(vec![
+                total_size.to_string(),
+                format!("{:.2}%", size_percent),
+                format!("{} potential false-positive data segments", self.data_segments.len()),
+            ]);
+        }
 
         write!(dest, "{}", &table)?;
         Ok(())
@@ -96,13 +103,27 @@ impl traits::Emit for Garbage {
             obj.field("size_percent", total_size_percent)?;
         }
 
-        let total_name = format!("Σ [{} Total Rows]", self.items.len());
-        let total_size: u32 = self.items.iter().map(|&id| items[id].size()).sum();
-        let total_size_percent = (f64::from(total_size)) / (f64::from(items.size())) * 100.0;
-        let mut obj = arr.object()?;
-        obj.field("name", total_name.as_str())?;
-        obj.field("bytes", total_size)?;
-        obj.field("size_percent", total_size_percent)?;
+        // Scoping the borrow of `arr` so we can get another object in the next block
+        {
+            let total_name = format!("Σ [{} Total Rows]", self.items.len());
+            let total_size: u32 = self.items.iter().map(|&id| items[id].size()).sum();
+            let total_size_percent = (f64::from(total_size)) / (f64::from(items.size())) * 100.0;
+            let mut obj = arr.object()?;
+            obj.field("name", total_name.as_str())?;
+            obj.field("bytes", total_size)?;
+            obj.field("size_percent", total_size_percent)?;
+        }
+
+        if self.data_segments.len() > 0 {
+            let name = format!("{} potential false-positive data segments", self.data_segments.len());
+            let size: u32 = self.data_segments.iter().map(|&id| items[id].size()).sum();
+            let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
+
+            let mut obj = arr.object()?;
+            obj.field("name", name.as_str())?;
+            obj.field("bytes", size)?;
+            obj.field("size_percent", size_percent)?;
+        }
 
         Ok(())
     }
@@ -132,10 +153,32 @@ pub fn garbage(items: &ir::Items, opts: &opt::Garbage) -> Result<Box<traits::Emi
 
     unreachable_items.sort_by(|a, b| b.size().cmp(&a.size()));
 
-    let unreachable_items: Vec<_> = unreachable_items.iter().map(|item| item.id()).collect();
+    let mut data_segments = vec![];
+    let items_non_data;
+
+    // Split the items into two categories if necessary
+    if !opts.show_data_segments() {
+        data_segments = unreachable_items
+            .iter()
+            .filter(|item| item.kind().is_data())
+            .map(|item| item.id())
+            .collect();
+
+        items_non_data = unreachable_items
+            .iter()
+            .filter(|item| !item.kind().is_data())
+            .map(|item| item.id())
+            .collect();
+    } else {
+        items_non_data = unreachable_items
+            .iter()
+            .map(|item| item.id())
+            .collect();
+    }
 
     let garbage_items = Garbage {
-        items: unreachable_items,
+        items: items_non_data,
+        data_segments,
         limit: opts.max_items() as usize,
     };
 
