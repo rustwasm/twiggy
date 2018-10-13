@@ -55,3 +55,39 @@ test!(
     "json",
     "-a"
 );
+
+test!(
+    garbage_wee_alloc_show_data_segments,
+    "garbage",
+    "./fixtures/wee_alloc.wasm",
+    "--show-data-segments"
+);
+
+test!(
+    garbage_wee_alloc_top_2_show_data_segments,
+    "garbage",
+    "./fixtures/wee_alloc.wasm",
+    "--show-data-segments",
+    "-n",
+    "2"
+);
+
+test!(
+    garbage_wee_alloc_show_data_segments_json,
+    "garbage",
+    "./fixtures/wee_alloc.wasm",
+    "--show-data-segments",
+    "-f",
+    "json"
+);
+
+test!(
+    garbage_wee_alloc_top_2_show_data_segments_json,
+    "garbage",
+    "./fixtures/wee_alloc.wasm",
+    "--show-data-segments",
+    "-f",
+    "json",
+    "-n",
+    "2"
+);
