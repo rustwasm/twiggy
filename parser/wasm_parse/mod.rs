@@ -745,8 +745,12 @@ impl<'a> Parse<'a> for elements::DataSection {
             let size = serialized_size(d.clone())?; // serialized size
             let length = d.value().len(); // size of data
             let ty = None;
-            let offset_code = d.offset().code();
-            let offset = offset_code.get(0).and_then(|op| match *op {
+
+            // Get the constant address (if any) from the initialization
+            // expression.
+            let offset_exp = d.offset();
+            let offset_code = offset_exp.as_ref().map(|e| e.code());
+            let offset = offset_code.and_then(|c| c.get(0)).and_then(|op| match *op {
                 I32Const(o) => Some(i64::from(o)),
                 I64Const(o) => Some(o),
                 _ => None,
