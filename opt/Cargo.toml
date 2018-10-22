@@ -18,7 +18,7 @@ regex = "1.0.5"
 structopt = { version = "0.2", optional = true }
 twiggy-traits = { version = "=0.3.0", path = "../traits" }
 wasm-bindgen = { version = "0.2.25", optional = true }
-cfg-if = "0.1.5"
+cfg-if = "0.1.6"
 
 [features]
 default = ["cli", "emit_csv", "emit_json", "emit_text"]
