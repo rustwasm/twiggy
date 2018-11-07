@@ -17,7 +17,7 @@ gimli = { version = "0.16.1", optional = true }
 parity-wasm = "0.35.1"
 twiggy-ir = { version = "=0.3.0", path = "../ir" }
 csv = "1.0.2"
-regex = "1.0.5"
+regex = "1.0.6"
 
 [features]
 default = []
