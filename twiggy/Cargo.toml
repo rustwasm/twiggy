@@ -16,7 +16,7 @@ name = "twiggy"
 path = "./twiggy.rs"
 
 [dependencies]
-failure = "0.1.3"
+failure = "0.1.4"
 structopt = "0.2"
 twiggy-analyze = { version = "=0.3.0", path = "../analyze" }
 twiggy-ir = { version = "=0.3.0", path = "../ir" }
