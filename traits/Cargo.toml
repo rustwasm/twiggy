@@ -12,7 +12,7 @@ version = "0.3.0"
 path = "./traits.rs"
 
 [dependencies]
-failure = "0.1.4"
+failure = "0.1.5"
 gimli = { version = "0.16.1", optional = true }
 parity-wasm = "0.35.6"
 twiggy-ir = { version = "=0.3.0", path = "../ir" }
