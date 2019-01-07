@@ -25,5 +25,5 @@ twiggy-parser = { version = "=0.3.0", path = "../parser" }
 twiggy-traits = { version = "=0.3.0", path = "../traits" }
 
 [dev-dependencies]
-colored = "1.6.1"
+colored = "1.7.0"
 diff = "0.1.11"
