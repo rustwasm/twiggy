@@ -24,6 +24,10 @@ use parity_wasm::elements;
 use std::fs;
 use std::io::Read;
 use std::path;
+use std::ffi::OsStr;
+
+const WASM_MAGIC_NUMBER: [u8; 4] = [0x00, 0x61, 0x73, 0x6D];
+
 
 /// Parse the file at the given path into IR items.
 pub fn read_and_parse<P: AsRef<path::Path>>(path: P, mode: traits::ParseMode) -> Result<ir::Items, traits::Error> {
@@ -37,8 +41,8 @@ pub fn read_and_parse<P: AsRef<path::Path>>(path: P, mode: traits::ParseMode) ->
         #[cfg(feature = "dwarf")]
         traits::ParseMode::Dwarf => parse_other(&data),
         traits::ParseMode::Auto => {
-            match path.extension().and_then(|s| s.to_str()) {
-                Some("wasm") => parse_wasm(&data),
+            match sniff_wasm(path.extension(), &data[..]) {
+                true => parse_wasm(&data),
                 #[cfg(feature = "dwarf")]
                 _ => parse_other(&data),
                 #[cfg(not(feature = "dwarf"))]
@@ -103,6 +107,13 @@ fn parse_other(data: &[u8]) -> Result<ir::Items, traits::Error> {
     file.parse_edges(&mut items, ())?;
 
     Ok(items.finish())
+}
+
+fn sniff_wasm(extension: Option<&OsStr>, data: &[u8]) -> bool {
+        match extension.and_then(|s| s.to_str()) {
+                    Some("wasm") => true,
+                    _ => data.get(0..4) == Some(&WASM_MAGIC_NUMBER),
+        }
 }
 
 fn parse_fallback(data: &[u8]) -> Result<ir::Items, traits::Error> {
