@@ -1,3 +1,14 @@
+### 0.4.0
+
+Released 2019-02-02.
+
+* Add the ability to explicitly opt into using the experimental DWARF support.
+
+* Summarize and hide potential false-positive garbage items.
+
+* Fix a bug where non-C++ symbols were being demangled as C++ symbols
+  incorrectly.
+
 ### 0.3.0
 
 Released 2018/10/03.
