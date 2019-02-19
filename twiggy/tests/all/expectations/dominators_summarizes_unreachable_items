@@ -1,0 +1,12 @@
+ Retained Bytes │ Retained % │ Dominator Tree
+────────────────┼────────────┼──────────────────────────────
+             58 ┊     29.44% ┊ "function names" subsection
+             48 ┊     24.37% ┊ "local names" subsection
+             21 ┊     10.66% ┊ export "add"
+              8 ┊      4.06% ┊ wasm magic bytes
+              7 ┊      3.55% ┊ custom section 'name' headers
+              3 ┊      1.52% ┊ type section headers
+              3 ┊      1.52% ┊ function section headers
+              3 ┊      1.52% ┊ export section headers
+              3 ┊      1.52% ┊ code section headers
+             43 ┊     21.83% ┊ [9 Unreachable Items]

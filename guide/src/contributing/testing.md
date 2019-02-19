@@ -27,3 +27,6 @@ twiggy/tests
 To automatically update all test expectations, you can run the tests with the
 `TWIGGY_UPDATE_TEST_EXPECTATIONS=1` environment variable set. Make sure that you
 look at the changes before committing them, and that they match your intentions!
+
+TIP: You can use `git add -p` to examine individual hunks when staging changes
+before committing!
