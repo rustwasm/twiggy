@@ -254,16 +254,16 @@ impl<'a> Parse<'a> for elements::TypeSection {
             write!(&mut name, "type[{}]: (", i)?;
             for (j, pty) in func_type.params().iter().enumerate() {
                 if j != 0 {
-                    write!(&mut name, ", ");
+                    write!(&mut name, ", ")?;
                 }
                 write!(&mut name, "{}", pty)?;
             }
-            write!(&mut name, ") -> ");
+            write!(&mut name, ") -> ")?;
 
             if func_type.return_type().is_none() {
                 write!(&mut name, "nil")?;
             } else {
-                write!(&mut name, "{}", func_type.return_type().unwrap());
+                write!(&mut name, "{}", func_type.return_type().unwrap())?;
             }
 
             items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
