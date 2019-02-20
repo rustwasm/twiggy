@@ -1,7 +1,7 @@
  Shallow Bytes │ Shallow % │ Item
 ───────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────
           5284 ┊    11.68% ┊ core::ptr::drop_in_place::hddeb26218033f78b.1290
-          4337 ┊     9.59% ┊ "function names" subsection
+          4340 ┊     9.59% ┊ "function names" subsection
           1975 ┊     4.37% ┊ memmove
           1752 ┊     3.87% ┊ <std::thread::local::LocalKey<T>>::try_with::h81b6490c42d3c021
           1704 ┊     3.77% ┊ parse_mappings
@@ -11,4 +11,4 @@
           1217 ┊     2.69% ┊ __powidf2
           1142 ┊     2.52% ┊ __udivsi3
          23762 ┊    52.53% ┊ ... and 338 more.
-         45181 ┊    99.89% ┊ Σ [348 Total Rows]
+         45184 ┊    99.89% ┊ Σ [348 Total Rows]

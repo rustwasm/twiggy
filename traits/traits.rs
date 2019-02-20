@@ -10,7 +10,7 @@ extern crate failure;
 extern crate gimli;
 extern crate regex;
 
-extern crate parity_wasm as wasm;
+extern crate wasmparser;
 extern crate twiggy_ir as ir;
 
 use std::fmt;
@@ -49,7 +49,7 @@ enum ErrorInner {
     Io(#[cause] io::Error),
 
     #[fail(display = "WASM error: {}", _0)]
-    Wasm(#[cause] wasm::elements::Error),
+    Wasm(#[cause] wasmparser::BinaryReaderError),
 
     #[fail(display = "formatting error: {}", _0)]
     Fmt(#[cause] fmt::Error),
@@ -79,8 +79,8 @@ impl From<io::Error> for Error {
     }
 }
 
-impl From<wasm::elements::Error> for Error {
-    fn from(e: wasm::elements::Error) -> Error {
+impl From<wasmparser::BinaryReaderError> for Error {
+    fn from(e: wasmparser::BinaryReaderError) -> Error {
         Error {
             inner: Box::new(ErrorInner::Wasm(e)),
         }

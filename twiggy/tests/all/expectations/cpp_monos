@@ -1,7 +1,7 @@
  Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %     │ Monomorphizations
 ────────────────────┼────────────────┼───────┼───────┼─────────────────────────
-                 14 ┊          3.01% ┊    21 ┊ 4.52% ┊ void generic
-                    ┊                ┊     7 ┊ 1.51% ┊     void generic<One>()
-                    ┊                ┊     7 ┊ 1.51% ┊     void generic<Two>()
-                    ┊                ┊     7 ┊ 1.51% ┊     void generic<Zero>()
-                 14 ┊          3.01% ┊    21 ┊ 4.52% ┊ Σ [4 Total Rows]
+                 30 ┊          6.45% ┊    45 ┊ 9.68% ┊ void generic
+                    ┊                ┊    15 ┊ 3.23% ┊     void generic<One>()
+                    ┊                ┊    15 ┊ 3.23% ┊     void generic<Two>()
+                    ┊                ┊    15 ┊ 3.23% ┊     void generic<Zero>()
+                 30 ┊          6.45% ┊    45 ┊ 9.68% ┊ Σ [4 Total Rows]

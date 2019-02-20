@@ -12,12 +12,12 @@ DeltaBytes,Item
 -25,data[2]
 +15,hello
 +15,import env::rust_oom
-+12,custom section 'linking'
 -12,elem[0]
 +8,global[0]
 -8,"type[4]: (i32, i32, i32, i32, i32) -> nil"
 -6,<wee_alloc::LargeAllocPolicy as wee_alloc::AllocPolicy>::min_cell_size::hc7cee2a550987099
 +6,alloc::alloc::oom::h45ae3f22a516fb04
 -6,"type[0]: (i32, i32, i32) -> nil"
--20,... and 15 more.
+-6,"type[1]: (i32, i32) -> i32"
+-11,... and 15 more.
 -1476,Σ [35 Total Rows]

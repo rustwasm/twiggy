@@ -36,7 +36,7 @@ impl<'input> Parse<'input> for object::File<'input> {
     type ItemsExtra = ();
 
     fn parse_items(
-        &self,
+        &mut self,
         items: &mut ir::ItemsBuilder,
         _extra: Self::ItemsExtra,
     ) -> Result<(), traits::Error> {
@@ -59,7 +59,7 @@ impl<'input> Parse<'input> for object::File<'input> {
         // Load the `.debug_info` section, and parse the items in each compilation unit.
         let debug_info: gimli::DebugInfo<_> = load_section(&arena, self, endian);
         let mut compilation_units = debug_info.units().enumerate();
-        while let Some((unit_id, unit)) = compilation_units.next()? {
+        while let Some((unit_id, mut unit)) = compilation_units.next()? {
             let extra = CompUnitItemsExtra {
                 unit_id,
                 debug_abbrev,
@@ -75,7 +75,7 @@ impl<'input> Parse<'input> for object::File<'input> {
     type EdgesExtra = ();
 
     fn parse_edges(
-        &self,
+        &mut self,
         items: &mut ir::ItemsBuilder,
         _extra: Self::EdgesExtra,
     ) -> Result<(), traits::Error> {
@@ -93,7 +93,7 @@ impl<'input> Parse<'input> for object::File<'input> {
         // Load the `.debug_info` section, and parse the edges in each compilation unit.
         let debug_info: gimli::DebugInfo<_> = load_section(&arena, self, endian);
         let mut compilation_units = debug_info.units().enumerate();
-        while let Some((unit_id, unit)) = compilation_units.next()? {
+        while let Some((unit_id, mut unit)) = compilation_units.next()? {
             let extra = CompUnitEdgesExtra {
                 unit_id,
                 debug_abbrev,

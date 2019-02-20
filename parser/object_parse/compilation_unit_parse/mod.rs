@@ -30,7 +30,7 @@ where
     type ItemsExtra = CompUnitItemsExtra<'input, R>;
 
     fn parse_items(
-        &self,
+        &mut self,
         items: &mut ir::ItemsBuilder,
         extra: Self::ItemsExtra,
     ) -> Result<(), traits::Error> {
@@ -61,7 +61,7 @@ where
 
         // Parse the contained debugging information entries in depth-first order.
         let mut depth = 0;
-        while let Some((delta, entry)) = die_cursor.next_dfs()? {
+        while let Some((delta, mut entry)) = die_cursor.next_dfs()? {
             // Update depth value, and break out of the loop when we
             // return to the original starting position.
             depth += delta;
@@ -87,7 +87,7 @@ where
     type EdgesExtra = CompUnitEdgesExtra<R>;
 
     fn parse_edges(
-        &self,
+        &mut self,
         items: &mut ir::ItemsBuilder,
         extra: Self::EdgesExtra,
     ) -> Result<(), traits::Error> {
@@ -113,7 +113,7 @@ where
 
         // Parse the contained debugging information entries in depth-first order.
         let mut depth = 0;
-        while let Some((delta, entry)) = die_cursor.next_dfs()? {
+        while let Some((delta, mut entry)) = die_cursor.next_dfs()? {
             // Update depth value, and break out of the loop when we
             // return to the original starting position.
             depth += delta;

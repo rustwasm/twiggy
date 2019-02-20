@@ -30,14 +30,14 @@ where
 }
 
 impl<'abbrev, 'unit, R> Parse<'unit>
-    for gimli::DebuggingInformationEntry<'abbrev, 'unit, R, R::Offset>
+    for &'_ gimli::DebuggingInformationEntry<'abbrev, 'unit, R, R::Offset>
 where
     R: gimli::Reader,
 {
     type ItemsExtra = DieItemsExtra<'unit, R>;
 
     fn parse_items(
-        &self,
+        &mut self,
         items: &mut ir::ItemsBuilder,
         extra: Self::ItemsExtra,
     ) -> Result<(), traits::Error> {
@@ -76,7 +76,7 @@ where
     type EdgesExtra = ();
 
     fn parse_edges(
-        &self,
+        &mut self,
         _items: &mut ir::ItemsBuilder,
         _extra: Self::EdgesExtra,
     ) -> Result<(), traits::Error> {

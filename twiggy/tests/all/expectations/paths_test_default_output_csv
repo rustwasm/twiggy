@@ -1,5 +1,6 @@
 Name,ShallowSize,ShallowSizePercent,Path
-"""function names"" subsection",44,30.555555555555557,
+"""function names"" subsection",46,31.944444444444443,
+"""local names"" subsection",13,9.027777777777777,
 woof,8,5.555555555555555,func[3] -> woof
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
 "export ""woof""",7,4.861111111111112,
