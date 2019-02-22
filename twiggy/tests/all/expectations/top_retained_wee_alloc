@@ -1,7 +1,7 @@
  Retained Bytes │ Retained % │ Item
 ────────────────┼────────────┼────────────────────────────────────────────────
            1034 ┊     36.71% ┊ data[3]
-            774 ┊     27.48% ┊ "function names" subsection
+            777 ┊     27.58% ┊ "function names" subsection
             387 ┊     13.74% ┊ func[2]
             378 ┊     13.42% ┊ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
             271 ┊      9.62% ┊ table[0]

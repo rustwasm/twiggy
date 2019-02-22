@@ -1,347 +1,434 @@
 use super::Parse;
 use ir::{self, Id};
-use parity_wasm::elements::{self, Section, Type};
-use std::fmt::Write;
-use traits;
+use std::collections::HashMap;
+use wasmparser::SectionWithLimitedItems;
+use wasmparser::{self, Operator, SectionReader, Type};
 
-fn serialized_size<T>(t: T) -> Result<u32, traits::Error>
-where
-    T: elements::Serialize,
-    traits::Error: From<<T as elements::Serialize>::Error>,
-{
-    let mut buf = vec![];
-    t.serialize(&mut buf)?;
-    Ok(buf.len() as u32)
+#[derive(Default)]
+pub struct SectionIndices {
+    type_: Option<usize>,
+    code: Option<usize>,
+    functions: Vec<Id>,
+    tables: Vec<Id>,
+    memories: Vec<Id>,
+    globals: Vec<Id>,
 }
 
-impl<'a> Parse<'a> for elements::Module {
+impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
     type ItemsExtra = ();
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, _extra: ()) -> Result<(), traits::Error> {
-        let mut function_names = None;
-
-        // The custom name sections. Parse these first since they also give us
-        // debugging information for later sections.
-        for (idx, section) in self.sections().iter().enumerate() {
-            let name = match *section {
-                Section::Name(ref n) => n,
-                _ => continue,
-            };
-            match *name {
-                elements::NameSection::Module(ref m) => {
-                    m.parse_items(items, idx)?;
-                }
-                elements::NameSection::Function(ref f) => {
-                    function_names = Some(f.names());
-                    f.parse_items(items, idx)?;
-                }
-                elements::NameSection::Local(ref l) => {
-                    l.parse_items(items, idx)?;
-                }
-                elements::NameSection::Unparsed { .. } => {
-                    unreachable!("we pre-parsed names sections")
-                }
-            };
-        }
-
-        for (idx, section) in self.sections().iter().enumerate() {
-            match *section {
-                // Already eagerly parsed above.
-                Section::Name(_) => continue,
-                Section::Unparsed { .. } => {
-                    unreachable!("we eagerly parse all lazily parsed sections (aka names sections)")
-                }
-                Section::Custom(ref custom) => {
-                    custom.parse_items(items, idx)?;
-                }
-                Section::Type(ref ty) => {
-                    ty.parse_items(items, idx)?;
-                }
-                Section::Import(ref imports) => {
-                    imports.parse_items(items, idx)?;
-                }
-                Section::Function(ref funcs) => {
-                    funcs.parse_items(items, idx)?;
-                }
-                Section::Table(ref table) => {
-                    table.parse_items(items, idx)?;
-                }
-                Section::Memory(ref mem) => {
-                    mem.parse_items(items, idx)?;
-                }
-                Section::Global(ref global) => {
-                    global.parse_items(items, idx)?;
-                }
-                Section::Export(ref exports) => {
-                    exports.parse_items(items, idx)?;
-                }
-                Section::Start(_) => {
-                    let start = StartSection(section);
-                    start.parse_items(items, idx)?;
-                }
-                Section::Element(ref elem) => {
-                    elem.parse_items(items, idx)?;
-                }
-                Section::Code(ref code) => {
-                    code.parse_items(items, (self, function_names, idx))?;
-                }
-                Section::Data(ref data) => {
-                    data.parse_items(items, idx)?;
-                }
-                Section::Reloc(ref reloc) => {
-                    reloc.parse_items(items, idx)?;
-                }
-            }
-        }
-
-        Ok(())
-    }
-
-    type EdgesExtra = ();
-
-    fn parse_edges(&self, items: &mut ir::ItemsBuilder, _extra: ()) -> Result<(), traits::Error> {
-        for (idx, section) in self.sections().iter().enumerate() {
-            match *section {
-                Section::Name(elements::NameSection::Unparsed { .. })
-                | Section::Unparsed { .. } => {
-                    unreachable!("we eagerly parse all lazily parsed sections")
-                }
-                Section::Name(elements::NameSection::Module(ref m)) => {
-                    m.parse_edges(items, ())?;
-                }
-                Section::Name(elements::NameSection::Function(ref f)) => {
-                    f.parse_edges(items, ())?;
-                }
-                Section::Name(elements::NameSection::Local(ref l)) => {
-                    l.parse_edges(items, ())?;
-                }
-                Section::Custom(ref custom) => {
-                    custom.parse_edges(items, ())?;
-                }
-                Section::Type(ref ty) => {
-                    ty.parse_edges(items, ())?;
-                }
-                Section::Import(ref imports) => {
-                    imports.parse_edges(items, ())?;
-                }
-                Section::Function(ref funcs) => {
-                    funcs.parse_edges(items, (self, idx))?;
-                }
-                Section::Table(ref table) => {
-                    table.parse_edges(items, ())?;
-                }
-                Section::Memory(ref mem) => {
-                    mem.parse_edges(items, ())?;
-                }
-                Section::Global(ref global) => {
-                    global.parse_edges(items, ())?;
-                }
-                Section::Export(ref exports) => {
-                    exports.parse_edges(items, (self, idx))?;
-                }
-                Section::Start(_) => {
-                    let start = StartSection(section);
-                    start.parse_edges(items, (self, idx))?;
-                }
-                Section::Element(ref elem) => {
-                    elem.parse_edges(items, (self, idx))?;
-                }
-                Section::Code(ref code) => {
-                    code.parse_edges(items, (self, idx))?;
-                }
-                Section::Data(ref data) => {
-                    data.parse_edges(items, ())?;
-                }
-                Section::Reloc(ref reloc) => {
-                    reloc.parse_edges(items, ())?;
-                }
-            }
-        }
-        Ok(())
-    }
-}
-
-impl<'a> Parse<'a> for elements::ModuleNameSection {
-    type ItemsExtra = usize;
-
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        let id = Id::section(idx);
-        let name = "\"module name\" subsection";
-        let size = serialized_size(self.clone())?;
-        items.add_root(ir::Item::new(id, name, size, ir::DebugInfo::new()));
-        Ok(())
-    }
-
-    type EdgesExtra = ();
-
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
-        Ok(())
-    }
-}
-
-impl<'a> Parse<'a> for elements::FunctionNameSection {
-    type ItemsExtra = usize;
-
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        let id = Id::section(idx);
-        let name = "\"function names\" subsection";
-        let size = serialized_size(self.clone())?;
-        items.add_root(ir::Item::new(id, name, size, ir::DebugInfo::new()));
-        Ok(())
-    }
-
-    type EdgesExtra = ();
-
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
-        Ok(())
-    }
-}
-
-impl<'a> Parse<'a> for elements::LocalNameSection {
-    type ItemsExtra = usize;
-
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        let id = Id::section(idx);
-        let name = "\"local names\" subsection";
-        let size = serialized_size(self.clone())?;
-        items.add_root(ir::Item::new(id, name, size, ir::DebugInfo::new()));
-        Ok(())
-    }
-
-    type EdgesExtra = ();
-
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
-        Ok(())
-    }
-}
-
-impl<'a> Parse<'a> for elements::CustomSection {
-    type ItemsExtra = usize;
-
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        let id = Id::section(idx);
-        let size = serialized_size(self.clone())?;
-
-        let mut name = String::with_capacity("custom section ''".len() + self.name().len());
-        name.push_str("custom section '");
-        name.push_str(self.name());
-        name.push_str("'");
-
-        items.add_root(ir::Item::new(id, name, size, ir::Misc::new()));
-        Ok(())
-    }
-
-    type EdgesExtra = ();
-
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
-        Ok(())
-    }
-}
-
-impl<'a> Parse<'a> for elements::TypeSection {
-    type ItemsExtra = usize;
-
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        for (i, ty) in self.types().iter().enumerate() {
-            let id = Id::entry(idx, i);
-            let size = serialized_size(ty.clone())?;
-            // Get the structure of function signature type.
-            let Type::Function(func_type) = ty.clone();
-            let n_params = func_type.params().len();
-
-            // Third member of expression shows the length of comma separated types of parameter.
-            let mut name = String::with_capacity("type[]: () -> ".len() + 4 + (5 * n_params) + 3);
-            write!(&mut name, "type[{}]: (", i)?;
-            for (j, pty) in func_type.params().iter().enumerate() {
-                if j != 0 {
-                    write!(&mut name, ", ")?;
-                }
-                write!(&mut name, "{}", pty)?;
-            }
-            write!(&mut name, ") -> ")?;
-
-            if func_type.return_type().is_none() {
-                write!(&mut name, "nil")?;
-            } else {
-                write!(&mut name, "{}", func_type.return_type().unwrap())?;
-            }
-
-            items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
-        }
-        Ok(())
-    }
-
-    type EdgesExtra = ();
-
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
-        Ok(())
-    }
-}
-
-impl<'a> Parse<'a> for elements::ImportSection {
-    type ItemsExtra = usize;
-
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        for (i, imp) in self.entries().iter().enumerate() {
-            let id = Id::entry(idx, i);
-            let size = serialized_size(imp.clone())?;
-            let mut name = String::with_capacity(
-                "import ".len() + imp.module().len() + "::".len() + imp.field().len(),
-            );
-            write!(&mut name, "import {}::{}", imp.module(), imp.field())?;
-            items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
-        }
-        Ok(())
-    }
-
-    type EdgesExtra = ();
-
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
-        Ok(())
-    }
-}
-
-impl<'a> Parse<'a> for elements::FunctionSection {
-    type ItemsExtra = usize;
-
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        for (i, func) in self.entries().iter().enumerate() {
-            let id = Id::entry(idx, i);
-            let size = serialized_size(*func)?;
-            let mut name = String::with_capacity("func[]".len() + 4);
-            write!(&mut name, "func[{}]", i)?;
-            items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
-        }
-        Ok(())
-    }
-
-    type EdgesExtra = (&'a elements::Module, usize);
-
-    fn parse_edges(
-        &self,
+    fn parse_items(
+        &mut self,
         items: &mut ir::ItemsBuilder,
-        (module, idx): Self::EdgesExtra,
+        _extra: (),
     ) -> Result<(), traits::Error> {
-        let mut type_section = None;
-        let mut code_section = None;
+        let mut sections = Vec::new();
+        while !self.eof() {
+            sections.push(self.read()?);
+        }
 
-        // Get the indices for the type and code sections.
-        for (sect_idx, s) in module.sections().iter().enumerate() {
-            match *s {
-                Section::Type(_) => type_section = Some(sect_idx),
-                Section::Code(_) => code_section = Some(sect_idx),
+        // Before we actually parse any items prepare to parse a few sections
+        // below, namely the code section. When parsing the code section we want
+        // to try to assign human-readable names so we need the name section, if
+        // present. Additionally we need to look at the number of imported
+        // functions to handle the wasm function index space correctly.
+        let mut names = HashMap::new();
+        let mut imported_functions = 0;
+        for section in sections.iter() {
+            match section.code {
+                wasmparser::SectionCode::Custom { name: "name", .. } => {
+                    for subsection in section.get_name_section_reader()? {
+                        let f = match subsection? {
+                            wasmparser::Name::Function(f) => f,
+                            _ => continue,
+                        };
+                        let mut map = f.get_map()?;
+                        for _ in 0..map.get_count() {
+                            let naming = map.read()?;
+                            names.insert(naming.index as usize, naming.name);
+                        }
+                    }
+                }
+                wasmparser::SectionCode::Import => {
+                    for import in section.get_import_section_reader()? {
+                        if let wasmparser::ImportSectionEntryType::Function(_) = import?.ty {
+                            imported_functions += 1;
+                        }
+                    }
+                }
                 _ => {}
             }
         }
 
-        for (func_i, func) in self.entries().iter().enumerate() {
+        for (idx, section) in sections.into_iter().enumerate() {
+            match section.code {
+                wasmparser::SectionCode::Custom { name, kind: _ } => {
+                    CustomSectionReader(name, section).parse_items(items, idx)?;
+                }
+                wasmparser::SectionCode::Type => {
+                    section.get_type_section_reader()?.parse_items(items, idx)?;
+                }
+                wasmparser::SectionCode::Import => {
+                    section
+                        .get_import_section_reader()?
+                        .parse_items(items, idx)?;
+                }
+                wasmparser::SectionCode::Function => {
+                    section
+                        .get_function_section_reader()?
+                        .parse_items(items, idx)?;
+                }
+                wasmparser::SectionCode::Table => {
+                    section
+                        .get_table_section_reader()?
+                        .parse_items(items, idx)?;
+                }
+                wasmparser::SectionCode::Memory => {
+                    section
+                        .get_memory_section_reader()?
+                        .parse_items(items, idx)?;
+                }
+                wasmparser::SectionCode::Global => {
+                    section
+                        .get_global_section_reader()?
+                        .parse_items(items, idx)?;
+                }
+                wasmparser::SectionCode::Export => {
+                    section
+                        .get_export_section_reader()?
+                        .parse_items(items, idx)?;
+                }
+                wasmparser::SectionCode::Start => {
+                    StartSection(section).parse_items(items, idx)?;
+                }
+                wasmparser::SectionCode::Element => {
+                    section
+                        .get_element_section_reader()?
+                        .parse_items(items, idx)?;
+                }
+                wasmparser::SectionCode::Code => {
+                    section
+                        .get_code_section_reader()?
+                        .parse_items(items, (idx, imported_functions, &names))?;
+                }
+                wasmparser::SectionCode::Data => {
+                    section.get_data_section_reader()?.parse_items(items, idx)?;
+                }
+                wasmparser::SectionCode::DataCount => {
+                    DataCountSection(section).parse_items(items, idx)?;
+                }
+            }
+        }
+
+        Ok(())
+    }
+
+    type EdgesExtra = ();
+
+    fn parse_edges(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        _extra: (),
+    ) -> Result<(), traits::Error> {
+        let mut sections = Vec::new();
+        while !self.eof() {
+            sections.push(self.read()?);
+        }
+
+        // Like above we do some preprocessing here before actually drawing all
+        // the edges below. Here we primarily want to learn some properties of
+        // the wasm module, such as what `Id` is mapped to all index spaces in
+        // the wasm module. To handle that we build up all this data in
+        // `SectionIndices` here as we parse all the various sections.
+        let mut indices = SectionIndices::default();
+        for (idx, section) in sections.iter().enumerate() {
+            match section.code {
+                wasmparser::SectionCode::Type => {
+                    indices.type_ = Some(idx);
+                }
+                wasmparser::SectionCode::Code => {
+                    indices.code = Some(idx);
+                }
+                wasmparser::SectionCode::Import => {
+                    let reader = section.get_import_section_reader()?;
+                    for (i, import) in reader.into_iter().enumerate() {
+                        let id = Id::entry(idx, i);
+                        match import?.ty {
+                            wasmparser::ImportSectionEntryType::Function(_) => {
+                                indices.functions.push(id);
+                            }
+                            wasmparser::ImportSectionEntryType::Table(_) => {
+                                indices.tables.push(id);
+                            }
+                            wasmparser::ImportSectionEntryType::Memory(_) => {
+                                indices.memories.push(id);
+                            }
+                            wasmparser::ImportSectionEntryType::Global(_) => {
+                                indices.globals.push(id);
+                            }
+                        }
+                    }
+                }
+                wasmparser::SectionCode::Global => {
+                    for i in 0..section.get_global_section_reader()?.get_count() {
+                        let id = Id::entry(idx, i as usize);
+                        indices.globals.push(id);
+                    }
+                }
+                wasmparser::SectionCode::Memory => {
+                    for i in 0..section.get_memory_section_reader()?.get_count() {
+                        let id = Id::entry(idx, i as usize);
+                        indices.memories.push(id);
+                    }
+                }
+                wasmparser::SectionCode::Table => {
+                    for i in 0..section.get_table_section_reader()?.get_count() {
+                        let id = Id::entry(idx, i as usize);
+                        indices.tables.push(id);
+                    }
+                }
+                wasmparser::SectionCode::Function => {
+                    for i in 0..section.get_function_section_reader()?.get_count() {
+                        let id = Id::entry(idx, i as usize);
+                        indices.functions.push(id);
+                    }
+                }
+                _ => {}
+            }
+        }
+
+        for (idx, section) in sections.into_iter().enumerate() {
+            match section.code {
+                wasmparser::SectionCode::Custom { name, kind: _ } => {
+                    CustomSectionReader(name, section).parse_edges(items, ())?;
+                }
+                wasmparser::SectionCode::Type => {
+                    indices.type_ = Some(idx);
+                    section.get_type_section_reader()?.parse_edges(items, ())?;
+                }
+                wasmparser::SectionCode::Import => {
+                    section
+                        .get_import_section_reader()?
+                        .parse_edges(items, ())?;
+                }
+                wasmparser::SectionCode::Function => {
+                    section
+                        .get_function_section_reader()?
+                        .parse_edges(items, (&indices, idx))?;
+                }
+                wasmparser::SectionCode::Table => {
+                    section.get_table_section_reader()?.parse_edges(items, ())?;
+                }
+                wasmparser::SectionCode::Memory => {
+                    section
+                        .get_memory_section_reader()?
+                        .parse_edges(items, ())?;
+                }
+                wasmparser::SectionCode::Global => {
+                    section
+                        .get_global_section_reader()?
+                        .parse_edges(items, ())?;
+                }
+                wasmparser::SectionCode::Export => {
+                    section
+                        .get_export_section_reader()?
+                        .parse_edges(items, (&indices, idx))?;
+                }
+                wasmparser::SectionCode::Start => {
+                    StartSection(section).parse_edges(items, (&indices, idx))?;
+                }
+                wasmparser::SectionCode::Element => {
+                    section
+                        .get_element_section_reader()?
+                        .parse_edges(items, (&indices, idx))?;
+                }
+                wasmparser::SectionCode::Code => {
+                    indices.type_ = Some(idx);
+                    section
+                        .get_code_section_reader()?
+                        .parse_edges(items, (&indices, idx))?;
+                }
+                wasmparser::SectionCode::Data => {
+                    section.get_data_section_reader()?.parse_edges(items, ())?;
+                }
+                wasmparser::SectionCode::DataCount => {
+                    DataCountSection(section).parse_edges(items, ())?;
+                }
+            }
+        }
+
+        Ok(())
+    }
+}
+
+impl<'a> Parse<'a> for wasmparser::NameSectionReader<'a> {
+    type ItemsExtra = usize;
+
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        let mut i = 0;
+        while !self.eof() {
+            let start = self.original_position();
+            let subsection = self.read()?;
+            let size = (self.original_position() - start) as u32;
+            let name = match subsection {
+                wasmparser::Name::Module(_) => "\"module name\" subsection",
+                wasmparser::Name::Function(_) => "\"function names\" subsection",
+                wasmparser::Name::Local(_) => "\"local names\" subsection",
+            };
+            let id = Id::entry(idx, i);
+            items.add_root(ir::Item::new(id, name, size, ir::DebugInfo::new()));
+            i += 1;
+        }
+
+        Ok(())
+    }
+
+    type EdgesExtra = ();
+
+    fn parse_edges(&mut self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
+        Ok(())
+    }
+}
+
+struct CustomSectionReader<'a>(&'a str, wasmparser::Section<'a>);
+
+impl<'a> Parse<'a> for CustomSectionReader<'a> {
+    type ItemsExtra = usize;
+
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        let range = self.1.range();
+        let size = (range.end - range.start) as u32;
+        let name = self.0;
+        if name == "name" {
+            self.1.get_name_section_reader()?.parse_items(items, idx)?;
+        } else {
+            let id = Id::section(idx);
+            let name = format!("custom section '{}'", self.0);
+            items.add_root(ir::Item::new(id, name, size, ir::Misc::new()));
+        }
+        Ok(())
+    }
+
+    type EdgesExtra = ();
+
+    fn parse_edges(&mut self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
+        Ok(())
+    }
+}
+
+impl<'a> Parse<'a> for wasmparser::TypeSectionReader<'a> {
+    type ItemsExtra = usize;
+
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        for (i, ty) in iterate_with_size(self).enumerate() {
+            let (ty, size) = ty?;
+            let id = Id::entry(idx, i);
+
+            let mut name = format!("type[{}]: (", i);
+            for (i, param) in ty.params.iter().enumerate() {
+                if i != 0 {
+                    name.push_str(", ");
+                }
+                name.push_str(ty2str(*param));
+            }
+            name.push_str(") -> ");
+
+            match ty.returns.len() {
+                0 => name.push_str("nil"),
+                1 => name.push_str(ty2str(ty.returns[0])),
+                _ => {
+                    name.push_str("(");
+                    for (i, result) in ty.returns.iter().enumerate() {
+                        if i != 0 {
+                            name.push_str(", ");
+                        }
+                        name.push_str(ty2str(*result));
+                    }
+                    name.push_str(")");
+                }
+            }
+
+            items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
+        }
+        Ok(())
+    }
+
+    type EdgesExtra = ();
+
+    fn parse_edges(&mut self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
+        Ok(())
+    }
+}
+
+impl<'a> Parse<'a> for wasmparser::ImportSectionReader<'a> {
+    type ItemsExtra = usize;
+
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        for (i, imp) in iterate_with_size(self).enumerate() {
+            let (imp, size) = imp?;
+            let id = Id::entry(idx, i);
+            let name = format!("import {}::{}", imp.module, imp.field);
+            items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
+        }
+        Ok(())
+    }
+
+    type EdgesExtra = ();
+
+    fn parse_edges(&mut self, _: &mut ir::ItemsBuilder, (): ()) -> Result<(), traits::Error> {
+        Ok(())
+    }
+}
+
+impl<'a> Parse<'a> for wasmparser::FunctionSectionReader<'a> {
+    type ItemsExtra = usize;
+
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        for (i, func) in iterate_with_size(self).enumerate() {
+            let (_func, size) = func?;
+            let id = Id::entry(idx, i);
+            let name = format!("func[{}]", i);
+            items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
+        }
+        Ok(())
+    }
+
+    type EdgesExtra = (&'a SectionIndices, usize);
+
+    fn parse_edges(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        (indices, idx): Self::EdgesExtra,
+    ) -> Result<(), traits::Error> {
+        for (func_i, type_ref) in iterate_with_size(self).enumerate() {
+            let (type_ref, _) = type_ref?;
             let func_id = Id::entry(idx, func_i);
 
-            if let Some(type_idx) = type_section {
-                let type_id = Id::entry(type_idx, func.type_ref() as usize);
+            if let Some(type_idx) = indices.type_ {
+                let type_id = Id::entry(type_idx, type_ref as usize);
                 items.add_edge(func_id, type_id);
             }
-            if let Some(code_idx) = code_section {
+            if let Some(code_idx) = indices.code {
                 let body_id = Id::entry(code_idx, func_i);
                 items.add_edge(func_id, body_id);
             }
@@ -351,15 +438,18 @@ impl<'a> Parse<'a> for elements::FunctionSection {
     }
 }
 
-impl<'a> Parse<'a> for elements::TableSection {
+impl<'a> Parse<'a> for wasmparser::TableSectionReader<'a> {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        for (i, entry) in self.entries().iter().enumerate() {
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        for (i, entry) in iterate_with_size(self).enumerate() {
+            let (_entry, size) = entry?;
             let id = Id::entry(idx, i);
-            let size = serialized_size(*entry)?;
-            let mut name = String::with_capacity("table[]".len() + 4);
-            write!(&mut name, "table[{}]", i)?;
+            let name = format!("table[{}]", i);
             items.add_root(ir::Item::new(id, name, size, ir::Misc::new()));
         }
         Ok(())
@@ -367,20 +457,23 @@ impl<'a> Parse<'a> for elements::TableSection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
+    fn parse_edges(&mut self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
 
-impl<'a> Parse<'a> for elements::MemorySection {
+impl<'a> Parse<'a> for wasmparser::MemorySectionReader<'a> {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        for (i, mem) in self.entries().iter().enumerate() {
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        for (i, mem) in iterate_with_size(self).enumerate() {
+            let (_mem, size) = mem?;
             let id = Id::entry(idx, i);
-            let size = serialized_size(*mem)?;
-            let mut name = String::with_capacity("memory[]".len() + 4);
-            write!(&mut name, "memory[{}]", i)?;
+            let name = format!("memory[{}]", i);
             items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
         }
         Ok(())
@@ -388,22 +481,24 @@ impl<'a> Parse<'a> for elements::MemorySection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
+    fn parse_edges(&mut self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
 
-impl<'a> Parse<'a> for elements::GlobalSection {
+impl<'a> Parse<'a> for wasmparser::GlobalSectionReader<'a> {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        for (i, g) in self.entries().iter().enumerate() {
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        for (i, g) in iterate_with_size(self).enumerate() {
+            let (g, size) = g?;
             let id = Id::entry(idx, i);
-            let mut name = String::with_capacity("global[]".len() + 4);
-            write!(&mut name, "global[{}]", i).unwrap();
-
-            let size = serialized_size(g.clone())?;
-            let ty = g.global_type().content_type().to_string();
+            let name = format!("global[{}]", i);
+            let ty = ty2str(g.ty.content_type).to_string();
             items.add_item(ir::Item::new(id, name, size, ir::Data::new(Some(ty))));
         }
         Ok(())
@@ -411,78 +506,50 @@ impl<'a> Parse<'a> for elements::GlobalSection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
+    fn parse_edges(&mut self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
 
-impl<'a> Parse<'a> for elements::ExportSection {
+impl<'a> Parse<'a> for wasmparser::ExportSectionReader<'a> {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        for (i, exp) in self.entries().iter().enumerate() {
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        for (i, exp) in iterate_with_size(self).enumerate() {
+            let (exp, size) = exp?;
             let id = Id::entry(idx, i);
-            let mut name = String::with_capacity("export \"\"".len() + exp.field().len());
-            write!(&mut name, "export \"{}\"", exp.field())?;
-            let size = serialized_size(exp.clone())?;
+            let name = format!("export \"{}\"", exp.field);
             items.add_root(ir::Item::new(id, name, size, ir::Misc::new()));
         }
         Ok(())
     }
 
-    type EdgesExtra = (&'a elements::Module, usize);
+    type EdgesExtra = (&'a SectionIndices, usize);
 
     fn parse_edges(
-        &self,
+        &mut self,
         items: &mut ir::ItemsBuilder,
-        (module, idx): Self::EdgesExtra,
+        (indices, idx): Self::EdgesExtra,
     ) -> Result<(), traits::Error> {
-        let mut func_section = None;
-        let mut table_section = None;
-        let mut memory_section = None;
-        let mut global_section = None;
-
-        for (sect_idx, s) in module.sections().iter().enumerate() {
-            match *s {
-                Section::Function(_) => func_section = Some(sect_idx),
-                Section::Table(_) => table_section = Some(sect_idx),
-                Section::Memory(_) => memory_section = Some(sect_idx),
-                Section::Global(_) => global_section = Some(sect_idx),
-                _ => {}
-            }
-        }
-
-        let function_import_count = module.import_count(elements::ImportCountType::Function);
-        let table_import_count = module.import_count(elements::ImportCountType::Table);
-        let memory_import_count = module.import_count(elements::ImportCountType::Memory);
-        let global_import_count = module.import_count(elements::ImportCountType::Global);
-
-        for (i, exp) in self.entries().iter().enumerate() {
+        for (i, exp) in iterate_with_size(self).enumerate() {
+            let (exp, _) = exp?;
             let exp_id = Id::entry(idx, i);
-            match *exp.internal() {
-                elements::Internal::Function(exported_func_idx) => {
-                    if let Some(func_section) = func_section {
-                        let func_idx = exported_func_idx as usize - function_import_count;
-                        items.add_edge(exp_id, Id::entry(func_section, func_idx));
-                    }
+            match exp.kind {
+                wasmparser::ExternalKind::Function => {
+                    items.add_edge(exp_id, indices.functions[exp.index as usize]);
                 }
-                elements::Internal::Table(exported_table_idx) => {
-                    if let Some(table_section) = table_section {
-                        let table_idx = exported_table_idx as usize - table_import_count;
-                        items.add_edge(exp_id, Id::entry(table_section, table_idx));
-                    }
+                wasmparser::ExternalKind::Table => {
+                    items.add_edge(exp_id, indices.tables[exp.index as usize]);
                 }
-                elements::Internal::Memory(exported_memory_idx) => {
-                    if let Some(memory_section) = memory_section {
-                        let memory_idx = exported_memory_idx as usize - memory_import_count;
-                        items.add_edge(exp_id, Id::entry(memory_section, memory_idx));
-                    }
+                wasmparser::ExternalKind::Memory => {
+                    items.add_edge(exp_id, indices.memories[exp.index as usize]);
                 }
-                elements::Internal::Global(exported_global_idx) => {
-                    if let Some(global_section) = global_section {
-                        let global_idx = exported_global_idx as usize - global_import_count;
-                        items.add_edge(exp_id, Id::entry(global_section, global_idx));
-                    }
+                wasmparser::ExternalKind::Global => {
+                    items.add_edge(exp_id, indices.globals[exp.index as usize]);
                 }
             }
         }
@@ -491,111 +558,99 @@ impl<'a> Parse<'a> for elements::ExportSection {
     }
 }
 
-#[derive(Debug)]
-struct StartSection<'a>(&'a Section);
+struct StartSection<'a>(wasmparser::Section<'a>);
 
 impl<'a> Parse<'a> for StartSection<'a> {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        assert!(match *self.0 {
-            Section::Start(_) => true,
-            _ => false,
-        });
-
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        let range = self.0.range();
+        let size = (range.end - range.start) as u32;
         let id = Id::section(idx);
-        let size = serialized_size(self.0.clone())?;
         let name = "\"start\" section";
         items.add_root(ir::Item::new(id, name, size, ir::Misc::new()));
         Ok(())
     }
 
-    type EdgesExtra = (&'a elements::Module, usize);
+    type EdgesExtra = (&'a SectionIndices, usize);
 
     fn parse_edges(
-        &self,
+        &mut self,
         items: &mut ir::ItemsBuilder,
-        (module, idx): Self::EdgesExtra,
+        (indices, idx): Self::EdgesExtra,
     ) -> Result<(), traits::Error> {
-        let f_i = match *self.0 {
-            Section::Start(i) => i,
-            _ => unreachable!(),
-        };
-
-        let mut func_section = None;
-
-        for (sect_idx, s) in module.sections().iter().enumerate() {
-            if let Section::Function(_) = *s {
-                func_section = Some(sect_idx);
-            }
-        }
-
-        if let Some(func_idx) = func_section {
-            items.add_edge(Id::section(idx), Id::entry(func_idx, f_i as usize));
-        }
-
+        let f_i = self.0.get_start_section_content()?;
+        items.add_edge(Id::section(idx), indices.functions[f_i as usize]);
         Ok(())
     }
 }
 
-impl<'a> Parse<'a> for elements::ElementSection {
+struct DataCountSection<'a>(wasmparser::Section<'a>);
+
+impl<'a> Parse<'a> for DataCountSection<'a> {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        for (i, elem) in self.entries().iter().enumerate() {
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        let range = self.0.range();
+        let size = (range.end - range.start) as u32;
+        let id = Id::section(idx);
+        let name = "\"data count\" section";
+        items.add_root(ir::Item::new(id, name, size, ir::Misc::new()));
+        Ok(())
+    }
+
+    type EdgesExtra = ();
+
+    fn parse_edges(&mut self, _items: &mut ir::ItemsBuilder, (): ()) -> Result<(), traits::Error> {
+        Ok(())
+    }
+}
+
+impl<'a> Parse<'a> for wasmparser::ElementSectionReader<'a> {
+    type ItemsExtra = usize;
+
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        for (i, elem) in iterate_with_size(self).enumerate() {
+            let (_elem, size) = elem?;
             let id = Id::entry(idx, i);
-            let size = serialized_size(elem.clone())?;
-            let mut name = String::with_capacity("elem[]".len() + 4);
-            write!(&mut name, "elem[{}]", i)?;
+            let name = format!("elem[{}]", i);
             items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
         }
         Ok(())
     }
 
-    type EdgesExtra = (&'a elements::Module, usize);
+    type EdgesExtra = (&'a SectionIndices, usize);
 
     fn parse_edges(
-        &self,
+        &mut self,
         items: &mut ir::ItemsBuilder,
-        (module, idx): Self::EdgesExtra,
+        (indices, idx): Self::EdgesExtra,
     ) -> Result<(), traits::Error> {
-        let mut func_section_idx = None;
-        let mut table_section_idx = None;
-        let mut import_section_idx = None;
-
-        for (idx, s) in module.sections().iter().enumerate() {
-            match *s {
-                Section::Function(_) => func_section_idx = Some(idx),
-                Section::Table(_) => table_section_idx = Some(idx),
-                Section::Import(_) => import_section_idx = Some(idx),
-                _ => {}
-            }
-        }
-
-        let num_imported_funcs = module.import_count(elements::ImportCountType::Function);
-        for (i, elem) in self.entries().iter().enumerate() {
+        for (i, elem) in iterate_with_size(self).enumerate() {
+            let (elem, _size) = elem?;
             let elem_id = Id::entry(idx, i);
-            if let Some(table_section_idx) = table_section_idx {
-                let entry_id = Id::entry(table_section_idx, elem.index() as usize);
-                items.add_edge(entry_id, elem_id);
-            }
-            for &func_idx in elem.members() {
-                // A table element's initializer function can be an imported
-                // function or locally defined function. Compare the index
-                // against the number of imported functions to determine
-                // which we are dealing with.
-                if func_idx < num_imported_funcs as u32 {
-                    // Add an edge to the function import.
-                    if let Some(import_section_idx) = import_section_idx {
-                        let import_id = Id::entry(import_section_idx, func_idx as usize);
-                        items.add_edge(elem_id, import_id);
-                    }
-                } else if let Some(func_section_idx) = func_section_idx {
-                    // Add an edge to the local function entry.
-                    let func_id =
-                        Id::entry(func_section_idx, func_idx as usize - num_imported_funcs);
-                    items.add_edge(elem_id, func_id);
+
+            match elem.kind {
+                wasmparser::ElementKind::Active { table_index, .. } => {
+                    items.add_edge(indices.tables[table_index as usize], elem_id);
                 }
+                wasmparser::ElementKind::Passive(_ty) => {}
+            }
+            for func_idx in elem.items.get_items_reader()? {
+                let func_idx = func_idx?;
+                items.add_edge(elem_id, indices.functions[func_idx as usize]);
             }
         }
 
@@ -603,31 +658,21 @@ impl<'a> Parse<'a> for elements::ElementSection {
     }
 }
 
-impl<'a> Parse<'a> for elements::CodeSection {
-    type ItemsExtra = (&'a elements::Module, Option<&'a elements::NameMap>, usize);
+impl<'a> Parse<'a> for wasmparser::CodeSectionReader<'a> {
+    type ItemsExtra = (usize, usize, &'a HashMap<usize, &'a str>);
 
     fn parse_items(
-        &self,
+        &mut self,
         items: &mut ir::ItemsBuilder,
-        (module, function_names, idx): Self::ItemsExtra,
+        (idx, imported_functions, names): Self::ItemsExtra,
     ) -> Result<(), traits::Error> {
-        let table_offset = module.import_count(elements::ImportCountType::Function);
-
-        for (i, body) in self.bodies().iter().enumerate() {
+        for (i, body) in iterate_with_size(self).enumerate() {
+            let (_body, size) = body?;
             let id = Id::entry(idx, i);
-            let name = function_names
-                .as_ref()
-                .and_then(|names| names.get((i + table_offset) as u32))
-                .map_or_else(
-                    || {
-                        let mut name = String::with_capacity("code[]".len() + 4);
-                        write!(&mut name, "code[{}]", i).unwrap();
-                        name
-                    },
-                    |name| name.to_string(),
-                );
+            let name = names
+                .get(&(i + imported_functions))
+                .map_or_else(|| format!("code[{}]", i), |name| name.to_string());
 
-            let size = serialized_size(body.clone())?;
             let code = ir::Code::new(&name);
             items.add_item(ir::Item::new(id, name, size, code));
         }
@@ -635,94 +680,57 @@ impl<'a> Parse<'a> for elements::CodeSection {
         Ok(())
     }
 
-    type EdgesExtra = (&'a elements::Module, usize);
+    type EdgesExtra = (&'a SectionIndices, usize);
 
     fn parse_edges(
-        &self,
+        &mut self,
         items: &mut ir::ItemsBuilder,
-        (module, idx): Self::EdgesExtra,
+        (indices, idx): Self::EdgesExtra,
     ) -> Result<(), traits::Error> {
-        let mut func_section = None;
-        let mut global_section = None;
-
-        for (sect_idx, s) in module.sections().iter().enumerate() {
-            match *s {
-                Section::Function(_) => func_section = Some(sect_idx),
-                Section::Global(_) => global_section = Some(sect_idx),
-                _ => {}
-            }
-        }
-
-        let function_import_count = module.import_count(elements::ImportCountType::Function);
-        let global_import_count = module.import_count(elements::ImportCountType::Global);
-
-        for (b_i, body) in self.bodies().iter().enumerate() {
-            use parity_wasm::elements::Instruction::*;
-
+        for (b_i, body) in iterate_with_size(self).enumerate() {
+            let (body, _size) = body?;
             let body_id = Id::entry(idx, b_i);
-            let code = body.code().elements();
 
-            for i in 0..code.len() {
-                match code[i] {
-                    Call(idx) => {
-                        let idx = idx as usize;
-                        if let Some(func_section) = func_section {
-                            let func_section = func_section as usize;
-
-                            if idx < function_import_count {
-                                // Calling an imported function.
-                                continue;
-                            }
-
-                            let f_id = Id::entry(func_section, idx - function_import_count);
-                            items.add_edge(body_id, f_id);
-                        }
+            let mut cache = None;
+            for op in body.get_operators_reader()? {
+                let prev = cache.take();
+                match op? {
+                    Operator::Call { function_index } => {
+                        let f_id = indices.functions[function_index as usize];
+                        items.add_edge(body_id, f_id);
                     }
 
                     // TODO: Rather than looking at indirect calls, need to look
                     // at where the vtables get initialized and/or vtable
                     // indices get pushed onto the stack.
-                    CallIndirect(_idx, _reserved) => continue,
+                    Operator::CallIndirect { .. } => continue,
 
-                    GetGlobal(idx) | SetGlobal(idx) => {
-                        let idx = idx as usize;
-                        if let Some(global_section) = global_section {
-                            let global_section = global_section as usize;
-
-                            if idx < global_import_count {
-                                // Referencing an imported global.
-                                continue;
-                            }
-
-                            let g_id = Id::entry(global_section, idx - global_import_count);
-                            items.add_edge(body_id, g_id);
-                        }
+                    Operator::GetGlobal { global_index } | Operator::SetGlobal { global_index } => {
+                        let g_id = indices.globals[global_index as usize];
+                        items.add_edge(body_id, g_id);
                     }
 
-                    I32Load(_, off)
-                    | I32Load8S(_, off)
-                    | I32Load8U(_, off)
-                    | I32Load16S(_, off)
-                    | I32Load16U(_, off)
-                    | I64Load(_, off)
-                    | I64Load8S(_, off)
-                    | I64Load8U(_, off)
-                    | I64Load16S(_, off)
-                    | I64Load16U(_, off)
-                    | I64Load32S(_, off)
-                    | I64Load32U(_, off)
-                    | F32Load(_, off)
-                    | F64Load(_, off) => {
-                        if i > 0 {
-                            if let I32Const(base) = code[i - 1] {
-                                if let Some(data_id) = items.get_data(base as u32 + off) {
-                                    items.add_edge(body_id, data_id);
-                                }
+                    Operator::I32Load { memarg }
+                    | Operator::I32Load8S { memarg }
+                    | Operator::I32Load8U { memarg }
+                    | Operator::I32Load16S { memarg }
+                    | Operator::I32Load16U { memarg }
+                    | Operator::I64Load { memarg }
+                    | Operator::I64Load8S { memarg }
+                    | Operator::I64Load8U { memarg }
+                    | Operator::I64Load16S { memarg }
+                    | Operator::I64Load16U { memarg }
+                    | Operator::I64Load32S { memarg }
+                    | Operator::I64Load32U { memarg }
+                    | Operator::F32Load { memarg }
+                    | Operator::F64Load { memarg } => {
+                        if let Some(Operator::I32Const { value }) = prev {
+                            if let Some(data_id) = items.get_data(value as u32 + memarg.offset) {
+                                items.add_edge(body_id, data_id);
                             }
                         }
                     }
-
-                    _ => continue,
+                    other => cache = Some(other),
                 }
             }
         }
@@ -731,35 +739,34 @@ impl<'a> Parse<'a> for elements::CodeSection {
     }
 }
 
-impl<'a> Parse<'a> for elements::DataSection {
+impl<'a> Parse<'a> for wasmparser::DataSectionReader<'a> {
     type ItemsExtra = usize;
 
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        for (i, d) in self.entries().iter().enumerate() {
-            use parity_wasm::elements::Instruction::*;
-
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        idx: usize,
+    ) -> Result<(), traits::Error> {
+        for (i, d) in iterate_with_size(self).enumerate() {
+            let (d, size) = d?;
             let id = Id::entry(idx, i);
-            let mut name = String::with_capacity("data[]".len() + 4);
-            write!(&mut name, "data[{}]", i).unwrap();
-
-            let size = serialized_size(d.clone())?; // serialized size
-            let length = d.value().len(); // size of data
-            let ty = None;
+            let name = format!("data[{}]", i);
+            items.add_item(ir::Item::new(id, name, size, ir::Data::new(None)));
 
             // Get the constant address (if any) from the initialization
             // expression.
-            let offset_exp = d.offset();
-            let offset_code = offset_exp.as_ref().map(|e| e.code());
-            let offset = offset_code.and_then(|c| c.get(0)).and_then(|op| match *op {
-                I32Const(o) => Some(i64::from(o)),
-                I64Const(o) => Some(o),
-                _ => None,
-            });
+            if let wasmparser::DataKind::Active { init_expr, .. } = d.kind {
+                let mut iter = init_expr.get_operators_reader();
+                let offset = match iter.read()? {
+                    Operator::I32Const { value } => Some(i64::from(value)),
+                    Operator::I64Const { value } => Some(value),
+                    _ => None,
+                };
 
-            items.add_item(ir::Item::new(id, name, size, ir::Data::new(ty)));
-
-            if let Some(off) = offset {
-                items.link_data(off, length, id);
+                if let Some(off) = offset {
+                    let length = d.data.len(); // size of data
+                    items.link_data(off, length, id);
+                }
             }
         }
         Ok(())
@@ -767,28 +774,35 @@ impl<'a> Parse<'a> for elements::DataSection {
 
     type EdgesExtra = ();
 
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
+    fn parse_edges(&mut self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
         Ok(())
     }
 }
 
-impl<'a> Parse<'a> for elements::RelocSection {
-    type ItemsExtra = usize;
-
-    fn parse_items(&self, items: &mut ir::ItemsBuilder, idx: usize) -> Result<(), traits::Error> {
-        for (i, rel) in self.entries().iter().enumerate() {
-            let id = Id::entry(idx, i);
-            let size = serialized_size(*rel)?;
-            let mut name = String::with_capacity("reloc[]".len() + 4);
-            write!(&mut name, "reloc[{}]", i)?;
-            items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
+fn iterate_with_size<'a, S: SectionWithLimitedItems + SectionReader>(
+    s: &'a mut S,
+) -> impl Iterator<Item = Result<(S::Item, u32), traits::Error>> + 'a {
+    let count = s.get_count();
+    (0..count).map(move |i| {
+        let start = s.original_position();
+        let item = s.read()?;
+        let size = (s.original_position() - start) as u32;
+        if i == count - 1 {
+            s.ensure_end()?;
         }
-        Ok(())
-    }
+        Ok((item, size))
+    })
+}
 
-    type EdgesExtra = ();
-
-    fn parse_edges(&self, _: &mut ir::ItemsBuilder, _: ()) -> Result<(), traits::Error> {
-        Ok(())
+fn ty2str(t: Type) -> &'static str {
+    match t {
+        Type::I32 => "i32",
+        Type::I64 => "i64",
+        Type::F32 => "f32",
+        Type::F64 => "f64",
+        Type::V128 => "v128",
+        Type::AnyFunc => "anyfunc",
+        Type::AnyRef => "anyref",
+        Type::Func | Type::EmptyBlockType => "?",
     }
 }

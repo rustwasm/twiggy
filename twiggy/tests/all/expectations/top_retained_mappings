@@ -4,7 +4,7 @@
           14488 ┊     32.03% ┊ elem[0]
            5285 ┊     11.68% ┊ func[40]
            5284 ┊     11.68% ┊ core::ptr::drop_in_place::hddeb26218033f78b.1290
-           4337 ┊      9.59% ┊ "function names" subsection
+           4340 ┊      9.59% ┊ "function names" subsection
            3440 ┊      7.61% ┊ export "parse_mappings"
            3423 ┊      7.57% ┊ func[2]
            3422 ┊      7.57% ┊ parse_mappings

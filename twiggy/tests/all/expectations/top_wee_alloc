@@ -1,7 +1,7 @@
  Shallow Bytes │ Shallow % │ Item
 ───────────────┼───────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
           1034 ┊    36.71% ┊ data[3]
-           774 ┊    27.48% ┊ "function names" subsection
+           777 ┊    27.58% ┊ "function names" subsection
            225 ┊     7.99% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
            164 ┊     5.82% ┊ hello
            152 ┊     5.40% ┊ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
@@ -11,4 +11,4 @@
             25 ┊     0.89% ┊ data[1]
             25 ┊     0.89% ┊ data[2]
            117 ┊     4.15% ┊ ... and 29 more.
-          2772 ┊    98.40% ┊ Σ [39 Total Rows]
+          2775 ┊    98.51% ┊ Σ [39 Total Rows]

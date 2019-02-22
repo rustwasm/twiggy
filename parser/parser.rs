@@ -9,7 +9,7 @@ extern crate fallible_iterator;
 extern crate gimli;
 #[cfg(feature = "dwarf")]
 extern crate object;
-extern crate parity_wasm;
+extern crate wasmparser;
 #[cfg(feature = "dwarf")]
 extern crate typed_arena;
 
@@ -20,7 +20,6 @@ extern crate twiggy_traits as traits;
 mod object_parse;
 mod wasm_parse;
 
-use parity_wasm::elements;
 use std::fs;
 use std::io::Read;
 use std::path;
@@ -60,7 +59,7 @@ pub(crate) trait Parse<'a> {
 
     /// Parse `Self` into one or more `ir::Item`s and add them to the builder.
     fn parse_items(
-        &self,
+        &mut self,
         items: &mut ir::ItemsBuilder,
         extra: Self::ItemsExtra,
     ) -> Result<(), traits::Error>;
@@ -71,7 +70,7 @@ pub(crate) trait Parse<'a> {
     /// Parse edges between items. This is only called *after* we have already
     /// parsed items.
     fn parse_edges(
-        &self,
+        &mut self,
         items: &mut ir::ItemsBuilder,
         extra: Self::EdgesExtra,
     ) -> Result<(), traits::Error>;
@@ -80,15 +79,10 @@ pub(crate) trait Parse<'a> {
 fn parse_wasm(data: &[u8]) -> Result<ir::Items, traits::Error> {
     let mut items = ir::ItemsBuilder::new(data.len() as u32);
 
-    let module: elements::Module = elements::deserialize_buffer(data)?;
-
-    // Greedily parse the name section, if it exists.
-    let module = match module.parse_names() {
-        Ok(m) | Err((_, m)) => m,
-    };
-
-    module.parse_items(&mut items, ())?;
-    module.parse_edges(&mut items, ())?;
+    let mut module1 = wasmparser::ModuleReader::new(data)?;
+    module1.parse_items(&mut items, ())?;
+    let mut module2 = wasmparser::ModuleReader::new(data)?;
+    module2.parse_edges(&mut items, ())?;
 
     Ok(items.finish())
 }
@@ -97,7 +91,7 @@ fn parse_wasm(data: &[u8]) -> Result<ir::Items, traits::Error> {
 fn parse_other(data: &[u8]) -> Result<ir::Items, traits::Error> {
     let mut items = ir::ItemsBuilder::new(data.len() as u32);
 
-    let file: object::File = object::File::parse(data)?;
+    let mut file: object::File = object::File::parse(data)?;
 
     file.parse_items(&mut items, ())?;
     file.parse_edges(&mut items, ())?;

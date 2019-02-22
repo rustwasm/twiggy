@@ -1,6 +1,7 @@
  Shallow Bytes │ Shallow % │ Retaining Paths
 ───────────────┼───────────┼────────────────────────────────────────
-            44 ┊    30.56% ┊ "function names" subsection
+            46 ┊    31.94% ┊ "function names" subsection
+            13 ┊     9.03% ┊ "local names" subsection
              8 ┊     5.56% ┊ woof
                ┊           ┊   ⬑ func[3]
                ┊           ┊       ⬑ export "woof"
