@@ -13,9 +13,9 @@ use super::FallilbleOption;
 /// For more information about these attributes, refer to Chapter 2.17 'Code
 /// Addresses, Ranges, and Base Addresses' (pg. 51) in the DWARF5 specification.
 pub struct DieLocationAttributes<R: gimli::Reader> {
-    dw_at_low_pc: Option<gimli::AttributeValue<R>>,
-    dw_at_high_pc: Option<gimli::AttributeValue<R>>,
-    dw_at_ranges: Option<gimli::AttributeValue<R>>,
+    dw_at_low_pc: Option<gimli::AttributeValue<R, R::Offset>>,
+    dw_at_high_pc: Option<gimli::AttributeValue<R, R::Offset>>,
+    dw_at_ranges: Option<gimli::AttributeValue<R, R::Offset>>,
 }
 
 impl<R: gimli::Reader> DieLocationAttributes<R> {
@@ -36,13 +36,12 @@ impl<R: gimli::Reader> DieLocationAttributes<R> {
     /// Compute the size of a subprogram described by this DIE.
     pub fn entity_size(
         &self,
-        addr_size: u8,
-        version: u16,
-        rnglists: &gimli::RangeLists<R>,
+        dwarf: &gimli::Dwarf<R>,
+        unit: &gimli::Unit<R>,
     ) -> FallilbleOption<u64> {
         if let Some(size) = self.contiguous_entity_size()? {
             Ok(Some(size))
-        } else if let Some(size) = self.noncontiguous_entity_size(addr_size, version, rnglists)? {
+        } else if let Some(size) = self.noncontiguous_entity_size(dwarf, unit)? {
             Ok(Some(size))
         } else {
             Ok(None)
@@ -76,21 +75,11 @@ impl<R: gimli::Reader> DieLocationAttributes<R> {
     /// ranges of machine code addresses in the binary.
     fn noncontiguous_entity_size(
         &self,
-        addr_size: u8,
-        version: u16,
-        rnglists: &gimli::RangeLists<R>,
+        dwarf: &gimli::Dwarf<R>,
+        unit: &gimli::Unit<R>,
     ) -> FallilbleOption<u64> {
-        // Identify the base address, which is in the `DW_AT_low_pc` attribute,
-        // or the `DW_AT_entry_pc` attribute for noncontiguous entities.
-        let base_addr: u64 = if let Some(addr) = self.dw_at_low_pc()? {
-            addr
-        } else {
-            // If neither exists, this DIE does not represent a definition.
-            return Ok(None);
-        };
-
         if let Some(offset) = self.dw_at_ranges()? {
-            let ranges = rnglists.ranges(offset, version, addr_size, base_addr)?;
+            let ranges = dwarf.ranges(unit, offset)?;
             let size = ranges
                 .map(|r| r.end - r.begin)
                 .fold(0, |res, size| res + size)?;

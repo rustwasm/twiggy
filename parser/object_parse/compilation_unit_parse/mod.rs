@@ -10,20 +10,14 @@ where
     R: 'input + gimli::Reader,
 {
     pub unit_id: usize,
-    pub debug_abbrev: gimli::DebugAbbrev<R>,
-    pub debug_str: gimli::DebugStr<R>,
-    pub rnglists: &'input gimli::RangeLists<R>,
+    pub dwarf: &'input gimli::Dwarf<R>,
 }
 
-pub struct CompUnitEdgesExtra<R>
-where
-    R: gimli::Reader,
-{
+pub struct CompUnitEdgesExtra {
     pub unit_id: usize,
-    pub debug_abbrev: gimli::DebugAbbrev<R>,
 }
 
-impl<'input, R> Parse<'input> for gimli::CompilationUnitHeader<R, R::Offset>
+impl<'input, R> Parse<'input> for gimli::Unit<R>
 where
     R: 'input + gimli::Reader,
 {
@@ -37,20 +31,14 @@ where
         // Destructure the extra information needed to parse items in the unit.
         let Self::ItemsExtra {
             unit_id,
-            debug_abbrev,
-            debug_str,
-            rnglists,
+            dwarf,
         } = extra;
 
-        // Get the size of addresses in this type-unit, initialize an entry ID counter.
-        let addr_size: u8 = self.address_size();
-        let dwarf_version: u16 = self.version();
+        // Initialize an entry ID counter.
         let mut entry_id = 0;
 
-        // Find the abbreviations associated with this compilation unit.
-        // Use the abbreviations to create an entries cursor, and move it to the root.
-        let abbrevs = self.abbreviations(&debug_abbrev)?;
-        let mut die_cursor = self.entries(&abbrevs);
+        // Create an entries cursor, and move it to the root.
+        let mut die_cursor = self.entries();
 
         if die_cursor.next_dfs()?.is_none() {
             let e = traits::Error::with_msg(
@@ -72,10 +60,8 @@ where
             let die_extra = DieItemsExtra {
                 entry_id,
                 unit_id,
-                addr_size,
-                dwarf_version,
-                debug_str: &debug_str,
-                rnglists,
+                dwarf,
+                unit: self,
             };
             entry.parse_items(items, die_extra)?;
             entry_id += 1;
@@ -84,7 +70,7 @@ where
         Ok(())
     }
 
-    type EdgesExtra = CompUnitEdgesExtra<R>;
+    type EdgesExtra = CompUnitEdgesExtra;
 
     fn parse_edges(
         &mut self,
@@ -93,16 +79,13 @@ where
     ) -> Result<(), traits::Error> {
         let Self::EdgesExtra {
             unit_id,
-            debug_abbrev,
         } = extra;
 
         // Initialize an entry ID counter.
         let mut entry_id = 0;
 
-        // Find the abbreviations associated with this compilation unit.
-        // Use the abbreviations to create an entries cursor, and move it to the root.
-        let abbrevs = self.abbreviations(&debug_abbrev)?;
-        let mut die_cursor = self.entries(&abbrevs);
+        // Create an entries cursor, and move it to the root.
+        let mut die_cursor = self.entries();
 
         if die_cursor.next_dfs()?.is_none() {
             let e = traits::Error::with_msg(
