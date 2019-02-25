@@ -14,7 +14,7 @@ path = "./traits.rs"
 [dependencies]
 failure = "0.1.5"
 gimli = { version = "0.16.1", optional = true }
-wasmparser = "0.29.0"
+wasmparser = "0.29.2"
 twiggy-ir = { version = "=0.4.0", path = "../ir" }
 csv = "1.0.5"
 regex = "1.1.0"
