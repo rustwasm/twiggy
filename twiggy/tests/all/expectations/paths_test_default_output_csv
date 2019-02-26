@@ -4,9 +4,11 @@ Name,ShallowSize,ShallowSizePercent,Path
 woof,8,5.555555555555555,func[3] -> woof
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
 "export ""woof""",7,4.861111111111112,
+wasm magic bytes,8,5.555555555555555,
 "export ""awoo""",7,4.861111111111112,
 "export ""bark""",7,4.861111111111112,
 "export ""woof""",7,4.861111111111112,
+custom section 'name' headers,7,4.861111111111112,
 calledOnce,5,3.4722222222222223,func[0] -> calledOnce
 func[0],1,0.6944444444444444,woof -> func[0]
 woof,8,5.555555555555555,func[3] -> woof
@@ -56,6 +58,10 @@ func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
 "export ""woof""",7,4.861111111111112,
 func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
 "export ""awoo""",7,4.861111111111112,
+type section headers,3,2.083333333333333,
+function section headers,3,2.083333333333333,
+export section headers,3,2.083333333333333,
+code section headers,3,2.083333333333333,
 func[0],1,0.6944444444444444,woof -> func[0]
 woof,8,5.555555555555555,func[3] -> woof
 func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
