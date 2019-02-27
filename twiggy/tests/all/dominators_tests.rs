@@ -47,9 +47,35 @@ test!(
 );
 
 test!(
+    dominators_json_prints_multiple_root_items,
+    "dominators",
+    "./fixtures/paths_test.wasm",
+    "-f",
+    "json",
+    "--regex",
+    "called.*"
+);
+
+test!(
     dominators_regex_any_func,
     "dominators",
     "./fixtures/paths_test.wasm",
     "--regex",
     "func\\[[0-9]+\\]"
+);
+
+test!(
+    dominators_csv_does_not_summarize_garbage_if_all_items_are_reachable,
+    "dominators",
+    "./fixtures/paths_test.wasm",
+    "-f",
+    "csv"
+);
+
+test!(
+    dominators_summarizes_unreachable_items,
+    "dominators",
+    "./fixtures/garbage.wasm",
+    "-d",
+    "1"
 );

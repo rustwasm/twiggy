@@ -46,3 +46,4 @@
               3 ┊      0.11% ┊ memory section headers
               3 ┊      0.11% ┊ export section headers
               3 ┊      0.11% ┊ element section headers
+           1084 ┊     38.48% ┊ [3 Unreachable Items]
