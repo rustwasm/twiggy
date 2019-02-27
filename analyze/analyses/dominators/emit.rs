@@ -9,7 +9,8 @@ use twiggy_ir as ir;
 use twiggy_opt as opt;
 use twiggy_traits as traits;
 
-use crate::analyses::{dominators::DominatorTree, utils};
+use super::UnreachableItemsSummary;
+use crate::analyses::dominators::DominatorTree;
 
 impl traits::Emit for DominatorTree {
     #[cfg(feature = "emit_text")]
@@ -34,11 +35,7 @@ impl traits::Emit for DominatorTree {
         ) {
             assert_eq!(id == items.meta_root(), depth == 0);
 
-            if *row == opts.max_rows() {
-                return;
-            }
-
-            if depth > opts.max_depth() {
+            if *row > opts.max_rows() || depth > opts.max_depth() {
                 return;
             }
 
@@ -77,20 +74,16 @@ impl traits::Emit for DominatorTree {
             );
         }
 
-        if !self.unreachable_items.is_empty() {
-            let unreachable_items_cnt = self.unreachable_items.len();
-            let unreachable_items_size = self
-                .unreachable_items
-                .iter()
-                .map(|id| &items[*id])
-                .map(|item| item.size())
-                .sum::<u32>();
-            let unreachable_items_size_percent =
-                (f64::from(unreachable_items_size)) / (f64::from(items.size())) * 100.0;
+        if let Some(UnreachableItemsSummary {
+            count,
+            size,
+            size_percent,
+        }) = self.unreachable_items_summary
+        {
             table.add_row(vec![
-                unreachable_items_size.to_string(),
-                format!("{:.2}%", unreachable_items_size_percent),
-                format!("[{} Unreachable Items]", unreachable_items_cnt),
+                size.to_string(),
+                format!("{:.2}%", size_percent),
+                format!("[{} Unreachable Items]", count),
             ]);
         }
 
@@ -133,24 +126,18 @@ impl traits::Emit for DominatorTree {
             }
         }
 
-        if !self.unreachable_items.is_empty() {
+        if let Some(UnreachableItemsSummary {
+            count,
+            size,
+            size_percent,
+        }) = self.unreachable_items_summary
+        {
             let mut summary_obj = obj.array("summary")?;
             let mut unreachable_items_obj = summary_obj.object()?;
-            let unreachable_items_cnt = self.unreachable_items.len();
-            let unreachable_items_size = self
-                .unreachable_items
-                .iter()
-                .map(|id| &items[*id])
-                .map(|item| item.size())
-                .sum::<u32>();
-            let unreachable_items_size_percent =
-                (f64::from(unreachable_items_size)) / (f64::from(items.size())) * 100.0;
-            unreachable_items_obj.field(
-                "name",
-                format!("[{} Unreachable Items]", unreachable_items_cnt).as_ref(),
-            )?;
-            unreachable_items_obj.field("retained_size", unreachable_items_size)?;
-            unreachable_items_obj.field("retained_size_percent", unreachable_items_size_percent)?;
+            unreachable_items_obj
+                .field("name", format!("[{} Unreachable Items]", count).as_ref())?;
+            unreachable_items_obj.field("retained_size", size)?;
+            unreachable_items_obj.field("retained_size_percent", size_percent)?;
         }
 
         Ok(())
@@ -179,15 +166,15 @@ impl traits::Emit for DominatorTree {
         let mut wtr = csv::Writer::from_writer(dest);
         recursive_add_children(items, &self.opts, &self.tree, items.meta_root(), &mut wtr)?;
 
-        if !self.unreachable_items.is_empty() {
-            let cnt = self.unreachable_items.len();
-            let size = utils::get_unreachable_items(&items)
-                .map(|item| item.size())
-                .sum::<u32>();
-            let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
+        if let Some(UnreachableItemsSummary {
+            count,
+            size,
+            size_percent,
+        }) = self.unreachable_items_summary
+        {
             let rc = CsvRecord {
                 id: None,
-                name: format!("[{} Unreachable Items]", cnt),
+                name: format!("[{} Unreachable Items]", count),
                 shallow_size: size,
                 shallow_size_percent: size_percent,
                 retained_size: size,
@@ -209,8 +196,7 @@ fn add_text_item(items: &ir::Items, depth: u32, id: ir::Id, table: &mut Table) {
     let size = items.retained_size(id);
     let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
 
-    let mut label =
-        String::with_capacity(depth as usize * 4 + item.name().len() + "⤷ ".len());
+    let mut label = String::with_capacity(depth as usize * 4 + item.name().len() + "⤷ ".len());
     for _ in 2..depth {
         label.push_str("    ");
     }

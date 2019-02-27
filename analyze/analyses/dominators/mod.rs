@@ -6,15 +6,21 @@ use twiggy_ir as ir;
 use twiggy_opt as opt;
 use twiggy_traits as traits;
 
-use crate::analyses::utils;
+use crate::analyses::garbage;
 
 mod emit;
 
 struct DominatorTree {
     tree: BTreeMap<ir::Id, Vec<ir::Id>>,
     items: Vec<ir::Id>,
-    unreachable_items: Vec<ir::Id>,
     opts: opt::Dominators,
+    unreachable_items_summary: Option<UnreachableItemsSummary>,
+}
+
+struct UnreachableItemsSummary {
+    count: usize,
+    size: u32,
+    size_percent: f64,
 }
 
 /// Compute the dominator tree for the given IR graph.
@@ -47,20 +53,30 @@ pub fn dominators(
             .collect()
     };
 
-    let unreachable_items = if arguments.is_empty() {
-        utils::get_unreachable_items(&items)
-            .map(|item| item.id())
-            .collect::<Vec<ir::Id>>()
-    } else {
-        Vec::new()
-    };
-
     let tree = DominatorTree {
         tree: items.dominator_tree().clone(),
         items: dominator_items,
-        unreachable_items,
         opts: opts.clone(),
+        unreachable_items_summary: summarize_unreachable_items(items, opts),
     };
 
     Ok(Box::new(tree) as Box<traits::Emit>)
+}
+
+fn summarize_unreachable_items(
+    items: &mut ir::Items,
+    opts: &opt::Dominators,
+) -> Option<UnreachableItemsSummary> {
+    let (size, count) = garbage::get_unreachable_items(&items)
+        .map(|item| item.size())
+        .fold((0, 0), |(s, c), curr| (s + curr, c + 1));
+    if opts.items().is_empty() && size > 0 {
+        Some(UnreachableItemsSummary {
+            count,
+            size,
+            size_percent: (f64::from(size)) / (f64::from(items.size())) * 100.0,
+        })
+    } else {
+        None
+    }
 }

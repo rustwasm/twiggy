@@ -4,5 +4,3 @@ pub mod garbage;
 pub mod monos;
 pub mod paths;
 pub mod top;
-
-mod utils;

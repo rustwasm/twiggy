@@ -1,12 +1,13 @@
+use std::collections::BTreeSet;
 use std::io;
+
+use petgraph::visit::Walker;
 
 use formats::json;
 use formats::table::{Align, Table};
 use twiggy_ir as ir;
 use twiggy_opt as opt;
 use twiggy_traits as traits;
-
-use crate::analyses::utils;
 
 #[derive(Debug)]
 struct Garbage {
@@ -135,7 +136,7 @@ impl traits::Emit for Garbage {
 
 /// Find items that are not transitively referenced by any exports or public functions.
 pub fn garbage(items: &ir::Items, opts: &opt::Garbage) -> Result<Box<traits::Emit>, traits::Error> {
-    let mut unreachable_items = utils::get_unreachable_items(&items).collect::<Vec<_>>();
+    let mut unreachable_items = get_unreachable_items(&items).collect::<Vec<_>>();
     unreachable_items.sort_by(|a, b| b.size().cmp(&a.size()));
 
     let mut data_segments = vec![];
@@ -168,4 +169,15 @@ pub fn garbage(items: &ir::Items, opts: &opt::Garbage) -> Result<Box<traits::Emi
     };
 
     Ok(Box::new(garbage_items) as Box<traits::Emit>)
+}
+
+pub(crate) fn get_unreachable_items<'a>(
+    items: &'a ir::Items,
+) -> impl Iterator<Item = &'a ir::Item> {
+    let reachable_items = petgraph::visit::Dfs::new(items, items.meta_root())
+        .iter(&items)
+        .collect::<BTreeSet<ir::Id>>();
+    items
+        .iter()
+        .filter(move |item| !reachable_items.contains(&item.id()))
 }
