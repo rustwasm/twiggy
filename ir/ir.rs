@@ -22,6 +22,7 @@ use std::u32;
 #[derive(Debug)]
 pub struct ItemsBuilder {
     size: u32,
+    size_added: u32,
     parsed: BTreeSet<Id>,
     items: BTreeMap<Id, Item>,
     edges: BTreeMap<Id, BTreeSet<Id>>,
@@ -37,6 +38,7 @@ impl ItemsBuilder {
     pub fn new(size: u32) -> ItemsBuilder {
         ItemsBuilder {
             size,
+            size_added: 0,
             parsed: Default::default(),
             items: Default::default(),
             edges: Default::default(),
@@ -49,6 +51,7 @@ impl ItemsBuilder {
     /// assigned.
     pub fn add_item(&mut self, item: Item) -> Id {
         let id = item.id;
+        self.size_added += item.size;
         self.items.insert(id, item);
 
         let old_value = self.parsed.insert(id);
@@ -99,6 +102,11 @@ impl ItemsBuilder {
                     }
                 },
             )
+    }
+
+    /// Return the size of all added items so far
+    pub fn size_added(&self) -> u32 {
+        self.size_added
     }
 
     /// Finish building the IR graph and return the resulting `Items`.

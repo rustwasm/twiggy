@@ -10,5 +10,5 @@
          32684 ┊     0.58% ┊ _SHA1Transform
          27794 ┊     0.50% ┊ _major_scan_object_with_evacuation
          26912 ┊     0.48% ┊ _major_scan_object_no_evacuation
-       3828116 ┊    68.24% ┊ ... and 157729 more.
-       5609664 ┊   100.00% ┊ Σ [157739 Total Rows]
+       3828176 ┊    68.24% ┊ ... and 157739 more.
+       5609724 ┊   100.00% ┊ Σ [157749 Total Rows]

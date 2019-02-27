@@ -22,10 +22,22 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
         items: &mut ir::ItemsBuilder,
         _extra: (),
     ) -> Result<(), traits::Error> {
+        let initial_offset = self.current_position();
         let mut sections = Vec::new();
         while !self.eof() {
-            sections.push(self.read()?);
+            let start = self.current_position();
+            let section = self.read()?;
+            let size = self.current_position() - start;
+            sections.push((size as u32, section));
         }
+
+        let id = Id::section(sections.len());
+        items.add_root(ir::Item::new(
+            id,
+            "wasm magic bytes".to_string(),
+            initial_offset as u32,
+            ir::Misc::new(),
+        ));
 
         // Before we actually parse any items prepare to parse a few sections
         // below, namely the code section. When parsing the code section we want
@@ -34,7 +46,7 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
         // functions to handle the wasm function index space correctly.
         let mut names = HashMap::new();
         let mut imported_functions = 0;
-        for section in sections.iter() {
+        for (_, section) in sections.iter() {
             match section.code {
                 wasmparser::SectionCode::Custom { name: "name", .. } => {
                     for subsection in section.get_name_section_reader()? {
@@ -60,64 +72,82 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
             }
         }
 
-        for (idx, section) in sections.into_iter().enumerate() {
-            match section.code {
+        for (idx, (size, section)) in sections.into_iter().enumerate() {
+            let start = items.size_added();
+            let name = match section.code {
                 wasmparser::SectionCode::Custom { name, kind: _ } => {
                     CustomSectionReader(name, section).parse_items(items, idx)?;
+                    format!("custom section '{}' headers", name)
                 }
                 wasmparser::SectionCode::Type => {
                     section.get_type_section_reader()?.parse_items(items, idx)?;
+                    "type section headers".to_string()
                 }
                 wasmparser::SectionCode::Import => {
                     section
                         .get_import_section_reader()?
                         .parse_items(items, idx)?;
+                    "import section headers".to_string()
                 }
                 wasmparser::SectionCode::Function => {
                     section
                         .get_function_section_reader()?
                         .parse_items(items, idx)?;
+                    "function section headers".to_string()
                 }
                 wasmparser::SectionCode::Table => {
                     section
                         .get_table_section_reader()?
                         .parse_items(items, idx)?;
+                    "table section headers".to_string()
                 }
                 wasmparser::SectionCode::Memory => {
                     section
                         .get_memory_section_reader()?
                         .parse_items(items, idx)?;
+                    "memory section headers".to_string()
                 }
                 wasmparser::SectionCode::Global => {
                     section
                         .get_global_section_reader()?
                         .parse_items(items, idx)?;
+                    "global section headers".to_string()
                 }
                 wasmparser::SectionCode::Export => {
                     section
                         .get_export_section_reader()?
                         .parse_items(items, idx)?;
+                    "export section headers".to_string()
                 }
                 wasmparser::SectionCode::Start => {
                     StartSection(section).parse_items(items, idx)?;
+                    "start section headers".to_string()
                 }
                 wasmparser::SectionCode::Element => {
                     section
                         .get_element_section_reader()?
                         .parse_items(items, idx)?;
+                    "element section headers".to_string()
                 }
                 wasmparser::SectionCode::Code => {
                     section
                         .get_code_section_reader()?
                         .parse_items(items, (idx, imported_functions, &names))?;
+                    "code section headers".to_string()
                 }
                 wasmparser::SectionCode::Data => {
                     section.get_data_section_reader()?.parse_items(items, idx)?;
+                    "data section headers".to_string()
                 }
                 wasmparser::SectionCode::DataCount => {
                     DataCountSection(section).parse_items(items, idx)?;
+                    "data count section headers".to_string()
                 }
-            }
+            };
+            let id = Id::section(idx);
+            let added = items.size_added() - start;
+            assert!(added <= size);
+            items.add_root(ir::Item::new(id, name, size - added, ir::Misc::new()));
         }
 
         Ok(())
@@ -304,15 +334,15 @@ impl<'a> Parse<'a> for CustomSectionReader<'a> {
         items: &mut ir::ItemsBuilder,
         idx: usize,
     ) -> Result<(), traits::Error> {
-        let range = self.1.range();
-        let size = (range.end - range.start) as u32;
         let name = self.0;
         if name == "name" {
             self.1.get_name_section_reader()?.parse_items(items, idx)?;
         } else {
-            let id = Id::section(idx);
+            let range = self.1.get_binary_reader().range();
+            let size = (range.end - range.start) as u32;
+            let id = Id::entry(idx, 0);
             let name = format!("custom section '{}'", self.0);
-            items.add_root(ir::Item::new(id, name, size, ir::Misc::new()));
+            items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
         }
         Ok(())
     }

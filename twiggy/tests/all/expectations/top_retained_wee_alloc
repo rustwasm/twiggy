@@ -10,5 +10,5 @@
             225 ┊      7.99% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
             177 ┊      6.28% ┊ export "hello"
             169 ┊      6.00% ┊ func[8]
-            ... ┊        ... ┊ ... and 29 more.
-            ... ┊        ... ┊ Σ [39 Total Rows]
+            ... ┊        ... ┊ ... and 39 more.
+            ... ┊        ... ┊ Σ [49 Total Rows]

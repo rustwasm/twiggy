@@ -5,9 +5,11 @@
              8 ┊     5.56% ┊ woof
                ┊           ┊   ⬑ func[3]
                ┊           ┊       ⬑ export "woof"
+             8 ┊     5.56% ┊ wasm magic bytes
              7 ┊     4.86% ┊ export "awoo"
              7 ┊     4.86% ┊ export "bark"
              7 ┊     4.86% ┊ export "woof"
+             7 ┊     4.86% ┊ custom section 'name' headers
              5 ┊     3.47% ┊ calledOnce
                ┊           ┊   ⬑ func[0]
                ┊           ┊       ⬑ woof
@@ -57,6 +59,10 @@
                ┊           ┊       ⬑ export "woof"
                ┊           ┊   ⬑ func[4]
                ┊           ┊       ⬑ export "awoo"
+             3 ┊     2.08% ┊ type section headers
+             3 ┊     2.08% ┊ function section headers
+             3 ┊     2.08% ┊ export section headers
+             3 ┊     2.08% ┊ code section headers
              1 ┊     0.69% ┊ func[0]
                ┊           ┊   ⬑ woof
                ┊           ┊       ⬑ func[3]
