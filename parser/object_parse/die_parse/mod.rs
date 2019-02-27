@@ -23,10 +23,8 @@ where
 {
     pub entry_id: usize,
     pub unit_id: usize,
-    pub addr_size: u8,
-    pub dwarf_version: u16,
-    pub debug_str: &'unit gimli::DebugStr<R>,
-    pub rnglists: &'unit gimli::RangeLists<R>,
+    pub dwarf: &'unit gimli::Dwarf<R>,
+    pub unit: &'unit gimli::Unit<R>,
 }
 
 impl<'abbrev, 'unit, R> Parse<'unit>
@@ -44,21 +42,18 @@ where
         let Self::ItemsExtra {
             entry_id,
             unit_id,
-            addr_size,
-            dwarf_version,
-            debug_str,
-            rnglists,
+            dwarf,
+            unit,
         } = extra;
 
         let item: ir::Item = match self.tag() {
             gimli::DW_TAG_subprogram => {
                 if let Some(size) = DieLocationAttributes::try_from(self)?.entity_size(
-                    addr_size,
-                    dwarf_version,
-                    rnglists,
+                    dwarf,
+                    unit,
                 )? {
                     let id = ir::Id::entry(unit_id, entry_id);
-                    let name = item_name(self, debug_str)?
+                    let name = item_name(self, dwarf, unit)?
                         .unwrap_or_else(|| format!("Subroutine[{}][{}]", unit_id, entry_id));
                     let kind: ir::ItemKind = ir::Code::new(&name).into();
                     ir::Item::new(id, name, size as u32, kind)

@@ -91,10 +91,7 @@ fn parse_wasm(data: &[u8]) -> Result<ir::Items, traits::Error> {
 fn parse_other(data: &[u8]) -> Result<ir::Items, traits::Error> {
     let mut items = ir::ItemsBuilder::new(data.len() as u32);
 
-    let mut file: object::File = object::File::parse(data)?;
-
-    file.parse_items(&mut items, ())?;
-    file.parse_edges(&mut items, ())?;
+    object_parse::parse(&mut items, data)?;
 
     Ok(items.finish())
 }

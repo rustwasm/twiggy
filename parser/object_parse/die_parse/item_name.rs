@@ -12,23 +12,20 @@ use super::FallilbleOption;
 /// ir::ItemKind variant that was determined for the entity.
 pub fn item_name<R>(
     die: &gimli::DebuggingInformationEntry<R, R::Offset>,
-    debug_str: &gimli::DebugStr<R>,
+    dwarf: &gimli::Dwarf<R>,
+    unit: &gimli::Unit<R>,
 ) -> FallilbleOption<String>
 where
     R: gimli::Reader,
 {
-    match die
-        .attr(gimli::DW_AT_name)?
-        .and_then(|attr| attr.string_value(&debug_str))
-    {
-        Some(s) => {
-            let name = Some(
-                s
-                    .to_string()? // This `to_string()` creates a `Result<Cow<'_, str>, _>`.
-                    .to_string(), // This `to_string()` creates the String we return.
-            );
-            Ok(name)
-        }
-        None => Ok(None),
+    if let Some(attr) = die.attr_value(gimli::DW_AT_name)? {
+        let s = dwarf.attr_string(unit, attr)?;
+        Ok(Some(
+            s
+                .to_string()? // This `to_string()` creates a `Result<Cow<'_, str>, _>`.
+                .to_string(), // This `to_string()` creates the String we return.
+        ))
+    } else {
+        Ok(None)
     }
 }
