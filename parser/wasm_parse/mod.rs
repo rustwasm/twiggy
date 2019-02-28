@@ -75,7 +75,7 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
         for (idx, (size, section)) in sections.into_iter().enumerate() {
             let start = items.size_added();
             let name = match section.code {
-                wasmparser::SectionCode::Custom { name, kind: _ } => {
+                wasmparser::SectionCode::Custom { name, .. } => {
                     CustomSectionReader(name, section).parse_items(items, idx)?;
                     format!("custom section '{}' headers", name)
                 }
@@ -229,7 +229,7 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
 
         for (idx, section) in sections.into_iter().enumerate() {
             match section.code {
-                wasmparser::SectionCode::Custom { name, kind: _ } => {
+                wasmparser::SectionCode::Custom { name, .. } => {
                     CustomSectionReader(name, section).parse_edges(items, ())?;
                 }
                 wasmparser::SectionCode::Type => {

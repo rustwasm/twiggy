@@ -60,7 +60,7 @@ impl traits::Emit for Garbage {
             format!("Σ [{} Total Rows]", self.items.len()),
         ]);
 
-        if self.data_segments.len() > 0 {
+        if !self.data_segments.is_empty() {
             let total_size: u32 = self.data_segments.iter().map(|&id| items[id].size()).sum();
             let size_percent = f64::from(total_size) / f64::from(items.size()) * 100.0;
             table.add_row(vec![
@@ -119,7 +119,7 @@ impl traits::Emit for Garbage {
             obj.field("size_percent", total_size_percent)?;
         }
 
-        if self.data_segments.len() > 0 {
+        if !self.data_segments.is_empty() {
             let name = format!(
                 "{} potential false-positive data segments",
                 self.data_segments.len()
@@ -147,25 +147,26 @@ pub fn garbage(items: &ir::Items, opts: &opt::Garbage) -> Result<Box<traits::Emi
     let mut unreachable_items = get_unreachable_items(&items).collect::<Vec<_>>();
     unreachable_items.sort_by(|a, b| b.size().cmp(&a.size()));
 
-    let mut data_segments = vec![];
-    let items_non_data;
-
     // Split the items into two categories if necessary
-    if !opts.show_data_segments() {
-        data_segments = unreachable_items
-            .iter()
-            .filter(|item| item.kind().is_data())
-            .map(|item| item.id())
-            .collect();
-
-        items_non_data = unreachable_items
-            .iter()
-            .filter(|item| !item.kind().is_data())
-            .map(|item| item.id())
-            .collect();
+    let (data_segments, items_non_data) = if opts.show_data_segments() {
+        (
+            vec![],
+            unreachable_items.iter().map(|item| item.id()).collect(),
+        )
     } else {
-        items_non_data = unreachable_items.iter().map(|item| item.id()).collect();
-    }
+        (
+            unreachable_items
+                .iter()
+                .filter(|item| item.kind().is_data())
+                .map(|item| item.id())
+                .collect(),
+            unreachable_items
+                .iter()
+                .filter(|item| !item.kind().is_data())
+                .map(|item| item.id())
+                .collect(),
+        )
+    };
 
     let garbage_items = Garbage {
         items: items_non_data,
@@ -176,9 +177,7 @@ pub fn garbage(items: &ir::Items, opts: &opt::Garbage) -> Result<Box<traits::Emi
     Ok(Box::new(garbage_items) as Box<traits::Emit>)
 }
 
-pub(crate) fn get_unreachable_items<'a>(
-    items: &'a ir::Items,
-) -> impl Iterator<Item = &'a ir::Item> {
+pub(crate) fn get_unreachable_items(items: &ir::Items) -> impl Iterator<Item = &ir::Item> {
     let reachable_items = petgraph::visit::Dfs::new(items, items.meta_root())
         .iter(&items)
         .collect::<BTreeSet<ir::Id>>();

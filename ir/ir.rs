@@ -77,7 +77,10 @@ impl ItemsBuilder {
         debug_assert!(self.items.contains_key(&from), "`from` is not known");
         debug_assert!(self.items.contains_key(&to), "`to` is not known");
 
-        self.edges.entry(from).or_insert(BTreeSet::new()).insert(to);
+        self.edges
+            .entry(from)
+            .or_insert_with(BTreeSet::new)
+            .insert(to);
     }
 
     /// Add a range of static data and the `Id` that defines it.
@@ -213,7 +216,7 @@ impl Items {
             for to in tos {
                 predecessors
                     .entry(*to)
-                    .or_insert_with(|| BTreeSet::new())
+                    .or_insert_with(BTreeSet::new)
                     .insert(*from);
             }
         }
@@ -263,7 +266,7 @@ impl Items {
             if let Some(idom) = dominators.immediate_dominator(item.id()) {
                 dominator_tree
                     .entry(idom)
-                    .or_insert(BTreeSet::new())
+                    .or_insert_with(BTreeSet::new)
                     .insert(item.id());
             }
         }
@@ -429,9 +432,9 @@ impl Id {
     }
 
     /// Get the real id of a item.
-    pub fn serializable(&self) -> u64 {
-        let top = (self.0 as u64) << 32;
-        top | (self.1 as u64)
+    pub fn serializable(self) -> u64 {
+        let top = (u64::from(self.0)) << 32;
+        top | u64::from(self.1)
     }
 }
 
@@ -692,7 +695,7 @@ impl Data {
 }
 
 /// Debugging symbols and information, such as DWARF sections.
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Default)]
 pub struct DebugInfo;
 
 impl DebugInfo {
@@ -703,7 +706,7 @@ impl DebugInfo {
 }
 
 /// Miscellaneous item. Perhaps metadata. Perhaps something else.
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Default)]
 pub struct Misc;
 
 impl Misc {
