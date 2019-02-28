@@ -36,9 +36,11 @@ impl traits::Emit for Garbage {
             ]);
         }
 
-        match items_iter.clone()
+        match items_iter
+            .clone()
             .skip(self.limit)
-            .fold((0, 0), |(size, cnt), item| (size + item.size(), cnt + 1)) {
+            .fold((0, 0), |(size, cnt), item| (size + item.size(), cnt + 1))
+        {
             (size, cnt) if cnt > 0 => {
                 let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
                 table.add_row(vec![
@@ -64,7 +66,10 @@ impl traits::Emit for Garbage {
             table.add_row(vec![
                 total_size.to_string(),
                 format!("{:.2}%", size_percent),
-                format!("{} potential false-positive data segments", self.data_segments.len()),
+                format!(
+                    "{} potential false-positive data segments",
+                    self.data_segments.len()
+                ),
             ]);
         }
 
@@ -115,7 +120,10 @@ impl traits::Emit for Garbage {
         }
 
         if self.data_segments.len() > 0 {
-            let name = format!("{} potential false-positive data segments", self.data_segments.len());
+            let name = format!(
+                "{} potential false-positive data segments",
+                self.data_segments.len()
+            );
             let size: u32 = self.data_segments.iter().map(|&id| items[id].size()).sum();
             let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
 
@@ -156,10 +164,7 @@ pub fn garbage(items: &ir::Items, opts: &opt::Garbage) -> Result<Box<traits::Emi
             .map(|item| item.id())
             .collect();
     } else {
-        items_non_data = unreachable_items
-            .iter()
-            .map(|item| item.id())
-            .collect();
+        items_non_data = unreachable_items.iter().map(|item| item.id()).collect();
     }
 
     let garbage_items = Garbage {

@@ -29,10 +29,7 @@ where
         extra: Self::ItemsExtra,
     ) -> Result<(), traits::Error> {
         // Destructure the extra information needed to parse items in the unit.
-        let Self::ItemsExtra {
-            unit_id,
-            dwarf,
-        } = extra;
+        let Self::ItemsExtra { unit_id, dwarf } = extra;
 
         // Initialize an entry ID counter.
         let mut entry_id = 0;
@@ -77,9 +74,7 @@ where
         items: &mut ir::ItemsBuilder,
         extra: Self::EdgesExtra,
     ) -> Result<(), traits::Error> {
-        let Self::EdgesExtra {
-            unit_id,
-        } = extra;
+        let Self::EdgesExtra { unit_id } = extra;
 
         // Initialize an entry ID counter.
         let mut entry_id = 0;

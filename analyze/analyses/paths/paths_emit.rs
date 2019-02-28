@@ -22,21 +22,24 @@ impl traits::Emit for Paths {
             .iter()
             .flat_map(|entry| {
                 process_entry(entry, 0, self.opts.max_paths() as usize, &items, &self.opts)
-            }).map(
+            })
+            .map(
                 |TableRow {
                      size,
                      size_percent,
                      name,
                  }| {
                     vec![
-                        size.map(|size| size.to_string()).unwrap_or_else(String::new),
+                        size.map(|size| size.to_string())
+                            .unwrap_or_else(String::new),
                         size_percent
                             .map(|size_percent| format!("{:.2}%", size_percent))
                             .unwrap_or_else(String::new),
                         name,
                     ]
                 },
-            ).fold(
+            )
+            .fold(
                 Table::with_header(vec![
                     (Align::Right, "Shallow Bytes".to_string()),
                     (Align::Right, "Shallow %".to_string()),
@@ -168,7 +171,8 @@ mod emit_text_helpers {
                 "  ⬑ "
             } else {
                 ""
-            })).chain(iter::once(name))
+            }))
+            .chain(iter::once(name))
             .fold(
                 String::with_capacity(depth as usize * 4 + name.len()),
                 |mut res, s| {

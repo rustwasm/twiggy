@@ -104,9 +104,7 @@ impl<'a, R: gimli::Reader> Parse<'a> for gimli::Dwarf<R> {
         let mut headers = self.units().enumerate();
         while let Some((unit_id, header)) = headers.next()? {
             let mut unit = self.unit(header)?;
-            let extra = CompUnitEdgesExtra {
-                unit_id,
-            };
+            let extra = CompUnitEdgesExtra { unit_id };
             unit.parse_edges(items, extra)?
         }
 

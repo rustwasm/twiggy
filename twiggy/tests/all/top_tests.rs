@@ -78,10 +78,4 @@ test!(
 );
 
 // Regression test for https://github.com/rustwasm/twiggy/issues/151
-test!(
-    top_mono,
-    "top",
-    "./fixtures/mono.wasm",
-    "-n",
-    "10"
-);
+test!(top_mono, "top", "./fixtures/mono.wasm", "-n", "10");

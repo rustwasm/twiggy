@@ -21,8 +21,7 @@ where
     if let Some(attr) = die.attr_value(gimli::DW_AT_name)? {
         let s = dwarf.attr_string(unit, attr)?;
         Ok(Some(
-            s
-                .to_string()? // This `to_string()` creates a `Result<Cow<'_, str>, _>`.
+            s.to_string()? // This `to_string()` creates a `Result<Cow<'_, str>, _>`.
                 .to_string(), // This `to_string()` creates the String we return.
         ))
     } else {

@@ -9,9 +9,9 @@ extern crate fallible_iterator;
 extern crate gimli;
 #[cfg(feature = "dwarf")]
 extern crate object;
-extern crate wasmparser;
 #[cfg(feature = "dwarf")]
 extern crate typed_arena;
+extern crate wasmparser;
 
 extern crate twiggy_ir as ir;
 extern crate twiggy_traits as traits;
@@ -25,7 +25,10 @@ use std::io::Read;
 use std::path;
 
 /// Parse the file at the given path into IR items.
-pub fn read_and_parse<P: AsRef<path::Path>>(path: P, mode: traits::ParseMode) -> Result<ir::Items, traits::Error> {
+pub fn read_and_parse<P: AsRef<path::Path>>(
+    path: P,
+    mode: traits::ParseMode,
+) -> Result<ir::Items, traits::Error> {
     let path = path.as_ref();
     let mut file = fs::File::open(path)?;
     let mut data = vec![];
@@ -35,15 +38,13 @@ pub fn read_and_parse<P: AsRef<path::Path>>(path: P, mode: traits::ParseMode) ->
         traits::ParseMode::Wasm => parse_wasm(&data),
         #[cfg(feature = "dwarf")]
         traits::ParseMode::Dwarf => parse_other(&data),
-        traits::ParseMode::Auto => {
-            match path.extension().and_then(|s| s.to_str()) {
-                Some("wasm") => parse_wasm(&data),
-                #[cfg(feature = "dwarf")]
-                _ => parse_other(&data),
-                #[cfg(not(feature = "dwarf"))]
-                _ => parse_fallback(&data),
-            }
-        }
+        traits::ParseMode::Auto => match path.extension().and_then(|s| s.to_str()) {
+            Some("wasm") => parse_wasm(&data),
+            #[cfg(feature = "dwarf")]
+            _ => parse_other(&data),
+            #[cfg(not(feature = "dwarf"))]
+            _ => parse_fallback(&data),
+        },
     }
 }
 
