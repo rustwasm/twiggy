@@ -32,6 +32,21 @@ matrix:
         keep-history: false
         on:
           branch: master
+    - rust: stable
+      env: JOB="format"
+      before_script:
+        - rustup component add rustfmt --toolchain stable
+      script:
+        - cargo fmt -- --check
+    - rust: stable
+      env: JOB="lint"
+      before_script:
+        - rustup component add clippy --toolchain stable
+      script:
+        - cargo clippy -- -D warnings
+  allow_failures:
+    - rust: stable
+      env: JOB="lint"
 
 script:
   - ./ci/script.sh
