@@ -48,10 +48,9 @@ where
 
         let item: ir::Item = match self.tag() {
             gimli::DW_TAG_subprogram => {
-                if let Some(size) = DieLocationAttributes::try_from(self)?.entity_size(
-                    dwarf,
-                    unit,
-                )? {
+                if let Some(size) =
+                    DieLocationAttributes::try_from(self)?.entity_size(dwarf, unit)?
+                {
                     let id = ir::Id::entry(unit_id, entry_id);
                     let name = item_name(self, dwarf, unit)?
                         .unwrap_or_else(|| format!("Subroutine[{}][{}]", unit_id, entry_id));

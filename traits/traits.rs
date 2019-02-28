@@ -10,8 +10,8 @@ extern crate failure;
 extern crate gimli;
 extern crate regex;
 
-extern crate wasmparser;
 extern crate twiggy_ir as ir;
+extern crate wasmparser;
 
 use std::fmt;
 use std::io;

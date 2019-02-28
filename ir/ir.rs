@@ -342,7 +342,8 @@ impl Items {
             .expect(
                 "Cannot call retained_sizes unless compute_retained_sizes \
                  has already been called",
-            ).get(&id)
+            )
+            .get(&id)
             .cloned()
             .unwrap()
     }
@@ -533,7 +534,7 @@ impl ItemKind {
     pub fn is_data(&self) -> bool {
         match self {
             ItemKind::Data(_) => true,
-            _ => false
+            _ => false,
         }
     }
 }
@@ -614,9 +615,7 @@ impl Code {
         //
         // To avoid that, only pass C++-mangled symbols to the C++
         // demangler
-        if !s.starts_with("_Z") &&
-            !s.starts_with("__Z") &&
-            !s.starts_with("_GLOBAL_") {
+        if !s.starts_with("_Z") && !s.starts_with("__Z") && !s.starts_with("_GLOBAL_") {
             return Some(s.to_string());
         }
 

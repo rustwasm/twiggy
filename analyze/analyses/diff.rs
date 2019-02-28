@@ -127,7 +127,7 @@ pub fn diff(
                 return Err(traits::Error::with_msg(format!(
                     "Could not find item with name `{}`",
                     name
-                )))
+                )));
             }
         };
         Ok(DiffEntry { name, delta })

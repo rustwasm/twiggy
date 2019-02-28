@@ -72,7 +72,8 @@ impl traits::Emit for Monos {
                 size: *size,
                 size_percent: get_size_percent(*size),
                 name: name.to_string(),
-            }).chain(insts.iter().map(move |(name, size)| TableRow {
+            })
+            .chain(insts.iter().map(move |(name, size)| TableRow {
                 bloat: None,
                 bloat_percent: None,
                 size: *size,
@@ -222,7 +223,8 @@ pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emi
                 } else {
                     None
                 }
-            }).fold(BTreeMap::new(), |mut monos, (generic, inst)| {
+            })
+            .fold(BTreeMap::new(), |mut monos, (generic, inst)| {
                 monos
                     .entry(generic)
                     .or_insert_with(BTreeSet::new)
@@ -238,7 +240,8 @@ pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emi
                     b_size.cmp(a_size).then(a_name.cmp(b_name))
                 });
                 (generic, insts)
-            }).collect()
+            })
+            .collect()
     }
 
     // Helper function usedd to summarize a sequence of `MonosEntry` objects.
@@ -292,7 +295,8 @@ pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emi
             .into_iter()
             .filter_map(|(g, insts)| {
                 calculate_total_and_bloat(&insts).map(|(total, bloat)| (g, insts, total, bloat))
-            }).map(|(g, mut insts, t, b)| {
+            })
+            .map(|(g, mut insts, t, b)| {
                 // Truncate `insts` according to the relevant options before
                 // we map these values into `MonosEntry` objects.
                 if opts.only_generics() {
@@ -306,12 +310,14 @@ pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emi
                     }
                 };
                 (g, insts, t, b)
-            }).map(|(name, insts, size, bloat)| MonosEntry {
+            })
+            .map(|(name, insts, size, bloat)| MonosEntry {
                 name: name.to_string(),
                 insts,
                 size,
                 bloat,
-            }).collect::<Vec<_>>();
+            })
+            .collect::<Vec<_>>();
         monos.sort();
         monos
     }
