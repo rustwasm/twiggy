@@ -12,7 +12,7 @@ version = "0.4.0"
 path = "opt.rs"
 
 [build-dependencies]
-regex = "1.1.0"
+regex = "1.1.2"
 
 [dependencies]
 structopt = { version = "0.2", optional = true }
