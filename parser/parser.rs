@@ -20,9 +20,12 @@ extern crate twiggy_traits as traits;
 mod object_parse;
 mod wasm_parse;
 
+use std::ffi::OsStr;
 use std::fs;
 use std::io::Read;
 use std::path;
+
+const WASM_MAGIC_NUMBER: [u8; 4] = [0x00, 0x61, 0x73, 0x6D];
 
 /// Parse the file at the given path into IR items.
 pub fn read_and_parse<P: AsRef<path::Path>>(
@@ -38,8 +41,8 @@ pub fn read_and_parse<P: AsRef<path::Path>>(
         traits::ParseMode::Wasm => parse_wasm(&data),
         #[cfg(feature = "dwarf")]
         traits::ParseMode::Dwarf => parse_other(&data),
-        traits::ParseMode::Auto => match path.extension().and_then(|s| s.to_str()) {
-            Some("wasm") => parse_wasm(&data),
+        traits::ParseMode::Auto => match sniff_wasm(path.extension(), &data[..]) {
+            true => parse_wasm(&data),
             #[cfg(feature = "dwarf")]
             _ => parse_other(&data),
             #[cfg(not(feature = "dwarf"))]
@@ -75,6 +78,13 @@ pub(crate) trait Parse<'a> {
         items: &mut ir::ItemsBuilder,
         extra: Self::EdgesExtra,
     ) -> Result<(), traits::Error>;
+}
+
+fn sniff_wasm(extension: Option<&OsStr>, data: &[u8]) -> bool {
+    match extension.and_then(|s| s.to_str()) {
+        Some("wasm") => true,
+        _ => data.get(0..4) == Some(&WASM_MAGIC_NUMBER),
+    }
 }
 
 fn parse_wasm(data: &[u8]) -> Result<ir::Items, traits::Error> {
