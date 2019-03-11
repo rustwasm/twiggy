@@ -3,16 +3,6 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-extern crate serde;
-#[macro_use]
-extern crate serde_derive;
-extern crate csv;
-extern crate petgraph;
-extern crate regex;
-extern crate twiggy_ir;
-extern crate twiggy_opt;
-extern crate twiggy_traits;
-
 mod analyses;
 mod formats;
 
