@@ -97,6 +97,7 @@ impl traits::Emit for Paths {
 
 /// This module contains helper functions and structs used by the `emit_text`
 /// method in Path's implementation of the `traits::Emit` trait.
+#[cfg(feature = "emit_text")]
 mod emit_text_helpers {
     use crate::analyses::paths::paths_entry::PathsEntry;
     use std::iter;
@@ -182,6 +183,7 @@ mod emit_text_helpers {
 
 /// This module contains helper functions and structs used by the `emit_json`
 /// method in Path's implementation of the `traits::Emit` trait.
+#[cfg(feature = "emit_json")]
 mod emit_json_helpers {
     use crate::analyses::paths::paths_entry::PathsEntry;
     use crate::formats::json::Object;
@@ -222,6 +224,7 @@ mod emit_json_helpers {
 
 /// This module contains helper functions and structs used by the `emit_csv`
 /// method in Path's implementation of the `traits::Emit` trait.
+#[cfg(feature = "emit_csv")]
 mod emit_csv_helpers {
     use crate::analyses::paths::paths_entry::PathsEntry;
     use serde_derive::Serialize;
