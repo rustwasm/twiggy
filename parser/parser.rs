@@ -3,27 +3,17 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-#[cfg(feature = "dwarf")]
-extern crate fallible_iterator;
-#[cfg(feature = "dwarf")]
-extern crate gimli;
-#[cfg(feature = "dwarf")]
-extern crate object;
-#[cfg(feature = "dwarf")]
-extern crate typed_arena;
-extern crate wasmparser;
-
-extern crate twiggy_ir as ir;
-extern crate twiggy_traits as traits;
-
-#[cfg(feature = "dwarf")]
-mod object_parse;
-mod wasm_parse;
-
 use std::ffi::OsStr;
 use std::fs;
 use std::io::Read;
 use std::path;
+
+use twiggy_ir as ir;
+use twiggy_traits as traits;
+
+#[cfg(feature = "dwarf")]
+mod object_parse;
+mod wasm_parse;
 
 const WASM_MAGIC_NUMBER: [u8; 4] = [0x00, 0x61, 0x73, 0x6D];
 

@@ -2,12 +2,11 @@ use std::io;
 
 use csv;
 
-use formats::json;
-use formats::table::{Align, Table};
+use crate::analyses::paths::Paths;
+use crate::formats::json;
+use crate::formats::table::{Align, Table};
 use twiggy_ir as ir;
 use twiggy_traits as traits;
-
-use analyses::paths::Paths;
 
 impl traits::Emit for Paths {
     #[cfg(feature = "emit_text")]
@@ -98,13 +97,12 @@ impl traits::Emit for Paths {
 
 /// This module contains helper functions and structs used by the `emit_text`
 /// method in Path's implementation of the `traits::Emit` trait.
+#[cfg(feature = "emit_text")]
 mod emit_text_helpers {
+    use crate::analyses::paths::paths_entry::PathsEntry;
     use std::iter;
-
     use twiggy_ir::Items;
     use twiggy_opt::Paths;
-
-    use analyses::paths::paths_entry::PathsEntry;
 
     /// This structure represents a row in the emitted text table. Size, and size
     /// percentage are only shown for the top-most rows.
@@ -185,14 +183,13 @@ mod emit_text_helpers {
 
 /// This module contains helper functions and structs used by the `emit_json`
 /// method in Path's implementation of the `traits::Emit` trait.
+#[cfg(feature = "emit_json")]
 mod emit_json_helpers {
+    use crate::analyses::paths::paths_entry::PathsEntry;
+    use crate::formats::json::Object;
     use std::io;
-
-    use formats::json::Object;
     use twiggy_ir::Items;
     use twiggy_opt::Paths;
-
-    use analyses::paths::paths_entry::PathsEntry;
 
     // Process a paths entry, by adding its name and size to the given JSON object.
     pub(super) fn process_entry(
@@ -227,13 +224,13 @@ mod emit_json_helpers {
 
 /// This module contains helper functions and structs used by the `emit_csv`
 /// method in Path's implementation of the `traits::Emit` trait.
+#[cfg(feature = "emit_csv")]
 mod emit_csv_helpers {
+    use crate::analyses::paths::paths_entry::PathsEntry;
+    use serde_derive::Serialize;
     use std::iter;
-
     use twiggy_ir::Items;
     use twiggy_opt::Paths;
-
-    use analyses::paths::paths_entry::PathsEntry;
 
     /// This structure represents a row in the CSV output.
     #[derive(Serialize, Debug)]

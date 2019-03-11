@@ -1,14 +1,10 @@
 #![cfg(target_arch = "wasm32")]
 #![cfg(feature = "emit_json")]
 
-extern crate wasm_bindgen;
-
-extern crate twiggy_analyze as analyze;
-extern crate twiggy_ir as ir;
-extern crate twiggy_opt as opt;
-extern crate twiggy_parser as parser;
-extern crate twiggy_traits as traits;
-
+use twiggy_analyze as analyze;
+use twiggy_ir as ir;
+use twiggy_opt as opt;
+use twiggy_parser as parser;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]

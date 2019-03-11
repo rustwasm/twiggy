@@ -1,6 +1,6 @@
 use gimli;
-use ir;
-use traits;
+use twiggy_ir as ir;
+use twiggy_traits as traits;
 
 use super::die_parse::DieItemsExtra;
 use super::Parse;

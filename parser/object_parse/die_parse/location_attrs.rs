@@ -1,6 +1,6 @@
 use fallible_iterator::FallibleIterator;
 use gimli;
-use traits;
+use twiggy_traits as traits;
 
 use super::FallilbleOption;
 

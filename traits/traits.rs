@@ -3,19 +3,13 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-extern crate csv;
-#[macro_use]
-extern crate failure;
-#[cfg(feature = "dwarf")]
-extern crate gimli;
-extern crate regex;
-
-extern crate twiggy_ir as ir;
-extern crate wasmparser;
-
 use std::fmt;
 use std::io;
 use std::str::FromStr;
+
+use failure::Fail;
+
+use twiggy_ir as ir;
 
 /// An error that ocurred in `twiggy` when parsing, analyzing, or emitting
 /// items.

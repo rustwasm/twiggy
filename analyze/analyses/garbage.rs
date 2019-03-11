@@ -3,8 +3,8 @@ use std::io;
 
 use petgraph::visit::Walker;
 
-use formats::json;
-use formats::table::{Align, Table};
+use crate::formats::json;
+use crate::formats::table::{Align, Table};
 use twiggy_ir as ir;
 use twiggy_opt as opt;
 use twiggy_traits as traits;
