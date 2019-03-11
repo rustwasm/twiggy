@@ -1,6 +1,3 @@
-extern crate colored;
-extern crate diff;
-
 use std::fs;
 use std::io::{self, Read};
 use std::path::Path;
@@ -16,13 +13,11 @@ macro_rules! test {
     ( $name:ident $( , $args:expr )* ) => {
         #[test]
         fn $name() {
-            extern crate colored;
-            extern crate diff;
-
             use std::fs;
             use std::process::Command;
             use colored::Colorize;
-            use slurp;
+            use diff;
+            use crate::slurp;
 
             let output = Command::new("cargo")
                 .arg("run")

@@ -3,17 +3,15 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-extern crate failure;
-extern crate structopt;
-extern crate twiggy_analyze as analyze;
-extern crate twiggy_opt as opt;
-extern crate twiggy_parser as parser;
-extern crate twiggy_traits as traits;
+use std::process;
 
 use failure::Fail;
-use opt::CommonCliOptions;
-use std::process;
 use structopt::StructOpt;
+
+use twiggy_analyze as analyze;
+use twiggy_opt::{self as opt, CommonCliOptions};
+use twiggy_parser as parser;
+use twiggy_traits as traits;
 
 fn main() {
     let options = opt::Options::from_args();
