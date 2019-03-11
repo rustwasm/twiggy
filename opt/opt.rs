@@ -2,18 +2,13 @@
 
 #![deny(missing_debug_implementations)]
 
-#[macro_use]
-extern crate cfg_if;
-
-extern crate twiggy_traits as traits;
+use cfg_if::cfg_if;
+use twiggy_traits as traits;
 
 cfg_if! {
     if #[cfg(feature = "cli")] {
-        #[macro_use]
-        extern crate structopt;
         include!(concat!(env!("OUT_DIR"), "/cli.rs"));
     } else if #[cfg(feature = "wasm")] {
-        extern crate wasm_bindgen;
         use wasm_bindgen::prelude::*;
         include!(concat!(env!("OUT_DIR"), "/wasm.rs"));
     } else {

@@ -9,6 +9,8 @@
 //
 // It's terrible! But it works for now.
 
+use structopt::StructOpt;
+
 /// Options for configuring `twiggy`.
 #[derive(Clone, Debug)]
 #[derive(StructOpt)]
