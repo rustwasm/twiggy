@@ -1,17 +1,17 @@
+use std::borrow::{Borrow, Cow};
+
 use fallible_iterator::FallibleIterator;
 use gimli;
-use ir;
 use object::{self, Object};
-use std::borrow::{Borrow, Cow};
-use traits;
+use twiggy_ir as ir;
+use twiggy_traits as traits;
 use typed_arena::Arena;
-
-use super::Parse;
 
 mod compilation_unit_parse;
 mod die_parse;
 
 use self::compilation_unit_parse::{CompUnitEdgesExtra, CompUnitItemsExtra};
+use super::Parse;
 
 // Helper function used to load a given section of the file.
 fn load_section<'a, 'file, 'input, Sect, Endian>(

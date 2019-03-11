@@ -1,14 +1,13 @@
 use gimli;
-use ir;
-use traits;
-
-use super::Parse;
+use twiggy_ir as ir;
+use twiggy_traits as traits;
 
 mod item_name;
 mod location_attrs;
 
 use self::item_name::item_name;
 use self::location_attrs::DieLocationAttributes;
+use super::Parse;
 
 /// This type alias is used to represent an option return value for
 /// a procedure that could return an Error.

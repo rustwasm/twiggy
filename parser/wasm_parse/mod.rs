@@ -1,6 +1,7 @@
 use super::Parse;
-use ir::{self, Id};
 use std::collections::HashMap;
+use twiggy_ir::{self as ir, Id};
+use twiggy_traits as traits;
 use wasmparser::SectionWithLimitedItems;
 use wasmparser::{self, Operator, SectionReader, Type};
 
