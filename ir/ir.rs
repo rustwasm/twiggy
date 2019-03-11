@@ -3,11 +3,6 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-extern crate cpp_demangle;
-extern crate frozen;
-extern crate petgraph;
-extern crate rustc_demangle;
-
 mod graph_impl;
 
 use frozen::Frozen;
@@ -648,7 +643,7 @@ impl Code {
             let idx2 = demangled.rfind("::").unwrap();
             assert!(idx2 >= idx);
             if idx2 == idx {
-                let mut generic = demangled[..idx].to_string();
+                let generic = demangled[..idx].to_string();
                 return Some(generic);
             }
         }
