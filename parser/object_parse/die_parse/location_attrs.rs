@@ -81,8 +81,8 @@ impl<R: gimli::Reader> DieLocationAttributes<R> {
         if let Some(offset) = self.dw_at_ranges()? {
             let ranges = dwarf.ranges(unit, offset)?;
             let size = ranges
-                .map(|r| r.end - r.begin)
-                .fold(0, |res, size| res + size)?;
+                .map(|r| Ok(r.end - r.begin))
+                .fold(0, |res, size| Ok(res + size))?;
             Ok(Some(size))
         } else {
             Ok(None)
