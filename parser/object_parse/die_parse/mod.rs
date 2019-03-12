@@ -54,7 +54,7 @@ where
                     let name = item_name(self, dwarf, unit)?
                         .unwrap_or_else(|| format!("Subroutine[{}][{}]", unit_id, entry_id));
                     let kind: ir::ItemKind = ir::Code::new(&name).into();
-                    ir::Item::new(id, name, size as u32, kind)
+                    ir::Item::new(id, size as u32, kind)
                 } else {
                     return Ok(());
                 }

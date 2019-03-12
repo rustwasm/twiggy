@@ -110,7 +110,7 @@ impl ItemsBuilder {
     /// Finish building the IR graph and return the resulting `Items`.
     pub fn finish(mut self) -> Items {
         let meta_root_id = Id::root();
-        let meta_root = Item::new(meta_root_id, "<meta root>", 0, Misc::new());
+        let meta_root = Item::new(meta_root_id, 0, Misc::new("<meta root>"));
         self.items.insert(meta_root_id, meta_root);
         self.edges.insert(meta_root_id, self.roots.clone());
 
@@ -437,22 +437,18 @@ impl Id {
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Item {
     id: Id,
-    name: String,
     size: u32,
     kind: ItemKind,
 }
 
 impl Item {
     /// Construct a new `Item` of the given kind.
-    pub fn new<S, K>(id: Id, name: S, size: u32, kind: K) -> Item
+    pub fn new<K>(id: Id, size: u32, kind: K) -> Item
     where
-        S: Into<String>,
         K: Into<ItemKind>,
     {
-        let name = name.into();
         Item {
             id,
-            name,
             size,
             kind: kind.into(),
         }
@@ -473,10 +469,11 @@ impl Item {
     /// Get this item's name.
     #[inline]
     pub fn name(&self) -> &str {
-        if let ItemKind::Code(ref code) = self.kind {
-            code.demangled().unwrap_or(&self.name)
-        } else {
-            &self.name
+        match &self.kind {
+            ItemKind::Code(code) => code.demangled().unwrap_or_else(|| &code.name),
+            ItemKind::Data(Data { name, .. }) => &name,
+            ItemKind::Debug(DebugInfo { name, .. }) => &name,
+            ItemKind::Misc(Misc { name, .. }) => &name,
         }
     }
 
@@ -564,6 +561,7 @@ impl From<Misc> for ItemKind {
 /// Executable code. Function bodies.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Code {
+    name: String,
     demangled: Option<String>,
     monomorphization_of: Option<String>,
 }
@@ -575,6 +573,7 @@ impl Code {
         let monomorphization_of =
             Self::extract_generic_function(demangled.as_ref().map(|s| s.as_str()).unwrap_or(name));
         Code {
+            name: name.to_string(),
             demangled,
             monomorphization_of,
         }
@@ -679,34 +678,46 @@ impl Code {
 /// with the executable code.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Data {
+    name: String,
     ty: Option<String>,
 }
 
 impl Data {
     /// Construct a new `Data` that has a type of the given type name, if known.
-    pub fn new(ty: Option<String>) -> Data {
-        Data { ty }
+    pub fn new(name: &str, ty: Option<String>) -> Data {
+        Data {
+            name: name.to_string(),
+            ty,
+        }
     }
 }
 
 /// Debugging symbols and information, such as DWARF sections.
 #[derive(Clone, Debug, PartialEq, Eq, Default)]
-pub struct DebugInfo;
+pub struct DebugInfo {
+    name: String,
+}
 
 impl DebugInfo {
     /// Construct a new IR item for debug information and symbols.
-    pub fn new() -> DebugInfo {
-        DebugInfo
+    pub fn new(name: &str) -> DebugInfo {
+        DebugInfo {
+            name: name.to_string(),
+        }
     }
 }
 
 /// Miscellaneous item. Perhaps metadata. Perhaps something else.
 #[derive(Clone, Debug, PartialEq, Eq, Default)]
-pub struct Misc;
+pub struct Misc {
+    name: String,
+}
 
 impl Misc {
     /// Construct a new miscellaneous IR item.
-    pub fn new() -> Misc {
-        Misc
+    pub fn new(name: &str) -> Misc {
+        Misc {
+            name: name.to_string(),
+        }
     }
 }
