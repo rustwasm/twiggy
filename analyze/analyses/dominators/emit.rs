@@ -204,7 +204,7 @@ fn add_text_item(items: &ir::Items, depth: u32, id: ir::Id, table: &mut Table) {
     if depth != 1 {
         label.push_str("  ⤷ ");
     }
-    label.push_str(item.name());
+    label.push_str(item.name().as_str());
 
     table.add_row(vec![
         size.to_string(),

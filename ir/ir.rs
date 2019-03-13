@@ -468,12 +468,25 @@ impl Item {
 
     /// Get this item's name.
     #[inline]
-    pub fn name(&self) -> &str {
+    pub fn name(&self) -> String {
         match &self.kind {
-            ItemKind::Code(code) => code.demangled().unwrap_or_else(|| &code.name),
-            ItemKind::Data(Data { name, .. }) => &name,
-            ItemKind::Debug(DebugInfo { name, .. }) => &name,
-            ItemKind::Misc(Misc { name, .. }) => &name,
+            ItemKind::Code(code) => {
+                code.demangled()
+                    .or_else(|| code.name())
+                    .unwrap_or_else(|| code.decorator())
+                    .to_string()
+            },
+            ItemKind::Data(Data { name, .. }) => name.to_string(),
+            ItemKind::Func(func) => {
+                if let Some(name) = func.name() {
+                    // format!("{}: {}", func.decorator(), name)
+                    func.decorator().to_string()
+                } else {
+                    func.decorator().to_string()
+                }
+            }
+            ItemKind::Debug(DebugInfo { name, .. }) => name.to_string(),
+            ItemKind::Misc(Misc { name, .. }) => name.to_string(),
         }
     }
 
@@ -517,6 +530,9 @@ pub enum ItemKind {
     /// with the executable code.
     Data(Data),
 
+    /// Function definition. Declares the signature of a function.
+    Func(Function),
+
     /// Debugging symbols and information, such as a DWARF section.
     Debug(DebugInfo),
 
@@ -546,6 +562,12 @@ impl From<Data> for ItemKind {
     }
 }
 
+impl From<Function> for ItemKind {
+    fn from(f: Function) -> ItemKind {
+        ItemKind::Func(f)
+    }
+}
+
 impl From<DebugInfo> for ItemKind {
     fn from(d: DebugInfo) -> ItemKind {
         ItemKind::Debug(d)
@@ -561,22 +583,33 @@ impl From<Misc> for ItemKind {
 /// Executable code. Function bodies.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Code {
-    name: String,
+    name: Option<String>,
+    decorator: String,
     demangled: Option<String>,
     monomorphization_of: Option<String>,
 }
 
 impl Code {
     /// Construct a new IR item for executable code.
-    pub fn new(name: &str) -> Code {
-        let demangled = Self::demangle(&name);
-        let monomorphization_of =
-            Self::extract_generic_function(demangled.as_ref().map(|s| s.as_str()).unwrap_or(name));
+    pub fn new(name: Option<String>, decorator: String) -> Code {
+        let demangled = name.as_ref().and_then(|n| Self::demangle(&n));
+        let monomorphization_of = demangled.as_ref().and_then(|d| Self::extract_generic_function(&d));
         Code {
-            name: name.to_string(),
+            name,
+            decorator,
             demangled,
             monomorphization_of,
         }
+    }
+
+    /// Get the name of this function body, if any.
+    pub(crate) fn name(&self) -> Option<&str> {
+        self.name.as_ref().map(|s| s.as_str())
+    }
+
+    /// Get the decorator for this function body, if any.
+    pub(crate) fn decorator(&self) -> &str {
+        self.decorator.as_str()
     }
 
     /// Get the demangled name of this function, if any.
@@ -689,6 +722,32 @@ impl Data {
             name: name.to_string(),
             ty,
         }
+    }
+}
+
+/// Function definition. Declares the signature of a function.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Function {
+    name: Option<String>,
+    decorator: String,
+}
+
+impl Function {
+    /// Construct a new IR item for function definition.
+    pub fn new(name: Option<String>, decorator: String) -> Function {
+        Function {
+            name,
+            decorator,
+        }
+    }
+
+    /// Get the name of this function, if any.
+    pub(crate) fn name(&self) -> Option<&str> {
+        self.name.as_ref().map(|s| s.as_str())
+    }
+
+    pub(crate) fn decorator(&self) -> &str {
+        self.decorator.as_ref()
     }
 }
 

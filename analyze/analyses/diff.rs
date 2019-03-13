@@ -102,7 +102,7 @@ pub fn diff(
     let max_items = opts.max_items() as usize;
 
     // Given a set of items, create a HashMap of the items' names and sizes.
-    fn get_names_and_sizes(items: &ir::Items) -> HashMap<&str, i64> {
+    fn get_names_and_sizes(items: &ir::Items) -> HashMap<String, i64> {
         items
             .iter()
             .map(|item| (item.name(), i64::from(item.size())))

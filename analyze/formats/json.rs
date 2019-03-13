@@ -23,6 +23,12 @@ impl<'a> JsonPrimitive for &'a str {
     }
 }
 
+impl JsonPrimitive for String {
+    fn json_primitive(&self, w: &mut io::Write) -> io::Result<()> {
+        self.as_str().json_primitive(w)
+    }
+}
+
 impl JsonPrimitive for f64 {
     fn json_primitive(&self, w: &mut io::Write) -> io::Result<()> {
         write!(w, "{}", self)

@@ -92,7 +92,7 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
                 wasmparser::SectionCode::Function => {
                     section
                         .get_function_section_reader()?
-                        .parse_items(items, idx)?;
+                        .parse_items(items, (idx, imported_functions, &names))?;
                     "function section headers".to_string()
                 }
                 wasmparser::SectionCode::Table => {
@@ -432,18 +432,21 @@ impl<'a> Parse<'a> for wasmparser::ImportSectionReader<'a> {
 }
 
 impl<'a> Parse<'a> for wasmparser::FunctionSectionReader<'a> {
-    type ItemsExtra = usize;
+    type ItemsExtra = (usize, usize, &'a HashMap<usize, &'a str>);
 
     fn parse_items(
         &mut self,
         items: &mut ir::ItemsBuilder,
-        idx: usize,
+        (idx, imported_functions, names): Self::ItemsExtra,
     ) -> Result<(), traits::Error> {
         for (i, func) in iterate_with_size(self).enumerate() {
             let (_func, size) = func?;
             let id = Id::entry(idx, i);
-            let name = format!("func[{}]", i);
-            let item_kind = ir::Misc::new(&name);
+            let name = names
+                .get(&(i + imported_functions))
+                .map(ToString::to_string);
+            let decorator = format!("func[{}]", i);
+            let item_kind = ir::Function::new(name, decorator);
             items.add_item(ir::Item::new(id, size, item_kind));
         }
         Ok(())
@@ -714,9 +717,9 @@ impl<'a> Parse<'a> for wasmparser::CodeSectionReader<'a> {
             let id = Id::entry(idx, i);
             let name = names
                 .get(&(i + imported_functions))
-                .map_or_else(|| format!("code[{}]", i), |name| name.to_string());
-
-            let code = ir::Code::new(&name);
+                .map(ToString::to_string);
+            let decorater = format!("code[{}]", i);
+            let code = ir::Code::new(name, decorater);
             items.add_item(ir::Item::new(id, size, code));
         }
 
