@@ -467,15 +467,13 @@ impl Item {
     }
 
     /// Get this item's name.
-    #[inline]
     pub fn name(&self) -> String {
         match &self.kind {
-            ItemKind::Code(code) => {
-                code.demangled()
-                    .or_else(|| code.name())
-                    .unwrap_or_else(|| code.decorator())
-                    .to_string()
-            },
+            ItemKind::Code(code) => code
+                .demangled()
+                .or_else(|| code.name())
+                .unwrap_or_else(|| code.decorator())
+                .to_string(),
             ItemKind::Data(Data { name, .. }) => name.to_string(),
             ItemKind::Func(func) => {
                 if let Some(name) = func.name() {
@@ -593,7 +591,9 @@ impl Code {
     /// Construct a new IR item for executable code.
     pub fn new(name: Option<String>, decorator: String) -> Code {
         let demangled = name.as_ref().and_then(|n| Self::demangle(&n));
-        let monomorphization_of = demangled.as_ref().and_then(|d| Self::extract_generic_function(&d));
+        let monomorphization_of = demangled
+            .as_ref()
+            .and_then(|d| Self::extract_generic_function(&d));
         Code {
             name,
             decorator,
@@ -735,10 +735,7 @@ pub struct Function {
 impl Function {
     /// Construct a new IR item for function definition.
     pub fn new(name: Option<String>, decorator: String) -> Function {
-        Function {
-            name,
-            decorator,
-        }
+        Function { name, decorator }
     }
 
     /// Get the name of this function, if any.

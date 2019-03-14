@@ -34,4 +34,3 @@ impl serde::Serialize for DiffEntry {
         state.end()
     }
 }
-
