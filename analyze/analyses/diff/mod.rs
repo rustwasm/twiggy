@@ -1,10 +1,8 @@
-use std::cmp;
 use std::collections::{HashMap, HashSet};
 use std::io;
 
 use csv;
 use regex;
-use serde::{self, ser::SerializeStruct};
 
 use crate::formats::json;
 use crate::formats::table::{Align, Table};
@@ -12,42 +10,14 @@ use twiggy_ir as ir;
 use twiggy_opt as opt;
 use twiggy_traits as traits;
 
+mod emit;
+mod entry;
+
+use self::entry::DiffEntry;
+
 #[derive(Debug)]
 struct Diff {
     deltas: Vec<DiffEntry>,
-}
-
-#[derive(Clone, Debug, PartialEq, Eq)]
-struct DiffEntry {
-    name: String,
-    delta: i64,
-}
-
-impl PartialOrd for DiffEntry {
-    fn partial_cmp(&self, rhs: &DiffEntry) -> Option<cmp::Ordering> {
-        Some(self.cmp(rhs))
-    }
-}
-
-impl Ord for DiffEntry {
-    fn cmp(&self, rhs: &DiffEntry) -> cmp::Ordering {
-        rhs.delta
-            .abs()
-            .cmp(&self.delta.abs())
-            .then(self.name.cmp(&rhs.name))
-    }
-}
-
-impl serde::Serialize for DiffEntry {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        let mut state = serializer.serialize_struct("DiffEntry", 2)?;
-        state.serialize_field("DeltaBytes", &format!("{:+}", self.delta))?;
-        state.serialize_field("Item", &self.name)?;
-        state.end()
-    }
 }
 
 impl traits::Emit for Diff {
