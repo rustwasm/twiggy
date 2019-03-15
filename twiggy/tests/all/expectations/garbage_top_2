@@ -1,6 +1,6 @@
  Bytes │ Size % │ Garbage Item
-───────┼────────┼──────────────────────
-    11 ┊  5.58% ┊ unusedAddThreeNumbers
-     8 ┊  4.06% ┊ unusedAddOne
+───────┼────────┼───────────────────────────────
+    11 ┊  5.58% ┊ code[2]: unusedAddThreeNumbers
+     8 ┊  4.06% ┊ code[1]: unusedAddOne
     24 ┊ 12.18% ┊ ... and 7 more
     43 ┊ 21.83% ┊ Σ [9 Total Rows]
