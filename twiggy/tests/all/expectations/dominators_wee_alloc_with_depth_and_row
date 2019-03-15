@@ -1,6 +1,6 @@
  Retained Bytes │ Retained % │ Dominator Tree
-────────────────┼────────────┼──────────────────────────────────────────────────────
+────────────────┼────────────┼────────────────────────────────────────────────────────────────────
             777 ┊     27.58% ┊ "function names" subsection
-            387 ┊     13.74% ┊ func[2]
-            378 ┊     13.42% ┊   ⤷ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+            387 ┊     13.74% ┊ func[2]: _ZN9wee_alloc17alloc_with_refill17hb32c1bbce9ebda8eE
+            378 ┊     13.42% ┊   ⤷ code[2]: _ZN9wee_alloc17alloc_with_refill17hb32c1bbce9ebda8eE
            1084 ┊     38.48% ┊ [3 Unreachable Items]
