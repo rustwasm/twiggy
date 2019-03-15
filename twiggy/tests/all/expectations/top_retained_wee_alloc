@@ -1,14 +1,14 @@
  Retained Bytes │ Retained % │ Item
-────────────────┼────────────┼────────────────────────────────────────────────
+────────────────┼────────────┼─────────────────────────────────────────────────────────
            1034 ┊     36.71% ┊ data[3]
             777 ┊     27.58% ┊ "function names" subsection
-            387 ┊     13.74% ┊ func[2]
-            378 ┊     13.42% ┊ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+            387 ┊     13.74% ┊ func[2]: wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+            378 ┊     13.42% ┊ code[2]: wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
             271 ┊      9.62% ┊ table[0]
             267 ┊      9.48% ┊ elem[0]
-            226 ┊      8.02% ┊ func[3]
-            225 ┊      7.99% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+            226 ┊      8.02% ┊ func[3]: wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+            225 ┊      7.99% ┊ code[3]: wee_alloc::alloc_first_fit::h9a72de3af77ef93f
             177 ┊      6.28% ┊ export "hello"
-            169 ┊      6.00% ┊ func[8]
+            169 ┊      6.00% ┊ func[8]: hello
             ... ┊        ... ┊ ... and 39 more.
             ... ┊        ... ┊ Σ [49 Total Rows]

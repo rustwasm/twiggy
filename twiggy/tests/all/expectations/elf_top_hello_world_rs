@@ -1,621 +1,621 @@
  Shallow Bytes │ Shallow % │ Item
-───────────────┼───────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-          9751 ┊     0.46% ┊ stats_arena_print
-          9503 ┊     0.45% ┊ output
-          7917 ┊     0.38% ┊ je_stats_print
-          7852 ┊     0.37% ┊ mallocx
-          7019 ┊     0.33% ┊ je_arena_boot
-          6221 ┊     0.30% ┊ je_malloc_vsnprintf
-          6198 ┊     0.30% ┊ {{closure}}
-          4313 ┊     0.21% ┊ je_arena_palloc
-          4028 ┊     0.19% ┊ realloc
-          3908 ┊     0.19% ┊ malloc_init_hard_a0_locked
-          3510 ┊     0.17% ┊ output_fileline
-          3185 ┊     0.15% ┊ calloc
-          3178 ┊     0.15% ┊ malloc
-          3093 ┊     0.15% ┊ rallocx
-          3086 ┊     0.15% ┊ je_arena_ralloc_no_move
-          3015 ┊     0.14% ┊ rust_panic_with_hook
-          2952 ┊     0.14% ┊ je_arena_ralloc
-          2696 ┊     0.13% ┊ arena_run_dalloc
-          2302 ┊     0.11% ┊ arena_purge_to_limit
-          2286 ┊     0.11% ┊ new
-          2194 ┊     0.10% ┊ arena_run_heap_remove
-          2168 ┊     0.10% ┊ je_prof_free_sampled_object
-          2158 ┊     0.10% ┊ prof_tdata_destroy_locked
-          2041 ┊     0.10% ┊ stats_print_helper
-          1897 ┊     0.09% ┊ imemalign
-          1773 ┊     0.08% ┊ je_huge_palloc
-          1755 ┊     0.08% ┊ nallocx
-          1749 ┊     0.08% ┊ je_ckh_remove
-          1737 ┊     0.08% ┊ je_ckh_insert
-          1730 ┊     0.08% ┊ je_arena_choose_hard
-          1669 ┊     0.08% ┊ ctl_refresh
-          1625 ┊     0.08% ┊ resolve_symname<closure>
-          1534 ┊     0.07% ┊ ifree
-          1463 ┊     0.07% ┊ je_extent_tree_szsnad_remove
-          1418 ┊     0.07% ┊ chunk_recycle
-          1411 ┊     0.07% ┊ je_huge_ralloc_no_move
-          1408 ┊     0.07% ┊ arena_bin_nonfull_run_tryget
-          1403 ┊     0.07% ┊ write_all<std::io::stdio::StdoutLock>
-          1366 ┊     0.07% ┊ fmt
-          1348 ┊     0.06% ┊ je_extent_tree_ad_remove
-          1330 ┊     0.06% ┊ pad
-          1271 ┊     0.06% ┊ new
-          1154 ┊     0.05% ┊ sdallocx
-          1154 ┊     0.05% ┊ arena_run_first_best_fit
-          1151 ┊     0.05% ┊ mallctlbymib
-          1145 ┊     0.05% ┊ je_arena_chunk_ralloc_huge_expand
-          1145 ┊     0.05% ┊ arena_chunk_alloc
-          1144 ┊     0.05% ┊ mallctl
-          1116 ┊     0.05% ┊ fmt<std::ffi::os_str::OsStr>
-          1109 ┊     0.05% ┊ mallctlnametomib
-          1090 ┊     0.05% ┊ arena_bin_malloc_hard
-          1088 ┊     0.05% ┊ main
-          1064 ┊     0.05% ┊ je_tcache_create
-          1045 ┊     0.05% ┊ je_quarantine
-          1044 ┊     0.05% ┊ chunk_record
-          1035 ┊     0.05% ┊ slice_error_fail
-          1017 ┊     0.05% ┊ next
-          1003 ┊     0.05% ┊ je_arena_reset
-           983 ┊     0.05% ┊ pad_integral
-           975 ┊     0.05% ┊ isfree
-           956 ┊     0.05% ┊ tcache_destroy
-           938 ┊     0.04% ┊ je_ckh_new
-           925 ┊     0.04% ┊ fmt
-           918 ┊     0.04% ┊ xallocx
-           914 ┊     0.04% ┊ je_huge_ralloc
-           900 ┊     0.04% ┊ je_arena_chunk_alloc_huge
-           899 ┊     0.04% ┊ arena_dalloc_bin_locked_impl
-           886 ┊     0.04% ┊ je_arena_malloc_hard
-           867 ┊     0.04% ┊ jemalloc_constructor
-           867 ┊     0.04% ┊ je_arena_tcache_fill_small
-           865 ┊     0.04% ┊ je_arena_new
-           842 ┊     0.04% ┊ write
-           842 ┊     0.04% ┊ arena_run_split_remove
-           837 ┊     0.04% ┊ je_arena_stats_merge
-           821 ┊     0.04% ┊ drop
-           782 ┊     0.04% ┊ je_arena_malloc_large
-           771 ┊     0.04% ┊ rust_eh_personality
-           752 ┊     0.04% ┊ ckh_try_insert
+───────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+          9751 ┊     0.46% ┊ Subroutine[68][471]: stats_arena_print
+          9503 ┊     0.45% ┊ Subroutine[5][16]: output
+          7917 ┊     0.38% ┊ Subroutine[68][131]: je_stats_print
+          7852 ┊     0.37% ┊ Subroutine[52][2800]: mallocx
+          7019 ┊     0.33% ┊ Subroutine[53][4212]: je_arena_boot
+          6221 ┊     0.30% ┊ Subroutine[71][86]: je_malloc_vsnprintf
+          6198 ┊     0.30% ┊ Subroutine[16][17]: {{closure}}
+          4313 ┊     0.21% ┊ Subroutine[53][2368]: je_arena_palloc
+          4028 ┊     0.19% ┊ Subroutine[52][2223]: realloc
+          3908 ┊     0.19% ┊ Subroutine[52][4592]: malloc_init_hard_a0_locked
+          3510 ┊     0.17% ┊ Subroutine[5][772]: output_fileline
+          3185 ┊     0.15% ┊ Subroutine[52][1996]: calloc
+          3178 ┊     0.15% ┊ Subroutine[52][1613]: malloc
+          3093 ┊     0.15% ┊ Subroutine[52][3431]: rallocx
+          3086 ┊     0.15% ┊ Subroutine[53][3310]: je_arena_ralloc_no_move
+          3015 ┊     0.14% ┊ Subroutine[16][243]: rust_panic_with_hook
+          2952 ┊     0.14% ┊ Subroutine[53][3783]: je_arena_ralloc
+          2696 ┊     0.13% ┊ Subroutine[53][5249]: arena_run_dalloc
+          2302 ┊     0.11% ┊ Subroutine[53][1338]: arena_purge_to_limit
+          2286 ┊     0.11% ┊ Subroutine[35][40]: new
+          2194 ┊     0.10% ┊ Subroutine[53][5005]: arena_run_heap_remove
+          2168 ┊     0.10% ┊ Subroutine[65][759]: je_prof_free_sampled_object
+          2158 ┊     0.10% ┊ Subroutine[65][1178]: prof_tdata_destroy_locked
+          2041 ┊     0.10% ┊ Subroutine[68][254]: stats_print_helper
+          1897 ┊     0.09% ┊ Subroutine[52][1872]: imemalign
+          1773 ┊     0.08% ┊ Subroutine[61][719]: je_huge_palloc
+          1755 ┊     0.08% ┊ Subroutine[52][4055]: nallocx
+          1749 ┊     0.08% ┊ Subroutine[73][1178]: je_ckh_remove
+          1737 ┊     0.08% ┊ Subroutine[73][837]: je_ckh_insert
+          1730 ┊     0.08% ┊ Subroutine[52][1308]: je_arena_choose_hard
+          1669 ┊     0.08% ┊ Subroutine[59][786]: ctl_refresh
+          1625 ┊     0.08% ┊ Subroutine[13][103]: resolve_symname<closure>
+          1534 ┊     0.07% ┊ Subroutine[52][2544]: ifree
+          1463 ┊     0.07% ┊ Subroutine[60][667]: je_extent_tree_szsnad_remove
+          1418 ┊     0.07% ┊ Subroutine[56][937]: chunk_recycle
+          1411 ┊     0.07% ┊ Subroutine[61][1060]: je_huge_ralloc_no_move
+          1408 ┊     0.07% ┊ Subroutine[53][5676]: arena_bin_nonfull_run_tryget
+          1403 ┊     0.07% ┊ Subroutine[11][173]: write_all<std::io::stdio::StdoutLock>
+          1366 ┊     0.07% ┊ Subroutine[33][60]: fmt
+          1348 ┊     0.06% ┊ Subroutine[60][838]: je_extent_tree_ad_remove
+          1330 ┊     0.06% ┊ Subroutine[33][240]: pad
+          1271 ┊     0.06% ┊ Subroutine[12][27]: new
+          1154 ┊     0.05% ┊ Subroutine[52][3908]: sdallocx
+          1154 ┊     0.05% ┊ Subroutine[53][5880]: arena_run_first_best_fit
+          1151 ┊     0.05% ┊ Subroutine[52][4284]: mallctlbymib
+          1145 ┊     0.05% ┊ Subroutine[53][942]: je_arena_chunk_ralloc_huge_expand
+          1145 ┊     0.05% ┊ Subroutine[53][4583]: arena_chunk_alloc
+          1144 ┊     0.05% ┊ Subroutine[52][4172]: mallctl
+          1116 ┊     0.05% ┊ Subroutine[16][1327]: fmt<std::ffi::os_str::OsStr>
+          1109 ┊     0.05% ┊ Subroutine[52][4228]: mallctlnametomib
+          1090 ┊     0.05% ┊ Subroutine[53][1852]: arena_bin_malloc_hard
+          1088 ┊     0.05% ┊ Subroutine[46][7]: main
+          1064 ┊     0.05% ┊ Subroutine[69][898]: je_tcache_create
+          1045 ┊     0.05% ┊ Subroutine[66][800]: je_quarantine
+          1044 ┊     0.05% ┊ Subroutine[56][1104]: chunk_record
+          1035 ┊     0.05% ┊ Subroutine[34][99]: slice_error_fail
+          1017 ┊     0.05% ┊ Subroutine[7][42]: next
+          1003 ┊     0.05% ┊ Subroutine[53][1571]: je_arena_reset
+           983 ┊     0.05% ┊ Subroutine[33][219]: pad_integral
+           975 ┊     0.05% ┊ Subroutine[52][3994]: isfree
+           956 ┊     0.05% ┊ Subroutine[69][1044]: tcache_destroy
+           938 ┊     0.04% ┊ Subroutine[73][612]: je_ckh_new
+           925 ┊     0.04% ┊ Subroutine[2][121]: fmt
+           918 ┊     0.04% ┊ Subroutine[52][3715]: xallocx
+           914 ┊     0.04% ┊ Subroutine[61][1286]: je_huge_ralloc
+           900 ┊     0.04% ┊ Subroutine[53][675]: je_arena_chunk_alloc_huge
+           899 ┊     0.04% ┊ Subroutine[53][2924]: arena_dalloc_bin_locked_impl
+           886 ┊     0.04% ┊ Subroutine[53][2184]: je_arena_malloc_hard
+           867 ┊     0.04% ┊ Subroutine[52][4410]: jemalloc_constructor
+           867 ┊     0.04% ┊ Subroutine[53][1724]: je_arena_tcache_fill_small
+           865 ┊     0.04% ┊ Subroutine[53][4171]: je_arena_new
+           842 ┊     0.04% ┊ Subroutine[33][324]: write
+           842 ┊     0.04% ┊ Subroutine[53][4873]: arena_run_split_remove
+           837 ┊     0.04% ┊ Subroutine[53][4092]: je_arena_stats_merge
+           821 ┊     0.04% ┊ Subroutine[14][203]: drop
+           782 ┊     0.04% ┊ Subroutine[53][2072]: je_arena_malloc_large
+           771 ┊     0.04% ┊ Subroutine[18][41]: rust_eh_personality
+           752 ┊     0.04% ┊ Subroutine[73][1113]: ckh_try_insert
            684 ┊     0.03% ┊ Subroutine[53][4766]
-           671 ┊     0.03% ┊ signal_handler
-           650 ┊     0.03% ┊ je_jemalloc_prefork
-           631 ┊     0.03% ┊ fmt
-           629 ┊     0.03% ┊ next_back<&str>
-           629 ┊     0.03% ┊ parse_next_component_back
-           628 ┊     0.03% ┊ next
-           628 ┊     0.03% ┊ a0ialloc
+           671 ┊     0.03% ┊ Subroutine[16][688]: signal_handler
+           650 ┊     0.03% ┊ Subroutine[52][4454]: je_jemalloc_prefork
+           631 ┊     0.03% ┊ Subroutine[33][117]: fmt
+           629 ┊     0.03% ┊ Subroutine[5][1252]: next_back<&str>
+           629 ┊     0.03% ┊ Subroutine[7][157]: parse_next_component_back
+           628 ┊     0.03% ┊ Subroutine[36][189]: next
+           628 ┊     0.03% ┊ Subroutine[52][930]: a0ialloc
            628 ┊     0.03% ┊ Subroutine[73][1482]
-           624 ┊     0.03% ┊ je_tcache_bin_flush_small
-           617 ┊     0.03% ┊ je_huge_dalloc
-           614 ┊     0.03% ┊ je_arena_postfork_parent
-           614 ┊     0.03% ┊ je_arena_postfork_child
-           604 ┊     0.03% ┊ je_base_alloc
-           594 ┊     0.03% ┊ from_utf8
-           590 ┊     0.03% ┊ je_chunk_alloc_dss
-           588 ┊     0.03% ┊ write_str
-           578 ┊     0.03% ┊ memchr
-           575 ┊     0.03% ┊ je_tcache_bin_flush_large
-           572 ┊     0.03% ┊ je_arena_prefork3
-           555 ┊     0.03% ┊ je_chunk_alloc_wrapper
-           548 ┊     0.03% ┊ malloc_usable_size
-           548 ┊     0.03% ┊ arena_run_split_small
-           545 ┊     0.03% ┊ arena_maybe_purge_decay
-           545 ┊     0.03% ┊ ctl_lookup
-           535 ┊     0.03% ┊ fmt<usize>
-           533 ┊     0.03% ┊ next_match
-           533 ┊     0.03% ┊ sallocx
-           519 ┊     0.02% ┊ fmt
-           511 ┊     0.02% ┊ arenas_extend_ctl
-           496 ┊     0.02% ┊ thread_tcache_enabled_ctl
-           489 ┊     0.02% ┊ je_tcache_boot
-           486 ┊     0.02% ┊ write_fmt
-           486 ┊     0.02% ┊ field
-           486 ┊     0.02% ┊ je_malloc_strtoumax
-           483 ┊     0.02% ┊ je_arena_tdata_get_hard
-           481 ┊     0.02% ┊ je_tcache_arena_reassociate
-           475 ┊     0.02% ┊ je_arena_quarantine_junk_small
-           474 ┊     0.02% ┊ fmt<alloc::vec::Vec<u8>>
-           471 ┊     0.02% ┊ prof_thread_name_alloc
-           469 ┊     0.02% ┊ flush_buf<std::io::stdio::Maybe<std::io::stdio::StdoutRaw>>
-           467 ┊     0.02% ┊ je_tcache_get_hard
-           459 ┊     0.02% ┊ next_back<core::str::pattern::MatchOnly>
-           458 ┊     0.02% ┊ try_with<core::cell::RefCell<core::option::Option<std::sys_common::thread_info::ThreadInfo>>,closure,std::thread::Thread>
-           458 ┊     0.02% ┊ quarantine_init
-           456 ┊     0.02% ┊ get<std::sys_common::remutex::ReentrantMutex<core::cell::RefCell<std::io::buffered::LineWriter<std::io::stdio::Maybe<std::io::stdio::StdoutRaw>>>>>
-           436 ┊     0.02% ┊ next<core::str::pattern::MatchOnly>
-           433 ┊     0.02% ┊ ckh_isearch
-           428 ┊     0.02% ┊ write_all<std::sys::unix::stdio::Stderr>
-           427 ┊     0.02% ┊ arena_i_dss_ctl
-           426 ┊     0.02% ┊ chunk_alloc_default
-           426 ┊     0.02% ┊ ctl_init
-           424 ┊     0.02% ┊ je_arena_chunk_dalloc_huge
-           419 ┊     0.02% ┊ je_extent_tree_szsnad_insert
-           414 ┊     0.02% ┊ parse_next_component
-           414 ┊     0.02% ┊ arena_i_chunk_hooks_ctl
-           408 ┊     0.02% ┊ stdout_init
-           404 ┊     0.02% ┊ je_arena_chunk_ralloc_huge_shrink
-           400 ┊     0.02% ┊ arena_avail_insert
-           395 ┊     0.02% ┊ je_chunk_dalloc_wrapper
-           393 ┊     0.02% ┊ je_extent_tree_ad_insert
-           390 ┊     0.02% ┊ arena_dalloc_large_locked_impl
-           386 ┊     0.02% ┊ field
-           383 ┊     0.02% ┊ arena_huge_ralloc_stats_update
-           382 ┊     0.02% ┊ stats_print_atexit
-           381 ┊     0.02% ┊ fmt<u8>
-           377 ┊     0.02% ┊ je_rtree_set
-           372 ┊     0.02% ┊ dallocx
-           372 ┊     0.02% ┊ extent_szsnad_comp
-           365 ┊     0.02% ┊ cleanup
-           364 ┊     0.02% ┊ huge_ralloc_no_move_expand
-           360 ┊     0.02% ┊ je_quarantine_alloc_hook_work
-           355 ┊     0.02% ┊ thread_arena_ctl
-           354 ┊     0.02% ┊ read_encoded_pointer
-           353 ┊     0.02% ┊ lazy_init
-           351 ┊     0.02% ┊ je_arena_dalloc_small
-           345 ┊     0.02% ┊ je_arena_decay_time_set
-           345 ┊     0.02% ┊ arena_i_purge
-           342 ┊     0.02% ┊ je_quarantine_cleanup
-           337 ┊     0.02% ┊ je_prof_reset
-           333 ┊     0.02% ┊ je_rtree_new
-           332 ┊     0.02% ┊ write<std::io::stdio::Maybe<std::io::stdio::StdoutRaw>>
-           332 ┊     0.02% ┊ fmt<u8>
-           329 ┊     0.02% ┊ je_jemalloc_postfork_parent
-           329 ┊     0.02% ┊ je_jemalloc_postfork_child
-           325 ┊     0.02% ┊ from_vec_unchecked
-           322 ┊     0.02% ┊ je_extent_size_quantize_ceil
-           315 ┊     0.02% ┊ write_char<alloc::string::String>
-           312 ┊     0.01% ┊ je_arena_dalloc_junk_small
-           307 ┊     0.01% ┊ fmt
-           306 ┊     0.01% ┊ je_ckh_delete
+           624 ┊     0.03% ┊ Subroutine[69][641]: je_tcache_bin_flush_small
+           617 ┊     0.03% ┊ Subroutine[61][1349]: je_huge_dalloc
+           614 ┊     0.03% ┊ Subroutine[53][4469]: je_arena_postfork_parent
+           614 ┊     0.03% ┊ Subroutine[53][4473]: je_arena_postfork_child
+           604 ┊     0.03% ┊ Subroutine[54][586]: je_base_alloc
+           594 ┊     0.03% ┊ Subroutine[34][86]: from_utf8
+           590 ┊     0.03% ┊ Subroutine[57][104]: je_chunk_alloc_dss
+           588 ┊     0.03% ┊ Subroutine[36][47]: write_str
+           578 ┊     0.03% ┊ Subroutine[32][213]: memchr
+           575 ┊     0.03% ┊ Subroutine[69][684]: je_tcache_bin_flush_large
+           572 ┊     0.03% ┊ Subroutine[53][4465]: je_arena_prefork3
+           555 ┊     0.03% ┊ Subroutine[56][1048]: je_chunk_alloc_wrapper
+           548 ┊     0.03% ┊ Subroutine[52][4353]: malloc_usable_size
+           548 ┊     0.03% ┊ Subroutine[53][5819]: arena_run_split_small
+           545 ┊     0.03% ┊ Subroutine[53][1138]: arena_maybe_purge_decay
+           545 ┊     0.03% ┊ Subroutine[59][692]: ctl_lookup
+           535 ┊     0.03% ┊ Subroutine[33][167]: fmt<usize>
+           533 ┊     0.03% ┊ Subroutine[16][1430]: next_match
+           533 ┊     0.03% ┊ Subroutine[52][3824]: sallocx
+           519 ┊     0.02% ┊ Subroutine[35][131]: fmt
+           511 ┊     0.02% ┊ Subroutine[59][1887]: arenas_extend_ctl
+           496 ┊     0.02% ┊ Subroutine[59][960]: thread_tcache_enabled_ctl
+           489 ┊     0.02% ┊ Subroutine[69][1201]: je_tcache_boot
+           486 ┊     0.02% ┊ Subroutine[11][40]: write_fmt
+           486 ┊     0.02% ┊ Subroutine[36][94]: field
+           486 ┊     0.02% ┊ Subroutine[71][37]: je_malloc_strtoumax
+           483 ┊     0.02% ┊ Subroutine[52][1265]: je_arena_tdata_get_hard
+           481 ┊     0.02% ┊ Subroutine[69][756]: je_tcache_arena_reassociate
+           475 ┊     0.02% ┊ Subroutine[53][2015]: je_arena_quarantine_junk_small
+           474 ┊     0.02% ┊ Subroutine[4][53]: fmt<alloc::vec::Vec<u8>>
+           471 ┊     0.02% ┊ Subroutine[65][973]: prof_thread_name_alloc
+           469 ┊     0.02% ┊ Subroutine[9][148]: flush_buf<std::io::stdio::Maybe<std::io::stdio::StdoutRaw>>
+           467 ┊     0.02% ┊ Subroutine[69][797]: je_tcache_get_hard
+           459 ┊     0.02% ┊ Subroutine[5][1164]: next_back<core::str::pattern::MatchOnly>
+           458 ┊     0.02% ┊ Subroutine[11][372]: try_with<core::cell::RefCell<core::option::Option<std::sys_common::thread_info::ThreadInfo>>,closure,std::thread::Thread>
+           458 ┊     0.02% ┊ Subroutine[66][707]: quarantine_init
+           456 ┊     0.02% ┊ Subroutine[6][249]: get<std::sys_common::remutex::ReentrantMutex<core::cell::RefCell<std::io::buffered::LineWriter<std::io::stdio::Maybe<std::io::stdio::StdoutRaw>>>>>
+           436 ┊     0.02% ┊ Subroutine[16][1471]: next<core::str::pattern::MatchOnly>
+           433 ┊     0.02% ┊ Subroutine[73][1426]: ckh_isearch
+           428 ┊     0.02% ┊ Subroutine[14][382]: write_all<std::sys::unix::stdio::Stderr>
+           427 ┊     0.02% ┊ Subroutine[59][1602]: arena_i_dss_ctl
+           426 ┊     0.02% ┊ Subroutine[56][583]: chunk_alloc_default
+           426 ┊     0.02% ┊ Subroutine[59][678]: ctl_init
+           424 ┊     0.02% ┊ Subroutine[53][764]: je_arena_chunk_dalloc_huge
+           419 ┊     0.02% ┊ Subroutine[60][642]: je_extent_tree_szsnad_insert
+           414 ┊     0.02% ┊ Subroutine[7][100]: parse_next_component
+           414 ┊     0.02% ┊ Subroutine[59][1681]: arena_i_chunk_hooks_ctl
+           408 ┊     0.02% ┊ Subroutine[11][7]: stdout_init
+           404 ┊     0.02% ┊ Subroutine[53][882]: je_arena_chunk_ralloc_huge_shrink
+           400 ┊     0.02% ┊ Subroutine[53][4711]: arena_avail_insert
+           395 ┊     0.02% ┊ Subroutine[56][1195]: je_chunk_dalloc_wrapper
+           393 ┊     0.02% ┊ Subroutine[60][812]: je_extent_tree_ad_insert
+           390 ┊     0.02% ┊ Subroutine[53][3148]: arena_dalloc_large_locked_impl
+           386 ┊     0.02% ┊ Subroutine[36][114]: field
+           383 ┊     0.02% ┊ Subroutine[53][839]: arena_huge_ralloc_stats_update
+           382 ┊     0.02% ┊ Subroutine[52][4750]: stats_print_atexit
+           381 ┊     0.02% ┊ Subroutine[33][139]: fmt<u8>
+           377 ┊     0.02% ┊ Subroutine[56][812]: je_rtree_set
+           372 ┊     0.02% ┊ Subroutine[52][3882]: dallocx
+           372 ┊     0.02% ┊ Subroutine[60][554]: extent_szsnad_comp
+           365 ┊     0.02% ┊ Subroutine[9][7]: cleanup
+           364 ┊     0.02% ┊ Subroutine[61][1186]: huge_ralloc_no_move_expand
+           360 ┊     0.02% ┊ Subroutine[66][586]: je_quarantine_alloc_hook_work
+           355 ┊     0.02% ┊ Subroutine[59][852]: thread_arena_ctl
+           354 ┊     0.02% ┊ Subroutine[48][4]: read_encoded_pointer
+           353 ┊     0.02% ┊ Subroutine[13][44]: lazy_init
+           351 ┊     0.02% ┊ Subroutine[53][3074]: je_arena_dalloc_small
+           345 ┊     0.02% ┊ Subroutine[53][1086]: je_arena_decay_time_set
+           345 ┊     0.02% ┊ Subroutine[59][1709]: arena_i_purge
+           342 ┊     0.02% ┊ Subroutine[66][938]: je_quarantine_cleanup
+           337 ┊     0.02% ┊ Subroutine[65][1107]: je_prof_reset
+           333 ┊     0.02% ┊ Subroutine[67][453]: je_rtree_new
+           332 ┊     0.02% ┊ Subroutine[9][180]: write<std::io::stdio::Maybe<std::io::stdio::StdoutRaw>>
+           332 ┊     0.02% ┊ Subroutine[9][407]: fmt<u8>
+           329 ┊     0.02% ┊ Subroutine[52][4486]: je_jemalloc_postfork_parent
+           329 ┊     0.02% ┊ Subroutine[52][4510]: je_jemalloc_postfork_child
+           325 ┊     0.02% ┊ Subroutine[14][131]: from_vec_unchecked
+           322 ┊     0.02% ┊ Subroutine[60][474]: je_extent_size_quantize_ceil
+           315 ┊     0.02% ┊ Subroutine[9][448]: write_char<alloc::string::String>
+           312 ┊     0.01% ┊ Subroutine[53][1992]: je_arena_dalloc_junk_small
+           307 ┊     0.01% ┊ Subroutine[50][3]: fmt
+           306 ┊     0.01% ┊ Subroutine[73][745]: je_ckh_delete
            304 ┊     0.01% ┊ Subroutine[69][1132]
-           303 ┊     0.01% ┊ fmt
-           299 ┊     0.01% ┊ show_usize
-           294 ┊     0.01% ┊ report_overflow
-           293 ┊     0.01% ┊ je_tcaches_create
-           291 ┊     0.01% ┊ je_ctl_bymib
-           289 ┊     0.01% ┊ unwind_backtrace
+           303 ┊     0.01% ┊ Subroutine[39][15]: fmt
+           299 ┊     0.01% ┊ Subroutine[33][303]: show_usize
+           294 ┊     0.01% ┊ Subroutine[14][73]: report_overflow
+           293 ┊     0.01% ┊ Subroutine[69][1151]: je_tcaches_create
+           291 ┊     0.01% ┊ Subroutine[59][727]: je_ctl_bymib
+           289 ┊     0.01% ┊ Subroutine[13][239]: unwind_backtrace
            288 ┊     0.01% ┊ Subroutine[52][1076]
-           286 ┊     0.01% ┊ huge_node_get
-           281 ┊     0.01% ┊ run_dtors
-           278 ┊     0.01% ┊ fmt
-           275 ┊     0.01% ┊ write_char<std::io::Write::write_fmt::Adaptor<std::io::stdio::StdoutLock>>
-           272 ┊     0.01% ┊ write_char<std::io::Write::write_fmt::Adaptor<std::sys::unix::stdio::Stderr>>
-           272 ┊     0.01% ┊ {{closure}}
-           272 ┊     0.01% ┊ je_arena_dalloc_large
-           271 ┊     0.01% ┊ arenas_initialized_ctl
-           268 ┊     0.01% ┊ fmt<core::option::Option<u8>>
-           259 ┊     0.01% ┊ write_fmt<std::sys::unix::stdio::Stderr>
-           257 ┊     0.01% ┊ fmt<i32>
-           254 ┊     0.01% ┊ drop_slow<std::sys_common::remutex::ReentrantMutex<core::cell::RefCell<std::io::buffered::LineWriter<std::io::stdio::Maybe<std::io::stdio::StdoutRaw>>>>>
-           254 ┊     0.01% ┊ arena_chunk_discard
-           253 ┊     0.01% ┊ je_tsd_cleanup
-           251 ┊     0.01% ┊ box_me_up
-           251 ┊     0.01% ┊ arena_decay_deadline_init
-           243 ┊     0.01% ┊ je_arena_chunk_ralloc_huge_similar
-           242 ┊     0.01% ┊ lookup
-           241 ┊     0.01% ┊ include_cur_dir
-           229 ┊     0.01% ┊ check
-           228 ┊     0.01% ┊ je_prof_postfork_parent
-           228 ┊     0.01% ┊ je_prof_postfork_child
-           226 ┊     0.01% ┊ next<core::str::CharIndices>
-           223 ┊     0.01% ┊ fmt
+           286 ┊     0.01% ┊ Subroutine[61][1507]: huge_node_get
+           281 ┊     0.01% ┊ Subroutine[13][8]: run_dtors
+           278 ┊     0.01% ┊ Subroutine[39][21]: fmt
+           275 ┊     0.01% ┊ Subroutine[10][135]: write_char<std::io::Write::write_fmt::Adaptor<std::io::stdio::StdoutLock>>
+           272 ┊     0.01% ┊ Subroutine[10][139]: write_char<std::io::Write::write_fmt::Adaptor<std::sys::unix::stdio::Stderr>>
+           272 ┊     0.01% ┊ Subroutine[33][56]: {{closure}}
+           272 ┊     0.01% ┊ Subroutine[53][3198]: je_arena_dalloc_large
+           271 ┊     0.01% ┊ Subroutine[59][1757]: arenas_initialized_ctl
+           268 ┊     0.01% ┊ Subroutine[32][98]: fmt<core::option::Option<u8>>
+           259 ┊     0.01% ┊ Subroutine[14][412]: write_fmt<std::sys::unix::stdio::Stderr>
+           257 ┊     0.01% ┊ Subroutine[9][380]: fmt<i32>
+           254 ┊     0.01% ┊ Subroutine[12][497]: drop_slow<std::sys_common::remutex::ReentrantMutex<core::cell::RefCell<std::io::buffered::LineWriter<std::io::stdio::Maybe<std::io::stdio::StdoutRaw>>>>>
+           254 ┊     0.01% ┊ Subroutine[53][1646]: arena_chunk_discard
+           253 ┊     0.01% ┊ Subroutine[70][510]: je_tsd_cleanup
+           251 ┊     0.01% ┊ Subroutine[16][583]: box_me_up
+           251 ┊     0.01% ┊ Subroutine[53][4493]: arena_decay_deadline_init
+           243 ┊     0.01% ┊ Subroutine[53][806]: je_arena_chunk_ralloc_huge_similar
+           242 ┊     0.01% ┊ Subroutine[35][242]: lookup
+           241 ┊     0.01% ┊ Subroutine[7][138]: include_cur_dir
+           229 ┊     0.01% ┊ Subroutine[32][290]: check
+           228 ┊     0.01% ┊ Subroutine[65][1389]: je_prof_postfork_parent
+           228 ┊     0.01% ┊ Subroutine[65][1393]: je_prof_postfork_child
+           226 ┊     0.01% ┊ Subroutine[34][18]: next<core::str::CharIndices>
+           223 ┊     0.01% ┊ Subroutine[33][132]: fmt
            213 ┊     0.01% ┊ Subroutine[56][1214]
-           207 ┊     0.01% ┊ fmt
-           206 ┊     0.01% ┊ je_malloc_cprintf
-           203 ┊     0.01% ┊ arena_i_lg_dirty_mult_ctl
-           203 ┊     0.01% ┊ arena_i_decay_time_ctl
-           203 ┊     0.01% ┊ je_malloc_printf
-           202 ┊     0.01% ┊ je_pages_trim
+           207 ┊     0.01% ┊ Subroutine[34][71]: fmt
+           206 ┊     0.01% ┊ Subroutine[71][254]: je_malloc_cprintf
+           203 ┊     0.01% ┊ Subroutine[59][1637]: arena_i_lg_dirty_mult_ctl
+           203 ┊     0.01% ┊ Subroutine[59][1659]: arena_i_decay_time_ctl
+           203 ┊     0.01% ┊ Subroutine[71][265]: je_malloc_printf
+           202 ┊     0.01% ┊ Subroutine[64][40]: je_pages_trim
            198 ┊     0.01% ┊ Subroutine[2][85]
-           197 ┊     0.01% ┊ register_dtor_fallback
-           196 ┊     0.01% ┊ je_tcache_event_hard
-           194 ┊     0.01% ┊ fmt<usize>
-           192 ┊     0.01% ┊ write_char<core::fmt::builders::PadAdapter>
-           192 ┊     0.01% ┊ tdata_tree_iter_start
-           190 ┊     0.01% ┊ je_chunk_alloc_mmap
-           189 ┊     0.01% ┊ write_char<core::fmt::builders::PadAdapter>
-           189 ┊     0.01% ┊ free
-           183 ┊     0.01% ┊ je_ckh_pointer_hash
-           182 ┊     0.01% ┊ je_arena_lg_dirty_mult_set
-           182 ┊     0.01% ┊ thread_tcache_flush_ctl
-           181 ┊     0.01% ┊ stats_arenas_i_lruns_j_ndalloc_ctl
-           181 ┊     0.01% ┊ stats_arenas_i_lruns_j_nrequests_ctl
-           181 ┊     0.01% ┊ stats_arenas_i_lruns_j_curruns_ctl
-           181 ┊     0.01% ┊ stats_arenas_i_hchunks_j_ndalloc_ctl
-           181 ┊     0.01% ┊ stats_arenas_i_hchunks_j_curhchunks_ctl
-           180 ┊     0.01% ┊ stats_arenas_i_lruns_j_nmalloc_ctl
-           180 ┊     0.01% ┊ stats_arenas_i_hchunks_j_nmalloc_ctl
-           180 ┊     0.01% ┊ stats_arenas_i_hchunks_j_nrequests_ctl
-           178 ┊     0.01% ┊ unwrap_failed<std::sys_common::poison::PoisonError<std::sync::mutex::MutexGuard<()>>>
+           197 ┊     0.01% ┊ Subroutine[13][54]: register_dtor_fallback
+           196 ┊     0.01% ┊ Subroutine[69][600]: je_tcache_event_hard
+           194 ┊     0.01% ┊ Subroutine[9][427]: fmt<usize>
+           192 ┊     0.01% ┊ Subroutine[33][317]: write_char<core::fmt::builders::PadAdapter>
+           192 ┊     0.01% ┊ Subroutine[65][1406]: tdata_tree_iter_start
+           190 ┊     0.01% ┊ Subroutine[58][18]: je_chunk_alloc_mmap
+           189 ┊     0.01% ┊ Subroutine[36][158]: write_char<core::fmt::builders::PadAdapter>
+           189 ┊     0.01% ┊ Subroutine[52][2720]: free
+           183 ┊     0.01% ┊ Subroutine[73][1539]: je_ckh_pointer_hash
+           182 ┊     0.01% ┊ Subroutine[53][1051]: je_arena_lg_dirty_mult_set
+           182 ┊     0.01% ┊ Subroutine[59][997]: thread_tcache_flush_ctl
+           181 ┊     0.01% ┊ Subroutine[59][2752]: stats_arenas_i_lruns_j_ndalloc_ctl
+           181 ┊     0.01% ┊ Subroutine[59][2768]: stats_arenas_i_lruns_j_nrequests_ctl
+           181 ┊     0.01% ┊ Subroutine[59][2784]: stats_arenas_i_lruns_j_curruns_ctl
+           181 ┊     0.01% ┊ Subroutine[59][2821]: stats_arenas_i_hchunks_j_ndalloc_ctl
+           181 ┊     0.01% ┊ Subroutine[59][2853]: stats_arenas_i_hchunks_j_curhchunks_ctl
+           180 ┊     0.01% ┊ Subroutine[59][2736]: stats_arenas_i_lruns_j_nmalloc_ctl
+           180 ┊     0.01% ┊ Subroutine[59][2805]: stats_arenas_i_hchunks_j_nmalloc_ctl
+           180 ┊     0.01% ┊ Subroutine[59][2837]: stats_arenas_i_hchunks_j_nrequests_ctl
+           178 ┊     0.01% ┊ Subroutine[10][91]: unwrap_failed<std::sys_common::poison::PoisonError<std::sync::mutex::MutexGuard<()>>>
            178 ┊     0.01% ┊ Subroutine[53][1167]
-           177 ┊     0.01% ┊ je_chunk_hooks_set
-           177 ┊     0.01% ┊ je_pages_map
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_nmalloc_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_ndalloc_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_nrequests_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_curregs_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_nfills_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_nflushes_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_nruns_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_nreruns_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_curruns_ctl
-           175 ┊     0.01% ┊ je_ctl_byname
-           171 ┊     0.01% ┊ unwrap_failed<std::ffi::c_str::NulError>
-           170 ┊     0.01% ┊ je_arena_node_alloc
-           168 ┊     0.01% ┊ next
-           165 ┊     0.01% ┊ malloc_stats_print
-           165 ┊     0.01% ┊ stats_arenas_i_small_allocated_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_small_nmalloc_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_small_ndalloc_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_small_nrequests_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_large_nrequests_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_huge_allocated_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_huge_nmalloc_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_huge_ndalloc_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_huge_nrequests_ctl
-           164 ┊     0.01% ┊ get
-           164 ┊     0.01% ┊ je_pages_commit
-           163 ┊     0.01% ┊ fmt
-           163 ┊     0.01% ┊ je_rtree_subtree_read_hard
-           163 ┊     0.01% ┊ je_rtree_child_read_hard
-           162 ┊     0.01% ┊ je_arena_basic_stats_merge
-           162 ┊     0.01% ┊ stats_arenas_i_dss_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_lg_dirty_mult_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_decay_time_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_pactive_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_pdirty_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_mapped_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_retained_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_npurge_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_nmadvise_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_purged_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_metadata_mapped_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_metadata_allocated_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_large_allocated_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_large_nmalloc_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_large_ndalloc_ctl
-           161 ┊     0.01% ┊ je_pages_decommit
-           160 ┊     0.01% ┊ dumb_print
-           160 ┊     0.01% ┊ stats_arenas_i_nthreads_ctl
-           158 ┊     0.01% ┊ je_malloc_tsd_boot0
+           177 ┊     0.01% ┊ Subroutine[56][690]: je_chunk_hooks_set
+           177 ┊     0.01% ┊ Subroutine[64][21]: je_pages_map
+           176 ┊     0.01% ┊ Subroutine[59][2587]: stats_arenas_i_bins_j_nmalloc_ctl
+           176 ┊     0.01% ┊ Subroutine[59][2603]: stats_arenas_i_bins_j_ndalloc_ctl
+           176 ┊     0.01% ┊ Subroutine[59][2619]: stats_arenas_i_bins_j_nrequests_ctl
+           176 ┊     0.01% ┊ Subroutine[59][2635]: stats_arenas_i_bins_j_curregs_ctl
+           176 ┊     0.01% ┊ Subroutine[59][2651]: stats_arenas_i_bins_j_nfills_ctl
+           176 ┊     0.01% ┊ Subroutine[59][2667]: stats_arenas_i_bins_j_nflushes_ctl
+           176 ┊     0.01% ┊ Subroutine[59][2683]: stats_arenas_i_bins_j_nruns_ctl
+           176 ┊     0.01% ┊ Subroutine[59][2699]: stats_arenas_i_bins_j_nreruns_ctl
+           176 ┊     0.01% ┊ Subroutine[59][2715]: stats_arenas_i_bins_j_curruns_ctl
+           175 ┊     0.01% ┊ Subroutine[59][658]: je_ctl_byname
+           171 ┊     0.01% ┊ Subroutine[10][95]: unwrap_failed<std::ffi::c_str::NulError>
+           170 ┊     0.01% ┊ Subroutine[53][594]: je_arena_node_alloc
+           168 ┊     0.01% ┊ Subroutine[37][35]: next
+           165 ┊     0.01% ┊ Subroutine[52][4341]: malloc_stats_print
+           165 ┊     0.01% ┊ Subroutine[59][2390]: stats_arenas_i_small_allocated_ctl
+           165 ┊     0.01% ┊ Subroutine[59][2406]: stats_arenas_i_small_nmalloc_ctl
+           165 ┊     0.01% ┊ Subroutine[59][2422]: stats_arenas_i_small_ndalloc_ctl
+           165 ┊     0.01% ┊ Subroutine[59][2438]: stats_arenas_i_small_nrequests_ctl
+           165 ┊     0.01% ┊ Subroutine[59][2502]: stats_arenas_i_large_nrequests_ctl
+           165 ┊     0.01% ┊ Subroutine[59][2518]: stats_arenas_i_huge_allocated_ctl
+           165 ┊     0.01% ┊ Subroutine[59][2534]: stats_arenas_i_huge_nmalloc_ctl
+           165 ┊     0.01% ┊ Subroutine[59][2550]: stats_arenas_i_huge_ndalloc_ctl
+           165 ┊     0.01% ┊ Subroutine[59][2566]: stats_arenas_i_huge_nrequests_ctl
+           164 ┊     0.01% ┊ Subroutine[16][601]: get
+           164 ┊     0.01% ┊ Subroutine[64][68]: je_pages_commit
+           163 ┊     0.01% ┊ Subroutine[41][24]: fmt
+           163 ┊     0.01% ┊ Subroutine[67][545]: je_rtree_subtree_read_hard
+           163 ┊     0.01% ┊ Subroutine[67][570]: je_rtree_child_read_hard
+           162 ┊     0.01% ┊ Subroutine[53][4063]: je_arena_basic_stats_merge
+           162 ┊     0.01% ┊ Subroutine[59][2198]: stats_arenas_i_dss_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2214]: stats_arenas_i_lg_dirty_mult_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2230]: stats_arenas_i_decay_time_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2246]: stats_arenas_i_pactive_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2262]: stats_arenas_i_pdirty_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2278]: stats_arenas_i_mapped_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2294]: stats_arenas_i_retained_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2310]: stats_arenas_i_npurge_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2326]: stats_arenas_i_nmadvise_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2342]: stats_arenas_i_purged_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2358]: stats_arenas_i_metadata_mapped_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2374]: stats_arenas_i_metadata_allocated_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2454]: stats_arenas_i_large_allocated_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2470]: stats_arenas_i_large_nmalloc_ctl
+           162 ┊     0.01% ┊ Subroutine[59][2486]: stats_arenas_i_large_ndalloc_ctl
+           161 ┊     0.01% ┊ Subroutine[64][84]: je_pages_decommit
+           160 ┊     0.01% ┊ Subroutine[14][56]: dumb_print
+           160 ┊     0.01% ┊ Subroutine[59][2182]: stats_arenas_i_nthreads_ctl
+           158 ┊     0.01% ┊ Subroutine[70][520]: je_malloc_tsd_boot0
            154 ┊     0.01% ┊ Subroutine[9][291]
-           154 ┊     0.01% ┊ unwrap_failed<core::num::ParseIntError>
-           150 ┊     0.01% ┊ __rust_start_panic
-           149 ┊     0.01% ┊ finish
-           149 ┊     0.01% ┊ je_extent_tree_ad_iter_start
-           148 ┊     0.01% ┊ fmt
-           147 ┊     0.01% ┊ unwrap_failed<std::thread::local::AccessError>
-           147 ┊     0.01% ┊ unwrap_failed<core::cell::BorrowMutError>
-           147 ┊     0.01% ┊ unwrap_failed<core::cell::BorrowError>
+           154 ┊     0.01% ┊ Subroutine[10][89]: unwrap_failed<core::num::ParseIntError>
+           150 ┊     0.01% ┊ Subroutine[49][3]: __rust_start_panic
+           149 ┊     0.01% ┊ Subroutine[36][127]: finish
+           149 ┊     0.01% ┊ Subroutine[60][888]: je_extent_tree_ad_iter_start
+           148 ┊     0.01% ┊ Subroutine[13][233]: fmt
+           147 ┊     0.01% ┊ Subroutine[10][85]: unwrap_failed<std::thread::local::AccessError>
+           147 ┊     0.01% ┊ Subroutine[10][93]: unwrap_failed<core::cell::BorrowMutError>
+           147 ┊     0.01% ┊ Subroutine[10][97]: unwrap_failed<core::cell::BorrowError>
            146 ┊     0.01% ┊ Subroutine[52][1183]
            145 ┊     0.01% ┊ Subroutine[53][1067]
            145 ┊     0.01% ┊ Subroutine[53][3033]
-           145 ┊     0.01% ┊ je_extent_tree_szsnad_iter_start
-           145 ┊     0.01% ┊ je_extent_tree_ad_reverse_iter_start
-           144 ┊     0.01% ┊ unwrap_failed<core::str::Utf8Error>
-           144 ┊     0.01% ┊ epoch_ctl
-           144 ┊     0.01% ┊ quarantine_drain_one
-           143 ┊     0.01% ┊ fmt<core::panic::Location>
-           141 ┊     0.01% ┊ reserve<alloc::boxed::Box<FnMut<()>>,alloc::alloc::Global>
-           141 ┊     0.01% ┊ je_extent_tree_szsnad_reverse_iter_start
-           136 ┊     0.01% ┊ je_pages_boot
-           135 ┊     0.01% ┊ stats_cactive_ctl
-           135 ┊     0.01% ┊ stats_allocated_ctl
-           135 ┊     0.01% ┊ stats_active_ctl
-           135 ┊     0.01% ┊ stats_metadata_ctl
-           135 ┊     0.01% ┊ stats_resident_ctl
-           135 ┊     0.01% ┊ stats_mapped_ctl
-           135 ┊     0.01% ┊ stats_retained_ctl
-           134 ┊     0.01% ┊ fmt
-           134 ┊     0.01% ┊ reserve_internal<u8,alloc::alloc::Global>
-           134 ┊     0.01% ┊ je_malloc_snprintf
-           133 ┊     0.01% ┊ drop_slow<std::thread::Inner>
-           131 ┊     0.01% ┊ slice_index_len_fail
-           131 ┊     0.01% ┊ slice_index_order_fail
-           131 ┊     0.01% ┊ je_witness_depth_error
-           130 ┊     0.01% ┊ panic_bounds_check
-           129 ┊     0.01% ┊ __getit
-           129 ┊     0.01% ┊ __getit
-           128 ┊     0.01% ┊ arenas_lg_dirty_mult_ctl
-           128 ┊     0.01% ┊ arenas_decay_time_ctl
-           128 ┊     0.01% ┊ je_prof_prefork0
-           124 ┊     0.01% ┊ call_box<(),closure>
-           123 ┊     0.01% ┊ {{closure}}<closure>
-           123 ┊     0.01% ┊ rust_panic
-           122 ┊     0.01% ┊ tcache_create_ctl
-           121 ┊     0.01% ┊ fmt<core::num::IntErrorKind>
-           120 ┊     0.01% ┊ tdata_tree_iter_recurse
-           119 ┊     0.01% ┊ fmt<usize>
-           119 ┊     0.01% ┊ prof_tdata_detach
-           118 ┊     0.01% ┊ trace_fn
-           116 ┊     0.01% ┊ expect_failed
-           114 ┊     0.01% ┊ je_extent_tree_szsnad_next
-           114 ┊     0.01% ┊ je_extent_tree_szsnad_destroy_recurse
-           114 ┊     0.01% ┊ je_extent_tree_ad_destroy_recurse
-           113 ┊     0.01% ┊ drop_in_place<std::io::error::Error>
+           145 ┊     0.01% ┊ Subroutine[60][716]: je_extent_tree_szsnad_iter_start
+           145 ┊     0.01% ┊ Subroutine[60][911]: je_extent_tree_ad_reverse_iter_start
+           144 ┊     0.01% ┊ Subroutine[10][87]: unwrap_failed<core::str::Utf8Error>
+           144 ┊     0.01% ┊ Subroutine[59][828]: epoch_ctl
+           144 ┊     0.01% ┊ Subroutine[66][1007]: quarantine_drain_one
+           143 ┊     0.01% ┊ Subroutine[12][297]: fmt<core::panic::Location>
+           141 ┊     0.01% ┊ Subroutine[15][96]: reserve<alloc::boxed::Box<FnMut<()>>,alloc::alloc::Global>
+           141 ┊     0.01% ┊ Subroutine[60][738]: je_extent_tree_szsnad_reverse_iter_start
+           136 ┊     0.01% ┊ Subroutine[64][117]: je_pages_boot
+           135 ┊     0.01% ┊ Subroutine[59][2060]: stats_cactive_ctl
+           135 ┊     0.01% ┊ Subroutine[59][2076]: stats_allocated_ctl
+           135 ┊     0.01% ┊ Subroutine[59][2092]: stats_active_ctl
+           135 ┊     0.01% ┊ Subroutine[59][2108]: stats_metadata_ctl
+           135 ┊     0.01% ┊ Subroutine[59][2124]: stats_resident_ctl
+           135 ┊     0.01% ┊ Subroutine[59][2140]: stats_mapped_ctl
+           135 ┊     0.01% ┊ Subroutine[59][2156]: stats_retained_ctl
+           134 ┊     0.01% ┊ Subroutine[14][162]: fmt
+           134 ┊     0.01% ┊ Subroutine[15][70]: reserve_internal<u8,alloc::alloc::Global>
+           134 ┊     0.01% ┊ Subroutine[71][226]: je_malloc_snprintf
+           133 ┊     0.01% ┊ Subroutine[12][456]: drop_slow<std::thread::Inner>
+           131 ┊     0.01% ┊ Subroutine[42][118]: slice_index_len_fail
+           131 ┊     0.01% ┊ Subroutine[42][120]: slice_index_order_fail
+           131 ┊     0.01% ┊ Subroutine[72][506]: je_witness_depth_error
+           130 ┊     0.01% ┊ Subroutine[32][338]: panic_bounds_check
+           129 ┊     0.01% ┊ Subroutine[14][21]: __getit
+           129 ┊     0.01% ┊ Subroutine[16][223]: __getit
+           128 ┊     0.01% ┊ Subroutine[59][1772]: arenas_lg_dirty_mult_ctl
+           128 ┊     0.01% ┊ Subroutine[59][1785]: arenas_decay_time_ctl
+           128 ┊     0.01% ┊ Subroutine[65][1383]: je_prof_prefork0
+           124 ┊     0.01% ┊ Subroutine[6][436]: call_box<(),closure>
+           123 ┊     0.01% ┊ Subroutine[14][182]: {{closure}}<closure>
+           123 ┊     0.01% ┊ Subroutine[16][551]: rust_panic
+           122 ┊     0.01% ┊ Subroutine[59][1524]: tcache_create_ctl
+           121 ┊     0.01% ┊ Subroutine[41][71]: fmt<core::num::IntErrorKind>
+           120 ┊     0.01% ┊ Subroutine[65][1429]: tdata_tree_iter_recurse
+           119 ┊     0.01% ┊ Subroutine[35][203]: fmt<usize>
+           119 ┊     0.01% ┊ Subroutine[65][1057]: prof_tdata_detach
+           118 ┊     0.01% ┊ Subroutine[13][256]: trace_fn
+           116 ┊     0.01% ┊ Subroutine[32][135]: expect_failed
+           114 ┊     0.01% ┊ Subroutine[60][529]: je_extent_tree_szsnad_next
+           114 ┊     0.01% ┊ Subroutine[60][753]: je_extent_tree_szsnad_destroy_recurse
+           114 ┊     0.01% ┊ Subroutine[60][927]: je_extent_tree_ad_destroy_recurse
+           113 ┊     0.01% ┊ Subroutine[6][135]: drop_in_place<std::io::error::Error>
            113 ┊     0.01% ┊ Subroutine[9][271]
-           113 ┊     0.01% ┊ drop_in_place<std::io::error::Error>
+           113 ┊     0.01% ┊ Subroutine[10][174]: drop_in_place<std::io::error::Error>
            113 ┊     0.01% ┊ Subroutine[11][623]
            113 ┊     0.01% ┊ Subroutine[14][530]
-           109 ┊     0.01% ┊ je_extent_tree_szsnad_nsearch
-           108 ┊     0.01% ┊ je_ckh_iter
-           107 ┊     0.01% ┊ continue_panic_fmt
-           107 ┊     0.01% ┊ arenas_hchunk_i_size_ctl
-           107 ┊     0.01% ┊ je_tcache_alloc_small_hard
-           107 ┊     0.01% ┊ je_witness_lock_error
-           106 ┊     0.01% ┊ je_extent_tree_szsnad_psearch
-           105 ┊     0.01% ┊ fmt
-           105 ┊     0.01% ┊ fmt
-           104 ┊     0.00% ┊ default_alloc_error_hook
-           104 ┊     0.00% ┊ exception_cleanup
-           104 ┊     0.00% ┊ je_chunk_boot
-           103 ┊     0.00% ┊ write_str<std::io::Write::write_fmt::Adaptor<std::io::stdio::StdoutLock>>
+           109 ┊     0.01% ┊ Subroutine[60][628]: je_extent_tree_szsnad_nsearch
+           108 ┊     0.01% ┊ Subroutine[73][811]: je_ckh_iter
+           107 ┊     0.01% ┊ Subroutine[16][574]: continue_panic_fmt
+           107 ┊     0.01% ┊ Subroutine[59][1973]: arenas_hchunk_i_size_ctl
+           107 ┊     0.01% ┊ Subroutine[69][724]: je_tcache_alloc_small_hard
+           107 ┊     0.01% ┊ Subroutine[72][498]: je_witness_lock_error
+           106 ┊     0.01% ┊ Subroutine[60][635]: je_extent_tree_szsnad_psearch
+           105 ┊     0.01% ┊ Subroutine[2][165]: fmt
+           105 ┊     0.01% ┊ Subroutine[13][235]: fmt
+           104 ┊     0.00% ┊ Subroutine[2][9]: default_alloc_error_hook
+           104 ┊     0.00% ┊ Subroutine[18][67]: exception_cleanup
+           104 ┊     0.00% ┊ Subroutine[56][1228]: je_chunk_boot
+           103 ┊     0.00% ┊ Subroutine[9][481]: write_str<std::io::Write::write_fmt::Adaptor<std::io::stdio::StdoutLock>>
            103 ┊     0.00% ┊ Subroutine[10][303]
-           103 ┊     0.00% ┊ write<std::sys::unix::stdio::Stderr>
-           101 ┊     0.00% ┊ je_arena_migrate
-           101 ┊     0.00% ┊ je_extent_tree_szsnad_reverse_iter_recurse
-           101 ┊     0.00% ┊ je_extent_tree_ad_reverse_iter_recurse
-           100 ┊     0.00% ┊ arenas_narenas_ctl
-           100 ┊     0.00% ┊ je_tcache_salloc
-            99 ┊     0.00% ┊ abort
-            99 ┊     0.00% ┊ destroy_value<core::cell::RefCell<core::option::Option<alloc::boxed::Box<Write>>>>
+           103 ┊     0.00% ┊ Subroutine[16][915]: write<std::sys::unix::stdio::Stderr>
+           101 ┊     0.00% ┊ Subroutine[52][1220]: je_arena_migrate
+           101 ┊     0.00% ┊ Subroutine[60][731]: je_extent_tree_szsnad_reverse_iter_recurse
+           101 ┊     0.00% ┊ Subroutine[60][904]: je_extent_tree_ad_reverse_iter_recurse
+           100 ┊     0.00% ┊ Subroutine[59][1743]: arenas_narenas_ctl
+           100 ┊     0.00% ┊ Subroutine[69][562]: je_tcache_salloc
+            99 ┊     0.00% ┊ Subroutine[14][71]: abort
+            99 ┊     0.00% ┊ Subroutine[16][853]: destroy_value<core::cell::RefCell<core::option::Option<alloc::boxed::Box<Write>>>>
             99 ┊     0.00% ┊ Subroutine[53][603]
-            99 ┊     0.00% ┊ je_malloc_mutex_postfork_child
-            99 ┊     0.00% ┊ je_malloc_tsd_boot1
-            98 ┊     0.00% ┊ to_owned<u8>
-            98 ┊     0.00% ┊ opt_purge_ctl
-            98 ┊     0.00% ┊ arenas_bin_i_nregs_ctl
-            98 ┊     0.00% ┊ arenas_bin_i_run_size_ctl
-            97 ┊     0.00% ┊ je_arena_chunk_cache_maybe_insert
-            97 ┊     0.00% ┊ arenas_bin_i_size_ctl
-            97 ┊     0.00% ┊ je_extent_tree_ad_next
-            96 ┊     0.00% ┊ je_extent_tree_szsnad_iter_recurse
-            96 ┊     0.00% ┊ je_extent_tree_ad_iter_recurse
-            95 ┊     0.00% ┊ arenas_lrun_i_size_ctl
-            94 ┊     0.00% ┊ fmt<u8>
-            94 ┊     0.00% ┊ write_str<alloc::string::String>
-            94 ┊     0.00% ┊ je_extent_tree_szsnad_prev
-            94 ┊     0.00% ┊ rtree_delete_subtree
-            94 ┊     0.00% ┊ je_tcaches_destroy
-            93 ┊     0.00% ┊ box_me_up<&str>
-            93 ┊     0.00% ┊ panic
-            93 ┊     0.00% ┊ opt_abort_ctl
-            93 ┊     0.00% ┊ opt_stats_print_ctl
-            93 ┊     0.00% ┊ opt_zero_ctl
-            93 ┊     0.00% ┊ opt_redzone_ctl
-            93 ┊     0.00% ┊ opt_tcache_ctl
-            93 ┊     0.00% ┊ je_extent_tree_ad_prev
-            92 ┊     0.00% ┊ arena_i_reset_ctl
-            91 ┊     0.00% ┊ je_prof_prefork1
-            90 ┊     0.00% ┊ je_bootstrap_free
-            89 ┊     0.00% ┊ drop_in_place<core::result::Result<i32, alloc::boxed::Box<Any>>>
+            99 ┊     0.00% ┊ Subroutine[62][533]: je_malloc_mutex_postfork_child
+            99 ┊     0.00% ┊ Subroutine[70][529]: je_malloc_tsd_boot1
+            98 ┊     0.00% ┊ Subroutine[51][26]: to_owned<u8>
+            98 ┊     0.00% ┊ Subroutine[59][1274]: opt_purge_ctl
+            98 ┊     0.00% ┊ Subroutine[59][1924]: arenas_bin_i_nregs_ctl
+            98 ┊     0.00% ┊ Subroutine[59][1936]: arenas_bin_i_run_size_ctl
+            97 ┊     0.00% ┊ Subroutine[53][564]: je_arena_chunk_cache_maybe_insert
+            97 ┊     0.00% ┊ Subroutine[59][1912]: arenas_bin_i_size_ctl
+            97 ┊     0.00% ┊ Subroutine[60][772]: je_extent_tree_ad_next
+            96 ┊     0.00% ┊ Subroutine[60][709]: je_extent_tree_szsnad_iter_recurse
+            96 ┊     0.00% ┊ Subroutine[60][881]: je_extent_tree_ad_iter_recurse
+            95 ┊     0.00% ┊ Subroutine[59][1953]: arenas_lrun_i_size_ctl
+            94 ┊     0.00% ┊ Subroutine[9][404]: fmt<u8>
+            94 ┊     0.00% ┊ Subroutine[9][484]: write_str<alloc::string::String>
+            94 ┊     0.00% ┊ Subroutine[60][615]: je_extent_tree_szsnad_prev
+            94 ┊     0.00% ┊ Subroutine[67][468]: rtree_delete_subtree
+            94 ┊     0.00% ┊ Subroutine[69][1177]: je_tcaches_destroy
+            93 ┊     0.00% ┊ Subroutine[16][555]: box_me_up<&str>
+            93 ┊     0.00% ┊ Subroutine[32][336]: panic
+            93 ┊     0.00% ┊ Subroutine[59][1226]: opt_abort_ctl
+            93 ┊     0.00% ┊ Subroutine[59][1310]: opt_stats_print_ctl
+            93 ┊     0.00% ┊ Subroutine[59][1334]: opt_zero_ctl
+            93 ┊     0.00% ┊ Subroutine[59][1358]: opt_redzone_ctl
+            93 ┊     0.00% ┊ Subroutine[59][1390]: opt_tcache_ctl
+            93 ┊     0.00% ┊ Subroutine[60][781]: je_extent_tree_ad_prev
+            92 ┊     0.00% ┊ Subroutine[59][1584]: arena_i_reset_ctl
+            91 ┊     0.00% ┊ Subroutine[65][1387]: je_prof_prefork1
+            90 ┊     0.00% ┊ Subroutine[52][1153]: je_bootstrap_free
+            89 ┊     0.00% ┊ Subroutine[2][360]: drop_in_place<core::result::Result<i32, alloc::boxed::Box<Any>>>
             89 ┊     0.00% ┊ Subroutine[56][676]
-            89 ┊     0.00% ┊ je_ctl_nametomib
-            88 ┊     0.00% ┊ write_str<std::io::Write::write_fmt::Adaptor<std::sys::unix::stdio::Stderr>>
+            89 ┊     0.00% ┊ Subroutine[59][715]: je_ctl_nametomib
+            88 ┊     0.00% ┊ Subroutine[9][478]: write_str<std::io::Write::write_fmt::Adaptor<std::sys::unix::stdio::Stderr>>
             88 ┊     0.00% ┊ Subroutine[10][305]
-            88 ┊     0.00% ┊ opt_dss_ctl
-            88 ┊     0.00% ┊ opt_lg_chunk_ctl
-            88 ┊     0.00% ┊ opt_narenas_ctl
-            88 ┊     0.00% ┊ opt_lg_dirty_mult_ctl
-            88 ┊     0.00% ┊ opt_decay_time_ctl
-            88 ┊     0.00% ┊ opt_junk_ctl
-            88 ┊     0.00% ┊ opt_quarantine_ctl
-            88 ┊     0.00% ┊ opt_lg_tcache_max_ctl
-            88 ┊     0.00% ┊ arenas_tcache_max_ctl
-            88 ┊     0.00% ┊ arenas_nhbins_ctl
-            88 ┊     0.00% ┊ arenas_nlruns_ctl
-            88 ┊     0.00% ┊ arenas_nhchunks_ctl
-            87 ┊     0.00% ┊ drop_in_place<std::sys_common::poison::PoisonError<(std::sync::mutex::MutexGuard<()>, std::sync::condvar::WaitTimeoutResult)>>
+            88 ┊     0.00% ┊ Subroutine[59][1238]: opt_dss_ctl
+            88 ┊     0.00% ┊ Subroutine[59][1250]: opt_lg_chunk_ctl
+            88 ┊     0.00% ┊ Subroutine[59][1262]: opt_narenas_ctl
+            88 ┊     0.00% ┊ Subroutine[59][1286]: opt_lg_dirty_mult_ctl
+            88 ┊     0.00% ┊ Subroutine[59][1298]: opt_decay_time_ctl
+            88 ┊     0.00% ┊ Subroutine[59][1322]: opt_junk_ctl
+            88 ┊     0.00% ┊ Subroutine[59][1346]: opt_quarantine_ctl
+            88 ┊     0.00% ┊ Subroutine[59][1402]: opt_lg_tcache_max_ctl
+            88 ┊     0.00% ┊ Subroutine[59][1822]: arenas_tcache_max_ctl
+            88 ┊     0.00% ┊ Subroutine[59][1846]: arenas_nhbins_ctl
+            88 ┊     0.00% ┊ Subroutine[59][1858]: arenas_nlruns_ctl
+            88 ┊     0.00% ┊ Subroutine[59][1870]: arenas_nhchunks_ctl
+            87 ┊     0.00% ┊ Subroutine[10][191]: drop_in_place<std::sys_common::poison::PoisonError<(std::sync::mutex::MutexGuard<()>, std::sync::condvar::WaitTimeoutResult)>>
             87 ┊     0.00% ┊ Subroutine[11][699]
-            87 ┊     0.00% ┊ drop_in_place<std::sync::mutex::MutexGuard<std::sync::barrier::BarrierState>>
-            87 ┊     0.00% ┊ arenas_nbins_ctl
-            87 ┊     0.00% ┊ je_extent_tree_ad_nsearch
+            87 ┊     0.00% ┊ Subroutine[12][349]: drop_in_place<std::sync::mutex::MutexGuard<std::sync::barrier::BarrierState>>
+            87 ┊     0.00% ┊ Subroutine[59][1834]: arenas_nbins_ctl
+            87 ┊     0.00% ┊ Subroutine[60][796]: je_extent_tree_ad_nsearch
             87 ┊     0.00% ┊ Subroutine[71][233]
-            86 ┊     0.00% ┊ drop_in_place<closure>
+            86 ┊     0.00% ┊ Subroutine[11][648]: drop_in_place<closure>
             86 ┊     0.00% ┊ Subroutine[16][1236]
             86 ┊     0.00% ┊ Subroutine[18][13]
-            86 ┊     0.00% ┊ config_cache_oblivious_ctl
-            86 ┊     0.00% ┊ config_debug_ctl
-            86 ┊     0.00% ┊ config_fill_ctl
-            86 ┊     0.00% ┊ config_lazy_lock_ctl
-            86 ┊     0.00% ┊ config_munmap_ctl
-            86 ┊     0.00% ┊ config_prof_ctl
-            86 ┊     0.00% ┊ config_prof_libgcc_ctl
-            86 ┊     0.00% ┊ config_prof_libunwind_ctl
-            86 ┊     0.00% ┊ config_stats_ctl
-            86 ┊     0.00% ┊ config_tcache_ctl
-            86 ┊     0.00% ┊ config_thp_ctl
-            86 ┊     0.00% ┊ config_tls_ctl
-            86 ┊     0.00% ┊ config_utrace_ctl
-            86 ┊     0.00% ┊ config_valgrind_ctl
-            86 ┊     0.00% ┊ config_xmalloc_ctl
-            86 ┊     0.00% ┊ arenas_quantum_ctl
-            86 ┊     0.00% ┊ arenas_page_ctl
-            85 ┊     0.00% ┊ version_ctl
-            85 ┊     0.00% ┊ config_malloc_conf_ctl
-            84 ┊     0.00% ┊ je_extent_tree_szsnad_search
-            84 ┊     0.00% ┊ je_extent_tree_ad_psearch
-            83 ┊     0.00% ┊ je_chunk_dalloc_cache
-            82 ┊     0.00% ┊ thread_allocated_ctl
-            82 ┊     0.00% ┊ thread_allocatedp_ctl
-            82 ┊     0.00% ┊ thread_deallocated_ctl
-            82 ┊     0.00% ┊ thread_deallocatedp_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1034]: config_cache_oblivious_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1046]: config_debug_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1058]: config_fill_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1070]: config_lazy_lock_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1094]: config_munmap_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1106]: config_prof_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1118]: config_prof_libgcc_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1130]: config_prof_libunwind_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1142]: config_stats_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1154]: config_tcache_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1166]: config_thp_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1178]: config_tls_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1190]: config_utrace_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1202]: config_valgrind_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1214]: config_xmalloc_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1798]: arenas_quantum_ctl
+            86 ┊     0.00% ┊ Subroutine[59][1810]: arenas_page_ctl
+            85 ┊     0.00% ┊ Subroutine[59][816]: version_ctl
+            85 ┊     0.00% ┊ Subroutine[59][1082]: config_malloc_conf_ctl
+            84 ┊     0.00% ┊ Subroutine[60][623]: je_extent_tree_szsnad_search
+            84 ┊     0.00% ┊ Subroutine[60][804]: je_extent_tree_ad_psearch
+            83 ┊     0.00% ┊ Subroutine[56][1088]: je_chunk_dalloc_cache
+            82 ┊     0.00% ┊ Subroutine[59][886]: thread_allocated_ctl
+            82 ┊     0.00% ┊ Subroutine[59][900]: thread_allocatedp_ctl
+            82 ┊     0.00% ┊ Subroutine[59][914]: thread_deallocated_ctl
+            82 ┊     0.00% ┊ Subroutine[59][928]: thread_deallocatedp_ctl
             82 ┊     0.00% ┊ Subroutine[62][29]
             81 ┊     0.00% ┊ Subroutine[9][281]
             81 ┊     0.00% ┊ Subroutine[16][1233]
-            81 ┊     0.00% ┊ je_base_stats_get
-            81 ┊     0.00% ┊ je_ckh_search
-            79 ┊     0.00% ┊ je_arena_chunk_cache_maybe_remove
-            79 ┊     0.00% ┊ stats_arenas_i_index
+            81 ┊     0.00% ┊ Subroutine[54][653]: je_base_stats_get
+            81 ┊     0.00% ┊ Subroutine[73][1442]: je_ckh_search
+            79 ┊     0.00% ┊ Subroutine[53][581]: je_arena_chunk_cache_maybe_remove
+            79 ┊     0.00% ┊ Subroutine[59][2172]: stats_arenas_i_index
             78 ┊     0.00% ┊ Subroutine[53][1968]
             78 ┊     0.00% ┊ Subroutine[64][34]
-            77 ┊     0.00% ┊ je_chunk_alloc_cache
-            76 ┊     0.00% ┊ je_extent_tree_ad_search
-            75 ┊     0.00% ┊ je_rtree_delete
-            73 ┊     0.00% ┊ aligned_alloc
-            71 ┊     0.00% ┊ je_base_boot
-            71 ┊     0.00% ┊ je_tcaches_flush
-            69 ┊     0.00% ┊ decode_error_kind
-            67 ┊     0.00% ┊ je_nstime_update
-            65 ┊     0.00% ┊ write_fmt<std::io::Write::write_fmt::Adaptor<std::sys::unix::stdio::Stderr>>
-            65 ┊     0.00% ┊ write_fmt<std::io::Write::write_fmt::Adaptor<std::io::stdio::StdoutLock>>
-            65 ┊     0.00% ┊ write_fmt<alloc::string::String>
+            77 ┊     0.00% ┊ Subroutine[56][874]: je_chunk_alloc_cache
+            76 ┊     0.00% ┊ Subroutine[60][790]: je_extent_tree_ad_search
+            75 ┊     0.00% ┊ Subroutine[67][463]: je_rtree_delete
+            73 ┊     0.00% ┊ Subroutine[52][1989]: aligned_alloc
+            71 ┊     0.00% ┊ Subroutine[54][662]: je_base_boot
+            71 ┊     0.00% ┊ Subroutine[69][1170]: je_tcaches_flush
+            69 ┊     0.00% ┊ Subroutine[10][332]: decode_error_kind
+            67 ┊     0.00% ┊ Subroutine[63][62]: je_nstime_update
+            65 ┊     0.00% ┊ Subroutine[9][472]: write_fmt<std::io::Write::write_fmt::Adaptor<std::sys::unix::stdio::Stderr>>
+            65 ┊     0.00% ┊ Subroutine[9][474]: write_fmt<std::io::Write::write_fmt::Adaptor<std::io::stdio::StdoutLock>>
+            65 ┊     0.00% ┊ Subroutine[9][476]: write_fmt<alloc::string::String>
             65 ┊     0.00% ┊ Subroutine[13][437]
-            65 ┊     0.00% ┊ write_fmt<core::fmt::builders::PadAdapter>
-            62 ┊     0.00% ┊ write_fmt<std::io::Write::write_fmt::Adaptor<std::sys::unix::stdio::Stderr>>
-            62 ┊     0.00% ┊ write_fmt<std::io::Write::write_fmt::Adaptor<std::io::stdio::StdoutLock>>
-            62 ┊     0.00% ┊ begin_panic_fmt
-            62 ┊     0.00% ┊ panic_fmt
-            62 ┊     0.00% ┊ write_fmt<core::fmt::builders::PadAdapter>
-            62 ┊     0.00% ┊ arena_i_index
-            61 ┊     0.00% ┊ je_iarena_cleanup
-            61 ┊     0.00% ┊ tcache_flush_ctl
-            61 ┊     0.00% ┊ tcache_destroy_ctl
-            59 ┊     0.00% ┊ je_malloc_write
-            58 ┊     0.00% ┊ je_arena_cleanup
-            56 ┊     0.00% ┊ memalign
-            55 ┊     0.00% ┊ valloc
-            55 ┊     0.00% ┊ je_bitmap_init
+            65 ┊     0.00% ┊ Subroutine[33][320]: write_fmt<core::fmt::builders::PadAdapter>
+            62 ┊     0.00% ┊ Subroutine[10][143]: write_fmt<std::io::Write::write_fmt::Adaptor<std::sys::unix::stdio::Stderr>>
+            62 ┊     0.00% ┊ Subroutine[10][144]: write_fmt<std::io::Write::write_fmt::Adaptor<std::io::stdio::StdoutLock>>
+            62 ┊     0.00% ┊ Subroutine[16][607]: begin_panic_fmt
+            62 ┊     0.00% ┊ Subroutine[32][340]: panic_fmt
+            62 ┊     0.00% ┊ Subroutine[36][160]: write_fmt<core::fmt::builders::PadAdapter>
+            62 ┊     0.00% ┊ Subroutine[59][1556]: arena_i_index
+            61 ┊     0.00% ┊ Subroutine[52][1451]: je_iarena_cleanup
+            61 ┊     0.00% ┊ Subroutine[59][1536]: tcache_flush_ctl
+            61 ┊     0.00% ┊ Subroutine[59][1546]: tcache_destroy_ctl
+            59 ┊     0.00% ┊ Subroutine[71][22]: je_malloc_write
+            58 ┊     0.00% ┊ Subroutine[52][1466]: je_arena_cleanup
+            56 ┊     0.00% ┊ Subroutine[52][2734]: memalign
+            55 ┊     0.00% ┊ Subroutine[52][2738]: valloc
+            55 ┊     0.00% ┊ Subroutine[55][13]: je_bitmap_init
             54 ┊     0.00% ┊ Subroutine[61][1545]
-            54 ┊     0.00% ┊ je_huge_prof_tctx_get
-            54 ┊     0.00% ┊ je_huge_prof_tctx_reset
-            53 ┊     0.00% ┊ write_fmt<std::sys::unix::stdio::Stderr>
-            53 ┊     0.00% ┊ je_chunk_dss_mergeable
+            54 ┊     0.00% ┊ Subroutine[61][1553]: je_huge_prof_tctx_get
+            54 ┊     0.00% ┊ Subroutine[61][1581]: je_huge_prof_tctx_reset
+            53 ┊     0.00% ┊ Subroutine[16][930]: write_fmt<std::sys::unix::stdio::Stderr>
+            53 ┊     0.00% ┊ Subroutine[57][167]: je_chunk_dss_mergeable
             52 ┊     0.00% ┊ Subroutine[61][1564]
-            50 ┊     0.00% ┊ je_buferror
+            50 ┊     0.00% ┊ Subroutine[71][30]: je_buferror
             49 ┊     0.00% ┊ Subroutine[53][4035]
-            49 ┊     0.00% ┊ je_prof_active_set
-            49 ┊     0.00% ┊ je_prof_thread_active_init_set
-            49 ┊     0.00% ┊ je_prof_gdump_set
-            48 ┊     0.00% ┊ arena_i_purge_ctl
-            47 ┊     0.00% ┊ chunk_dalloc_default
-            47 ┊     0.00% ┊ arena_i_decay_ctl
-            45 ┊     0.00% ┊ je_arena_lg_dirty_mult_get
-            45 ┊     0.00% ┊ je_arena_decay_time_get
-            44 ┊     0.00% ┊ je_arena_dss_prec_set
-            44 ┊     0.00% ┊ je_ctl_boot
-            43 ┊     0.00% ┊ je_arena_dss_prec_get
-            43 ┊     0.00% ┊ je_chunk_alloc_base
-            43 ┊     0.00% ┊ je_prof_thread_active_init_get
-            43 ┊     0.00% ┊ je_prof_active_get
-            43 ┊     0.00% ┊ je_prof_gdump_get
-            41 ┊     0.00% ┊ pcinfo_cb
-            41 ┊     0.00% ┊ begin_panic<&str>
-            41 ┊     0.00% ┊ je_nstime_nsec
-            41 ┊     0.00% ┊ je_ckh_string_hash
-            39 ┊     0.00% ┊ je_chunk_dss_boot
-            38 ┊     0.00% ┊ je_bootstrap_calloc
-            38 ┊     0.00% ┊ je_prof_tdata_reinit
-            36 ┊     0.00% ┊ je_extent_tree_szsnad_iter
-            36 ┊     0.00% ┊ je_extent_tree_szsnad_reverse_iter
-            36 ┊     0.00% ┊ je_extent_tree_ad_iter
-            36 ┊     0.00% ┊ je_extent_tree_ad_reverse_iter
+            49 ┊     0.00% ┊ Subroutine[65][1353]: je_prof_active_set
+            49 ┊     0.00% ┊ Subroutine[65][1363]: je_prof_thread_active_init_set
+            49 ┊     0.00% ┊ Subroutine[65][1374]: je_prof_gdump_set
+            48 ┊     0.00% ┊ Subroutine[59][1566]: arena_i_purge_ctl
+            47 ┊     0.00% ┊ Subroutine[56][622]: chunk_dalloc_default
+            47 ┊     0.00% ┊ Subroutine[59][1575]: arena_i_decay_ctl
+            45 ┊     0.00% ┊ Subroutine[53][1035]: je_arena_lg_dirty_mult_get
+            45 ┊     0.00% ┊ Subroutine[53][1075]: je_arena_decay_time_get
+            44 ┊     0.00% ┊ Subroutine[53][4004]: je_arena_dss_prec_set
+            44 ┊     0.00% ┊ Subroutine[59][745]: je_ctl_boot
+            43 ┊     0.00% ┊ Subroutine[53][3998]: je_arena_dss_prec_get
+            43 ┊     0.00% ┊ Subroutine[56][869]: je_chunk_alloc_base
+            43 ┊     0.00% ┊ Subroutine[65][907]: je_prof_thread_active_init_get
+            43 ┊     0.00% ┊ Subroutine[65][1348]: je_prof_active_get
+            43 ┊     0.00% ┊ Subroutine[65][1369]: je_prof_gdump_get
+            41 ┊     0.00% ┊ Subroutine[13][91]: pcinfo_cb
+            41 ┊     0.00% ┊ Subroutine[16][240]: begin_panic<&str>
+            41 ┊     0.00% ┊ Subroutine[63][11]: je_nstime_nsec
+            41 ┊     0.00% ┊ Subroutine[73][1448]: je_ckh_string_hash
+            39 ┊     0.00% ┊ Subroutine[57][181]: je_chunk_dss_boot
+            38 ┊     0.00% ┊ Subroutine[52][1146]: je_bootstrap_calloc
+            38 ┊     0.00% ┊ Subroutine[65][912]: je_prof_tdata_reinit
+            36 ┊     0.00% ┊ Subroutine[60][725]: je_extent_tree_szsnad_iter
+            36 ┊     0.00% ┊ Subroutine[60][747]: je_extent_tree_szsnad_reverse_iter
+            36 ┊     0.00% ┊ Subroutine[60][898]: je_extent_tree_ad_iter
+            36 ┊     0.00% ┊ Subroutine[60][921]: je_extent_tree_ad_reverse_iter
             36 ┊     0.00% ┊ Subroutine[71][26]
-            35 ┊     0.00% ┊ {{closure}}
-            35 ┊     0.00% ┊ {{closure}}
-            35 ┊     0.00% ┊ {{closure}}
-            35 ┊     0.00% ┊ {{closure}}
-            35 ┊     0.00% ┊ {{closure}}
-            35 ┊     0.00% ┊ je_arenas_tdata_cleanup
-            34 ┊     0.00% ┊ get<&str>
-            34 ┊     0.00% ┊ destroy_value<core::cell::RefCell<core::option::Option<std::sys_common::thread_info::ThreadInfo>>>
-            33 ┊     0.00% ┊ je_extent_tree_szsnad_destroy
-            33 ┊     0.00% ┊ je_extent_tree_ad_destroy
-            33 ┊     0.00% ┊ prof_thr_uid_alloc
+            35 ┊     0.00% ┊ Subroutine[5][1233]: {{closure}}
+            35 ┊     0.00% ┊ Subroutine[13][538]: {{closure}}
+            35 ┊     0.00% ┊ Subroutine[16][1499]: {{closure}}
+            35 ┊     0.00% ┊ Subroutine[33][518]: {{closure}}
+            35 ┊     0.00% ┊ Subroutine[36][239]: {{closure}}
+            35 ┊     0.00% ┊ Subroutine[52][1481]: je_arenas_tdata_cleanup
+            34 ┊     0.00% ┊ Subroutine[16][567]: get<&str>
+            34 ┊     0.00% ┊ Subroutine[16][833]: destroy_value<core::cell::RefCell<core::option::Option<std::sys_common::thread_info::ThreadInfo>>>
+            33 ┊     0.00% ┊ Subroutine[60][758]: je_extent_tree_szsnad_destroy
+            33 ┊     0.00% ┊ Subroutine[60][932]: je_extent_tree_ad_destroy
+            33 ┊     0.00% ┊ Subroutine[65][902]: prof_thr_uid_alloc
             32 ┊     0.00% ┊ Subroutine[53][4022]
-            32 ┊     0.00% ┊ je_extent_tree_szsnad_first
-            32 ┊     0.00% ┊ je_extent_tree_ad_first
+            32 ┊     0.00% ┊ Subroutine[60][523]: je_extent_tree_szsnad_first
+            32 ┊     0.00% ┊ Subroutine[60][766]: je_extent_tree_ad_first
             31 ┊     0.00% ┊ Subroutine[12][396]
             31 ┊     0.00% ┊ Subroutine[69][1016]
-            31 ┊     0.00% ┊ __pthread_atfork
+            31 ┊     0.00% ┊ Subroutine[74][136]: __pthread_atfork
             30 ┊     0.00% ┊ Subroutine[11][659]
-            30 ┊     0.00% ┊ je_chunk_in_dss
-            30 ┊     0.00% ┊ je_extent_tree_szsnad_last
-            30 ┊     0.00% ┊ je_extent_tree_ad_last
-            29 ┊     0.00% ┊ drop_in_place<std::panicking::PanicPayload>
+            30 ┊     0.00% ┊ Subroutine[57][158]: je_chunk_in_dss
+            30 ┊     0.00% ┊ Subroutine[60][526]: je_extent_tree_szsnad_last
+            30 ┊     0.00% ┊ Subroutine[60][769]: je_extent_tree_ad_last
+            29 ┊     0.00% ┊ Subroutine[16][1253]: drop_in_place<std::panicking::PanicPayload>
             29 ┊     0.00% ┊ Subroutine[53][3137]
             28 ┊     0.00% ┊ Subroutine[12][373]
             28 ┊     0.00% ┊ Subroutine[12][403]
-            28 ┊     0.00% ┊ je_bootstrap_malloc
-            28 ┊     0.00% ┊ je_nstime_sec
-            27 ┊     0.00% ┊ je_malloc_tsd_cleanup_register
-            26 ┊     0.00% ┊ {{closure}}
-            26 ┊     0.00% ┊ {{closure}}
-            26 ┊     0.00% ┊ fmt
+            28 ┊     0.00% ┊ Subroutine[52][1144]: je_bootstrap_malloc
+            28 ┊     0.00% ┊ Subroutine[63][9]: je_nstime_sec
+            27 ┊     0.00% ┊ Subroutine[70][506]: je_malloc_tsd_cleanup_register
+            26 ┊     0.00% ┊ Subroutine[5][1234]: {{closure}}
+            26 ┊     0.00% ┊ Subroutine[9][513]: {{closure}}
+            26 ┊     0.00% ┊ Subroutine[11][364]: fmt
             26 ┊     0.00% ┊ Subroutine[16][1191]
-            26 ┊     0.00% ┊ fmt
-            26 ┊     0.00% ┊ fmt
-            26 ┊     0.00% ┊ {{closure}}
-            26 ┊     0.00% ┊ arenas_lrun_i_index
-            26 ┊     0.00% ┊ arenas_hchunk_i_index
-            26 ┊     0.00% ┊ stats_arenas_i_lruns_j_index
-            26 ┊     0.00% ┊ stats_arenas_i_hchunks_j_index
-            26 ┊     0.00% ┊ je_witness_owner_error
-            26 ┊     0.00% ┊ je_witness_not_owner_error
-            24 ┊     0.00% ┊ drop_in_place<closure>
-            24 ┊     0.00% ┊ drop_in_place<core::option::Option<alloc::arc::Arc<std::sys_common::remutex::ReentrantMutex<core::cell::RefCell<std::io::buffered::LineWriter<std::io::stdio::Maybe<std::io::stdio::StdoutRaw>>>>>>>
-            24 ┊     0.00% ┊ drop_in_place<core::option::Option<std::thread::Thread>>
-            24 ┊     0.00% ┊ drop_in_place<std::sync::once::Waiter>
+            26 ┊     0.00% ┊ Subroutine[35][224]: fmt
+            26 ┊     0.00% ┊ Subroutine[35][228]: fmt
+            26 ┊     0.00% ┊ Subroutine[36][240]: {{closure}}
+            26 ┊     0.00% ┊ Subroutine[59][1948]: arenas_lrun_i_index
+            26 ┊     0.00% ┊ Subroutine[59][1968]: arenas_hchunk_i_index
+            26 ┊     0.00% ┊ Subroutine[59][2731]: stats_arenas_i_lruns_j_index
+            26 ┊     0.00% ┊ Subroutine[59][2800]: stats_arenas_i_hchunks_j_index
+            26 ┊     0.00% ┊ Subroutine[72][502]: je_witness_owner_error
+            26 ┊     0.00% ┊ Subroutine[72][504]: je_witness_not_owner_error
+            24 ┊     0.00% ┊ Subroutine[11][669]: drop_in_place<closure>
+            24 ┊     0.00% ┊ Subroutine[11][686]: drop_in_place<core::option::Option<alloc::arc::Arc<std::sys_common::remutex::ReentrantMutex<core::cell::RefCell<std::io::buffered::LineWriter<std::io::stdio::Maybe<std::io::stdio::StdoutRaw>>>>>>>
+            24 ┊     0.00% ┊ Subroutine[12][338]: drop_in_place<core::option::Option<std::thread::Thread>>
+            24 ┊     0.00% ┊ Subroutine[14][578]: drop_in_place<std::sync::once::Waiter>
             24 ┊     0.00% ┊ Subroutine[14][587]
             24 ┊     0.00% ┊ Subroutine[16][1220]
-            23 ┊     0.00% ┊ fmt<std::sync::mutex::MutexGuard<()>>
-            22 ┊     0.00% ┊ box_free<FnMut<()>>
+            23 ┊     0.00% ┊ Subroutine[12][93]: fmt<std::sync::mutex::MutexGuard<()>>
+            22 ┊     0.00% ┊ Subroutine[2][427]: box_free<FnMut<()>>
             22 ┊     0.00% ┊ Subroutine[5][1447]
-            22 ┊     0.00% ┊ box_free<FnMut<(&mut std::net::parser::Parser)>>
+            22 ┊     0.00% ┊ Subroutine[6][409]: box_free<FnMut<(&mut std::net::parser::Parser)>>
             22 ┊     0.00% ┊ Subroutine[9][616]
             22 ┊     0.00% ┊ Subroutine[10][355]
             22 ┊     0.00% ┊ Subroutine[11][1093]
             22 ┊     0.00% ┊ Subroutine[13][615]
             22 ┊     0.00% ┊ Subroutine[14][738]
-            22 ┊     0.00% ┊ box_free<Fn<(&core::panic::PanicInfo)>>
+            22 ┊     0.00% ┊ Subroutine[16][1622]: box_free<Fn<(&core::panic::PanicInfo)>>
             22 ┊     0.00% ┊ Subroutine[18][32]
-            22 ┊     0.00% ┊ je_tcache_prefork
-            22 ┊     0.00% ┊ je_tcache_postfork_parent
-            22 ┊     0.00% ┊ je_tcache_postfork_child
+            22 ┊     0.00% ┊ Subroutine[69][1220]: je_tcache_prefork
+            22 ┊     0.00% ┊ Subroutine[69][1222]: je_tcache_postfork_parent
+            22 ┊     0.00% ┊ Subroutine[69][1224]: je_tcache_postfork_child
             21 ┊     0.00% ┊ Subroutine[2][337]
-            21 ┊     0.00% ┊ drop_in_place<std::ffi::c_str::NulError>
-            21 ┊     0.00% ┊ fmt<alloc::string::String>
-            20 ┊     0.00% ┊ rust_oom
+            21 ┊     0.00% ┊ Subroutine[10][222]: drop_in_place<std::ffi::c_str::NulError>
+            21 ┊     0.00% ┊ Subroutine[12][292]: fmt<alloc::string::String>
+            20 ┊     0.00% ┊ Subroutine[2][11]: rust_oom
             20 ┊     0.00% ┊ Subroutine[2][346]
-            20 ┊     0.00% ┊ drop_in_place<alloc::vec::Vec<u8>>
+            20 ┊     0.00% ┊ Subroutine[4][96]: drop_in_place<alloc::vec::Vec<u8>>
             20 ┊     0.00% ┊ Subroutine[5][1338]
-            20 ┊     0.00% ┊ drop_in_place<std::error::{{impl}}::from::StringError>
+            20 ┊     0.00% ┊ Subroutine[6][110]: drop_in_place<std::error::{{impl}}::from::StringError>
             20 ┊     0.00% ┊ Subroutine[12][328]
-            20 ┊     0.00% ┊ drop_in_place<alloc::vec::Vec<u8>>
-            20 ┊     0.00% ┊ write_all<std::sys::unix::stdio::Stderr>
+            20 ┊     0.00% ┊ Subroutine[14][554]: drop_in_place<alloc::vec::Vec<u8>>
+            20 ┊     0.00% ┊ Subroutine[16][929]: write_all<std::sys::unix::stdio::Stderr>
             20 ┊     0.00% ┊ Subroutine[16][1179]
             20 ┊     0.00% ┊ Subroutine[16][1242]
-            20 ┊     0.00% ┊ je_huge_malloc
+            20 ┊     0.00% ┊ Subroutine[61][510]: je_huge_malloc
             19 ┊     0.00% ┊ Subroutine[11][730]
             19 ┊     0.00% ┊ Subroutine[12][381]
             19 ┊     0.00% ┊ Subroutine[14][563]
-            18 ┊     0.00% ┊ fmt
+            18 ┊     0.00% ┊ Subroutine[2][159]: fmt
             18 ┊     0.00% ┊ Subroutine[2][437]
-            18 ┊     0.00% ┊ fmt<str>
-            18 ┊     0.00% ┊ fmt<str>
-            18 ┊     0.00% ┊ arenas_bin_i_index
-            18 ┊     0.00% ┊ stats_arenas_i_bins_j_index
-            18 ┊     0.00% ┊ je_pages_purge
+            18 ┊     0.00% ┊ Subroutine[9][442]: fmt<str>
+            18 ┊     0.00% ┊ Subroutine[33][195]: fmt<str>
+            18 ┊     0.00% ┊ Subroutine[59][1907]: arenas_bin_i_index
+            18 ┊     0.00% ┊ Subroutine[59][2582]: stats_arenas_i_bins_j_index
+            18 ┊     0.00% ┊ Subroutine[64][100]: je_pages_purge
             16 ┊     0.00% ┊ Subroutine[9][287]
             16 ┊     0.00% ┊ Subroutine[11][633]
-            16 ┊     0.00% ┊ drop_in_place<std::io::Write::write_fmt::Adaptor<std::io::stdio::StderrLock>>
-            16 ┊     0.00% ┊ drop_in_place<std::io::Write::write_fmt::Adaptor<std::sys::unix::stdio::Stderr>>
+            16 ┊     0.00% ┊ Subroutine[11][728]: drop_in_place<std::io::Write::write_fmt::Adaptor<std::io::stdio::StderrLock>>
+            16 ┊     0.00% ┊ Subroutine[14][524]: drop_in_place<std::io::Write::write_fmt::Adaptor<std::sys::unix::stdio::Stderr>>
             16 ┊     0.00% ┊ Subroutine[14][574]
-            16 ┊     0.00% ┊ je_bitmap_info_init
-            15 ┊     0.00% ┊ capacity_overflow
-            15 ┊     0.00% ┊ je_arena_extent_sn_next
-            15 ┊     0.00% ┊ chunks_rtree_node_alloc
+            16 ┊     0.00% ┊ Subroutine[55][2]: je_bitmap_info_init
+            15 ┊     0.00% ┊ Subroutine[20][5]: capacity_overflow
+            15 ┊     0.00% ┊ Subroutine[53][4162]: je_arena_extent_sn_next
+            15 ┊     0.00% ┊ Subroutine[56][1229]: chunks_rtree_node_alloc
             15 ┊     0.00% ┊ Subroutine[63][16]
-            14 ┊     0.00% ┊ je_arena_nthreads_inc
-            14 ┊     0.00% ┊ je_arena_nthreads_dec
+            14 ┊     0.00% ┊ Subroutine[53][4143]: je_arena_nthreads_inc
+            14 ┊     0.00% ┊ Subroutine[53][4154]: je_arena_nthreads_dec
             14 ┊     0.00% ┊ Subroutine[63][3]
-            13 ┊     0.00% ┊ description
-            13 ┊     0.00% ┊ chunk_merge_default
-            13 ┊     0.00% ┊ je_malloc_tsd_malloc
-            13 ┊     0.00% ┊ je_witness_postfork_child
-            13 ┊     0.00% ┊ je_ckh_string_keycomp
+            13 ┊     0.00% ┊ Subroutine[13][232]: description
+            13 ┊     0.00% ┊ Subroutine[56][658]: chunk_merge_default
+            13 ┊     0.00% ┊ Subroutine[70][501]: je_malloc_tsd_malloc
+            13 ┊     0.00% ┊ Subroutine[72][529]: je_witness_postfork_child
+            13 ┊     0.00% ┊ Subroutine[73][1528]: je_ckh_string_keycomp
             12 ┊     0.00% ┊ Subroutine[5][1449]
             12 ┊     0.00% ┊ Subroutine[6][402]
             12 ┊     0.00% ┊ Subroutine[6][411]
@@ -629,153 +629,153 @@
             12 ┊     0.00% ┊ Subroutine[52][784]
             12 ┊     0.00% ┊ Subroutine[53][4010]
             12 ┊     0.00% ┊ Subroutine[53][4029]
-            12 ┊     0.00% ┊ je_arena_prefork1
-            12 ┊     0.00% ┊ je_arena_prefork2
-            12 ┊     0.00% ┊ je_base_prefork
-            12 ┊     0.00% ┊ je_base_postfork_parent
-            12 ┊     0.00% ┊ je_base_postfork_child
-            12 ┊     0.00% ┊ je_ctl_prefork
-            12 ┊     0.00% ┊ je_ctl_postfork_parent
-            12 ┊     0.00% ┊ je_ctl_postfork_child
-            12 ┊     0.00% ┊ je_nstime_idivide
-            11 ┊     0.00% ┊ type_id<std::error::{{impl}}::from::StringError>
+            12 ┊     0.00% ┊ Subroutine[53][4459]: je_arena_prefork1
+            12 ┊     0.00% ┊ Subroutine[53][4462]: je_arena_prefork2
+            12 ┊     0.00% ┊ Subroutine[54][663]: je_base_prefork
+            12 ┊     0.00% ┊ Subroutine[54][665]: je_base_postfork_parent
+            12 ┊     0.00% ┊ Subroutine[54][667]: je_base_postfork_child
+            12 ┊     0.00% ┊ Subroutine[59][746]: je_ctl_prefork
+            12 ┊     0.00% ┊ Subroutine[59][748]: je_ctl_postfork_parent
+            12 ┊     0.00% ┊ Subroutine[59][750]: je_ctl_postfork_child
+            12 ┊     0.00% ┊ Subroutine[63][28]: je_nstime_idivide
+            11 ┊     0.00% ┊ Subroutine[2][151]: type_id<std::error::{{impl}}::from::StringError>
             11 ┊     0.00% ┊ Subroutine[9][314]
-            11 ┊     0.00% ┊ fmt<u8>
+            11 ┊     0.00% ┊ Subroutine[9][444]: fmt<u8>
             11 ┊     0.00% ┊ Subroutine[11][618]
-            11 ┊     0.00% ┊ get_type_id<core::panic::{{impl}}::internal_constructor::NoPayload>
-            11 ┊     0.00% ┊ get_type_id<alloc::string::String>
-            11 ┊     0.00% ┊ type_id<std::sys::unix::backtrace::tracing::imp::UnwindError>
-            11 ┊     0.00% ┊ get_type_id<()>
-            11 ┊     0.00% ┊ get_type_id<&str>
+            11 ┊     0.00% ┊ Subroutine[12][421]: get_type_id<core::panic::{{impl}}::internal_constructor::NoPayload>
+            11 ┊     0.00% ┊ Subroutine[12][422]: get_type_id<alloc::string::String>
+            11 ┊     0.00% ┊ Subroutine[13][285]: type_id<std::sys::unix::backtrace::tracing::imp::UnwindError>
+            11 ┊     0.00% ┊ Subroutine[14][701]: get_type_id<()>
+            11 ┊     0.00% ┊ Subroutine[14][702]: get_type_id<&str>
             11 ┊     0.00% ┊ Subroutine[18][62]
             11 ┊     0.00% ┊ Subroutine[18][64]
-            11 ┊     0.00% ┊ get_type_id<core::panic::{{impl}}::internal_constructor::NoPayload>
+            11 ┊     0.00% ┊ Subroutine[32][334]: get_type_id<core::panic::{{impl}}::internal_constructor::NoPayload>
             11 ┊     0.00% ┊ Subroutine[52][1179]
-            11 ┊     0.00% ┊ je_arena_dalloc_bin_junked_locked
-            11 ┊     0.00% ┊ je_arena_dalloc_large_junked_locked
+            11 ┊     0.00% ┊ Subroutine[53][2876]: je_arena_dalloc_bin_junked_locked
+            11 ┊     0.00% ┊ Subroutine[53][3140]: je_arena_dalloc_large_junked_locked
             11 ┊     0.00% ┊ Subroutine[53][4135]
-            11 ┊     0.00% ┊ chunk_commit_default
-            11 ┊     0.00% ┊ chunk_decommit_default
-            11 ┊     0.00% ┊ chunk_purge_default
-            11 ┊     0.00% ┊ je_chunk_dss_prec_get
+            11 ┊     0.00% ┊ Subroutine[56][630]: chunk_commit_default
+            11 ┊     0.00% ┊ Subroutine[56][636]: chunk_decommit_default
+            11 ┊     0.00% ┊ Subroutine[56][642]: chunk_purge_default
+            11 ┊     0.00% ┊ Subroutine[57][50]: je_chunk_dss_prec_get
             11 ┊     0.00% ┊ Subroutine[61][1213]
-            11 ┊     0.00% ┊ je_prof_tdata_init
-            11 ┊     0.00% ┊ je_witness_init
+            11 ┊     0.00% ┊ Subroutine[65][900]: je_prof_tdata_init
+            11 ┊     0.00% ┊ Subroutine[72][493]: je_witness_init
             10 ┊     0.00% ┊ Subroutine[52][1050]
-            10 ┊     0.00% ┊ posix_memalign
-             9 ┊     0.00% ┊ je_arena_prefork0
+            10 ┊     0.00% ┊ Subroutine[52][1833]: posix_memalign
+             9 ┊     0.00% ┊ Subroutine[53][4456]: je_arena_prefork0
              9 ┊     0.00% ┊ Subroutine[55][19]
-             9 ┊     0.00% ┊ je_chunk_dss_prec_set
-             9 ┊     0.00% ┊ je_nstime_divide
-             8 ┊     0.00% ┊ description
+             9 ┊     0.00% ┊ Subroutine[57][63]: je_chunk_dss_prec_set
+             9 ┊     0.00% ┊ Subroutine[63][31]: je_nstime_divide
+             8 ┊     0.00% ┊ Subroutine[2][155]: description
              8 ┊     0.00% ┊ Subroutine[6][120]
              8 ┊     0.00% ┊ Subroutine[9][284]
-             8 ┊     0.00% ┊ write_char<std::io::Write::write_fmt::Adaptor<std::io::stdio::StdoutLock>>
-             8 ┊     0.00% ┊ write_char<std::io::Write::write_fmt::Adaptor<std::sys::unix::stdio::Stderr>>
-             8 ┊     0.00% ┊ abort_internal
+             8 ┊     0.00% ┊ Subroutine[9][470]: write_char<std::io::Write::write_fmt::Adaptor<std::io::stdio::StdoutLock>>
+             8 ┊     0.00% ┊ Subroutine[9][471]: write_char<std::io::Write::write_fmt::Adaptor<std::sys::unix::stdio::Stderr>>
+             8 ┊     0.00% ┊ Subroutine[10][333]: abort_internal
              8 ┊     0.00% ┊ Subroutine[12][393]
-             8 ┊     0.00% ┊ fmt<unwind::libunwind::_Unwind_Reason_Code>
-             8 ┊     0.00% ┊ rust_begin_panic
+             8 ┊     0.00% ┊ Subroutine[14][668]: fmt<unwind::libunwind::_Unwind_Reason_Code>
+             8 ┊     0.00% ┊ Subroutine[16][568]: rust_begin_panic
              8 ┊     0.00% ┊ Subroutine[16][1187]
-             8 ┊     0.00% ┊ call_once<closure,()>
-             8 ┊     0.00% ┊ call_once<closure,()>
-             8 ┊     0.00% ┊ write_str<core::fmt::builders::PadAdapter>
-             8 ┊     0.00% ┊ je_a0get
-             8 ┊     0.00% ┊ je_extent_tree_szsnad_new
-             8 ┊     0.00% ┊ je_extent_tree_szsnad_empty
-             8 ┊     0.00% ┊ je_extent_tree_ad_new
-             8 ┊     0.00% ┊ je_extent_tree_ad_empty
-             8 ┊     0.00% ┊ je_malloc_mutex_prefork
-             8 ┊     0.00% ┊ je_malloc_mutex_postfork_parent
-             8 ┊     0.00% ┊ je_nstime_imultiply
+             8 ┊     0.00% ┊ Subroutine[18][24]: call_once<closure,()>
+             8 ┊     0.00% ┊ Subroutine[18][26]: call_once<closure,()>
+             8 ┊     0.00% ┊ Subroutine[33][316]: write_str<core::fmt::builders::PadAdapter>
+             8 ┊     0.00% ┊ Subroutine[52][783]: je_a0get
+             8 ┊     0.00% ┊ Subroutine[60][519]: je_extent_tree_szsnad_new
+             8 ┊     0.00% ┊ Subroutine[60][521]: je_extent_tree_szsnad_empty
+             8 ┊     0.00% ┊ Subroutine[60][762]: je_extent_tree_ad_new
+             8 ┊     0.00% ┊ Subroutine[60][764]: je_extent_tree_ad_empty
+             8 ┊     0.00% ┊ Subroutine[62][511]: je_malloc_mutex_prefork
+             8 ┊     0.00% ┊ Subroutine[62][518]: je_malloc_mutex_postfork_parent
+             8 ┊     0.00% ┊ Subroutine[63][25]: je_nstime_imultiply
              7 ┊     0.00% ┊ Subroutine[0][9]
-             7 ┊     0.00% ┊ call_once<closure,()>
-             7 ┊     0.00% ┊ flush<std::sys::unix::stdio::Stderr>
-             7 ┊     0.00% ┊ je_chunk_deregister
+             7 ┊     0.00% ┊ Subroutine[0][18]: call_once<closure,()>
+             7 ┊     0.00% ┊ Subroutine[16][926]: flush<std::sys::unix::stdio::Stderr>
+             7 ┊     0.00% ┊ Subroutine[56][865]: je_chunk_deregister
              7 ┊     0.00% ┊ Subroutine[63][13]
-             7 ┊     0.00% ┊ je_nstime_add
-             7 ┊     0.00% ┊ je_nstime_subtract
-             7 ┊     0.00% ┊ je_ckh_pointer_keycomp
-             6 ┊     0.00% ┊ thread_prof_name_ctl
-             6 ┊     0.00% ┊ thread_prof_active_ctl
-             6 ┊     0.00% ┊ opt_utrace_ctl
-             6 ┊     0.00% ┊ opt_xmalloc_ctl
-             6 ┊     0.00% ┊ opt_thp_ctl
-             6 ┊     0.00% ┊ opt_prof_ctl
-             6 ┊     0.00% ┊ opt_prof_prefix_ctl
-             6 ┊     0.00% ┊ opt_prof_active_ctl
-             6 ┊     0.00% ┊ opt_prof_thread_active_init_ctl
-             6 ┊     0.00% ┊ opt_lg_prof_sample_ctl
-             6 ┊     0.00% ┊ opt_lg_prof_interval_ctl
-             6 ┊     0.00% ┊ opt_prof_gdump_ctl
-             6 ┊     0.00% ┊ opt_prof_final_ctl
-             6 ┊     0.00% ┊ opt_prof_leak_ctl
-             6 ┊     0.00% ┊ opt_prof_accum_ctl
-             6 ┊     0.00% ┊ prof_thread_active_init_ctl
-             6 ┊     0.00% ┊ prof_active_ctl
-             6 ┊     0.00% ┊ prof_dump_ctl
-             6 ┊     0.00% ┊ prof_gdump_ctl
-             6 ┊     0.00% ┊ prof_reset_ctl
-             6 ┊     0.00% ┊ prof_interval_ctl
-             6 ┊     0.00% ┊ lg_prof_sample_ctl
+             7 ┊     0.00% ┊ Subroutine[63][19]: je_nstime_add
+             7 ┊     0.00% ┊ Subroutine[63][22]: je_nstime_subtract
+             7 ┊     0.00% ┊ Subroutine[73][1569]: je_ckh_pointer_keycomp
+             6 ┊     0.00% ┊ Subroutine[59][1015]: thread_prof_name_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1024]: thread_prof_active_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1370]: opt_utrace_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1380]: opt_xmalloc_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1414]: opt_thp_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1424]: opt_prof_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1434]: opt_prof_prefix_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1444]: opt_prof_active_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1454]: opt_prof_thread_active_init_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1464]: opt_lg_prof_sample_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1474]: opt_lg_prof_interval_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1484]: opt_prof_gdump_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1494]: opt_prof_final_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1504]: opt_prof_leak_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1514]: opt_prof_accum_ctl
+             6 ┊     0.00% ┊ Subroutine[59][1990]: prof_thread_active_init_ctl
+             6 ┊     0.00% ┊ Subroutine[59][2000]: prof_active_ctl
+             6 ┊     0.00% ┊ Subroutine[59][2010]: prof_dump_ctl
+             6 ┊     0.00% ┊ Subroutine[59][2020]: prof_gdump_ctl
+             6 ┊     0.00% ┊ Subroutine[59][2030]: prof_reset_ctl
+             6 ┊     0.00% ┊ Subroutine[59][2040]: prof_interval_ctl
+             6 ┊     0.00% ┊ Subroutine[59][2050]: lg_prof_sample_ctl
              5 ┊     0.00% ┊ Subroutine[11][637]
-             5 ┊     0.00% ┊ drop_in_place<std::sync::once::Finish>
-             5 ┊     0.00% ┊ je_chunk_register
-             5 ┊     0.00% ┊ je_malloc_tsd_dalloc
-             5 ┊     0.00% ┊ je_witness_prefork
-             5 ┊     0.00% ┊ je_witness_postfork_parent
-             5 ┊     0.00% ┊ je_ckh_count
-             4 ┊     0.00% ┊ syminfo_cb
-             4 ┊     0.00% ┊ je_nstime_init
-             4 ┊     0.00% ┊ je_nstime_ns
-             3 ┊     0.00% ┊ cause<std::error::{{impl}}::from::StringError>
-             3 ┊     0.00% ┊ __rust_begin_short_backtrace<closure,i32>
-             3 ┊     0.00% ┊ cause<std::sys::unix::backtrace::tracing::imp::UnwindError>
-             3 ┊     0.00% ┊ chunk_split_default
-             3 ┊     0.00% ┊ je_chunk_dalloc_mmap
-             3 ┊     0.00% ┊ je_malloc_mutex_boot
-             3 ┊     0.00% ┊ je_nstime_monotonic
-             3 ┊     0.00% ┊ je_pages_huge
-             3 ┊     0.00% ┊ je_pages_nohuge
-             1 ┊     0.00% ┊ drop_in_place<closure>
-             1 ┊     0.00% ┊ drop_in_place<&alloc::boxed::Box<Error>>
-             1 ┊     0.00% ┊ drop_in_place<&std::process::ChildStdin>
-             1 ┊     0.00% ┊ drop_in_place<&std::io::error::Error>
-             1 ┊     0.00% ┊ drop_in_place<&u64>
-             1 ┊     0.00% ┊ error_cb
-             1 ┊     0.00% ┊ drop_in_place<&std::net::addr::SocketAddrV6>
-             1 ┊     0.00% ┊ drop_in_place<closure>
-             1 ┊     0.00% ┊ drop_in_place<closure>
-             1 ┊     0.00% ┊ drop_in_place<closure>
-             1 ┊     0.00% ┊ drop_in_place<core::panic::{{impl}}::internal_constructor::NoPayload>
-             1 ┊     0.00% ┊ drop_in_place<core::fmt::builders::PadAdapter>
-             1 ┊     0.00% ┊ drop_in_place<core::str::SplitInternal<core::str::IsWhitespace>>
-             1 ┊     0.00% ┊ drop_in_place<&u8>
-             1 ┊     0.00% ┊ drop_in_place<&core::num::IntErrorKind>
-             1 ┊     0.00% ┊ je_thread_allocated_cleanup
-             1 ┊     0.00% ┊ je_thread_deallocated_cleanup
-             1 ┊     0.00% ┊ je_narenas_tdata_cleanup
-             1 ┊     0.00% ┊ je_arenas_tdata_bypass_cleanup
-             1 ┊     0.00% ┊ je_prof_sample_threshold_update
-             1 ┊     0.00% ┊ je_prof_tdata_cleanup
-             1 ┊     0.00% ┊ je_tcache_enabled_cleanup
-             1 ┊     0.00% ┊ je_witnesses_cleanup
-             1 ┊     0.00% ┊ je_witness_fork_cleanup
-             0 ┊     0.00% ┊ je_arena_prof_promoted
-             0 ┊     0.00% ┊ je_prof_alloc_rollback
-             0 ┊     0.00% ┊ je_prof_malloc_sample_object
-             0 ┊     0.00% ┊ je_bt_init
-             0 ┊     0.00% ┊ je_prof_backtrace
-             0 ┊     0.00% ┊ je_prof_lookup
-             0 ┊     0.00% ┊ je_prof_idump
-             0 ┊     0.00% ┊ je_prof_mdump
-             0 ┊     0.00% ┊ je_prof_gdump
-             0 ┊     0.00% ┊ je_prof_thread_name_get
-             0 ┊     0.00% ┊ je_prof_thread_name_set
-             0 ┊     0.00% ┊ je_prof_thread_active_get
-             0 ┊     0.00% ┊ je_prof_thread_active_set
-             0 ┊     0.00% ┊ je_prof_boot0
-             0 ┊     0.00% ┊ je_prof_boot1
-             0 ┊     0.00% ┊ je_prof_boot2
-             0 ┊     0.00% ┊ je_malloc_tsd_no_cleanup
+             5 ┊     0.00% ┊ Subroutine[14][586]: drop_in_place<std::sync::once::Finish>
+             5 ┊     0.00% ┊ Subroutine[56][768]: je_chunk_register
+             5 ┊     0.00% ┊ Subroutine[70][503]: je_malloc_tsd_dalloc
+             5 ┊     0.00% ┊ Subroutine[72][519]: je_witness_prefork
+             5 ┊     0.00% ┊ Subroutine[72][524]: je_witness_postfork_parent
+             5 ┊     0.00% ┊ Subroutine[73][809]: je_ckh_count
+             4 ┊     0.00% ┊ Subroutine[13][101]: syminfo_cb
+             4 ┊     0.00% ┊ Subroutine[63][0]: je_nstime_init
+             4 ┊     0.00% ┊ Subroutine[63][7]: je_nstime_ns
+             3 ┊     0.00% ┊ Subroutine[2][150]: cause<std::error::{{impl}}::from::StringError>
+             3 ┊     0.00% ┊ Subroutine[5][7]: __rust_begin_short_backtrace<closure,i32>
+             3 ┊     0.00% ┊ Subroutine[13][284]: cause<std::sys::unix::backtrace::tracing::imp::UnwindError>
+             3 ┊     0.00% ┊ Subroutine[56][648]: chunk_split_default
+             3 ┊     0.00% ┊ Subroutine[58][36]: je_chunk_dalloc_mmap
+             3 ┊     0.00% ┊ Subroutine[62][539]: je_malloc_mutex_boot
+             3 ┊     0.00% ┊ Subroutine[63][34]: je_nstime_monotonic
+             3 ┊     0.00% ┊ Subroutine[64][105]: je_pages_huge
+             3 ┊     0.00% ┊ Subroutine[64][108]: je_pages_nohuge
+             1 ┊     0.00% ┊ Subroutine[0][25]: drop_in_place<closure>
+             1 ┊     0.00% ┊ Subroutine[2][331]: drop_in_place<&alloc::boxed::Box<Error>>
+             1 ┊     0.00% ┊ Subroutine[6][103]: drop_in_place<&std::process::ChildStdin>
+             1 ┊     0.00% ┊ Subroutine[10][169]: drop_in_place<&std::io::error::Error>
+             1 ┊     0.00% ┊ Subroutine[12][301]: drop_in_place<&u64>
+             1 ┊     0.00% ┊ Subroutine[13][90]: error_cb
+             1 ┊     0.00% ┊ Subroutine[13][458]: drop_in_place<&std::net::addr::SocketAddrV6>
+             1 ┊     0.00% ┊ Subroutine[14][522]: drop_in_place<closure>
+             1 ┊     0.00% ┊ Subroutine[16][1178]: drop_in_place<closure>
+             1 ┊     0.00% ┊ Subroutine[18][17]: drop_in_place<closure>
+             1 ┊     0.00% ┊ Subroutine[32][343]: drop_in_place<core::panic::{{impl}}::internal_constructor::NoPayload>
+             1 ┊     0.00% ┊ Subroutine[33][453]: drop_in_place<core::fmt::builders::PadAdapter>
+             1 ┊     0.00% ┊ Subroutine[34][234]: drop_in_place<core::str::SplitInternal<core::str::IsWhitespace>>
+             1 ┊     0.00% ┊ Subroutine[36][180]: drop_in_place<&u8>
+             1 ┊     0.00% ┊ Subroutine[41][111]: drop_in_place<&core::num::IntErrorKind>
+             1 ┊     0.00% ┊ Subroutine[52][1442]: je_thread_allocated_cleanup
+             1 ┊     0.00% ┊ Subroutine[52][1444]: je_thread_deallocated_cleanup
+             1 ┊     0.00% ┊ Subroutine[52][1488]: je_narenas_tdata_cleanup
+             1 ┊     0.00% ┊ Subroutine[52][1490]: je_arenas_tdata_bypass_cleanup
+             1 ┊     0.00% ┊ Subroutine[65][584]: je_prof_sample_threshold_update
+             1 ┊     0.00% ┊ Subroutine[65][1345]: je_prof_tdata_cleanup
+             1 ┊     0.00% ┊ Subroutine[69][1130]: je_tcache_enabled_cleanup
+             1 ┊     0.00% ┊ Subroutine[72][511]: je_witnesses_cleanup
+             1 ┊     0.00% ┊ Subroutine[72][513]: je_witness_fork_cleanup
+             0 ┊     0.00% ┊ Subroutine[53][2875]: je_arena_prof_promoted
+             0 ┊     0.00% ┊ Subroutine[65][583]: je_prof_alloc_rollback
+             0 ┊     0.00% ┊ Subroutine[65][586]: je_prof_malloc_sample_object
+             0 ┊     0.00% ┊ Subroutine[65][894]: je_bt_init
+             0 ┊     0.00% ┊ Subroutine[65][895]: je_prof_backtrace
+             0 ┊     0.00% ┊ Subroutine[65][896]: je_prof_lookup
+             0 ┊     0.00% ┊ Subroutine[65][897]: je_prof_idump
+             0 ┊     0.00% ┊ Subroutine[65][898]: je_prof_mdump
+             0 ┊     0.00% ┊ Subroutine[65][899]: je_prof_gdump
+             0 ┊     0.00% ┊ Subroutine[65][1359]: je_prof_thread_name_get
+             0 ┊     0.00% ┊ Subroutine[65][1360]: je_prof_thread_name_set
+             0 ┊     0.00% ┊ Subroutine[65][1361]: je_prof_thread_active_get
+             0 ┊     0.00% ┊ Subroutine[65][1362]: je_prof_thread_active_set
+             0 ┊     0.00% ┊ Subroutine[65][1380]: je_prof_boot0
+             0 ┊     0.00% ┊ Subroutine[65][1381]: je_prof_boot1
+             0 ┊     0.00% ┊ Subroutine[65][1382]: je_prof_boot2
+             0 ┊     0.00% ┊ Subroutine[70][505]: je_malloc_tsd_no_cleanup
         256639 ┊    12.23% ┊ Σ [778 Total Rows]

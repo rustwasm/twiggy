@@ -1,5 +1,5 @@
 Name,ShallowSize,ShallowSizePercent,RetainedSize,RetainedSizePercent
 data[3],1034,36.7057152999645,,
 """function names"" subsection",777,27.582534611288605,,
-wee_alloc::alloc_first_fit::h9a72de3af77ef93f,225,7.987220447284344,,
-hello,164,5.8217962371317,,
+code[3]: wee_alloc::alloc_first_fit::h9a72de3af77ef93f,225,7.987220447284344,,
+code[8]: hello,164,5.8217962371317,,

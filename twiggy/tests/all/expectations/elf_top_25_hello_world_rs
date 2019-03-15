@@ -1,29 +1,29 @@
  Shallow Bytes │ Shallow % │ Item
-───────────────┼───────────┼────────────────────────────
-          9751 ┊     0.46% ┊ stats_arena_print
-          9503 ┊     0.45% ┊ output
-          7917 ┊     0.38% ┊ je_stats_print
-          7852 ┊     0.37% ┊ mallocx
-          7019 ┊     0.33% ┊ je_arena_boot
-          6221 ┊     0.30% ┊ je_malloc_vsnprintf
-          6198 ┊     0.30% ┊ {{closure}}
-          4313 ┊     0.21% ┊ je_arena_palloc
-          4028 ┊     0.19% ┊ realloc
-          3908 ┊     0.19% ┊ malloc_init_hard_a0_locked
-          3510 ┊     0.17% ┊ output_fileline
-          3185 ┊     0.15% ┊ calloc
-          3178 ┊     0.15% ┊ malloc
-          3093 ┊     0.15% ┊ rallocx
-          3086 ┊     0.15% ┊ je_arena_ralloc_no_move
-          3015 ┊     0.14% ┊ rust_panic_with_hook
-          2952 ┊     0.14% ┊ je_arena_ralloc
-          2696 ┊     0.13% ┊ arena_run_dalloc
-          2302 ┊     0.11% ┊ arena_purge_to_limit
-          2286 ┊     0.11% ┊ new
-          2194 ┊     0.10% ┊ arena_run_heap_remove
-          2168 ┊     0.10% ┊ je_prof_free_sampled_object
-          2158 ┊     0.10% ┊ prof_tdata_destroy_locked
-          2041 ┊     0.10% ┊ stats_print_helper
-          1897 ┊     0.09% ┊ imemalign
+───────────────┼───────────┼─────────────────────────────────────────────────
+          9751 ┊     0.46% ┊ Subroutine[68][471]: stats_arena_print
+          9503 ┊     0.45% ┊ Subroutine[5][16]: output
+          7917 ┊     0.38% ┊ Subroutine[68][131]: je_stats_print
+          7852 ┊     0.37% ┊ Subroutine[52][2800]: mallocx
+          7019 ┊     0.33% ┊ Subroutine[53][4212]: je_arena_boot
+          6221 ┊     0.30% ┊ Subroutine[71][86]: je_malloc_vsnprintf
+          6198 ┊     0.30% ┊ Subroutine[16][17]: {{closure}}
+          4313 ┊     0.21% ┊ Subroutine[53][2368]: je_arena_palloc
+          4028 ┊     0.19% ┊ Subroutine[52][2223]: realloc
+          3908 ┊     0.19% ┊ Subroutine[52][4592]: malloc_init_hard_a0_locked
+          3510 ┊     0.17% ┊ Subroutine[5][772]: output_fileline
+          3185 ┊     0.15% ┊ Subroutine[52][1996]: calloc
+          3178 ┊     0.15% ┊ Subroutine[52][1613]: malloc
+          3093 ┊     0.15% ┊ Subroutine[52][3431]: rallocx
+          3086 ┊     0.15% ┊ Subroutine[53][3310]: je_arena_ralloc_no_move
+          3015 ┊     0.14% ┊ Subroutine[16][243]: rust_panic_with_hook
+          2952 ┊     0.14% ┊ Subroutine[53][3783]: je_arena_ralloc
+          2696 ┊     0.13% ┊ Subroutine[53][5249]: arena_run_dalloc
+          2302 ┊     0.11% ┊ Subroutine[53][1338]: arena_purge_to_limit
+          2286 ┊     0.11% ┊ Subroutine[35][40]: new
+          2194 ┊     0.10% ┊ Subroutine[53][5005]: arena_run_heap_remove
+          2168 ┊     0.10% ┊ Subroutine[65][759]: je_prof_free_sampled_object
+          2158 ┊     0.10% ┊ Subroutine[65][1178]: prof_tdata_destroy_locked
+          2041 ┊     0.10% ┊ Subroutine[68][254]: stats_print_helper
+          1897 ┊     0.09% ┊ Subroutine[52][1872]: imemalign
         150168 ┊     7.15% ┊ ... and 753 more.
         256639 ┊    12.23% ┊ Σ [778 Total Rows]

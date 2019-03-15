@@ -1,14 +1,14 @@
  Retained Bytes │ Retained % │ Item
-────────────────┼────────────┼─────────────────────────────────────────────────
+────────────────┼────────────┼───────────────────────────────────────────────────────────
           14492 ┊     32.04% ┊ table[0]
           14488 ┊     32.03% ┊ elem[0]
-           5285 ┊     11.68% ┊ func[40]
-           5284 ┊     11.68% ┊ core::ptr::drop_in_place::hddeb26218033f78b.1290
+           5285 ┊     11.68% ┊ func[40]: core::ptr::drop_in_place::hddeb26218033f78b.1290
+           5284 ┊     11.68% ┊ code[40]: core::ptr::drop_in_place::hddeb26218033f78b.1290
            4340 ┊      9.59% ┊ "function names" subsection
            3440 ┊      7.61% ┊ export "parse_mappings"
-           3423 ┊      7.57% ┊ func[2]
-           3422 ┊      7.57% ┊ parse_mappings
-           3091 ┊      6.83% ┊ func[70]
-           3090 ┊      6.83% ┊ __powidf2
+           3423 ┊      7.57% ┊ func[2]: parse_mappings
+           3422 ┊      7.57% ┊ code[2]: parse_mappings
+           3091 ┊      6.83% ┊ func[70]: __powidf2
+           3090 ┊      6.83% ┊ code[70]: __powidf2
             ... ┊        ... ┊ ... and 349 more.
             ... ┊        ... ┊ Σ [359 Total Rows]
