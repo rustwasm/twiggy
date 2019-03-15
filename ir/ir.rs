@@ -494,7 +494,7 @@ impl Item {
             }
             ItemKind::Data(Data { name, .. }) => name.to_string(),
             ItemKind::Func(func) => {
-                if let Some(name) = func.name() {
+                if let Some(name) = func.demangled().or_else(|| func.name()) {
                     format!("{}: {}", func.decorator(), name)
                 } else {
                     func.decorator().to_string()
@@ -714,12 +714,14 @@ impl Data {
 pub struct Function {
     name: Option<String>,
     decorator: String,
+    demangled: Option<String>,
 }
 
 impl Function {
     /// Construct a new IR item for function definition.
     pub fn new(name: Option<String>, decorator: String) -> Function {
-        Function { name, decorator }
+        let demangled = name.as_ref().and_then(|n| demangle(&n));
+        Function { name, decorator, demangled }
     }
 
     /// Get the name of this function, if any.
@@ -727,8 +729,14 @@ impl Function {
         self.name.as_ref().map(|s| s.as_str())
     }
 
+    /// Get the decorator for this function, if any.
     pub(crate) fn decorator(&self) -> &str {
         self.decorator.as_ref()
+    }
+
+    /// Get the demangled name of this function, if any.
+    pub fn demangled(&self) -> Option<&str> {
+        self.demangled.as_ref().map(|s| s.as_str())
     }
 }
 
