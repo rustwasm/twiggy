@@ -1,5 +1,5 @@
  Delta Bytes │ Item
-─────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+─────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
        -1034 ┊ data[3]
         -593 ┊ "function names" subsection
         +395 ┊ wee_alloc::alloc_first_fit::he2a4ddf96981c0ce
@@ -34,10 +34,10 @@
           +3 ┊ import section headers
           +2 ┊ data[0]
           -1 ┊ data section headers
-          -1 ┊ func[10]
-          -1 ┊ func[5]
-          -1 ┊ func[6]
-          -1 ┊ func[7]
-          -1 ┊ func[8]
-          -1 ┊ func[9]
+          -1 ┊ func[10]: __wasm_nullptr
+          -1 ┊ func[5]: _ZN102_$LT$wee_alloc..size_classes..SizeClassAllocPolicy$LT$$u27$a$GT$$u20$as$u20$wee_alloc..AllocPolicy$GT$22new_cell_for_free_list17h3987e3054b8224e6E
+          -1 ┊ func[6]: _ZN4core3ptr13drop_in_place17h4e5cdfd7b9310648E.18
+          -1 ┊ func[7]: _ZN102_$LT$wee_alloc..size_classes..SizeClassAllocPolicy$LT$$u27$a$GT$$u20$as$u20$wee_alloc..AllocPolicy$GT$13min_cell_size17h6f746be886573355E
+          -1 ┊ func[8]: hello
+          -1 ┊ func[9]: goodbye
        -1476 ┊ Σ [40 Total Rows]
