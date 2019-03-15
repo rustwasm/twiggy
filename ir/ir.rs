@@ -486,7 +486,7 @@ impl Item {
     pub fn decorated_name(&self) -> String {
         match &self.kind {
             ItemKind::Code(code) => {
-                if let Some(name) = code.name() {
+                if let Some(name) = code.demangled().or_else(|| code.name()) {
                     format!("{}: {}", code.decorator(), name)
                 } else {
                     code.decorator().to_string()
