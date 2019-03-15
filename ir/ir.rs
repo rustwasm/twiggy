@@ -485,11 +485,13 @@ impl Item {
     /// TODO: This needs better documentation.
     pub fn decorated_name(&self) -> String {
         match &self.kind {
-            ItemKind::Code(code) => code
-                .demangled()
-                .or_else(|| code.name())
-                .unwrap_or_else(|| code.decorator())
-                .to_string(),
+            ItemKind::Code(code) => {
+                if let Some(name) = code.name() {
+                    format!("{}: {}", code.decorator(), name)
+                } else {
+                    code.decorator().to_string()
+                }
+            }
             ItemKind::Data(Data { name, .. }) => name.to_string(),
             ItemKind::Func(func) => {
                 if let Some(name) = func.name() {
@@ -497,7 +499,7 @@ impl Item {
                 } else {
                     func.decorator().to_string()
                 }
-            },
+            }
             ItemKind::Debug(DebugInfo { name, .. }) => name.to_string(),
             ItemKind::Misc(Misc { name, .. }) => name.to_string(),
         }
