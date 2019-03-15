@@ -204,7 +204,7 @@ fn add_text_item(items: &ir::Items, depth: u32, id: ir::Id, table: &mut Table) {
     if depth != 1 {
         label.push_str("  ⤷ ");
     }
-    label.push_str(item.name().as_str());
+    label.push_str(item.decorated_name().as_str());
 
     table.add_row(vec![
         size.to_string(),
@@ -221,7 +221,7 @@ fn add_json_item(
 ) -> Result<(), traits::Error> {
     let item = &items[id];
 
-    obj.field("name", item.name())?;
+    obj.field("name", item.decorated_name())?;
 
     let shallow_size = item.size();
     let shallow_size_percent = f64::from(shallow_size) / f64::from(items.size()) * 100.0;
@@ -271,7 +271,7 @@ fn add_csv_item(
 
     let rc = CsvRecord {
         id: Some(item.id().serializable()),
-        name: item.name().to_string(),
+        name: item.decorated_name(),
         shallow_size,
         shallow_size_percent,
         retained_size,
