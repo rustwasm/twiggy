@@ -111,15 +111,15 @@ fn get_item_delta(
     match (old_item, new_item) {
         (Some(old_item), Some(new_item)) => Ok(DiffEntry {
             delta: i64::from(new_item.size()) - i64::from(old_item.size()),
-            name: new_item.name(),
+            name: new_item.decorated_name(),
         }),
         (Some(old_item), None) => Ok(DiffEntry {
             delta: -i64::from(old_item.size()),
-            name: old_item.name(),
+            name: old_item.decorated_name(),
         }),
         (None, Some(new_item)) => Ok(DiffEntry {
             delta: i64::from(new_item.size()),
-            name: new_item.name(),
+            name: new_item.decorated_name(),
         }),
         (None, None) => Err(traits::Error::with_msg("Unexpected item name found")),
     }
