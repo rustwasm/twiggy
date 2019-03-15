@@ -32,7 +32,7 @@ impl traits::Emit for Garbage {
             table.add_row(vec![
                 size.to_string(),
                 format!("{:.2}%", size_percent),
-                item.name().to_string(),
+                item.decorated_name().to_string(),
             ]);
         }
 
@@ -85,7 +85,7 @@ impl traits::Emit for Garbage {
             let item = &items[id];
 
             let mut obj = arr.object()?;
-            obj.field("name", item.name())?;
+            obj.field("name", item.decorated_name())?;
 
             let size = item.size();
             let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
