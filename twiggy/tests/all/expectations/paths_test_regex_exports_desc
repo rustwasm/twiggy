@@ -1,29 +1,29 @@
  Shallow Bytes │ Shallow % │ Retaining Paths
-───────────────┼───────────┼─────────────────────────────────────────────
+───────────────┼───────────┼───────────────────────────────────────────────
              7 ┊     4.86% ┊ export "awoo"
-               ┊           ┊   ↳ func[4]
+               ┊           ┊   ↳ func[4]: awoo
                ┊           ┊       ↳ type[0]: () -> i32
-               ┊           ┊       ↳ awoo
-               ┊           ┊           ↳ func[2]
+               ┊           ┊       ↳ code[4]: awoo
+               ┊           ┊           ↳ func[2]: bark
                ┊           ┊               ↳ type[0]: () -> i32
-               ┊           ┊               ↳ bark
-               ┊           ┊                   ↳ func[1]
+               ┊           ┊               ↳ code[2]: bark
+               ┊           ┊                   ↳ func[1]: calledTwice
                ┊           ┊                       ↳ type[0]: () -> i32
-               ┊           ┊                       ↳ calledTwice
+               ┊           ┊                       ↳ code[1]: calledTwice
              7 ┊     4.86% ┊ export "bark"
-               ┊           ┊   ↳ func[2]
+               ┊           ┊   ↳ func[2]: bark
                ┊           ┊       ↳ type[0]: () -> i32
-               ┊           ┊       ↳ bark
-               ┊           ┊           ↳ func[1]
+               ┊           ┊       ↳ code[2]: bark
+               ┊           ┊           ↳ func[1]: calledTwice
                ┊           ┊               ↳ type[0]: () -> i32
-               ┊           ┊               ↳ calledTwice
+               ┊           ┊               ↳ code[1]: calledTwice
              7 ┊     4.86% ┊ export "woof"
-               ┊           ┊   ↳ func[3]
+               ┊           ┊   ↳ func[3]: woof
                ┊           ┊       ↳ type[0]: () -> i32
-               ┊           ┊       ↳ woof
-               ┊           ┊           ↳ func[0]
+               ┊           ┊       ↳ code[3]: woof
+               ┊           ┊           ↳ func[0]: calledOnce
                ┊           ┊               ↳ type[0]: () -> i32
-               ┊           ┊               ↳ calledOnce
-               ┊           ┊           ↳ func[1]
+               ┊           ┊               ↳ code[0]: calledOnce
+               ┊           ┊           ↳ func[1]: calledTwice
                ┊           ┊               ↳ type[0]: () -> i32
-               ┊           ┊               ↳ calledTwice
+               ┊           ┊               ↳ code[1]: calledTwice

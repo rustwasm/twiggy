@@ -1,8 +1,8 @@
  Shallow Bytes │ Shallow % │ Retaining Paths
-───────────────┼───────────┼──────────────────────────────────────────────
-           225 ┊     7.99% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
-               ┊           ┊   ⬑ func[3]
-           164 ┊     5.82% ┊ hello
-               ┊           ┊   ⬑ func[8]
-            44 ┊     1.56% ┊ goodbye
-               ┊           ┊   ⬑ func[9]
+───────────────┼───────────┼─────────────────────────────────────────────────────────────
+           225 ┊     7.99% ┊ code[3]: wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+               ┊           ┊   ⬑ func[3]: wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+           164 ┊     5.82% ┊ code[8]: hello
+               ┊           ┊   ⬑ func[8]: hello
+            44 ┊     1.56% ┊ code[9]: goodbye
+               ┊           ┊   ⬑ func[9]: goodbye

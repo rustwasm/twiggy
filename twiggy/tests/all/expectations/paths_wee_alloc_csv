@@ -1,18 +1,18 @@
 Name,ShallowSize,ShallowSizePercent,Path
-wee_alloc::alloc_first_fit::h9a72de3af77ef93f,225,7.987220447284344,func[3] -> wee_alloc::alloc_first_fit::h9a72de3af77ef93f
-func[3],1,0.03549875754348598,wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e -> func[3]
-wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e,152,5.395811146609868,func[2] -> wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
-func[2],1,0.03549875754348598,<wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6 -> hello -> func[2]
-<wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6,136,4.827831025914093,func[5] -> <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
-func[5],1,0.03549875754348598,elem[0] -> func[5]
+code[3]: wee_alloc::alloc_first_fit::h9a72de3af77ef93f,225,7.987220447284344,func[3]: wee_alloc::alloc_first_fit::h9a72de3af77ef93f -> code[3]: wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+func[3]: wee_alloc::alloc_first_fit::h9a72de3af77ef93f,1,0.03549875754348598,code[2]: wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e -> func[3]: wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+code[2]: wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e,152,5.395811146609868,func[2]: wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e -> code[2]: wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+func[2]: wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e,1,0.03549875754348598,code[5]: <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6 -> code[8]: hello -> func[2]: wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+code[5]: <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6,136,4.827831025914093,func[5]: <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6 -> code[5]: <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
+func[5]: <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6,1,0.03549875754348598,elem[0] -> func[5]: <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
 elem[0],12,0.42598509052183176,table[0] -> elem[0]
 table[0],4,0.1419950301739439,
-hello,164,5.8217962371317,func[8] -> hello
-func[8],1,0.03549875754348598,"export ""hello"" -> func[8]"
+code[8]: hello,164,5.8217962371317,func[8]: hello -> code[8]: hello
+func[8]: hello,1,0.03549875754348598,"export ""hello"" -> func[8]: hello"
 "export ""hello""",8,0.2839900603478878,
-hello,164,5.8217962371317,func[8] -> hello
-func[8],1,0.03549875754348598,"export ""hello"" -> func[8]"
+code[8]: hello,164,5.8217962371317,func[8]: hello -> code[8]: hello
+func[8]: hello,1,0.03549875754348598,"export ""hello"" -> func[8]: hello"
 "export ""hello""",8,0.2839900603478878,
-goodbye,44,1.5619453319133831,func[9] -> goodbye
-func[9],1,0.03549875754348598,"export ""goodbye"" -> func[9]"
+code[9]: goodbye,44,1.5619453319133831,func[9]: goodbye -> code[9]: goodbye
+func[9]: goodbye,1,0.03549875754348598,"export ""goodbye"" -> func[9]: goodbye"
 "export ""goodbye""",10,0.3549875754348598,

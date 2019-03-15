@@ -4,17 +4,17 @@
             13 ┊     9.03% ┊ "local names" subsection
              8 ┊     5.56% ┊ wasm magic bytes
              7 ┊     4.86% ┊ export "awoo"
-               ┊           ┊   ↳ func[4]
+               ┊           ┊   ↳ func[4]: awoo
                ┊           ┊       ↳ type[0]: () -> i32
-               ┊           ┊       ↳ awoo
+               ┊           ┊       ↳ code[4]: awoo
              7 ┊     4.86% ┊ export "bark"
-               ┊           ┊   ↳ func[2]
+               ┊           ┊   ↳ func[2]: bark
                ┊           ┊       ↳ type[0]: () -> i32
-               ┊           ┊       ↳ bark
+               ┊           ┊       ↳ code[2]: bark
              7 ┊     4.86% ┊ export "woof"
-               ┊           ┊   ↳ func[3]
+               ┊           ┊   ↳ func[3]: woof
                ┊           ┊       ↳ type[0]: () -> i32
-               ┊           ┊       ↳ woof
+               ┊           ┊       ↳ code[3]: woof
              7 ┊     4.86% ┊ custom section 'name' headers
              3 ┊     2.08% ┊ type section headers
              3 ┊     2.08% ┊ function section headers

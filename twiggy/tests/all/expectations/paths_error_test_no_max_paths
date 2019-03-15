@@ -1,12 +1,12 @@
  Shallow Bytes │ Shallow % │ Retaining Paths
-───────────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────
-           339 ┊     0.75% ┊ std::io::error::Error::new::h8c006d5367bc92ed
-               ┊           ┊   ⬑ func[15]
-               ┊           ┊       ⬑ std::io::impls::<impl std::io::Write for &'a mut W>::write::h5d7e5ba58acd05fd
-               ┊           ┊           ⬑ func[33]
+───────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────
+           339 ┊     0.75% ┊ code[15]: std::io::error::Error::new::h8c006d5367bc92ed
+               ┊           ┊   ⬑ func[15]: std::io::error::Error::new::h8c006d5367bc92ed
+               ┊           ┊       ⬑ code[33]: std::io::impls::<impl std::io::Write for &'a mut W>::write::h5d7e5ba58acd05fd
+               ┊           ┊           ⬑ func[33]: std::io::impls::<impl std::io::Write for &'a mut W>::write::h5d7e5ba58acd05fd
                ┊           ┊               ⬑ elem[0]
                ┊           ┊                   ⬑ table[0]
-               ┊           ┊       ⬑ std::panicking::LOCAL_STDERR::__getit::h7827294b3348067a
-               ┊           ┊           ⬑ func[37]
+               ┊           ┊       ⬑ code[37]: std::panicking::LOCAL_STDERR::__getit::h7827294b3348067a
+               ┊           ┊           ⬑ func[37]: std::panicking::LOCAL_STDERR::__getit::h7827294b3348067a
                ┊           ┊               ⬑ elem[0]
                ┊           ┊                   ⬑ table[0]

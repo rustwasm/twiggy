@@ -1,7 +1,7 @@
 Name,ShallowSize,ShallowSizePercent,Path
-std::io::error::Error::new::h8c006d5367bc92ed,339,0.7494694021931375,func[15] -> std::io::error::Error::new::h8c006d5367bc92ed
-func[15],1,0.0022108241952599928,std::io::impls::<impl std::io::Write for &'a mut W>::write::h5d7e5ba58acd05fd -> std::panicking::LOCAL_STDERR::__getit::h7827294b3348067a -> func[15]
-std::io::impls::<impl std::io::Write for &'a mut W>::write::h5d7e5ba58acd05fd,311,0.6875663247258578,func[33] -> std::io::impls::<impl std::io::Write for &'a mut W>::write::h5d7e5ba58acd05fd
-func[33],1,0.0022108241952599928,elem[0] -> func[33]
+code[15]: std::io::error::Error::new::h8c006d5367bc92ed,339,0.7494694021931375,func[15]: std::io::error::Error::new::h8c006d5367bc92ed -> code[15]: std::io::error::Error::new::h8c006d5367bc92ed
+func[15]: std::io::error::Error::new::h8c006d5367bc92ed,1,0.0022108241952599928,code[33]: std::io::impls::<impl std::io::Write for &'a mut W>::write::h5d7e5ba58acd05fd -> code[37]: std::panicking::LOCAL_STDERR::__getit::h7827294b3348067a -> func[15]: std::io::error::Error::new::h8c006d5367bc92ed
+code[33]: std::io::impls::<impl std::io::Write for &'a mut W>::write::h5d7e5ba58acd05fd,311,0.6875663247258578,func[33]: std::io::impls::<impl std::io::Write for &'a mut W>::write::h5d7e5ba58acd05fd -> code[33]: std::io::impls::<impl std::io::Write for &'a mut W>::write::h5d7e5ba58acd05fd
+func[33]: std::io::impls::<impl std::io::Write for &'a mut W>::write::h5d7e5ba58acd05fd,1,0.0022108241952599928,elem[0] -> func[33]: std::io::impls::<impl std::io::Write for &'a mut W>::write::h5d7e5ba58acd05fd
 elem[0],59,0.13043862752033958,table[0] -> elem[0]
 table[0],4,0.008843296781039971,

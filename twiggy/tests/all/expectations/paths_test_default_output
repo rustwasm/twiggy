@@ -2,87 +2,87 @@
 ───────────────┼───────────┼────────────────────────────────────────
             46 ┊    31.94% ┊ "function names" subsection
             13 ┊     9.03% ┊ "local names" subsection
-             8 ┊     5.56% ┊ woof
-               ┊           ┊   ⬑ func[3]
+             8 ┊     5.56% ┊ code[3]: woof
+               ┊           ┊   ⬑ func[3]: woof
                ┊           ┊       ⬑ export "woof"
              8 ┊     5.56% ┊ wasm magic bytes
              7 ┊     4.86% ┊ export "awoo"
              7 ┊     4.86% ┊ export "bark"
              7 ┊     4.86% ┊ export "woof"
              7 ┊     4.86% ┊ custom section 'name' headers
-             5 ┊     3.47% ┊ calledOnce
-               ┊           ┊   ⬑ func[0]
-               ┊           ┊       ⬑ woof
-               ┊           ┊           ⬑ func[3]
+             5 ┊     3.47% ┊ code[0]: calledOnce
+               ┊           ┊   ⬑ func[0]: calledOnce
+               ┊           ┊       ⬑ code[3]: woof
+               ┊           ┊           ⬑ func[3]: woof
                ┊           ┊               ⬑ export "woof"
-             5 ┊     3.47% ┊ calledTwice
-               ┊           ┊   ⬑ func[1]
-               ┊           ┊       ⬑ bark
-               ┊           ┊           ⬑ func[2]
+             5 ┊     3.47% ┊ code[1]: calledTwice
+               ┊           ┊   ⬑ func[1]: calledTwice
+               ┊           ┊       ⬑ code[2]: bark
+               ┊           ┊           ⬑ func[2]: bark
                ┊           ┊               ⬑ export "bark"
-               ┊           ┊               ⬑ awoo
-               ┊           ┊                   ⬑ func[4]
+               ┊           ┊               ⬑ code[4]: awoo
+               ┊           ┊                   ⬑ func[4]: awoo
                ┊           ┊                       ⬑ export "awoo"
-               ┊           ┊       ⬑ woof
-               ┊           ┊           ⬑ func[3]
+               ┊           ┊       ⬑ code[3]: woof
+               ┊           ┊           ⬑ func[3]: woof
                ┊           ┊               ⬑ export "woof"
-             5 ┊     3.47% ┊ bark
-               ┊           ┊   ⬑ func[2]
+             5 ┊     3.47% ┊ code[2]: bark
+               ┊           ┊   ⬑ func[2]: bark
                ┊           ┊       ⬑ export "bark"
-               ┊           ┊       ⬑ awoo
-               ┊           ┊           ⬑ func[4]
+               ┊           ┊       ⬑ code[4]: awoo
+               ┊           ┊           ⬑ func[4]: awoo
                ┊           ┊               ⬑ export "awoo"
-             5 ┊     3.47% ┊ awoo
-               ┊           ┊   ⬑ func[4]
+             5 ┊     3.47% ┊ code[4]: awoo
+               ┊           ┊   ⬑ func[4]: awoo
                ┊           ┊       ⬑ export "awoo"
              4 ┊     2.78% ┊ type[0]: () -> i32
-               ┊           ┊   ⬑ func[0]
-               ┊           ┊       ⬑ woof
-               ┊           ┊           ⬑ func[3]
+               ┊           ┊   ⬑ func[0]: calledOnce
+               ┊           ┊       ⬑ code[3]: woof
+               ┊           ┊           ⬑ func[3]: woof
                ┊           ┊               ⬑ export "woof"
-               ┊           ┊   ⬑ func[1]
-               ┊           ┊       ⬑ bark
-               ┊           ┊           ⬑ func[2]
+               ┊           ┊   ⬑ func[1]: calledTwice
+               ┊           ┊       ⬑ code[2]: bark
+               ┊           ┊           ⬑ func[2]: bark
                ┊           ┊               ⬑ export "bark"
-               ┊           ┊               ⬑ awoo
-               ┊           ┊                   ⬑ func[4]
+               ┊           ┊               ⬑ code[4]: awoo
+               ┊           ┊                   ⬑ func[4]: awoo
                ┊           ┊                       ⬑ export "awoo"
-               ┊           ┊       ⬑ woof
-               ┊           ┊           ⬑ func[3]
+               ┊           ┊       ⬑ code[3]: woof
+               ┊           ┊           ⬑ func[3]: woof
                ┊           ┊               ⬑ export "woof"
-               ┊           ┊   ⬑ func[2]
+               ┊           ┊   ⬑ func[2]: bark
                ┊           ┊       ⬑ export "bark"
-               ┊           ┊       ⬑ awoo
-               ┊           ┊           ⬑ func[4]
+               ┊           ┊       ⬑ code[4]: awoo
+               ┊           ┊           ⬑ func[4]: awoo
                ┊           ┊               ⬑ export "awoo"
-               ┊           ┊   ⬑ func[3]
+               ┊           ┊   ⬑ func[3]: woof
                ┊           ┊       ⬑ export "woof"
-               ┊           ┊   ⬑ func[4]
+               ┊           ┊   ⬑ func[4]: awoo
                ┊           ┊       ⬑ export "awoo"
              3 ┊     2.08% ┊ type section headers
              3 ┊     2.08% ┊ function section headers
              3 ┊     2.08% ┊ export section headers
              3 ┊     2.08% ┊ code section headers
-             1 ┊     0.69% ┊ func[0]
-               ┊           ┊   ⬑ woof
-               ┊           ┊       ⬑ func[3]
+             1 ┊     0.69% ┊ func[0]: calledOnce
+               ┊           ┊   ⬑ code[3]: woof
+               ┊           ┊       ⬑ func[3]: woof
                ┊           ┊           ⬑ export "woof"
-             1 ┊     0.69% ┊ func[1]
-               ┊           ┊   ⬑ bark
-               ┊           ┊       ⬑ func[2]
+             1 ┊     0.69% ┊ func[1]: calledTwice
+               ┊           ┊   ⬑ code[2]: bark
+               ┊           ┊       ⬑ func[2]: bark
                ┊           ┊           ⬑ export "bark"
-               ┊           ┊           ⬑ awoo
-               ┊           ┊               ⬑ func[4]
+               ┊           ┊           ⬑ code[4]: awoo
+               ┊           ┊               ⬑ func[4]: awoo
                ┊           ┊                   ⬑ export "awoo"
-               ┊           ┊   ⬑ woof
-               ┊           ┊       ⬑ func[3]
+               ┊           ┊   ⬑ code[3]: woof
+               ┊           ┊       ⬑ func[3]: woof
                ┊           ┊           ⬑ export "woof"
-             1 ┊     0.69% ┊ func[2]
+             1 ┊     0.69% ┊ func[2]: bark
                ┊           ┊   ⬑ export "bark"
-               ┊           ┊   ⬑ awoo
-               ┊           ┊       ⬑ func[4]
+               ┊           ┊   ⬑ code[4]: awoo
+               ┊           ┊       ⬑ func[4]: awoo
                ┊           ┊           ⬑ export "awoo"
-             1 ┊     0.69% ┊ func[3]
+             1 ┊     0.69% ┊ func[3]: woof
                ┊           ┊   ⬑ export "woof"
-             1 ┊     0.69% ┊ func[4]
+             1 ┊     0.69% ┊ func[4]: awoo
                ┊           ┊   ⬑ export "awoo"

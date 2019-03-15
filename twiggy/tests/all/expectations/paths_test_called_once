@@ -1,7 +1,7 @@
  Shallow Bytes │ Shallow % │ Retaining Paths
 ───────────────┼───────────┼────────────────────────────────
-             5 ┊     3.47% ┊ calledOnce
-               ┊           ┊   ⬑ func[0]
-               ┊           ┊       ⬑ woof
-               ┊           ┊           ⬑ func[3]
+             5 ┊     3.47% ┊ code[0]: calledOnce
+               ┊           ┊   ⬑ func[0]: calledOnce
+               ┊           ┊       ⬑ code[3]: woof
+               ┊           ┊           ⬑ func[3]: woof
                ┊           ┊               ⬑ export "woof"

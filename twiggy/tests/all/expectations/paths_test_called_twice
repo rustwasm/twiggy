@@ -1,13 +1,13 @@
  Shallow Bytes │ Shallow % │ Retaining Paths
 ───────────────┼───────────┼────────────────────────────────────────
-             5 ┊     3.47% ┊ calledTwice
-               ┊           ┊   ⬑ func[1]
-               ┊           ┊       ⬑ bark
-               ┊           ┊           ⬑ func[2]
+             5 ┊     3.47% ┊ code[1]: calledTwice
+               ┊           ┊   ⬑ func[1]: calledTwice
+               ┊           ┊       ⬑ code[2]: bark
+               ┊           ┊           ⬑ func[2]: bark
                ┊           ┊               ⬑ export "bark"
-               ┊           ┊               ⬑ awoo
-               ┊           ┊                   ⬑ func[4]
+               ┊           ┊               ⬑ code[4]: awoo
+               ┊           ┊                   ⬑ func[4]: awoo
                ┊           ┊                       ⬑ export "awoo"
-               ┊           ┊       ⬑ woof
-               ┊           ┊           ⬑ func[3]
+               ┊           ┊       ⬑ code[3]: woof
+               ┊           ┊           ⬑ func[3]: woof
                ┊           ┊               ⬑ export "woof"
