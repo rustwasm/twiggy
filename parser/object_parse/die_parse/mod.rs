@@ -52,8 +52,8 @@ where
                 {
                     let id = ir::Id::entry(unit_id, entry_id);
                     let name = item_name(self, dwarf, unit)?;
-                    let decorater = format!("Subroutine[{}][{}]", unit_id, entry_id);
-                    let kind = ir::Code::new(name, decorater);
+                    let kind =
+                        ir::Code::new(name, format!("Subroutine[{}][{}]", unit_id, entry_id));
                     ir::Item::new(id, size as u32, kind)
                 } else {
                     return Ok(());

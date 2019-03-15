@@ -3,8 +3,8 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-mod graph_impl;
 mod demangle;
+mod graph_impl;
 
 use frozen::Frozen;
 use std::cmp;
@@ -473,32 +473,31 @@ impl Item {
             ItemKind::Code(code) => code
                 .demangled()
                 .or_else(|| code.name())
-                .unwrap_or_else(|| code.decorator())
+                .unwrap_or_else(|| code.annotation())
                 .to_string(),
             ItemKind::Data(Data { name, .. }) => name.to_string(),
-            ItemKind::Func(func) => func.decorator().to_string(),
+            ItemKind::Func(func) => func.annotation().to_string(),
             ItemKind::Debug(DebugInfo { name, .. }) => name.to_string(),
             ItemKind::Misc(Misc { name, .. }) => name.to_string(),
         }
     }
 
-    /// Get this item's decorated name.
-    /// TODO: This needs better documentation.
-    pub fn decorated_name(&self) -> String {
+    /// Get this item's annotated name.
+    pub fn annotated_name(&self) -> String {
         match &self.kind {
             ItemKind::Code(code) => {
                 if let Some(name) = code.demangled().or_else(|| code.name()) {
-                    format!("{}: {}", code.decorator(), name)
+                    format!("{}: {}", code.annotation(), name)
                 } else {
-                    code.decorator().to_string()
+                    code.annotation().to_string()
                 }
             }
             ItemKind::Data(Data { name, .. }) => name.to_string(),
             ItemKind::Func(func) => {
                 if let Some(name) = func.demangled().or_else(|| func.name()) {
-                    format!("{}: {}", func.decorator(), name)
+                    format!("{}: {}", func.annotation(), name)
                 } else {
-                    func.decorator().to_string()
+                    func.annotation().to_string()
                 }
             }
             ItemKind::Debug(DebugInfo { name, .. }) => name.to_string(),
@@ -600,21 +599,21 @@ impl From<Misc> for ItemKind {
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Code {
     name: Option<String>,
-    decorator: String,
+    annotation: String,
     demangled: Option<String>,
     monomorphization_of: Option<String>,
 }
 
 impl Code {
     /// Construct a new IR item for executable code.
-    pub fn new(name: Option<String>, decorator: String) -> Code {
+    pub fn new(name: Option<String>, annotation: String) -> Code {
         let demangled = name.as_ref().and_then(|n| demangle::demangle(&n));
         let monomorphization_of = demangled
             .as_ref()
             .and_then(|d| Self::extract_generic_function(&d));
         Code {
             name,
-            decorator,
+            annotation,
             demangled,
             monomorphization_of,
         }
@@ -625,9 +624,9 @@ impl Code {
         self.name.as_ref().map(|s| s.as_str())
     }
 
-    /// Get the decorator for this function body, if any.
-    pub(crate) fn decorator(&self) -> &str {
-        self.decorator.as_str()
+    /// Get the annotation for this function body, if any.
+    pub(crate) fn annotation(&self) -> &str {
+        self.annotation.as_str()
     }
 
     /// Get the demangled name of this function, if any.
@@ -714,15 +713,19 @@ impl Data {
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Function {
     name: Option<String>,
-    decorator: String,
+    annotation: String,
     demangled: Option<String>,
 }
 
 impl Function {
     /// Construct a new IR item for function definition.
-    pub fn new(name: Option<String>, decorator: String) -> Function {
+    pub fn new(name: Option<String>, annotation: String) -> Function {
         let demangled = name.as_ref().and_then(|n| demangle::demangle(&n));
-        Function { name, decorator, demangled }
+        Function {
+            name,
+            annotation,
+            demangled,
+        }
     }
 
     /// Get the name of this function, if any.
@@ -730,9 +733,9 @@ impl Function {
         self.name.as_ref().map(|s| s.as_str())
     }
 
-    /// Get the decorator for this function, if any.
-    pub(crate) fn decorator(&self) -> &str {
-        self.decorator.as_ref()
+    /// Get the annotation for this function, if any.
+    pub(crate) fn annotation(&self) -> &str {
+        self.annotation.as_ref()
     }
 
     /// Get the demangled name of this function, if any.

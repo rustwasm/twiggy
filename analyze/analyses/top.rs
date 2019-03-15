@@ -34,7 +34,7 @@ impl traits::Emit for Top {
                 item.size()
             };
             let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
-            let name = item.decorated_name().to_string();
+            let name = item.annotated_name().to_string();
             TableRow {
                 size,
                 size_percent,
@@ -144,7 +144,7 @@ impl traits::Emit for Top {
             let item = &items[id];
 
             let mut obj = arr.object()?;
-            obj.field("name", item.decorated_name())?;
+            obj.field("name", item.annotated_name())?;
 
             let size = item.size();
             let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
@@ -196,7 +196,7 @@ impl traits::Emit for Top {
             };
 
             wtr.serialize(CsvRecord {
-                name: item.decorated_name().to_string(),
+                name: item.annotated_name().to_string(),
                 shallow_size,
                 shallow_size_percent,
                 retained_size,

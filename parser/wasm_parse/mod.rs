@@ -445,8 +445,7 @@ impl<'a> Parse<'a> for wasmparser::FunctionSectionReader<'a> {
             let name = names
                 .get(&(i + imported_functions))
                 .map(ToString::to_string);
-            let decorator = format!("func[{}]", i);
-            let item_kind = ir::Function::new(name, decorator);
+            let item_kind = ir::Function::new(name, format!("func[{}]", i));
             items.add_item(ir::Item::new(id, size, item_kind));
         }
         Ok(())
@@ -718,8 +717,7 @@ impl<'a> Parse<'a> for wasmparser::CodeSectionReader<'a> {
             let name = names
                 .get(&(i + imported_functions))
                 .map(ToString::to_string);
-            let decorater = format!("code[{}]", i);
-            let code = ir::Code::new(name, decorater);
+            let code = ir::Code::new(name, format!("code[{}]", i));
             items.add_item(ir::Item::new(id, size, code));
         }
 
