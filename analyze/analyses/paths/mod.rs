@@ -109,7 +109,7 @@ fn create_entry(
 ) -> PathsEntry {
     // Determine the item's name and size.
     let item = &items[id];
-    let name = item.name().to_string();
+    let name = item.decorated_name().to_string();
     let size = item.size();
 
     // Collect the `ir::Id` values of this entry's children, depending on
