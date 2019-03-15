@@ -4,11 +4,11 @@
         -593 ┊ "function names" subsection
         +395 ┊ code[1]: wee_alloc::alloc_first_fit::he2a4ddf96981c0ce
         +243 ┊ code[3]: goodbye
-        -225 ┊ code[3]: _ZN9wee_alloc15alloc_first_fit17h9a72de3af77ef93fE
-        -152 ┊ code[2]: _ZN9wee_alloc17alloc_with_refill17hb32c1bbce9ebda8eE
+        -225 ┊ code[3]: wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+        -152 ┊ code[2]: wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
         +145 ┊ code[4]: <wee_alloc::neighbors::Neighbors<'a, T>>::remove::hc9e5d4284e8233b8
-        -136 ┊ code[5]: _ZN102_$LT$wee_alloc..size_classes..SizeClassAllocPolicy$LT$$u27$a$GT$$u20$as$u20$wee_alloc..AllocPolicy$GT$22new_cell_for_free_list17h3987e3054b8224e6E
-         -76 ┊ code[0]: _ZN70_$LT$wee_alloc..LargeAllocPolicy$u20$as$u20$wee_alloc..AllocPolicy$GT$22new_cell_for_free_list17h8f071b7bce0301baE
+        -136 ┊ code[5]: <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
+         -76 ┊ code[0]: <wee_alloc::LargeAllocPolicy as wee_alloc::AllocPolicy>::new_cell_for_free_list::h8f071b7bce0301ba
          -25 ┊ data[1]
          -25 ┊ data[2]
          +15 ┊ code[0]: hello
@@ -17,17 +17,17 @@
          +10 ┊ custom section 'linking' headers
           +8 ┊ global[0]
           -8 ┊ type[4]: (i32, i32, i32, i32, i32) -> nil
-          -6 ┊ code[1]: _ZN70_$LT$wee_alloc..LargeAllocPolicy$u20$as$u20$wee_alloc..AllocPolicy$GT$13min_cell_size17hc7cee2a550987099E
+          -6 ┊ code[1]: <wee_alloc::LargeAllocPolicy as wee_alloc::AllocPolicy>::min_cell_size::hc7cee2a550987099
           +6 ┊ code[2]: alloc::alloc::oom::h45ae3f22a516fb04
           -6 ┊ type[0]: (i32, i32, i32) -> nil
           -6 ┊ type[1]: (i32, i32) -> i32
-          -5 ┊ code[7]: _ZN102_$LT$wee_alloc..size_classes..SizeClassAllocPolicy$LT$$u27$a$GT$$u20$as$u20$wee_alloc..AllocPolicy$GT$13min_cell_size17h6f746be886573355E
+          -5 ┊ code[7]: <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::min_cell_size::h6f746be886573355
           +5 ┊ type[1]: (i32) -> i32
           -4 ┊ code[10]: __wasm_nullptr
           +4 ┊ type[0]: () -> i32
           -4 ┊ type[5]: () -> i32
-          -3 ┊ code[4]: _ZN4core3ptr13drop_in_place17h8e9fdc2437d43666E
-          -3 ┊ code[6]: _ZN4core3ptr13drop_in_place17h4e5cdfd7b9310648E.18
+          -3 ┊ code[4]: core::ptr::drop_in_place::h8e9fdc2437d43666
+          -3 ┊ code[6]: core::ptr::drop_in_place::h4e5cdfd7b9310648.18
           +3 ┊ custom section 'linking'
           -3 ┊ element section headers
           +3 ┊ global section headers
