@@ -4,6 +4,7 @@
 #![deny(missing_debug_implementations)]
 
 mod graph_impl;
+mod demangle;
 
 use frozen::Frozen;
 use std::cmp;
@@ -607,7 +608,7 @@ pub struct Code {
 impl Code {
     /// Construct a new IR item for executable code.
     pub fn new(name: Option<String>, decorator: String) -> Code {
-        let demangled = name.as_ref().and_then(|n| demangle(&n));
+        let demangled = name.as_ref().and_then(|n| demangle::demangle(&n));
         let monomorphization_of = demangled
             .as_ref()
             .and_then(|d| Self::extract_generic_function(&d));
@@ -720,7 +721,7 @@ pub struct Function {
 impl Function {
     /// Construct a new IR item for function definition.
     pub fn new(name: Option<String>, decorator: String) -> Function {
-        let demangled = name.as_ref().and_then(|n| demangle(&n));
+        let demangled = name.as_ref().and_then(|n| demangle::demangle(&n));
         Function { name, decorator, demangled }
     }
 
@@ -768,38 +769,4 @@ impl Misc {
             name: name.to_string(),
         }
     }
-}
-
-/// Demangle names.
-fn demangle(s: &str) -> Option<String> {
-    if let Ok(sym) = rustc_demangle::try_demangle(s) {
-        return Some(sym.to_string());
-    }
-
-    // If the Rust demangle failed, we'll try C or C++.  C++
-    // symbols almost all start with the prefixes "_Z", "__Z", and
-    // ""_GLOBAL_", except for a special case.
-    //
-    // Per cpp_mangle::ast::MangledName::parse:
-    //
-    // > The libiberty tests also specify that a type can be top level,
-    // > and they are not prefixed with "_Z".
-    //
-    // Therefore cpp_demangle will parse unmangled symbols, at
-    // least sometimes incorrectly (e.g. with OpenSSL's RC4
-    // function, which is incorrectly parsed as a type ctor/dtor),
-    // which confuses a subsequent `demangle` function, resulting
-    // in panic.
-    //
-    // To avoid that, only pass C++-mangled symbols to the C++
-    // demangler
-    if !s.starts_with("_Z") && !s.starts_with("__Z") && !s.starts_with("_GLOBAL_") {
-        return Some(s.to_string());
-    }
-
-    if let Ok(sym) = cpp_demangle::Symbol::new(s) {
-        return Some(sym.to_string());
-    }
-
-    None
 }
