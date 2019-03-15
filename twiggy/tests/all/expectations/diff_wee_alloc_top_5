@@ -1,9 +1,9 @@
  Delta Bytes │ Item
-─────────────┼──────────────────────────────────────────────
+─────────────┼────────────────────────────────────────────────────────────
        -1034 ┊ data[3]
         -593 ┊ "function names" subsection
-        +395 ┊ wee_alloc::alloc_first_fit::he2a4ddf96981c0ce
-        +243 ┊ goodbye
-        -225 ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+        +395 ┊ code[1]: wee_alloc::alloc_first_fit::he2a4ddf96981c0ce
+        +243 ┊ code[3]: goodbye
+        -225 ┊ code[3]: _ZN9wee_alloc15alloc_first_fit17h9a72de3af77ef93fE
         -262 ┊ ... and 35 more.
        -1476 ┊ Σ [40 Total Rows]
