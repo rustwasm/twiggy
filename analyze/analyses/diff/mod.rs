@@ -41,7 +41,7 @@ pub fn diff(
 }
 
 // Given a set of items, create a HashMap of the items' names and sizes.
-fn collect_items_by_name(items: &ir::Items) -> HashMap<String, &ir::Item> {
+fn collect_items_by_name(items: &ir::Items) -> HashMap<&str, &ir::Item> {
     items.iter().map(|item| (item.name(), item)).collect()
 }
 
@@ -78,8 +78,8 @@ where
 // each item into a `DiffEntry` object. Then, sort the collection.
 fn collect_entries(
     names: impl IntoIterator<Item = String>,
-    old_sizes: HashMap<String, &ir::Item>,
-    new_sizes: HashMap<String, &ir::Item>,
+    old_sizes: HashMap<&str, &ir::Item>,
+    new_sizes: HashMap<&str, &ir::Item>,
 ) -> Result<Vec<DiffEntry>, traits::Error> {
     let mut deltas = names
         .into_iter()

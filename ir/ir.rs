@@ -468,17 +468,16 @@ impl Item {
     }
 
     /// Get this item's name.
-    pub fn name(&self) -> String {
+    pub fn name(&self) -> &str {
         match &self.kind {
             ItemKind::Code(code) => code
                 .demangled()
                 .or_else(|| code.name())
-                .unwrap_or_else(|| code.annotation())
-                .to_string(),
-            ItemKind::Data(Data { name, .. }) => name.to_string(),
-            ItemKind::Func(func) => func.annotation().to_string(),
-            ItemKind::Debug(DebugInfo { name, .. }) => name.to_string(),
-            ItemKind::Misc(Misc { name, .. }) => name.to_string(),
+                .unwrap_or_else(|| code.annotation()),
+            ItemKind::Data(Data { name, .. }) => name,
+            ItemKind::Func(func) => func.annotation(),
+            ItemKind::Debug(DebugInfo { name, .. }) => name,
+            ItemKind::Misc(Misc { name, .. }) => name,
         }
     }
 
