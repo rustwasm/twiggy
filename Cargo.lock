@@ -535,36 +535,36 @@ dependencies = [
 
 [[package]]
 name = "twiggy"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "colored 1.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "diff 0.1.11 (registry+https://github.com/rust-lang/crates.io-index)",
  "failure 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "structopt 0.2.15 (registry+https://github.com/rust-lang/crates.io-index)",
- "twiggy-analyze 0.4.0",
- "twiggy-ir 0.4.0",
- "twiggy-opt 0.4.0",
- "twiggy-parser 0.4.0",
- "twiggy-traits 0.4.0",
+ "twiggy-analyze 0.5.0",
+ "twiggy-ir 0.5.0",
+ "twiggy-opt 0.5.0",
+ "twiggy-parser 0.5.0",
+ "twiggy-traits 0.5.0",
 ]
 
 [[package]]
 name = "twiggy-analyze"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "csv 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "petgraph 0.4.13 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex 1.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.91 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_derive 1.0.91 (registry+https://github.com/rust-lang/crates.io-index)",
- "twiggy-ir 0.4.0",
- "twiggy-opt 0.4.0",
- "twiggy-traits 0.4.0",
+ "twiggy-ir 0.5.0",
+ "twiggy-opt 0.5.0",
+ "twiggy-traits 0.5.0",
 ]
 
 [[package]]
 name = "twiggy-ir"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "cpp_demangle 0.2.12 (registry+https://github.com/rust-lang/crates.io-index)",
  "frozen 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -576,49 +576,49 @@ dependencies = [
 
 [[package]]
 name = "twiggy-opt"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "cfg-if 0.1.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex 1.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "structopt 0.2.15 (registry+https://github.com/rust-lang/crates.io-index)",
- "twiggy-traits 0.4.0",
+ "twiggy-traits 0.5.0",
  "wasm-bindgen 0.2.40 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "twiggy-parser"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "fallible-iterator 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "gimli 0.17.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "object 0.12.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "twiggy-ir 0.4.0",
- "twiggy-traits 0.4.0",
+ "twiggy-ir 0.5.0",
+ "twiggy-traits 0.5.0",
  "typed-arena 1.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "wasmparser 0.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "twiggy-traits"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "csv 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "failure 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "gimli 0.17.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex 1.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "twiggy-ir 0.4.0",
+ "twiggy-ir 0.5.0",
  "wasmparser 0.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "twiggy-wasm-api"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
- "twiggy-analyze 0.4.0",
- "twiggy-ir 0.4.0",
- "twiggy-opt 0.4.0",
- "twiggy-parser 0.4.0",
- "twiggy-traits 0.4.0",
+ "twiggy-analyze 0.5.0",
+ "twiggy-ir 0.5.0",
+ "twiggy-opt 0.5.0",
+ "twiggy-parser 0.5.0",
+ "twiggy-traits 0.5.0",
  "wasm-bindgen 0.2.40 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
