@@ -1,3 +1,19 @@
+### 0.5.0
+
+Released 2019-05-15.
+
+* Switched from using the `parity-wasm` crate to the `wasmparser` crate for
+  parsing WebAssembly binaries. The `wasmparser` crate is lower-level and
+  (crucially) exposes byte offsets for the things it parses. **Ultimately, this
+  enables Twiggy to account for a much higher percentage (near 100% now) of
+  where the Wasm binary's size is coming from.**
+
+* Added a summary of unreachable items to the dominator tree output. These are
+  the items that are not children anywhere in the dominator tree.
+
+* Properly detects Wasm binaries when the extension is not `.wasm` by using the
+  Wasm magic header.
+
 ### 0.4.0
 
 Released 2019-02-02.
