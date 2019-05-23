@@ -1,23 +1,39 @@
-<meta charset="utf-8"/>
+<div align="center">
 
-# Twiggy🌱
+  <h1>Twiggy🌱</h1>
 
-[![](https://docs.rs/twiggy/badge.svg)](https://docs.rs/twiggy/)
-[![](https://img.shields.io/crates/v/twiggy.svg)](https://crates.io/crates/twiggy)
-[![](https://img.shields.io/crates/d/twiggy.svg)](https://crates.io/crates/twiggy)
-[![Build Status](https://travis-ci.org/rustwasm/twiggy.svg?branch=master)](https://travis-ci.org/rustwasm/twiggy)
+  <strong>A code size profiler for Wasm</strong>
 
-**`twiggy` is a code size profiler.**
+  <p>
+    <a href="https://docs.rs/twiggy/"><img src="https://docs.rs/twiggy/badge.svg"/></a>
+    <a href="https://crates.io/crates/twiggy"><img src="https://img.shields.io/crates/v/twiggy.svg"/></a>
+    <a href="https://crates.io/crates/twiggy"><img src="https://img.shields.io/crates/d/twiggy.svg"/></a>
+    <a href="https://travis-ci.org/rustwasm/twiggy"><img src="https://travis-ci.org/rustwasm/twiggy.svg?branch=master"/></a>
+  </p>
 
-It analyzes a binary's call graph to answer questions like:
+  <h3>
+    <a href="https://rustwasm.github.io/twiggy">Guide</a>
+    <span> | </span>
+    <a href="https://rustwasm.github.io/twiggy/contributing/index.html">Contributing</a>
+    <span> | </span>
+    <a href="https://discordapp.com/channels/442252698964721669/443151097398296587">Chat</a>
+  </h3>
 
-* Why was this function included in the binary in the first place?
+  <sub>Built with 🦀🕸 by <a href="https://rustwasm.github.io/">The Rust and WebAssembly Working Group</a></sub>
+</div>
+
+## About
+
+Twiggy is a code size profiler for Wasm. It analyzes a binary's call graph to
+answer questions like:
+
+* Why was this function included in the binary in the first place? Who calls it?
 
 * What is the *retained size* of this function? I.e. how much space would be
   saved if I removed it and all the functions that become dead code after its
   removal.
 
-Use `twiggy` to make your binaries slim!
+Use Twiggy to make your binaries slim!
 
 ## Install Twiggy
 
@@ -32,6 +48,6 @@ cargo install twiggy
 
 [**Read the Twiggy guide!**](https://rustwasm.github.io/twiggy)
 
---------------------------------------------------------------------------------
-
-![Twiggy](./guide/src/twiggy.png)
+<div align="center">
+  <img src="./guide/src/twiggy.png"/>
+</div>
