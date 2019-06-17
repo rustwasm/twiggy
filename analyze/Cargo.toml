@@ -16,7 +16,7 @@ path = "./analyze.rs"
 twiggy-ir = { version = "=0.5.0", path = "../ir" }
 twiggy-opt = { version = "=0.5.0", path = "../opt", default-features = false }
 twiggy-traits = { version = "=0.5.0", path = "../traits" }
-csv = "1.0.5"
+csv = "1.0.7"
 regex = "1.1.6"
 serde = "1.0.92"
 serde_derive = "1.0.92"
