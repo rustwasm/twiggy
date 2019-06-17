@@ -3,7 +3,6 @@
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-use std::ffi::OsStr;
 use std::fs;
 use std::io::Read;
 use std::path;
@@ -27,17 +26,13 @@ pub fn read_and_parse<P: AsRef<path::Path>>(
     let mut data = vec![];
     file.read_to_end(&mut data)?;
 
+    let extension = path.extension().and_then(|s| s.to_str());
+
     match mode {
         traits::ParseMode::Wasm => parse_wasm(&data),
         #[cfg(feature = "dwarf")]
         traits::ParseMode::Dwarf => parse_other(&data),
-        traits::ParseMode::Auto => match sniff_wasm(path.extension(), &data[..]) {
-            true => parse_wasm(&data),
-            #[cfg(feature = "dwarf")]
-            _ => parse_other(&data),
-            #[cfg(not(feature = "dwarf"))]
-            _ => parse_fallback(&data),
-        },
+        traits::ParseMode::Auto => parse_auto(extension, &data),
     }
 }
 
@@ -70,8 +65,18 @@ pub(crate) trait Parse<'a> {
     ) -> Result<(), traits::Error>;
 }
 
-fn sniff_wasm(extension: Option<&OsStr>, data: &[u8]) -> bool {
-    match extension.and_then(|s| s.to_str()) {
+fn parse_auto(extension: Option<&str>, data: &[u8]) -> Result<ir::Items, traits::Error> {
+    if sniff_wasm(extension, &data) {
+        parse_wasm(&data)
+    } else if cfg!(feature = "dwarf") {
+        parse_other(&data)
+    } else {
+        parse_fallback(&data)
+    }
+}
+
+fn sniff_wasm(extension: Option<&str>, data: &[u8]) -> bool {
+    match extension {
         Some("wasm") => true,
         _ => data.get(0..4) == Some(&WASM_MAGIC_NUMBER),
     }
