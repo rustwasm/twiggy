@@ -31,13 +31,7 @@ pub fn read_and_parse<P: AsRef<path::Path>>(
         traits::ParseMode::Wasm => parse_wasm(&data),
         #[cfg(feature = "dwarf")]
         traits::ParseMode::Dwarf => parse_other(&data),
-        traits::ParseMode::Auto => match sniff_wasm(path.extension(), &data[..]) {
-            true => parse_wasm(&data),
-            #[cfg(feature = "dwarf")]
-            _ => parse_other(&data),
-            #[cfg(not(feature = "dwarf"))]
-            _ => parse_fallback(&data),
-        },
+        traits::ParseMode::Auto => parse_auto(path.extension(), &data),
     }
 }
 
@@ -68,6 +62,18 @@ pub(crate) trait Parse<'a> {
         items: &mut ir::ItemsBuilder,
         extra: Self::EdgesExtra,
     ) -> Result<(), traits::Error>;
+}
+
+fn parse_auto(extension: Option<&OsStr>, data: &[u8]) -> Result<ir::Items, traits::Error> {
+    if sniff_wasm(extension, &data) {
+        parse_wasm(&data)
+    } else {
+        #[cfg(feature = "dwarf")]
+        let res = parse_other(&data);
+        #[cfg(not(feature = "dwarf"))]
+        let res = parse_fallback(&data);
+        res
+    }
 }
 
 fn sniff_wasm(extension: Option<&OsStr>, data: &[u8]) -> bool {
