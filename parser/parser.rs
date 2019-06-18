@@ -68,10 +68,12 @@ pub(crate) trait Parse<'a> {
 fn parse_auto(extension: Option<&str>, data: &[u8]) -> Result<ir::Items, traits::Error> {
     if sniff_wasm(extension, &data) {
         parse_wasm(&data)
-    } else if cfg!(feature = "dwarf") {
-        parse_other(&data)
     } else {
-        parse_fallback(&data)
+        #[cfg(feature = "dwarf")]
+        let res = parse_other(&data);
+        #[cfg(not(feature = "dwarf"))]
+        let res = parse_fallback(&data);
+        res
     }
 }
 
