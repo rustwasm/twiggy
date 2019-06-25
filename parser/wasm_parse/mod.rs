@@ -251,14 +251,12 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
                 _ => {}
             }
         }
-        if let (
-            Some(IndexedSection(func_idx, function_section)),
-            Some(IndexedSection(code_idx, _)),
-        ) = (function_section.as_ref(), code_section.as_ref())
+        if let (Some(IndexedSection(_, function_section)), Some(IndexedSection(code_idx, _))) =
+            (function_section.as_ref(), code_section.as_ref())
         {
             indices.code = Some(*code_idx);
             for i in 0..function_section.get_function_section_reader()?.get_count() {
-                let id = Id::entry(*func_idx, i as usize);
+                let id = Id::entry(*code_idx, i as usize);
                 indices.functions.push(id);
             }
         }
@@ -375,34 +373,19 @@ impl<'a> Parse<'a> for (IndexedSection<'a>, IndexedSection<'a>) {
             .collect::<Result<_, traits::Error>>()?;
 
         let code_items: Vec<ir::Item> = iterate_with_size(&mut code_reader)
+            .zip(func_items.into_iter())
             .enumerate()
-            .map(|(i, body)| {
+            .map(|(i, (body, func))| {
                 let (_body, size) = body?;
                 let id = Id::entry(*code_section_idx, i);
                 let name = names
                     .get(&(i + imported_functions))
                     .map_or_else(|| format!("code[{}]", i), |name| name.to_string());
                 let code = ir::Code::new(&name);
-                let item = ir::Item::new(id, name, size, code);
+                let item = ir::Item::new(id, name, size + func.size(), code);
                 Ok(item)
             })
             .collect::<Result<_, traits::Error>>()?;
-
-        // Function section parsing.
-        {
-            let start = items.size_added();
-            for item in func_items.into_iter() {
-                items.add_item(item);
-            }
-            let name = get_section_name(func_section);
-            let id = Id::section(*func_section_idx);
-            let added = items.size_added() - start;
-            let size = sizes
-                .get(&func_section_idx)
-                .ok_or_else(|| traits::Error::with_msg("Could not find section size"))?;
-            assert!(added <= *size);
-            items.add_root(ir::Item::new(id, name, *size - added, ir::Misc::new()));
-        }
 
         // Code section parsing.
         {
@@ -415,9 +398,12 @@ impl<'a> Parse<'a> for (IndexedSection<'a>, IndexedSection<'a>) {
             let added = items.size_added() - start;
             let size = sizes
                 .get(&code_section_idx)
-                .ok_or_else(|| traits::Error::with_msg("Could not find section size"))?;
-            assert!(added <= *size);
-            items.add_root(ir::Item::new(id, name, *size - added, ir::Misc::new()));
+                .ok_or_else(|| traits::Error::with_msg("Could not find section size"))?
+                + sizes
+                    .get(&func_section_idx)
+                    .ok_or_else(|| traits::Error::with_msg("Could not find section size"))?;
+            assert!(added <= size);
+            items.add_root(ir::Item::new(id, name, size - added, ir::Misc::new()));
         }
 
         Ok(())
@@ -430,10 +416,8 @@ impl<'a> Parse<'a> for (IndexedSection<'a>, IndexedSection<'a>) {
         items: &mut ir::ItemsBuilder,
         indices: Self::EdgesExtra,
     ) -> Result<(), traits::Error> {
-        let (
-            IndexedSection(func_section_idx, function_section),
-            IndexedSection(code_section_idx, code_section),
-        ) = self;
+        let (IndexedSection(_, function_section), IndexedSection(code_section_idx, code_section)) =
+            self;
 
         let mut func_reader = function_section.get_function_section_reader()?;
         let mut code_reader = code_section.get_code_section_reader()?;
@@ -445,14 +429,12 @@ impl<'a> Parse<'a> for (IndexedSection<'a>, IndexedSection<'a>) {
         // Function section reader parsing.
         for (func_i, type_ref) in iterate_with_size(&mut func_reader).enumerate() {
             let (type_ref, _) = type_ref?;
-            let func_id = Id::entry(*func_section_idx, func_i);
             if let Some(type_idx) = indices.type_ {
                 let type_id = Id::entry(type_idx, type_ref as usize);
-                edges.push((func_id, type_id));
-            }
-            if let Some(code_idx) = indices.code {
-                let body_id = Id::entry(code_idx, func_i);
-                edges.push((func_id, body_id));
+                if let Some(code_idx) = indices.code {
+                    let body_id = Id::entry(code_idx, func_i);
+                    edges.push((body_id, type_id));
+                }
             }
         }
 
