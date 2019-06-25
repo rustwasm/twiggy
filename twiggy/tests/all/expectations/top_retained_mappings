@@ -1,14 +1,14 @@
  Retained Bytes │ Retained % │ Item
-────────────────┼────────────┼─────────────────────────────────────────────────
+────────────────┼────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────
           14492 ┊     32.04% ┊ table[0]
           14488 ┊     32.03% ┊ elem[0]
-           5285 ┊     11.68% ┊ func[40]
-           5284 ┊     11.68% ┊ core::ptr::drop_in_place::hddeb26218033f78b.1290
+           5285 ┊     11.68% ┊ core::ptr::drop_in_place::hddeb26218033f78b.1290
            4340 ┊      9.59% ┊ "function names" subsection
            3440 ┊      7.61% ┊ export "parse_mappings"
-           3423 ┊      7.57% ┊ func[2]
-           3422 ┊      7.57% ┊ parse_mappings
-           3091 ┊      6.83% ┊ func[70]
-           3090 ┊      6.83% ┊ __powidf2
-            ... ┊        ... ┊ ... and 349 more.
-            ... ┊        ... ┊ Σ [359 Total Rows]
+           3423 ┊      7.57% ┊ parse_mappings
+           3091 ┊      6.83% ┊ __powidf2
+           2722 ┊      6.02% ┊ __divsf3
+           2274 ┊      5.03% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::hc0e93e852c5108e1
+           1976 ┊      4.37% ┊ memmove
+            ... ┊        ... ┊ ... and 268 more.
+            ... ┊        ... ┊ Σ [278 Total Rows]

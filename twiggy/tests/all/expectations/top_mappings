@@ -1,14 +1,14 @@
  Shallow Bytes │ Shallow % │ Item
 ───────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────
-          5284 ┊    11.68% ┊ core::ptr::drop_in_place::hddeb26218033f78b.1290
+          5285 ┊    11.68% ┊ core::ptr::drop_in_place::hddeb26218033f78b.1290
           4340 ┊     9.59% ┊ "function names" subsection
-          1975 ┊     4.37% ┊ memmove
-          1752 ┊     3.87% ┊ <std::thread::local::LocalKey<T>>::try_with::h81b6490c42d3c021
-          1704 ┊     3.77% ┊ parse_mappings
-          1512 ┊     3.34% ┊ <std::thread::local::AccessError as core::fmt::Debug>::fmt::h17b46907f43c196c
-          1277 ┊     2.82% ┊ core::ptr::drop_in_place::h15636b240d3542f7
-          1219 ┊     2.69% ┊ memset
-          1217 ┊     2.69% ┊ __powidf2
-          1142 ┊     2.52% ┊ __udivsi3
-         23810 ┊    52.64% ┊ ... and 349 more.
-         45232 ┊   100.00% ┊ Σ [359 Total Rows]
+          1976 ┊     4.37% ┊ memmove
+          1753 ┊     3.88% ┊ <std::thread::local::LocalKey<T>>::try_with::h81b6490c42d3c021
+          1705 ┊     3.77% ┊ parse_mappings
+          1513 ┊     3.34% ┊ <std::thread::local::AccessError as core::fmt::Debug>::fmt::h17b46907f43c196c
+          1278 ┊     2.83% ┊ core::ptr::drop_in_place::h15636b240d3542f7
+          1220 ┊     2.70% ┊ memset
+          1218 ┊     2.69% ┊ __powidf2
+          1143 ┊     2.53% ┊ __udivsi3
+         23801 ┊    52.62% ┊ ... and 268 more.
+         45232 ┊   100.00% ┊ Σ [278 Total Rows]

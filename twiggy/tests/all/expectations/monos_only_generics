@@ -1,14 +1,14 @@
  Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %      │ Monomorphizations
 ────────────────────┼────────────────┼───────┼────────┼─────────────────────────────────────────────────────────────────────────────
-               2139 ┊          3.68% ┊  3246 ┊  5.58% ┊ alloc::slice::merge_sort
-               1454 ┊          2.50% ┊  4219 ┊  7.25% ┊ <&'a T as core::fmt::Debug>::fmt
-               1197 ┊          2.06% ┊  1374 ┊  2.36% ┊ core::result::unwrap_failed
-                654 ┊          1.12% ┊   838 ┊  1.44% ┊ <alloc::raw_vec::RawVec<T, A>>::double
-                572 ┊          0.98% ┊   894 ┊  1.54% ┊ std::thread::local::os::destroy_value
-                234 ┊          0.40% ┊   354 ┊  0.61% ┊ alloc::slice::insert_head
-                234 ┊          0.40% ┊   351 ┊  0.60% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt
-                207 ┊          0.36% ┊   286 ┊  0.49% ┊ <alloc::vec::Vec<T>>::push
-                135 ┊          0.23% ┊   204 ┊  0.35% ┊ <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut
-                114 ┊          0.20% ┊   228 ┊  0.39% ┊ core::fmt::Write::write_fmt
-                362 ┊          0.62% ┊ 26492 ┊ 45.52% ┊ ... and 81 more.
-               7302 ┊         12.55% ┊ 38486 ┊ 66.12% ┊ Σ [91 Total Rows]
+               2141 ┊          3.68% ┊  3249 ┊  5.58% ┊ alloc::slice::merge_sort
+               1457 ┊          2.50% ┊  4223 ┊  7.26% ┊ <&'a T as core::fmt::Debug>::fmt
+               1204 ┊          2.07% ┊  1382 ┊  2.37% ┊ core::result::unwrap_failed
+                658 ┊          1.13% ┊   843 ┊  1.45% ┊ <alloc::raw_vec::RawVec<T, A>>::double
+                574 ┊          0.99% ┊   897 ┊  1.54% ┊ std::thread::local::os::destroy_value
+                236 ┊          0.41% ┊   357 ┊  0.61% ┊ alloc::slice::insert_head
+                236 ┊          0.41% ┊   354 ┊  0.61% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt
+                210 ┊          0.36% ┊   290 ┊  0.50% ┊ <alloc::vec::Vec<T>>::push
+                137 ┊          0.24% ┊   207 ┊  0.36% ┊ <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut
+                115 ┊          0.20% ┊   230 ┊  0.40% ┊ core::fmt::Write::write_fmt
+                389 ┊          0.67% ┊ 26600 ┊ 45.70% ┊ ... and 81 more.
+               7357 ┊         12.64% ┊ 38632 ┊ 66.37% ┊ Σ [91 Total Rows]

@@ -1,52 +1,52 @@
  Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %      │ Monomorphizations
 ────────────────────┼────────────────┼───────┼────────┼────────────────────────────────────────────────────────────────────────────────────────────────────
-               2139 ┊          3.68% ┊  3246 ┊  5.58% ┊ alloc::slice::merge_sort
-                    ┊                ┊  1107 ┊  1.90% ┊     alloc::slice::merge_sort::hb3d195f9800bdad6
-                    ┊                ┊  1107 ┊  1.90% ┊     alloc::slice::merge_sort::hfcf2318d7dc71d03
-                    ┊                ┊  1032 ┊  1.77% ┊     alloc::slice::merge_sort::hcfca67f5c75a52ef
-               1454 ┊          2.50% ┊  4219 ┊  7.25% ┊ <&'a T as core::fmt::Debug>::fmt
-                    ┊                ┊  2765 ┊  4.75% ┊     <&'a T as core::fmt::Debug>::fmt::h1c27955d8de3ff17
-                    ┊                ┊   635 ┊  1.09% ┊     <&'a T as core::fmt::Debug>::fmt::hea6a77c4dcddb7ac
-                    ┊                ┊   480 ┊  0.82% ┊     <&'a T as core::fmt::Debug>::fmt::hfbacf6f5c9f53bb2
-                    ┊                ┊   339 ┊  0.58% ┊     <&'a T as core::fmt::Debug>::fmt::h199e8e1c5752e6f1
-               1197 ┊          2.06% ┊  1374 ┊  2.36% ┊ core::result::unwrap_failed
-                    ┊                ┊   177 ┊  0.30% ┊     core::result::unwrap_failed::h137aa4f433aba1a9
-                    ┊                ┊   177 ┊  0.30% ┊     core::result::unwrap_failed::h4cc73eb9bf19ce32
-                    ┊                ┊   177 ┊  0.30% ┊     core::result::unwrap_failed::h9bd27c3a9ad7c001
-                    ┊                ┊   170 ┊  0.29% ┊     core::result::unwrap_failed::h9a7678774db14d67
-                    ┊                ┊   170 ┊  0.29% ┊     core::result::unwrap_failed::ha3e58cfc7f422ab4
-                    ┊                ┊   170 ┊  0.29% ┊     core::result::unwrap_failed::ha7651fcaac40f701
-                    ┊                ┊   170 ┊  0.29% ┊     core::result::unwrap_failed::hcb258ce32bda3d85
-                    ┊                ┊   163 ┊  0.28% ┊     core::result::unwrap_failed::hcfddf900474e698a
-                654 ┊          1.12% ┊   838 ┊  1.44% ┊ <alloc::raw_vec::RawVec<T, A>>::double
-                    ┊                ┊   184 ┊  0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h28f86621ee2a10aa
-                    ┊                ┊   184 ┊  0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h956450b93bdc9e1e
-                    ┊                ┊   184 ┊  0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::hcb2fb5861b96a3b0
-                    ┊                ┊   175 ┊  0.30% ┊     <alloc::raw_vec::RawVec<T, A>>::double::ha715b4e5cc3c60ae
-                    ┊                ┊   111 ┊  0.19% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h77ff8547127c5db2
-                572 ┊          0.98% ┊   894 ┊  1.54% ┊ std::thread::local::os::destroy_value
-                    ┊                ┊   322 ┊  0.55% ┊     std::thread::local::os::destroy_value::hca8124786bee4a79
-                    ┊                ┊   313 ┊  0.54% ┊     std::thread::local::os::destroy_value::h094cf4f2a025ba2b
-                    ┊                ┊   259 ┊  0.44% ┊     std::thread::local::os::destroy_value::h453d41f6c315da32
-                234 ┊          0.40% ┊   354 ┊  0.61% ┊ alloc::slice::insert_head
-                    ┊                ┊   120 ┊  0.21% ┊     alloc::slice::insert_head::h2cdb84a455761146
-                    ┊                ┊   120 ┊  0.21% ┊     alloc::slice::insert_head::haf6e08236bab8bde
-                    ┊                ┊   114 ┊  0.20% ┊     alloc::slice::insert_head::hed0e79da03eeec8b
-                234 ┊          0.40% ┊   351 ┊  0.60% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt
-                    ┊                ┊   117 ┊  0.20% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h1b74a5fafe15c8eb
-                    ┊                ┊   117 ┊  0.20% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h24034d1c07bfae93
-                    ┊                ┊   117 ┊  0.20% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h5ebed3e159974658
-                207 ┊          0.36% ┊   286 ┊  0.49% ┊ <alloc::vec::Vec<T>>::push
-                    ┊                ┊    79 ┊  0.14% ┊     <alloc::vec::Vec<T>>::push::h98b02eda22d1ca25
-                    ┊                ┊    70 ┊  0.12% ┊     <alloc::vec::Vec<T>>::push::h5729b9e7651ef67b
-                    ┊                ┊    70 ┊  0.12% ┊     <alloc::vec::Vec<T>>::push::hc927b4bedb35b00d
-                    ┊                ┊    67 ┊  0.12% ┊     <alloc::vec::Vec<T>>::push::h9415ef699ccc65d8
-                135 ┊          0.23% ┊   204 ┊  0.35% ┊ <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut
-                    ┊                ┊    69 ┊  0.12% ┊     <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut::hba42cce6d0c0099b
-                    ┊                ┊    69 ┊  0.12% ┊     <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut::hbf8fcfe76c1f6657
-                    ┊                ┊    66 ┊  0.11% ┊     <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut::h1c053f01b6f95d93
-                114 ┊          0.20% ┊   228 ┊  0.39% ┊ core::fmt::Write::write_fmt
-                    ┊                ┊   114 ┊  0.20% ┊     core::fmt::Write::write_fmt::ha5ae3249cacba520
-                    ┊                ┊   114 ┊  0.20% ┊     core::fmt::Write::write_fmt::hef4632e1398f5ac8
-                362 ┊          0.62% ┊ 26492 ┊ 45.52% ┊ ... and 187 more.
-               7302 ┊         12.55% ┊ 38486 ┊ 66.12% ┊ Σ [235 Total Rows]
+               2141 ┊          3.68% ┊  3249 ┊  5.58% ┊ alloc::slice::merge_sort
+                    ┊                ┊  1108 ┊  1.90% ┊     alloc::slice::merge_sort::hb3d195f9800bdad6
+                    ┊                ┊  1108 ┊  1.90% ┊     alloc::slice::merge_sort::hfcf2318d7dc71d03
+                    ┊                ┊  1033 ┊  1.77% ┊     alloc::slice::merge_sort::hcfca67f5c75a52ef
+               1457 ┊          2.50% ┊  4223 ┊  7.26% ┊ <&'a T as core::fmt::Debug>::fmt
+                    ┊                ┊  2766 ┊  4.75% ┊     <&'a T as core::fmt::Debug>::fmt::h1c27955d8de3ff17
+                    ┊                ┊   636 ┊  1.09% ┊     <&'a T as core::fmt::Debug>::fmt::hea6a77c4dcddb7ac
+                    ┊                ┊   481 ┊  0.83% ┊     <&'a T as core::fmt::Debug>::fmt::hfbacf6f5c9f53bb2
+                    ┊                ┊   340 ┊  0.58% ┊     <&'a T as core::fmt::Debug>::fmt::h199e8e1c5752e6f1
+               1204 ┊          2.07% ┊  1382 ┊  2.37% ┊ core::result::unwrap_failed
+                    ┊                ┊   178 ┊  0.31% ┊     core::result::unwrap_failed::h137aa4f433aba1a9
+                    ┊                ┊   178 ┊  0.31% ┊     core::result::unwrap_failed::h4cc73eb9bf19ce32
+                    ┊                ┊   178 ┊  0.31% ┊     core::result::unwrap_failed::h9bd27c3a9ad7c001
+                    ┊                ┊   171 ┊  0.29% ┊     core::result::unwrap_failed::h9a7678774db14d67
+                    ┊                ┊   171 ┊  0.29% ┊     core::result::unwrap_failed::ha3e58cfc7f422ab4
+                    ┊                ┊   171 ┊  0.29% ┊     core::result::unwrap_failed::ha7651fcaac40f701
+                    ┊                ┊   171 ┊  0.29% ┊     core::result::unwrap_failed::hcb258ce32bda3d85
+                    ┊                ┊   164 ┊  0.28% ┊     core::result::unwrap_failed::hcfddf900474e698a
+                658 ┊          1.13% ┊   843 ┊  1.45% ┊ <alloc::raw_vec::RawVec<T, A>>::double
+                    ┊                ┊   185 ┊  0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h28f86621ee2a10aa
+                    ┊                ┊   185 ┊  0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h956450b93bdc9e1e
+                    ┊                ┊   185 ┊  0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::hcb2fb5861b96a3b0
+                    ┊                ┊   176 ┊  0.30% ┊     <alloc::raw_vec::RawVec<T, A>>::double::ha715b4e5cc3c60ae
+                    ┊                ┊   112 ┊  0.19% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h77ff8547127c5db2
+                574 ┊          0.99% ┊   897 ┊  1.54% ┊ std::thread::local::os::destroy_value
+                    ┊                ┊   323 ┊  0.55% ┊     std::thread::local::os::destroy_value::hca8124786bee4a79
+                    ┊                ┊   314 ┊  0.54% ┊     std::thread::local::os::destroy_value::h094cf4f2a025ba2b
+                    ┊                ┊   260 ┊  0.45% ┊     std::thread::local::os::destroy_value::h453d41f6c315da32
+                236 ┊          0.41% ┊   357 ┊  0.61% ┊ alloc::slice::insert_head
+                    ┊                ┊   121 ┊  0.21% ┊     alloc::slice::insert_head::h2cdb84a455761146
+                    ┊                ┊   121 ┊  0.21% ┊     alloc::slice::insert_head::haf6e08236bab8bde
+                    ┊                ┊   115 ┊  0.20% ┊     alloc::slice::insert_head::hed0e79da03eeec8b
+                236 ┊          0.41% ┊   354 ┊  0.61% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt
+                    ┊                ┊   118 ┊  0.20% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h1b74a5fafe15c8eb
+                    ┊                ┊   118 ┊  0.20% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h24034d1c07bfae93
+                    ┊                ┊   118 ┊  0.20% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h5ebed3e159974658
+                210 ┊          0.36% ┊   290 ┊  0.50% ┊ <alloc::vec::Vec<T>>::push
+                    ┊                ┊    80 ┊  0.14% ┊     <alloc::vec::Vec<T>>::push::h98b02eda22d1ca25
+                    ┊                ┊    71 ┊  0.12% ┊     <alloc::vec::Vec<T>>::push::h5729b9e7651ef67b
+                    ┊                ┊    71 ┊  0.12% ┊     <alloc::vec::Vec<T>>::push::hc927b4bedb35b00d
+                    ┊                ┊    68 ┊  0.12% ┊     <alloc::vec::Vec<T>>::push::h9415ef699ccc65d8
+                137 ┊          0.24% ┊   207 ┊  0.36% ┊ <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut
+                    ┊                ┊    70 ┊  0.12% ┊     <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut::hba42cce6d0c0099b
+                    ┊                ┊    70 ┊  0.12% ┊     <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut::hbf8fcfe76c1f6657
+                    ┊                ┊    67 ┊  0.12% ┊     <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut::h1c053f01b6f95d93
+                115 ┊          0.20% ┊   230 ┊  0.40% ┊ core::fmt::Write::write_fmt
+                    ┊                ┊   115 ┊  0.20% ┊     core::fmt::Write::write_fmt::ha5ae3249cacba520
+                    ┊                ┊   115 ┊  0.20% ┊     core::fmt::Write::write_fmt::hef4632e1398f5ac8
+                389 ┊          0.67% ┊ 26600 ┊ 45.70% ┊ ... and 187 more.
+               7357 ┊         12.64% ┊ 38632 ┊ 66.37% ┊ Σ [235 Total Rows]

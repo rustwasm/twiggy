@@ -5,8 +5,7 @@
              21 ┊     10.66% ┊ export "add"
               8 ┊      4.06% ┊ wasm magic bytes
               7 ┊      3.55% ┊ custom section 'name' headers
+              6 ┊      3.05% ┊ code section headers
               3 ┊      1.52% ┊ type section headers
-              3 ┊      1.52% ┊ function section headers
               3 ┊      1.52% ┊ export section headers
-              3 ┊      1.52% ┊ code section headers
-             43 ┊     21.83% ┊ [9 Unreachable Items]
+             43 ┊     21.83% ┊ [6 Unreachable Items]
