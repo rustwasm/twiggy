@@ -27,9 +27,9 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
     ) -> Result<(), traits::Error> {
         let initial_offset = self.current_position();
         let mut sections: Vec<IndexedSection<'_>> = Vec::new();
-        let mut sizes: HashMap<usize, u32> = HashMap::new();
         let mut code_section: Option<IndexedSection<'_>> = None;
         let mut function_section: Option<IndexedSection<'_>> = None;
+        let mut sizes: HashMap<usize, u32> = HashMap::new();
 
         // The function and code sections must be handled differently, so these
         // are not placed in the same `sections` array as the rest.
@@ -49,8 +49,8 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
         }
 
         let sections_cnt = sections.len()
-            + code_section.as_ref().map(|_| 1).unwrap_or_else(|| 0)
-            + function_section.as_ref().map(|_| 1).unwrap_or_else(|| 0);
+            + if code_section.is_some() { 1 } else { 0 }
+            + if function_section.is_some() { 1 } else { 0 };
         let id = Id::section(sections_cnt);
         items.add_root(ir::Item::new(
             id,
@@ -64,33 +64,8 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
         // to try to assign human-readable names so we need the name section, if
         // present. Additionally we need to look at the number of imported
         // functions to handle the wasm function index space correctly.
-        let mut names = HashMap::new();
-        let mut imported_functions = 0;
-        for IndexedSection(_, section) in sections.iter() {
-            match section.code {
-                wasmparser::SectionCode::Custom { name: "name", .. } => {
-                    for subsection in section.get_name_section_reader()? {
-                        let f = match subsection? {
-                            wasmparser::Name::Function(f) => f,
-                            _ => continue,
-                        };
-                        let mut map = f.get_map()?;
-                        for _ in 0..map.get_count() {
-                            let naming = map.read()?;
-                            names.insert(naming.index as usize, naming.name);
-                        }
-                    }
-                }
-                wasmparser::SectionCode::Import => {
-                    for import in section.get_import_section_reader()? {
-                        if let wasmparser::ImportSectionEntryType::Function(_) = import?.ty {
-                            imported_functions += 1;
-                        }
-                    }
-                }
-                _ => {}
-            }
-        }
+        let names = parse_names_section(&sections)?;
+        let imported_functions = count_imported_functions(&sections)?;
 
         // Next, we parse the function and code sections together, so that we
         // can collapse corresponding entries from the code and function
@@ -343,6 +318,50 @@ fn get_section_name(section: &wasmparser::Section<'_>) -> String {
         wasmparser::SectionCode::Data => "data section headers".to_string(),
         wasmparser::SectionCode::DataCount => "data count section headers".to_string(),
     }
+}
+
+fn parse_names_section<'a>(
+    indexed_sections: &[IndexedSection<'a>],
+) -> Result<HashMap<usize, &'a str>, traits::Error> {
+    let mut names = HashMap::new();
+    for IndexedSection(_, section) in indexed_sections.iter() {
+        match section.code {
+            wasmparser::SectionCode::Custom { name: "name", .. } => {
+                for subsection in section.get_name_section_reader()? {
+                    let f = match subsection? {
+                        wasmparser::Name::Function(f) => f,
+                        _ => continue,
+                    };
+                    let mut map = f.get_map()?;
+                    for _ in 0..map.get_count() {
+                        let naming = map.read()?;
+                        names.insert(naming.index as usize, naming.name);
+                    }
+                }
+            }
+            _ => {}
+        }
+    }
+    Ok(names)
+}
+
+fn count_imported_functions<'a>(
+    indexed_sections: &[IndexedSection<'a>],
+) -> Result<usize, traits::Error> {
+    let mut imported_functions = 0;
+    for IndexedSection(_, section) in indexed_sections.iter() {
+        match section.code {
+            wasmparser::SectionCode::Import => {
+                for import in section.get_import_section_reader()? {
+                    if let wasmparser::ImportSectionEntryType::Function(_) = import?.ty {
+                        imported_functions += 1;
+                    }
+                }
+            }
+            _ => {}
+        }
+    }
+    Ok(imported_functions)
 }
 
 impl<'a> Parse<'a> for (IndexedSection<'a>, IndexedSection<'a>) {
