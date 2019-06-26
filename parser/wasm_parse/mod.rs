@@ -73,7 +73,9 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
         match (function_section, code_section) {
             (Some(function_section), Some(code_section)) => (function_section, code_section)
                 .parse_items(items, (imported_functions, &names, &sizes))?,
-            _ => panic!("function or code section is missing"),
+            _ => Err(traits::Error::with_msg(
+                "function or code section is missing",
+            ))?,
         };
 
         for IndexedSection(idx, section) in sections.into_iter() {
@@ -90,9 +92,6 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
                     section
                         .get_import_section_reader()?
                         .parse_items(items, idx)?;
-                }
-                wasmparser::SectionCode::Function => {
-                    panic!("unexpected function section");
                 }
                 wasmparser::SectionCode::Table => {
                     section
@@ -122,14 +121,17 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
                         .get_element_section_reader()?
                         .parse_items(items, idx)?;
                 }
-                wasmparser::SectionCode::Code => {
-                    panic!("unexpected code section");
-                }
                 wasmparser::SectionCode::Data => {
                     section.get_data_section_reader()?.parse_items(items, idx)?;
                 }
                 wasmparser::SectionCode::DataCount => {
                     DataCountSection(section).parse_items(items, idx)?;
+                }
+                wasmparser::SectionCode::Code => {
+                    Err(traits::Error::with_msg("unexpected code section"))?
+                }
+                wasmparser::SectionCode::Function => {
+                    Err(traits::Error::with_msg("unexpected function section"))?
                 }
             };
             let id = Id::section(idx);
@@ -179,9 +181,6 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
                 wasmparser::SectionCode::Type => {
                     indices.type_ = Some(*idx);
                 }
-                wasmparser::SectionCode::Code => {
-                    panic!("unexpected code section");
-                }
                 wasmparser::SectionCode::Import => {
                     let reader = section.get_import_section_reader()?;
                     for (i, import) in reader.into_iter().enumerate() {
@@ -220,8 +219,11 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
                         indices.tables.push(id);
                     }
                 }
+                wasmparser::SectionCode::Code => {
+                    Err(traits::Error::with_msg("unexpected code section"))?
+                }
                 wasmparser::SectionCode::Function => {
-                    panic!("unexpected function section");
+                    Err(traits::Error::with_msg("unexpected function section"))?
                 }
                 _ => {}
             }
@@ -406,24 +408,21 @@ impl<'a> Parse<'a> for (IndexedSection<'a>, IndexedSection<'a>) {
             })
             .collect::<Result<_, traits::Error>>()?;
 
-        // Code section parsing.
-        {
-            let start = items.size_added();
-            let name = get_section_name(code_section);
-            for item in code_items.into_iter() {
-                items.add_item(item);
-            }
-            let id = Id::section(*code_section_idx);
-            let added = items.size_added() - start;
-            let size = sizes
-                .get(&code_section_idx)
-                .ok_or_else(|| traits::Error::with_msg("Could not find section size"))?
-                + sizes
-                    .get(&func_section_idx)
-                    .ok_or_else(|| traits::Error::with_msg("Could not find section size"))?;
-            assert!(added <= size);
-            items.add_root(ir::Item::new(id, name, size - added, ir::Misc::new()));
+        let start = items.size_added();
+        let name = get_section_name(code_section);
+        for item in code_items.into_iter() {
+            items.add_item(item);
         }
+        let id = Id::section(*code_section_idx);
+        let added = items.size_added() - start;
+        let size = sizes
+            .get(&code_section_idx)
+            .ok_or_else(|| traits::Error::with_msg("Could not find section size"))?
+            + sizes
+                .get(&func_section_idx)
+                .ok_or_else(|| traits::Error::with_msg("Could not find section size"))?;
+        assert!(added <= size);
+        items.add_root(ir::Item::new(id, name, size - added, ir::Misc::new()));
 
         Ok(())
     }
