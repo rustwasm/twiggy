@@ -127,11 +127,8 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
                 wasmparser::SectionCode::DataCount => {
                     DataCountSection(section).parse_items(items, idx)?;
                 }
-                wasmparser::SectionCode::Code => {
-                    Err(traits::Error::with_msg("unexpected code section"))?
-                }
-                wasmparser::SectionCode::Function => {
-                    Err(traits::Error::with_msg("unexpected function section"))?
+                wasmparser::SectionCode::Code | wasmparser::SectionCode::Function => {
+                    unreachable!("unexpected code or function section found");
                 }
             };
             let id = Id::section(idx);
@@ -257,9 +254,6 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
                         .get_import_section_reader()?
                         .parse_edges(items, ())?;
                 }
-                wasmparser::SectionCode::Function => {
-                    panic!("unexpected function section found");
-                }
                 wasmparser::SectionCode::Table => {
                     section.get_table_section_reader()?.parse_edges(items, ())?;
                 }
@@ -286,14 +280,14 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
                         .get_element_section_reader()?
                         .parse_edges(items, (&indices, idx))?;
                 }
-                wasmparser::SectionCode::Code => {
-                    panic!("unexpected code section found");
-                }
                 wasmparser::SectionCode::Data => {
                     section.get_data_section_reader()?.parse_edges(items, ())?;
                 }
                 wasmparser::SectionCode::DataCount => {
                     DataCountSection(section).parse_edges(items, ())?;
+                }
+                wasmparser::SectionCode::Code | wasmparser::SectionCode::Function => {
+                    unreachable!("unexpected code or function section found");
                 }
             }
         }
