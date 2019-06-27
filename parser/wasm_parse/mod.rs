@@ -321,21 +321,18 @@ fn parse_names_section<'a>(
 ) -> Result<HashMap<usize, &'a str>, traits::Error> {
     let mut names = HashMap::new();
     for IndexedSection(_, section) in indexed_sections.iter() {
-        match section.code {
-            wasmparser::SectionCode::Custom { name: "name", .. } => {
-                for subsection in section.get_name_section_reader()? {
-                    let f = match subsection? {
-                        wasmparser::Name::Function(f) => f,
-                        _ => continue,
-                    };
-                    let mut map = f.get_map()?;
-                    for _ in 0..map.get_count() {
-                        let naming = map.read()?;
-                        names.insert(naming.index as usize, naming.name);
-                    }
+        if let wasmparser::SectionCode::Custom { name: "name", .. } = section.code {
+            for subsection in section.get_name_section_reader()? {
+                let f = match subsection? {
+                    wasmparser::Name::Function(f) => f,
+                    _ => continue,
+                };
+                let mut map = f.get_map()?;
+                for _ in 0..map.get_count() {
+                    let naming = map.read()?;
+                    names.insert(naming.index as usize, naming.name);
                 }
             }
-            _ => {}
         }
     }
     Ok(names)
@@ -346,15 +343,12 @@ fn count_imported_functions<'a>(
 ) -> Result<usize, traits::Error> {
     let mut imported_functions = 0;
     for IndexedSection(_, section) in indexed_sections.iter() {
-        match section.code {
-            wasmparser::SectionCode::Import => {
-                for import in section.get_import_section_reader()? {
-                    if let wasmparser::ImportSectionEntryType::Function(_) = import?.ty {
-                        imported_functions += 1;
-                    }
+        if let wasmparser::SectionCode::Import = section.code {
+            for import in section.get_import_section_reader()? {
+                if let wasmparser::ImportSectionEntryType::Function(_) = import?.ty {
+                    imported_functions += 1;
                 }
             }
-            _ => {}
         }
     }
     Ok(imported_functions)
