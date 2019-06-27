@@ -16,7 +16,7 @@ struct Top {
 
 impl traits::Emit for Top {
     #[cfg(feature = "emit_text")]
-    fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_text(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         // A struct used to represent a row in the table that will be emitted.
         struct TableRow {
             size: u32,
@@ -134,7 +134,7 @@ impl traits::Emit for Top {
     }
 
     #[cfg(feature = "emit_json")]
-    fn emit_json(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_json(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         let mut arr = json::array(dest)?;
 
         let max_items = self.opts.max_items() as usize;
@@ -163,7 +163,7 @@ impl traits::Emit for Top {
     }
 
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_csv(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         let mut wtr = csv::Writer::from_writer(dest);
 
         #[derive(Serialize, Debug)]
@@ -209,7 +209,7 @@ impl traits::Emit for Top {
 }
 
 /// Run the `top` analysis on the given IR items.
-pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, traits::Error> {
+pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<dyn traits::Emit>, traits::Error> {
     if opts.retaining_paths() {
         return Err(traits::Error::with_msg(
             "retaining paths are not yet implemented",
@@ -242,5 +242,5 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<traits::Emit>, 
         opts: opts.clone(),
     };
 
-    Ok(Box::new(top) as Box<traits::Emit>)
+    Ok(Box::new(top) as Box<_>)
 }

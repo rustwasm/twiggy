@@ -232,12 +232,12 @@ cfg_if! {
 
         impl OutputDestination {
             /// Open the output destination as an `io::Write`.
-            pub fn open(&self) -> Result<Box<io::Write>, traits::Error> {
+            pub fn open(&self) -> Result<Box<dyn io::Write>, traits::Error> {
                 Ok(match *self {
                     OutputDestination::Path(ref path) => {
-                        Box::new(io::BufWriter::new(fs::File::create(path)?)) as Box<io::Write>
+                        Box::new(io::BufWriter::new(fs::File::create(path)?)) as Box<_>
                     }
-                    OutputDestination::Stdout => Box::new(io::stdout()) as Box<io::Write>,
+                    OutputDestination::Stdout => Box::new(io::stdout()) as Box<_>,
                 })
             }
         }

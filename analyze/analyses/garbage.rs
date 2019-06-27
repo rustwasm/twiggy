@@ -18,7 +18,7 @@ struct Garbage {
 
 impl traits::Emit for Garbage {
     #[cfg(feature = "emit_text")]
-    fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_text(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         let mut table = Table::with_header(vec![
             (Align::Right, "Bytes".to_string()),
             (Align::Right, "Size %".to_string()),
@@ -78,7 +78,7 @@ impl traits::Emit for Garbage {
     }
 
     #[cfg(feature = "emit_json")]
-    fn emit_json(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_json(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         let mut arr = json::array(dest)?;
 
         for &id in self.items.iter().take(self.limit) {
@@ -137,13 +137,16 @@ impl traits::Emit for Garbage {
     }
 
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, _items: &ir::Items, _dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_csv(&self, _items: &ir::Items, _dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         unimplemented!();
     }
 }
 
 /// Find items that are not transitively referenced by any exports or public functions.
-pub fn garbage(items: &ir::Items, opts: &opt::Garbage) -> Result<Box<traits::Emit>, traits::Error> {
+pub fn garbage(
+    items: &ir::Items,
+    opts: &opt::Garbage,
+) -> Result<Box<dyn traits::Emit>, traits::Error> {
     let mut unreachable_items = get_unreachable_items(&items).collect::<Vec<_>>();
     unreachable_items.sort_by(|a, b| b.size().cmp(&a.size()));
 
@@ -174,7 +177,7 @@ pub fn garbage(items: &ir::Items, opts: &opt::Garbage) -> Result<Box<traits::Emi
         limit: opts.max_items() as usize,
     };
 
-    Ok(Box::new(garbage_items) as Box<traits::Emit>)
+    Ok(Box::new(garbage_items) as Box<_>)
 }
 
 pub(crate) fn get_unreachable_items(items: &ir::Items) -> impl Iterator<Item = &ir::Item> {

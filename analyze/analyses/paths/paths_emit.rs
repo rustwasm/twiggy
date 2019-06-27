@@ -10,7 +10,7 @@ use twiggy_traits as traits;
 
 impl traits::Emit for Paths {
     #[cfg(feature = "emit_text")]
-    fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_text(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         use self::emit_text_helpers::{process_entry, TableRow};
 
         // Flat map each entry and its children into a sequence of table rows.
@@ -55,7 +55,7 @@ impl traits::Emit for Paths {
     }
 
     #[cfg(feature = "emit_json")]
-    fn emit_json(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_json(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         use self::emit_json_helpers::process_entry;
 
         // Initialize a JSON array. For each path entry, add a object to the
@@ -77,7 +77,7 @@ impl traits::Emit for Paths {
     }
 
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_csv(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         use self::emit_csv_helpers::process_entry;
 
         // First, initialize a CSV writer. Then, flat map each entry and its

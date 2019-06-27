@@ -5,11 +5,11 @@
 use std::io;
 
 pub trait JsonPrimitive {
-    fn json_primitive(&self, w: &mut io::Write) -> io::Result<()>;
+    fn json_primitive(&self, w: &mut dyn io::Write) -> io::Result<()>;
 }
 
 impl<'a> JsonPrimitive for &'a str {
-    fn json_primitive(&self, w: &mut io::Write) -> io::Result<()> {
+    fn json_primitive(&self, w: &mut dyn io::Write) -> io::Result<()> {
         write!(w, "\"")?;
         for c in self.chars() {
             match c {
@@ -24,18 +24,18 @@ impl<'a> JsonPrimitive for &'a str {
 }
 
 impl JsonPrimitive for f64 {
-    fn json_primitive(&self, w: &mut io::Write) -> io::Result<()> {
+    fn json_primitive(&self, w: &mut dyn io::Write) -> io::Result<()> {
         write!(w, "{}", self)
     }
 }
 
 impl JsonPrimitive for u32 {
-    fn json_primitive(&self, w: &mut io::Write) -> io::Result<()> {
+    fn json_primitive(&self, w: &mut dyn io::Write) -> io::Result<()> {
         write!(w, "{}", self)
     }
 }
 
-pub fn array(w: &mut io::Write) -> io::Result<Array> {
+pub fn array(w: &mut dyn io::Write) -> io::Result<Array> {
     write!(w, "[")?;
     Ok(Array {
         w,
@@ -43,7 +43,7 @@ pub fn array(w: &mut io::Write) -> io::Result<Array> {
     })
 }
 
-pub fn object(w: &mut io::Write) -> io::Result<Object> {
+pub fn object(w: &mut dyn io::Write) -> io::Result<Object> {
     write!(w, "{{")?;
     Ok(Object {
         w,
@@ -52,7 +52,7 @@ pub fn object(w: &mut io::Write) -> io::Result<Object> {
 }
 
 pub struct Array<'a> {
-    w: &'a mut io::Write,
+    w: &'a mut dyn io::Write,
     need_comma: bool,
 }
 
@@ -91,7 +91,7 @@ impl<'a> Array<'a> {
 }
 
 pub struct Object<'a> {
-    w: &'a mut io::Write,
+    w: &'a mut dyn io::Write,
     need_comma: bool,
 }
 

@@ -52,7 +52,7 @@ impl serde::Serialize for DiffEntry {
 
 impl traits::Emit for Diff {
     #[cfg(feature = "emit_text")]
-    fn emit_text(&self, _items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_text(&self, _items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         let mut table = Table::with_header(vec![
             (Align::Right, "Delta Bytes".into()),
             (Align::Left, "Item".to_string()),
@@ -68,7 +68,7 @@ impl traits::Emit for Diff {
     }
 
     #[cfg(feature = "emit_json")]
-    fn emit_json(&self, _items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_json(&self, _items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         let mut arr = json::array(dest)?;
 
         for entry in &self.deltas {
@@ -81,7 +81,7 @@ impl traits::Emit for Diff {
     }
 
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, _items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_csv(&self, _items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         let mut wtr = csv::Writer::from_writer(dest);
 
         for entry in &self.deltas {
@@ -98,7 +98,7 @@ pub fn diff(
     old_items: &mut ir::Items,
     new_items: &mut ir::Items,
     opts: &opt::Diff,
-) -> Result<Box<traits::Emit>, traits::Error> {
+) -> Result<Box<dyn traits::Emit>, traits::Error> {
     let max_items = opts.max_items() as usize;
 
     // Given a set of items, create a HashMap of the items' names and sizes.
@@ -215,5 +215,5 @@ pub fn diff(
 
     // Return the results so that they can be emitted.
     let diff = Diff { deltas };
-    Ok(Box::new(diff) as Box<traits::Emit>)
+    Ok(Box::new(diff) as Box<_>)
 }

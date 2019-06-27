@@ -25,7 +25,7 @@ impl fmt::Display for Error {
 }
 
 impl failure::Fail for Error {
-    fn cause(&self) -> Option<&failure::Fail> {
+    fn cause(&self) -> Option<&dyn failure::Fail> {
         self.inner.cause()
     }
 
@@ -222,7 +222,7 @@ pub trait Emit {
     fn emit(
         &self,
         items: &ir::Items,
-        destination: &mut io::Write,
+        destination: &mut dyn io::Write,
         format: OutputFormat,
     ) -> Result<(), Error> {
         match format {
@@ -239,19 +239,19 @@ pub trait Emit {
 
     /// Emit human readable text.
     #[cfg(feature = "emit_text")]
-    fn emit_text(&self, items: &ir::Items, destination: &mut io::Write) -> Result<(), Error>;
+    fn emit_text(&self, items: &ir::Items, destination: &mut dyn io::Write) -> Result<(), Error>;
 
     // /// Emit HTML.
-    // fn emit_html(&self, destination: &mut io::Write) -> Result<(), Error>;
+    // fn emit_html(&self, destination: &mut dyn io::Write) -> Result<(), Error>;
 
     // /// Emit Graphviz's dot format.
-    // fn emit_dot(&self, destination: &mut io::Write) -> Result<(), Error>;
+    // fn emit_dot(&self, destination: &mut dyn io::Write) -> Result<(), Error>;
 
     /// Emit CSV.
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, items: &ir::Items, destination: &mut io::Write) -> Result<(), Error>;
+    fn emit_csv(&self, items: &ir::Items, destination: &mut dyn io::Write) -> Result<(), Error>;
 
     /// Emit JSON.
     #[cfg(feature = "emit_json")]
-    fn emit_json(&self, items: &ir::Items, destination: &mut io::Write) -> Result<(), Error>;
+    fn emit_json(&self, items: &ir::Items, destination: &mut dyn io::Write) -> Result<(), Error>;
 }

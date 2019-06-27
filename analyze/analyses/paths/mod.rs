@@ -18,7 +18,10 @@ struct Paths {
 }
 
 /// Find all retaining paths for the given items.
-pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emit>, traits::Error> {
+pub fn paths(
+    items: &mut ir::Items,
+    opts: &opt::Paths,
+) -> Result<Box<dyn traits::Emit>, traits::Error> {
     // The predecessor tree only needs to be computed if we are ascending
     // through the retaining paths.
     if !opts.descending() {
@@ -34,7 +37,7 @@ pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Box<traits::Emi
 
     let paths = Paths { opts, entries };
 
-    Ok(Box::new(paths) as Box<traits::Emit>)
+    Ok(Box::new(paths) as Box<_>)
 }
 
 /// This helper function is used to collect the `ir::Id` values for the top-most

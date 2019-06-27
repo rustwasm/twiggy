@@ -43,7 +43,7 @@ impl Ord for MonosEntry {
 
 impl traits::Emit for Monos {
     #[cfg(feature = "emit_text")]
-    fn emit_text(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_text(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         struct TableRow {
             bloat: Option<u32>,
             bloat_percent: Option<f64>,
@@ -117,7 +117,7 @@ impl traits::Emit for Monos {
     }
 
     #[cfg(feature = "emit_json")]
-    fn emit_json(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_json(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         // Given an entry representing a generic function and its various
         // monomorphizations, add its information to the given JSON object.
         fn process_entry(
@@ -164,7 +164,7 @@ impl traits::Emit for Monos {
     }
 
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, items: &ir::Items, dest: &mut io::Write) -> Result<(), traits::Error> {
+    fn emit_csv(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         // Calculate the total size of the collection of items, and define a
         // helper closure to calculate a percent value for a given u32 size.
         let items_size = f64::from(items.size());
@@ -211,7 +211,10 @@ impl traits::Emit for Monos {
 }
 
 /// Find bloaty monomorphizations of generic functions.
-pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emit>, traits::Error> {
+pub fn monos(
+    items: &mut ir::Items,
+    opts: &opt::Monos,
+) -> Result<Box<dyn traits::Emit>, traits::Error> {
     // Type alias used to represent a map of generic function names and instantiations.
     type MonosMap<'a> = BTreeMap<&'a str, Vec<(String, u32)>>;
 
@@ -355,5 +358,5 @@ pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Box<traits::Emi
         monos.push(remaining);
     }
     monos.push(total);
-    Ok(Box::new(Monos { monos }) as Box<traits::Emit>)
+    Ok(Box::new(Monos { monos }) as Box<_>)
 }
