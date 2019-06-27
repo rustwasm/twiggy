@@ -1,240 +1,240 @@
  Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %      │ Monomorphizations
 ────────────────────┼────────────────┼───────┼────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-               2139 ┊          3.68% ┊  3246 ┊  5.58% ┊ alloc::slice::merge_sort
-                    ┊                ┊  1107 ┊  1.90% ┊     alloc::slice::merge_sort::hb3d195f9800bdad6
-                    ┊                ┊  1107 ┊  1.90% ┊     alloc::slice::merge_sort::hfcf2318d7dc71d03
-                    ┊                ┊  1032 ┊  1.77% ┊     alloc::slice::merge_sort::hcfca67f5c75a52ef
-               1454 ┊          2.50% ┊  4219 ┊  7.25% ┊ <&'a T as core::fmt::Debug>::fmt
-                    ┊                ┊  2765 ┊  4.75% ┊     <&'a T as core::fmt::Debug>::fmt::h1c27955d8de3ff17
-                    ┊                ┊   635 ┊  1.09% ┊     <&'a T as core::fmt::Debug>::fmt::hea6a77c4dcddb7ac
-                    ┊                ┊   480 ┊  0.82% ┊     <&'a T as core::fmt::Debug>::fmt::hfbacf6f5c9f53bb2
-                    ┊                ┊   339 ┊  0.58% ┊     <&'a T as core::fmt::Debug>::fmt::h199e8e1c5752e6f1
-               1197 ┊          2.06% ┊  1374 ┊  2.36% ┊ core::result::unwrap_failed
-                    ┊                ┊   177 ┊  0.30% ┊     core::result::unwrap_failed::h137aa4f433aba1a9
-                    ┊                ┊   177 ┊  0.30% ┊     core::result::unwrap_failed::h4cc73eb9bf19ce32
-                    ┊                ┊   177 ┊  0.30% ┊     core::result::unwrap_failed::h9bd27c3a9ad7c001
-                    ┊                ┊   170 ┊  0.29% ┊     core::result::unwrap_failed::h9a7678774db14d67
-                    ┊                ┊   170 ┊  0.29% ┊     core::result::unwrap_failed::ha3e58cfc7f422ab4
-                    ┊                ┊   170 ┊  0.29% ┊     core::result::unwrap_failed::ha7651fcaac40f701
-                    ┊                ┊   170 ┊  0.29% ┊     core::result::unwrap_failed::hcb258ce32bda3d85
-                    ┊                ┊   163 ┊  0.28% ┊     core::result::unwrap_failed::hcfddf900474e698a
-                654 ┊          1.12% ┊   838 ┊  1.44% ┊ <alloc::raw_vec::RawVec<T, A>>::double
-                    ┊                ┊   184 ┊  0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h28f86621ee2a10aa
-                    ┊                ┊   184 ┊  0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h956450b93bdc9e1e
-                    ┊                ┊   184 ┊  0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::hcb2fb5861b96a3b0
-                    ┊                ┊   175 ┊  0.30% ┊     <alloc::raw_vec::RawVec<T, A>>::double::ha715b4e5cc3c60ae
-                    ┊                ┊   111 ┊  0.19% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h77ff8547127c5db2
-                572 ┊          0.98% ┊   894 ┊  1.54% ┊ std::thread::local::os::destroy_value
-                    ┊                ┊   322 ┊  0.55% ┊     std::thread::local::os::destroy_value::hca8124786bee4a79
-                    ┊                ┊   313 ┊  0.54% ┊     std::thread::local::os::destroy_value::h094cf4f2a025ba2b
-                    ┊                ┊   259 ┊  0.44% ┊     std::thread::local::os::destroy_value::h453d41f6c315da32
-                234 ┊          0.40% ┊   354 ┊  0.61% ┊ alloc::slice::insert_head
-                    ┊                ┊   120 ┊  0.21% ┊     alloc::slice::insert_head::h2cdb84a455761146
-                    ┊                ┊   120 ┊  0.21% ┊     alloc::slice::insert_head::haf6e08236bab8bde
-                    ┊                ┊   114 ┊  0.20% ┊     alloc::slice::insert_head::hed0e79da03eeec8b
-                234 ┊          0.40% ┊   351 ┊  0.60% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt
-                    ┊                ┊   117 ┊  0.20% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h1b74a5fafe15c8eb
-                    ┊                ┊   117 ┊  0.20% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h24034d1c07bfae93
-                    ┊                ┊   117 ┊  0.20% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h5ebed3e159974658
-                207 ┊          0.36% ┊   286 ┊  0.49% ┊ <alloc::vec::Vec<T>>::push
-                    ┊                ┊    79 ┊  0.14% ┊     <alloc::vec::Vec<T>>::push::h98b02eda22d1ca25
-                    ┊                ┊    70 ┊  0.12% ┊     <alloc::vec::Vec<T>>::push::h5729b9e7651ef67b
-                    ┊                ┊    70 ┊  0.12% ┊     <alloc::vec::Vec<T>>::push::hc927b4bedb35b00d
-                    ┊                ┊    67 ┊  0.12% ┊     <alloc::vec::Vec<T>>::push::h9415ef699ccc65d8
-                135 ┊          0.23% ┊   204 ┊  0.35% ┊ <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut
-                    ┊                ┊    69 ┊  0.12% ┊     <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut::hba42cce6d0c0099b
-                    ┊                ┊    69 ┊  0.12% ┊     <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut::hbf8fcfe76c1f6657
-                    ┊                ┊    66 ┊  0.11% ┊     <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut::h1c053f01b6f95d93
-                114 ┊          0.20% ┊   228 ┊  0.39% ┊ core::fmt::Write::write_fmt
-                    ┊                ┊   114 ┊  0.20% ┊     core::fmt::Write::write_fmt::ha5ae3249cacba520
-                    ┊                ┊   114 ┊  0.20% ┊     core::fmt::Write::write_fmt::hef4632e1398f5ac8
-                102 ┊          0.18% ┊   191 ┊  0.33% ┊ core::ptr::drop_in_place
-                    ┊                ┊    89 ┊  0.15% ┊     core::ptr::drop_in_place::h494c395f6e046dd8
-                    ┊                ┊    25 ┊  0.04% ┊     core::ptr::drop_in_place::h42ed7c6a38cb8e07
-                    ┊                ┊    25 ┊  0.04% ┊     core::ptr::drop_in_place::h4ca61ce56a679223
-                    ┊                ┊    25 ┊  0.04% ┊     core::ptr::drop_in_place::ha01a5d42ad694a80.222
-                    ┊                ┊     3 ┊  0.01% ┊     core::ptr::drop_in_place::h17156ca791bccf59.513
-                    ┊                ┊     3 ┊  0.01% ┊     core::ptr::drop_in_place::h1c915609313c62ad
-                    ┊                ┊     3 ┊  0.01% ┊     core::ptr::drop_in_place::h3eafb424d17eed5a
-                    ┊                ┊     3 ┊  0.01% ┊     core::ptr::drop_in_place::h5fe186521e50398c
-                    ┊                ┊     3 ┊  0.01% ┊     core::ptr::drop_in_place::h866e65b55bb41ec8
-                    ┊                ┊     3 ┊  0.01% ┊     core::ptr::drop_in_place::h90b51321c83f0b52
-                    ┊                ┊     3 ┊  0.01% ┊     core::ptr::drop_in_place::hc08d232cbad3f181
-                    ┊                ┊     3 ┊  0.01% ┊     core::ptr::drop_in_place::he20df9406e8bd108
-                    ┊                ┊     3 ┊  0.01% ┊     core::ptr::drop_in_place::hf66b364ab6530cb0.198
-                 63 ┊          0.11% ┊    84 ┊  0.14% ┊ <&'a T as core::fmt::Display>::fmt
-                    ┊                ┊    21 ┊  0.04% ┊     <&'a T as core::fmt::Display>::fmt::h176bc0565ce2f755
-                    ┊                ┊    21 ┊  0.04% ┊     <&'a T as core::fmt::Display>::fmt::h926f24fdf869c3d4
-                    ┊                ┊    21 ┊  0.04% ┊     <&'a T as core::fmt::Display>::fmt::h9a5e4ca609ef3195
-                    ┊                ┊    21 ┊  0.04% ┊     <&'a T as core::fmt::Display>::fmt::hfd15206c852ff237
-                 43 ┊          0.07% ┊    86 ┊  0.15% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeFrom<usize>>::index::{{closure}}
-                    ┊                ┊    43 ┊  0.07% ┊     core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeFrom<usize>>::index::{{closure}}::h551234547249438f
-                    ┊                ┊    43 ┊  0.07% ┊     core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeFrom<usize>>::index::{{closure}}::h551234547249438f.1519
-                 38 ┊          0.07% ┊    57 ┊  0.10% ┊ <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop
-                    ┊                ┊    19 ┊  0.03% ┊     <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop::h420ff33e8bc0de30
-                    ┊                ┊    19 ┊  0.03% ┊     <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop::hab66cea5bda1ed02
-                    ┊                ┊    19 ┊  0.03% ┊     <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop::hbe243f4c44295f3d
-                 30 ┊          0.05% ┊    45 ┊  0.08% ┊ monos::generic
-                    ┊                ┊    15 ┊  0.03% ┊     monos::generic::h3f709b036579455b
-                    ┊                ┊    15 ┊  0.03% ┊     monos::generic::h750555479e5489a4
-                    ┊                ┊    15 ┊  0.03% ┊     monos::generic::hfe1fd39004fc0e00
-                 24 ┊          0.04% ┊    48 ┊  0.08% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeTo<usize>>::index::{{closure}}
-                    ┊                ┊    24 ┊  0.04% ┊     core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeTo<usize>>::index::{{closure}}::hd9bd1f9708957db3
-                    ┊                ┊    24 ┊  0.04% ┊     core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeTo<usize>>::index::{{closure}}::hd9bd1f9708957db3.1491
-                 23 ┊          0.04% ┊    84 ┊  0.14% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str
-                    ┊                ┊    61 ┊  0.10% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h940b1386ae3f4147
-                    ┊                ┊    18 ┊  0.03% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h0767b084488f159f
-                    ┊                ┊     5 ┊  0.01% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h57f5456f6d1b5eb7
-                 21 ┊          0.04% ┊   394 ┊  0.68% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char
-                    ┊                ┊   373 ┊  0.64% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::h3857faf68988bcc7
-                    ┊                ┊    16 ┊  0.03% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::hc2c65c2f6506605c
-                    ┊                ┊     5 ┊  0.01% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::h6892581b60805034
-                 13 ┊          0.02% ┊    26 ┊  0.04% ┊ <T as core::any::Any>::get_type_id
-                    ┊                ┊    13 ┊  0.02% ┊     <T as core::any::Any>::get_type_id::h70dbcd8d7607e25f
-                    ┊                ┊    13 ┊  0.02% ┊     <T as core::any::Any>::get_type_id::ha221e40008a49a7a
-                  5 ┊          0.01% ┊   272 ┊  0.47% ┊ core::fmt::Write::write_char
-                    ┊                ┊   267 ┊  0.46% ┊     core::fmt::Write::write_char::hf2fdb3b1239aa837
-                    ┊                ┊     5 ┊  0.01% ┊     core::fmt::Write::write_char::h5d6f077de992701b
-                  0 ┊          0.00% ┊  3665 ┊  6.30% ┊ dlmalloc::dlmalloc::Dlmalloc::malloc
-                    ┊                ┊  3665 ┊  6.30% ┊     dlmalloc::dlmalloc::Dlmalloc::malloc::hb5416e93def64fe7
-                  0 ┊          0.00% ┊  1673 ┊  2.87% ┊ core::fmt::Formatter::pad
-                    ┊                ┊  1673 ┊  2.87% ┊     core::fmt::Formatter::pad::hd38c4d6e1efb341d
-                  0 ┊          0.00% ┊  1667 ┊  2.86% ┊ std::panicking::rust_panic_with_hook
-                    ┊                ┊  1667 ┊  2.86% ┊     std::panicking::rust_panic_with_hook::he8cd48d8bdfe5554
-                  0 ┊          0.00% ┊  1301 ┊  2.24% ┊ core::fmt::Formatter::pad_integral
-                    ┊                ┊  1301 ┊  2.24% ┊     core::fmt::Formatter::pad_integral::h5baf21c51a966f3a
-                  0 ┊          0.00% ┊  1295 ┊  2.22% ┊ core::str::slice_error_fail
-                    ┊                ┊  1295 ┊  2.22% ┊     core::str::slice_error_fail::h09abd70508ac6224
-                  0 ┊          0.00% ┊  1189 ┊  2.04% ┊ core::fmt::write
-                    ┊                ┊  1189 ┊  2.04% ┊     core::fmt::write::hc24fd199dd6d7a6f
-                  0 ┊          0.00% ┊  1002 ┊  1.72% ┊ dlmalloc::dlmalloc::Dlmalloc::free
-                    ┊                ┊  1002 ┊  1.72% ┊     dlmalloc::dlmalloc::Dlmalloc::free::hca49a97af7c495aa
-                  0 ┊          0.00% ┊   918 ┊  1.58% ┊ <char as core::fmt::Debug>::fmt
-                    ┊                ┊   918 ┊  1.58% ┊     <char as core::fmt::Debug>::fmt::h46c9e10e3204a725
-                  0 ┊          0.00% ┊   788 ┊  1.35% ┊ std::panicking::default_hook::{{closure}}
-                    ┊                ┊   788 ┊  1.35% ┊     std::panicking::default_hook::{{closure}}::h88efaeab38b3bb92
-                  0 ┊          0.00% ┊   748 ┊  1.29% ┊ <core::fmt::builders::PadAdapter<'a> as core::fmt::Write>::write_str
-                    ┊                ┊   748 ┊  1.29% ┊     <core::fmt::builders::PadAdapter<'a> as core::fmt::Write>::write_str::hf1251ddfe5caf5c0
-                  0 ┊          0.00% ┊   732 ┊  1.26% ┊ core::slice::memchr::memchr
-                    ┊                ┊   732 ┊  1.26% ┊     core::slice::memchr::memchr::hbd473f47994473fe
-                  0 ┊          0.00% ┊   716 ┊  1.23% ┊ dlmalloc::dlmalloc::Dlmalloc::dispose_chunk
-                    ┊                ┊   716 ┊  1.23% ┊     dlmalloc::dlmalloc::Dlmalloc::dispose_chunk::hf93802a9a8432d34
-                  0 ┊          0.00% ┊   611 ┊  1.05% ┊ std::thread::Thread::new
-                    ┊                ┊   611 ┊  1.05% ┊     std::thread::Thread::new::hcb7a87467126075e
-                  0 ┊          0.00% ┊   568 ┊  0.98% ┊ <core::alloc::LayoutErr as core::fmt::Debug>::fmt
-                    ┊                ┊   568 ┊  0.98% ┊     <core::alloc::LayoutErr as core::fmt::Debug>::fmt::hfd2b5abe22462496
-                  0 ┊          0.00% ┊   433 ┊  0.74% ┊ std::io::Write::write_fmt
-                    ┊                ┊   433 ┊  0.74% ┊     std::io::Write::write_fmt::h9af1b3f2948b70aa
-                  0 ┊          0.00% ┊   400 ┊  0.69% ┊ core::fmt::builders::DebugTuple::field
-                    ┊                ┊   400 ┊  0.69% ┊     core::fmt::builders::DebugTuple::field::hb0accc3621cba4bb
-                  0 ┊          0.00% ┊   378 ┊  0.65% ┊ core::fmt::Formatter::pad_integral::{{closure}}
-                    ┊                ┊   378 ┊  0.65% ┊     core::fmt::Formatter::pad_integral::{{closure}}::hc418afb1063bb9cd
-                  0 ┊          0.00% ┊   378 ┊  0.65% ┊ dlmalloc::dlmalloc::Dlmalloc::memalign
-                    ┊                ┊   378 ┊  0.65% ┊     dlmalloc::dlmalloc::Dlmalloc::memalign::hd4d61f94fa766d6d
-                  0 ┊          0.00% ┊   365 ┊  0.63% ┊ core::unicode::printable::check
-                    ┊                ┊   365 ┊  0.63% ┊     core::unicode::printable::check::h25f5f3b248ff4de9
-                  0 ┊          0.00% ┊   343 ┊  0.59% ┊ <std::thread::local::os::Key<T>>::get
-                    ┊                ┊   343 ┊  0.59% ┊     <std::thread::local::os::Key<T>>::get::hb1c0b3c102520e8e
-                  0 ┊          0.00% ┊   343 ┊  0.59% ┊ std::panicking::LOCAL_STDERR::__getit
-                    ┊                ┊   343 ┊  0.59% ┊     std::panicking::LOCAL_STDERR::__getit::h8fba88afdc9be965
-                  0 ┊          0.00% ┊   343 ┊  0.59% ┊ std::sys_common::thread_info::THREAD_INFO::__getit
-                    ┊                ┊   343 ┊  0.59% ┊     std::sys_common::thread_info::THREAD_INFO::__getit::hd2f70e636773d5bb
-                  0 ┊          0.00% ┊   342 ┊  0.59% ┊ core::fmt::num::<impl core::fmt::Display for u32>::fmt
-                    ┊                ┊   342 ┊  0.59% ┊     core::fmt::num::<impl core::fmt::Display for u32>::fmt::hf9b023faccafcd44
-                  0 ┊          0.00% ┊   342 ┊  0.59% ┊ core::fmt::num::<impl core::fmt::Display for usize>::fmt
-                    ┊                ┊   342 ┊  0.59% ┊     core::fmt::num::<impl core::fmt::Display for usize>::fmt::hdfa35b6f37f7920b
-                  0 ┊          0.00% ┊   341 ┊  0.59% ┊ dlmalloc::dlmalloc::Dlmalloc::insert_large_chunk
-                    ┊                ┊   341 ┊  0.59% ┊     dlmalloc::dlmalloc::Dlmalloc::insert_large_chunk::hab943d3cb50736d3
-                  0 ┊          0.00% ┊   332 ┊  0.57% ┊ core::fmt::num::<impl core::fmt::Debug for usize>::fmt
-                    ┊                ┊   332 ┊  0.57% ┊     core::fmt::num::<impl core::fmt::Debug for usize>::fmt::he564909c39b6d025.1723
-                  0 ┊          0.00% ┊   318 ┊  0.55% ┊ dlmalloc::dlmalloc::Dlmalloc::unlink_large_chunk
-                    ┊                ┊   318 ┊  0.55% ┊     dlmalloc::dlmalloc::Dlmalloc::unlink_large_chunk::h9ce5e82f14cb088c
-                  0 ┊          0.00% ┊   218 ┊  0.37% ┊ alloc::slice::merge_sort::collapse
-                    ┊                ┊   218 ┊  0.37% ┊     alloc::slice::merge_sort::collapse::h7652880473a820fb
-                  0 ┊          0.00% ┊   208 ┊  0.36% ┊ core::fmt::builders::DebugTuple::finish
-                    ┊                ┊   208 ┊  0.36% ┊     core::fmt::builders::DebugTuple::finish::h4b6f3588cb34c729
-                  0 ┊          0.00% ┊   199 ┊  0.34% ┊ std::panicking::begin_panic_fmt
-                    ┊                ┊   199 ┊  0.34% ┊     std::panicking::begin_panic_fmt::h42619bb35aa26579
-                  0 ┊          0.00% ┊   194 ┊  0.33% ┊ core::unicode::printable::is_printable
-                    ┊                ┊   194 ┊  0.33% ┊     core::unicode::printable::is_printable::h9244f217c062b153
-                  0 ┊          0.00% ┊   186 ┊  0.32% ┊ std::sys_common::util::dumb_print
-                    ┊                ┊   186 ┊  0.32% ┊     std::sys_common::util::dumb_print::h8471f6b6b2efd084
-                  0 ┊          0.00% ┊   177 ┊  0.30% ┊ <core::ops::range::Range<Idx> as core::fmt::Debug>::fmt
-                    ┊                ┊   177 ┊  0.30% ┊     <core::ops::range::Range<Idx> as core::fmt::Debug>::fmt::h7062aec4a4b8faad
-                  0 ┊          0.00% ┊   162 ┊  0.28% ┊ core::slice::slice_index_len_fail
-                    ┊                ┊   162 ┊  0.28% ┊     core::slice::slice_index_len_fail::hf5ae4a5ffda80b38
-                  0 ┊          0.00% ┊   162 ┊  0.28% ┊ core::slice::slice_index_order_fail
-                    ┊                ┊   162 ┊  0.28% ┊     core::slice::slice_index_order_fail::ha84da396d40170b0
-                  0 ┊          0.00% ┊   158 ┊  0.27% ┊ <std::ffi::c_str::NulError as core::fmt::Debug>::fmt
-                    ┊                ┊   158 ┊  0.27% ┊     <std::ffi::c_str::NulError as core::fmt::Debug>::fmt::hd213df2c4c15ea9b
-                  0 ┊          0.00% ┊   158 ┊  0.27% ┊ core::panicking::panic_bounds_check
-                    ┊                ┊   158 ┊  0.27% ┊     core::panicking::panic_bounds_check::h63ad503ebe07f604
-                  0 ┊          0.00% ┊   154 ┊  0.26% ┊ core::alloc::Layout::repeat
-                    ┊                ┊   154 ┊  0.26% ┊     core::alloc::Layout::repeat::h530ac3db187ac797
-                  0 ┊          0.00% ┊   145 ┊  0.25% ┊ <alloc::raw_vec::RawVec<T, A>>::reserve
-                    ┊                ┊   145 ┊  0.25% ┊     <alloc::raw_vec::RawVec<T, A>>::reserve::h77c53c3e5b764505
-                  0 ┊          0.00% ┊   139 ┊  0.24% ┊ core::option::expect_failed
-                    ┊                ┊   139 ┊  0.24% ┊     core::option::expect_failed::ha1e19f3be1783d86
-                  0 ┊          0.00% ┊   126 ┊  0.22% ┊ <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Debug>::fmt
-                    ┊                ┊   126 ┊  0.22% ┊     <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Debug>::fmt::hf81d6ec3ed3cf437
-                  0 ┊          0.00% ┊   124 ┊  0.21% ┊ <alloc::raw_vec::RawVec<T, A>>::reserve_exact
-                    ┊                ┊   124 ┊  0.21% ┊     <alloc::raw_vec::RawVec<T, A>>::reserve_exact::h90209384f3b9be08
-                  0 ┊          0.00% ┊   118 ┊  0.20% ┊ core::panicking::panic
-                    ┊                ┊   118 ┊  0.20% ┊     core::panicking::panic::hd6b1565e097d11be
-                  0 ┊          0.00% ┊   108 ┊  0.19% ┊ <alloc::arc::Arc<T>>::drop_slow
-                    ┊                ┊   108 ┊  0.19% ┊     <alloc::arc::Arc<T>>::drop_slow::hab85f37fa5d78c06
-                  0 ┊          0.00% ┊   103 ┊  0.18% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::write_fmt
-                    ┊                ┊   103 ┊  0.18% ┊     std::io::impls::<impl std::io::Write for &'a mut W>::write_fmt::hdc863fd6486416b4
-                  0 ┊          0.00% ┊    87 ┊  0.15% ┊ <alloc::string::String as core::convert::From<&'a str>>::from
-                    ┊                ┊    87 ┊  0.15% ┊     <alloc::string::String as core::convert::From<&'a str>>::from::h71d62dd67534ae67
-                  0 ┊          0.00% ┊    83 ┊  0.14% ┊ <alloc::vec::Vec<T>>::remove
-                    ┊                ┊    83 ┊  0.14% ┊     <alloc::vec::Vec<T>>::remove::hba13f8aae5697111
-                  0 ┊          0.00% ┊    75 ┊  0.13% ┊ <core::alloc::CollectionAllocErr as core::fmt::Debug>::fmt
-                    ┊                ┊    75 ┊  0.13% ┊     <core::alloc::CollectionAllocErr as core::fmt::Debug>::fmt::h1e612cc5b402d018
-                  0 ┊          0.00% ┊    66 ┊  0.11% ┊ core::panicking::panic_fmt
-                    ┊                ┊    66 ┊  0.11% ┊     core::panicking::panic_fmt::h2ddf6ebf35664a22
-                  0 ┊          0.00% ┊    55 ┊  0.09% ┊ std::panicking::begin_panic
-                    ┊                ┊    55 ┊  0.09% ┊     std::panicking::begin_panic::h1c67cf480c82ca41
-                  0 ┊          0.00% ┊    49 ┊  0.08% ┊ <alloc::vec::Vec<T> as core::ops::index::Index<I>>::index
-                    ┊                ┊    49 ┊  0.08% ┊     <alloc::vec::Vec<T> as core::ops::index::Index<I>>::index::h0e2d043e9c4be2a4
-                  0 ┊          0.00% ┊    49 ┊  0.08% ┊ <alloc::vec::Vec<T> as core::ops::index::IndexMut<I>>::index_mut
-                    ┊                ┊    49 ┊  0.08% ┊     <alloc::vec::Vec<T> as core::ops::index::IndexMut<I>>::index_mut::he65e880dfe71ede7
-                  0 ┊          0.00% ┊    43 ┊  0.07% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::Range<usize>>::index::{{closure}}
-                    ┊                ┊    43 ┊  0.07% ┊     core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::Range<usize>>::index::{{closure}}::h60168465cb72d0d1.1520
-                  0 ┊          0.00% ┊    35 ┊  0.06% ┊ <core::result::Result<T, E>>::unwrap
-                    ┊                ┊    35 ┊  0.06% ┊     <core::result::Result<T, E>>::unwrap::h6cc6e55b8a35b2a0
-                  0 ┊          0.00% ┊    34 ┊  0.06% ┊ <core::cell::BorrowError as core::fmt::Debug>::fmt
-                    ┊                ┊    34 ┊  0.06% ┊     <core::cell::BorrowError as core::fmt::Debug>::fmt::hf74aff9660f52336
-                  0 ┊          0.00% ┊    34 ┊  0.06% ┊ <core::cell::BorrowMutError as core::fmt::Debug>::fmt
-                    ┊                ┊    34 ┊  0.06% ┊     <core::cell::BorrowMutError as core::fmt::Debug>::fmt::h7d6c4aa36e2bbb3a
-                  0 ┊          0.00% ┊    34 ┊  0.06% ┊ <std::thread::local::AccessError as core::fmt::Debug>::fmt
-                    ┊                ┊    34 ┊  0.06% ┊     <std::thread::local::AccessError as core::fmt::Debug>::fmt::h468179781fdd317a
-                  0 ┊          0.00% ┊    30 ┊  0.05% ┊ <core::result::Result<T, E>>::expect
-                    ┊                ┊    30 ┊  0.05% ┊     <core::result::Result<T, E>>::expect::h43eea250881e7715
-                  0 ┊          0.00% ┊    23 ┊  0.04% ┊ <core::option::Option<T>>::expect
-                    ┊                ┊    23 ┊  0.04% ┊     <core::option::Option<T>>::expect::h53ba5982e622ab98
-                  0 ┊          0.00% ┊    23 ┊  0.04% ┊ <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as std::error::Error>::description
-                    ┊                ┊    23 ┊  0.04% ┊     <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as std::error::Error>::description::h81f56e02f5e7f796
-                  0 ┊          0.00% ┊    21 ┊  0.04% ┊ <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Display>::fmt
-                    ┊                ┊    21 ┊  0.04% ┊     <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Display>::fmt::h289d4f072dbab567
-                  0 ┊          0.00% ┊    17 ┊  0.03% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::write
-                    ┊                ┊    17 ┊  0.03% ┊     std::io::impls::<impl std::io::Write for &'a mut W>::write::hb0915e9baef1a41b
-                  0 ┊          0.00% ┊    14 ┊  0.02% ┊ std::error::Error::type_id
-                    ┊                ┊    14 ┊  0.02% ┊     std::error::Error::type_id::hc259f20f01bc805f
-                  0 ┊          0.00% ┊    13 ┊  0.02% ┊ core::fmt::ArgumentV1::show_usize
-                    ┊                ┊    13 ┊  0.02% ┊     core::fmt::ArgumentV1::show_usize::hfae8c3232f8e141e
-                  0 ┊          0.00% ┊    10 ┊  0.02% ┊ std::error::Error::cause
-                    ┊                ┊    10 ┊  0.02% ┊     std::error::Error::cause::h4980985f30856d32
-                  0 ┊          0.00% ┊    10 ┊  0.02% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::flush
-                    ┊                ┊    10 ┊  0.02% ┊     std::io::impls::<impl std::io::Write for &'a mut W>::flush::h19ff0277e6b3d742
-                  0 ┊          0.00% ┊    10 ┊  0.02% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::write_all
-                    ┊                ┊    10 ┊  0.02% ┊     std::io::impls::<impl std::io::Write for &'a mut W>::write_all::hcfa3a97487c6f2fb
-                  0 ┊          0.00% ┊     5 ┊  0.01% ┊ <monos::One as monos::Code>::code
-                    ┊                ┊     5 ┊  0.01% ┊     <monos::One as monos::Code>::code::h94feb5b1732d1e4b
-                  0 ┊          0.00% ┊     5 ┊  0.01% ┊ <monos::Two as monos::Code>::code
-                    ┊                ┊     5 ┊  0.01% ┊     <monos::Two as monos::Code>::code::h394b28ea75b29629
-                  0 ┊          0.00% ┊     5 ┊  0.01% ┊ <monos::Zero as monos::Code>::code
-                    ┊                ┊     5 ┊  0.01% ┊     <monos::Zero as monos::Code>::code::h86bfbb5b849aa69f
-                  0 ┊          0.00% ┊     5 ┊  0.01% ┊ <std::io::Write::write_fmt::Adaptor<'a, T> as core::fmt::Write>::write_str
-                    ┊                ┊     5 ┊  0.01% ┊     <std::io::Write::write_fmt::Adaptor<'a, T> as core::fmt::Write>::write_str::h1fcd48dcfdd79843
-               7302 ┊         12.55% ┊ 38486 ┊ 66.12% ┊ Σ [237 Total Rows]
+               2141 ┊          3.68% ┊  3249 ┊  5.58% ┊ alloc::slice::merge_sort
+                    ┊                ┊  1108 ┊  1.90% ┊     alloc::slice::merge_sort::hb3d195f9800bdad6
+                    ┊                ┊  1108 ┊  1.90% ┊     alloc::slice::merge_sort::hfcf2318d7dc71d03
+                    ┊                ┊  1033 ┊  1.77% ┊     alloc::slice::merge_sort::hcfca67f5c75a52ef
+               1457 ┊          2.50% ┊  4223 ┊  7.26% ┊ <&'a T as core::fmt::Debug>::fmt
+                    ┊                ┊  2766 ┊  4.75% ┊     <&'a T as core::fmt::Debug>::fmt::h1c27955d8de3ff17
+                    ┊                ┊   636 ┊  1.09% ┊     <&'a T as core::fmt::Debug>::fmt::hea6a77c4dcddb7ac
+                    ┊                ┊   481 ┊  0.83% ┊     <&'a T as core::fmt::Debug>::fmt::hfbacf6f5c9f53bb2
+                    ┊                ┊   340 ┊  0.58% ┊     <&'a T as core::fmt::Debug>::fmt::h199e8e1c5752e6f1
+               1204 ┊          2.07% ┊  1382 ┊  2.37% ┊ core::result::unwrap_failed
+                    ┊                ┊   178 ┊  0.31% ┊     core::result::unwrap_failed::h137aa4f433aba1a9
+                    ┊                ┊   178 ┊  0.31% ┊     core::result::unwrap_failed::h4cc73eb9bf19ce32
+                    ┊                ┊   178 ┊  0.31% ┊     core::result::unwrap_failed::h9bd27c3a9ad7c001
+                    ┊                ┊   171 ┊  0.29% ┊     core::result::unwrap_failed::h9a7678774db14d67
+                    ┊                ┊   171 ┊  0.29% ┊     core::result::unwrap_failed::ha3e58cfc7f422ab4
+                    ┊                ┊   171 ┊  0.29% ┊     core::result::unwrap_failed::ha7651fcaac40f701
+                    ┊                ┊   171 ┊  0.29% ┊     core::result::unwrap_failed::hcb258ce32bda3d85
+                    ┊                ┊   164 ┊  0.28% ┊     core::result::unwrap_failed::hcfddf900474e698a
+                658 ┊          1.13% ┊   843 ┊  1.45% ┊ <alloc::raw_vec::RawVec<T, A>>::double
+                    ┊                ┊   185 ┊  0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h28f86621ee2a10aa
+                    ┊                ┊   185 ┊  0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h956450b93bdc9e1e
+                    ┊                ┊   185 ┊  0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::hcb2fb5861b96a3b0
+                    ┊                ┊   176 ┊  0.30% ┊     <alloc::raw_vec::RawVec<T, A>>::double::ha715b4e5cc3c60ae
+                    ┊                ┊   112 ┊  0.19% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h77ff8547127c5db2
+                574 ┊          0.99% ┊   897 ┊  1.54% ┊ std::thread::local::os::destroy_value
+                    ┊                ┊   323 ┊  0.55% ┊     std::thread::local::os::destroy_value::hca8124786bee4a79
+                    ┊                ┊   314 ┊  0.54% ┊     std::thread::local::os::destroy_value::h094cf4f2a025ba2b
+                    ┊                ┊   260 ┊  0.45% ┊     std::thread::local::os::destroy_value::h453d41f6c315da32
+                236 ┊          0.41% ┊   357 ┊  0.61% ┊ alloc::slice::insert_head
+                    ┊                ┊   121 ┊  0.21% ┊     alloc::slice::insert_head::h2cdb84a455761146
+                    ┊                ┊   121 ┊  0.21% ┊     alloc::slice::insert_head::haf6e08236bab8bde
+                    ┊                ┊   115 ┊  0.20% ┊     alloc::slice::insert_head::hed0e79da03eeec8b
+                236 ┊          0.41% ┊   354 ┊  0.61% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt
+                    ┊                ┊   118 ┊  0.20% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h1b74a5fafe15c8eb
+                    ┊                ┊   118 ┊  0.20% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h24034d1c07bfae93
+                    ┊                ┊   118 ┊  0.20% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h5ebed3e159974658
+                210 ┊          0.36% ┊   290 ┊  0.50% ┊ <alloc::vec::Vec<T>>::push
+                    ┊                ┊    80 ┊  0.14% ┊     <alloc::vec::Vec<T>>::push::h98b02eda22d1ca25
+                    ┊                ┊    71 ┊  0.12% ┊     <alloc::vec::Vec<T>>::push::h5729b9e7651ef67b
+                    ┊                ┊    71 ┊  0.12% ┊     <alloc::vec::Vec<T>>::push::hc927b4bedb35b00d
+                    ┊                ┊    68 ┊  0.12% ┊     <alloc::vec::Vec<T>>::push::h9415ef699ccc65d8
+                137 ┊          0.24% ┊   207 ┊  0.36% ┊ <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut
+                    ┊                ┊    70 ┊  0.12% ┊     <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut::hba42cce6d0c0099b
+                    ┊                ┊    70 ┊  0.12% ┊     <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut::hbf8fcfe76c1f6657
+                    ┊                ┊    67 ┊  0.12% ┊     <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::index_mut::h1c053f01b6f95d93
+                115 ┊          0.20% ┊   230 ┊  0.40% ┊ core::fmt::Write::write_fmt
+                    ┊                ┊   115 ┊  0.20% ┊     core::fmt::Write::write_fmt::ha5ae3249cacba520
+                    ┊                ┊   115 ┊  0.20% ┊     core::fmt::Write::write_fmt::hef4632e1398f5ac8
+                114 ┊          0.20% ┊   204 ┊  0.35% ┊ core::ptr::drop_in_place
+                    ┊                ┊    90 ┊  0.15% ┊     core::ptr::drop_in_place::h494c395f6e046dd8
+                    ┊                ┊    26 ┊  0.04% ┊     core::ptr::drop_in_place::h42ed7c6a38cb8e07
+                    ┊                ┊    26 ┊  0.04% ┊     core::ptr::drop_in_place::h4ca61ce56a679223
+                    ┊                ┊    26 ┊  0.04% ┊     core::ptr::drop_in_place::ha01a5d42ad694a80.222
+                    ┊                ┊     4 ┊  0.01% ┊     core::ptr::drop_in_place::h17156ca791bccf59.513
+                    ┊                ┊     4 ┊  0.01% ┊     core::ptr::drop_in_place::h1c915609313c62ad
+                    ┊                ┊     4 ┊  0.01% ┊     core::ptr::drop_in_place::h3eafb424d17eed5a
+                    ┊                ┊     4 ┊  0.01% ┊     core::ptr::drop_in_place::h5fe186521e50398c
+                    ┊                ┊     4 ┊  0.01% ┊     core::ptr::drop_in_place::h866e65b55bb41ec8
+                    ┊                ┊     4 ┊  0.01% ┊     core::ptr::drop_in_place::h90b51321c83f0b52
+                    ┊                ┊     4 ┊  0.01% ┊     core::ptr::drop_in_place::hc08d232cbad3f181
+                    ┊                ┊     4 ┊  0.01% ┊     core::ptr::drop_in_place::he20df9406e8bd108
+                    ┊                ┊     4 ┊  0.01% ┊     core::ptr::drop_in_place::hf66b364ab6530cb0.198
+                 66 ┊          0.11% ┊    88 ┊  0.15% ┊ <&'a T as core::fmt::Display>::fmt
+                    ┊                ┊    22 ┊  0.04% ┊     <&'a T as core::fmt::Display>::fmt::h176bc0565ce2f755
+                    ┊                ┊    22 ┊  0.04% ┊     <&'a T as core::fmt::Display>::fmt::h926f24fdf869c3d4
+                    ┊                ┊    22 ┊  0.04% ┊     <&'a T as core::fmt::Display>::fmt::h9a5e4ca609ef3195
+                    ┊                ┊    22 ┊  0.04% ┊     <&'a T as core::fmt::Display>::fmt::hfd15206c852ff237
+                 44 ┊          0.08% ┊    88 ┊  0.15% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeFrom<usize>>::index::{{closure}}
+                    ┊                ┊    44 ┊  0.08% ┊     core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeFrom<usize>>::index::{{closure}}::h551234547249438f
+                    ┊                ┊    44 ┊  0.08% ┊     core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeFrom<usize>>::index::{{closure}}::h551234547249438f.1519
+                 40 ┊          0.07% ┊    60 ┊  0.10% ┊ <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop
+                    ┊                ┊    20 ┊  0.03% ┊     <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop::h420ff33e8bc0de30
+                    ┊                ┊    20 ┊  0.03% ┊     <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop::hab66cea5bda1ed02
+                    ┊                ┊    20 ┊  0.03% ┊     <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop::hbe243f4c44295f3d
+                 32 ┊          0.05% ┊    48 ┊  0.08% ┊ monos::generic
+                    ┊                ┊    16 ┊  0.03% ┊     monos::generic::h3f709b036579455b
+                    ┊                ┊    16 ┊  0.03% ┊     monos::generic::h750555479e5489a4
+                    ┊                ┊    16 ┊  0.03% ┊     monos::generic::hfe1fd39004fc0e00
+                 25 ┊          0.04% ┊    87 ┊  0.15% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str
+                    ┊                ┊    62 ┊  0.11% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h940b1386ae3f4147
+                    ┊                ┊    19 ┊  0.03% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h0767b084488f159f
+                    ┊                ┊     6 ┊  0.01% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h57f5456f6d1b5eb7
+                 25 ┊          0.04% ┊    50 ┊  0.09% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeTo<usize>>::index::{{closure}}
+                    ┊                ┊    25 ┊  0.04% ┊     core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeTo<usize>>::index::{{closure}}::hd9bd1f9708957db3
+                    ┊                ┊    25 ┊  0.04% ┊     core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeTo<usize>>::index::{{closure}}::hd9bd1f9708957db3.1491
+                 23 ┊          0.04% ┊   397 ┊  0.68% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char
+                    ┊                ┊   374 ┊  0.64% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::h3857faf68988bcc7
+                    ┊                ┊    17 ┊  0.03% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::hc2c65c2f6506605c
+                    ┊                ┊     6 ┊  0.01% ┊     <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::h6892581b60805034
+                 14 ┊          0.02% ┊    28 ┊  0.05% ┊ <T as core::any::Any>::get_type_id
+                    ┊                ┊    14 ┊  0.02% ┊     <T as core::any::Any>::get_type_id::h70dbcd8d7607e25f
+                    ┊                ┊    14 ┊  0.02% ┊     <T as core::any::Any>::get_type_id::ha221e40008a49a7a
+                  6 ┊          0.01% ┊   274 ┊  0.47% ┊ core::fmt::Write::write_char
+                    ┊                ┊   268 ┊  0.46% ┊     core::fmt::Write::write_char::hf2fdb3b1239aa837
+                    ┊                ┊     6 ┊  0.01% ┊     core::fmt::Write::write_char::h5d6f077de992701b
+                  0 ┊          0.00% ┊  3666 ┊  6.30% ┊ dlmalloc::dlmalloc::Dlmalloc::malloc
+                    ┊                ┊  3666 ┊  6.30% ┊     dlmalloc::dlmalloc::Dlmalloc::malloc::hb5416e93def64fe7
+                  0 ┊          0.00% ┊  1674 ┊  2.88% ┊ core::fmt::Formatter::pad
+                    ┊                ┊  1674 ┊  2.88% ┊     core::fmt::Formatter::pad::hd38c4d6e1efb341d
+                  0 ┊          0.00% ┊  1668 ┊  2.87% ┊ std::panicking::rust_panic_with_hook
+                    ┊                ┊  1668 ┊  2.87% ┊     std::panicking::rust_panic_with_hook::he8cd48d8bdfe5554
+                  0 ┊          0.00% ┊  1302 ┊  2.24% ┊ core::fmt::Formatter::pad_integral
+                    ┊                ┊  1302 ┊  2.24% ┊     core::fmt::Formatter::pad_integral::h5baf21c51a966f3a
+                  0 ┊          0.00% ┊  1296 ┊  2.23% ┊ core::str::slice_error_fail
+                    ┊                ┊  1296 ┊  2.23% ┊     core::str::slice_error_fail::h09abd70508ac6224
+                  0 ┊          0.00% ┊  1190 ┊  2.04% ┊ core::fmt::write
+                    ┊                ┊  1190 ┊  2.04% ┊     core::fmt::write::hc24fd199dd6d7a6f
+                  0 ┊          0.00% ┊  1003 ┊  1.72% ┊ dlmalloc::dlmalloc::Dlmalloc::free
+                    ┊                ┊  1003 ┊  1.72% ┊     dlmalloc::dlmalloc::Dlmalloc::free::hca49a97af7c495aa
+                  0 ┊          0.00% ┊   919 ┊  1.58% ┊ <char as core::fmt::Debug>::fmt
+                    ┊                ┊   919 ┊  1.58% ┊     <char as core::fmt::Debug>::fmt::h46c9e10e3204a725
+                  0 ┊          0.00% ┊   789 ┊  1.36% ┊ std::panicking::default_hook::{{closure}}
+                    ┊                ┊   789 ┊  1.36% ┊     std::panicking::default_hook::{{closure}}::h88efaeab38b3bb92
+                  0 ┊          0.00% ┊   749 ┊  1.29% ┊ <core::fmt::builders::PadAdapter<'a> as core::fmt::Write>::write_str
+                    ┊                ┊   749 ┊  1.29% ┊     <core::fmt::builders::PadAdapter<'a> as core::fmt::Write>::write_str::hf1251ddfe5caf5c0
+                  0 ┊          0.00% ┊   733 ┊  1.26% ┊ core::slice::memchr::memchr
+                    ┊                ┊   733 ┊  1.26% ┊     core::slice::memchr::memchr::hbd473f47994473fe
+                  0 ┊          0.00% ┊   717 ┊  1.23% ┊ dlmalloc::dlmalloc::Dlmalloc::dispose_chunk
+                    ┊                ┊   717 ┊  1.23% ┊     dlmalloc::dlmalloc::Dlmalloc::dispose_chunk::hf93802a9a8432d34
+                  0 ┊          0.00% ┊   612 ┊  1.05% ┊ std::thread::Thread::new
+                    ┊                ┊   612 ┊  1.05% ┊     std::thread::Thread::new::hcb7a87467126075e
+                  0 ┊          0.00% ┊   569 ┊  0.98% ┊ <core::alloc::LayoutErr as core::fmt::Debug>::fmt
+                    ┊                ┊   569 ┊  0.98% ┊     <core::alloc::LayoutErr as core::fmt::Debug>::fmt::hfd2b5abe22462496
+                  0 ┊          0.00% ┊   434 ┊  0.75% ┊ std::io::Write::write_fmt
+                    ┊                ┊   434 ┊  0.75% ┊     std::io::Write::write_fmt::h9af1b3f2948b70aa
+                  0 ┊          0.00% ┊   401 ┊  0.69% ┊ core::fmt::builders::DebugTuple::field
+                    ┊                ┊   401 ┊  0.69% ┊     core::fmt::builders::DebugTuple::field::hb0accc3621cba4bb
+                  0 ┊          0.00% ┊   379 ┊  0.65% ┊ core::fmt::Formatter::pad_integral::{{closure}}
+                    ┊                ┊   379 ┊  0.65% ┊     core::fmt::Formatter::pad_integral::{{closure}}::hc418afb1063bb9cd
+                  0 ┊          0.00% ┊   379 ┊  0.65% ┊ dlmalloc::dlmalloc::Dlmalloc::memalign
+                    ┊                ┊   379 ┊  0.65% ┊     dlmalloc::dlmalloc::Dlmalloc::memalign::hd4d61f94fa766d6d
+                  0 ┊          0.00% ┊   366 ┊  0.63% ┊ core::unicode::printable::check
+                    ┊                ┊   366 ┊  0.63% ┊     core::unicode::printable::check::h25f5f3b248ff4de9
+                  0 ┊          0.00% ┊   344 ┊  0.59% ┊ <std::thread::local::os::Key<T>>::get
+                    ┊                ┊   344 ┊  0.59% ┊     <std::thread::local::os::Key<T>>::get::hb1c0b3c102520e8e
+                  0 ┊          0.00% ┊   344 ┊  0.59% ┊ std::panicking::LOCAL_STDERR::__getit
+                    ┊                ┊   344 ┊  0.59% ┊     std::panicking::LOCAL_STDERR::__getit::h8fba88afdc9be965
+                  0 ┊          0.00% ┊   344 ┊  0.59% ┊ std::sys_common::thread_info::THREAD_INFO::__getit
+                    ┊                ┊   344 ┊  0.59% ┊     std::sys_common::thread_info::THREAD_INFO::__getit::hd2f70e636773d5bb
+                  0 ┊          0.00% ┊   343 ┊  0.59% ┊ core::fmt::num::<impl core::fmt::Display for u32>::fmt
+                    ┊                ┊   343 ┊  0.59% ┊     core::fmt::num::<impl core::fmt::Display for u32>::fmt::hf9b023faccafcd44
+                  0 ┊          0.00% ┊   343 ┊  0.59% ┊ core::fmt::num::<impl core::fmt::Display for usize>::fmt
+                    ┊                ┊   343 ┊  0.59% ┊     core::fmt::num::<impl core::fmt::Display for usize>::fmt::hdfa35b6f37f7920b
+                  0 ┊          0.00% ┊   342 ┊  0.59% ┊ dlmalloc::dlmalloc::Dlmalloc::insert_large_chunk
+                    ┊                ┊   342 ┊  0.59% ┊     dlmalloc::dlmalloc::Dlmalloc::insert_large_chunk::hab943d3cb50736d3
+                  0 ┊          0.00% ┊   333 ┊  0.57% ┊ core::fmt::num::<impl core::fmt::Debug for usize>::fmt
+                    ┊                ┊   333 ┊  0.57% ┊     core::fmt::num::<impl core::fmt::Debug for usize>::fmt::he564909c39b6d025.1723
+                  0 ┊          0.00% ┊   319 ┊  0.55% ┊ dlmalloc::dlmalloc::Dlmalloc::unlink_large_chunk
+                    ┊                ┊   319 ┊  0.55% ┊     dlmalloc::dlmalloc::Dlmalloc::unlink_large_chunk::h9ce5e82f14cb088c
+                  0 ┊          0.00% ┊   219 ┊  0.38% ┊ alloc::slice::merge_sort::collapse
+                    ┊                ┊   219 ┊  0.38% ┊     alloc::slice::merge_sort::collapse::h7652880473a820fb
+                  0 ┊          0.00% ┊   209 ┊  0.36% ┊ core::fmt::builders::DebugTuple::finish
+                    ┊                ┊   209 ┊  0.36% ┊     core::fmt::builders::DebugTuple::finish::h4b6f3588cb34c729
+                  0 ┊          0.00% ┊   200 ┊  0.34% ┊ std::panicking::begin_panic_fmt
+                    ┊                ┊   200 ┊  0.34% ┊     std::panicking::begin_panic_fmt::h42619bb35aa26579
+                  0 ┊          0.00% ┊   195 ┊  0.34% ┊ core::unicode::printable::is_printable
+                    ┊                ┊   195 ┊  0.34% ┊     core::unicode::printable::is_printable::h9244f217c062b153
+                  0 ┊          0.00% ┊   187 ┊  0.32% ┊ std::sys_common::util::dumb_print
+                    ┊                ┊   187 ┊  0.32% ┊     std::sys_common::util::dumb_print::h8471f6b6b2efd084
+                  0 ┊          0.00% ┊   178 ┊  0.31% ┊ <core::ops::range::Range<Idx> as core::fmt::Debug>::fmt
+                    ┊                ┊   178 ┊  0.31% ┊     <core::ops::range::Range<Idx> as core::fmt::Debug>::fmt::h7062aec4a4b8faad
+                  0 ┊          0.00% ┊   163 ┊  0.28% ┊ core::slice::slice_index_len_fail
+                    ┊                ┊   163 ┊  0.28% ┊     core::slice::slice_index_len_fail::hf5ae4a5ffda80b38
+                  0 ┊          0.00% ┊   163 ┊  0.28% ┊ core::slice::slice_index_order_fail
+                    ┊                ┊   163 ┊  0.28% ┊     core::slice::slice_index_order_fail::ha84da396d40170b0
+                  0 ┊          0.00% ┊   159 ┊  0.27% ┊ <std::ffi::c_str::NulError as core::fmt::Debug>::fmt
+                    ┊                ┊   159 ┊  0.27% ┊     <std::ffi::c_str::NulError as core::fmt::Debug>::fmt::hd213df2c4c15ea9b
+                  0 ┊          0.00% ┊   159 ┊  0.27% ┊ core::panicking::panic_bounds_check
+                    ┊                ┊   159 ┊  0.27% ┊     core::panicking::panic_bounds_check::h63ad503ebe07f604
+                  0 ┊          0.00% ┊   155 ┊  0.27% ┊ core::alloc::Layout::repeat
+                    ┊                ┊   155 ┊  0.27% ┊     core::alloc::Layout::repeat::h530ac3db187ac797
+                  0 ┊          0.00% ┊   146 ┊  0.25% ┊ <alloc::raw_vec::RawVec<T, A>>::reserve
+                    ┊                ┊   146 ┊  0.25% ┊     <alloc::raw_vec::RawVec<T, A>>::reserve::h77c53c3e5b764505
+                  0 ┊          0.00% ┊   140 ┊  0.24% ┊ core::option::expect_failed
+                    ┊                ┊   140 ┊  0.24% ┊     core::option::expect_failed::ha1e19f3be1783d86
+                  0 ┊          0.00% ┊   127 ┊  0.22% ┊ <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Debug>::fmt
+                    ┊                ┊   127 ┊  0.22% ┊     <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Debug>::fmt::hf81d6ec3ed3cf437
+                  0 ┊          0.00% ┊   125 ┊  0.21% ┊ <alloc::raw_vec::RawVec<T, A>>::reserve_exact
+                    ┊                ┊   125 ┊  0.21% ┊     <alloc::raw_vec::RawVec<T, A>>::reserve_exact::h90209384f3b9be08
+                  0 ┊          0.00% ┊   119 ┊  0.20% ┊ core::panicking::panic
+                    ┊                ┊   119 ┊  0.20% ┊     core::panicking::panic::hd6b1565e097d11be
+                  0 ┊          0.00% ┊   109 ┊  0.19% ┊ <alloc::arc::Arc<T>>::drop_slow
+                    ┊                ┊   109 ┊  0.19% ┊     <alloc::arc::Arc<T>>::drop_slow::hab85f37fa5d78c06
+                  0 ┊          0.00% ┊   104 ┊  0.18% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::write_fmt
+                    ┊                ┊   104 ┊  0.18% ┊     std::io::impls::<impl std::io::Write for &'a mut W>::write_fmt::hdc863fd6486416b4
+                  0 ┊          0.00% ┊    88 ┊  0.15% ┊ <alloc::string::String as core::convert::From<&'a str>>::from
+                    ┊                ┊    88 ┊  0.15% ┊     <alloc::string::String as core::convert::From<&'a str>>::from::h71d62dd67534ae67
+                  0 ┊          0.00% ┊    84 ┊  0.14% ┊ <alloc::vec::Vec<T>>::remove
+                    ┊                ┊    84 ┊  0.14% ┊     <alloc::vec::Vec<T>>::remove::hba13f8aae5697111
+                  0 ┊          0.00% ┊    76 ┊  0.13% ┊ <core::alloc::CollectionAllocErr as core::fmt::Debug>::fmt
+                    ┊                ┊    76 ┊  0.13% ┊     <core::alloc::CollectionAllocErr as core::fmt::Debug>::fmt::h1e612cc5b402d018
+                  0 ┊          0.00% ┊    67 ┊  0.12% ┊ core::panicking::panic_fmt
+                    ┊                ┊    67 ┊  0.12% ┊     core::panicking::panic_fmt::h2ddf6ebf35664a22
+                  0 ┊          0.00% ┊    56 ┊  0.10% ┊ std::panicking::begin_panic
+                    ┊                ┊    56 ┊  0.10% ┊     std::panicking::begin_panic::h1c67cf480c82ca41
+                  0 ┊          0.00% ┊    50 ┊  0.09% ┊ <alloc::vec::Vec<T> as core::ops::index::Index<I>>::index
+                    ┊                ┊    50 ┊  0.09% ┊     <alloc::vec::Vec<T> as core::ops::index::Index<I>>::index::h0e2d043e9c4be2a4
+                  0 ┊          0.00% ┊    50 ┊  0.09% ┊ <alloc::vec::Vec<T> as core::ops::index::IndexMut<I>>::index_mut
+                    ┊                ┊    50 ┊  0.09% ┊     <alloc::vec::Vec<T> as core::ops::index::IndexMut<I>>::index_mut::he65e880dfe71ede7
+                  0 ┊          0.00% ┊    44 ┊  0.08% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::Range<usize>>::index::{{closure}}
+                    ┊                ┊    44 ┊  0.08% ┊     core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::Range<usize>>::index::{{closure}}::h60168465cb72d0d1.1520
+                  0 ┊          0.00% ┊    36 ┊  0.06% ┊ <core::result::Result<T, E>>::unwrap
+                    ┊                ┊    36 ┊  0.06% ┊     <core::result::Result<T, E>>::unwrap::h6cc6e55b8a35b2a0
+                  0 ┊          0.00% ┊    35 ┊  0.06% ┊ <core::cell::BorrowError as core::fmt::Debug>::fmt
+                    ┊                ┊    35 ┊  0.06% ┊     <core::cell::BorrowError as core::fmt::Debug>::fmt::hf74aff9660f52336
+                  0 ┊          0.00% ┊    35 ┊  0.06% ┊ <core::cell::BorrowMutError as core::fmt::Debug>::fmt
+                    ┊                ┊    35 ┊  0.06% ┊     <core::cell::BorrowMutError as core::fmt::Debug>::fmt::h7d6c4aa36e2bbb3a
+                  0 ┊          0.00% ┊    35 ┊  0.06% ┊ <std::thread::local::AccessError as core::fmt::Debug>::fmt
+                    ┊                ┊    35 ┊  0.06% ┊     <std::thread::local::AccessError as core::fmt::Debug>::fmt::h468179781fdd317a
+                  0 ┊          0.00% ┊    31 ┊  0.05% ┊ <core::result::Result<T, E>>::expect
+                    ┊                ┊    31 ┊  0.05% ┊     <core::result::Result<T, E>>::expect::h43eea250881e7715
+                  0 ┊          0.00% ┊    24 ┊  0.04% ┊ <core::option::Option<T>>::expect
+                    ┊                ┊    24 ┊  0.04% ┊     <core::option::Option<T>>::expect::h53ba5982e622ab98
+                  0 ┊          0.00% ┊    24 ┊  0.04% ┊ <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as std::error::Error>::description
+                    ┊                ┊    24 ┊  0.04% ┊     <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as std::error::Error>::description::h81f56e02f5e7f796
+                  0 ┊          0.00% ┊    22 ┊  0.04% ┊ <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Display>::fmt
+                    ┊                ┊    22 ┊  0.04% ┊     <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<std::error::Error + core::marker::Sync + core::marker::Send + 'static>>::from::StringError as core::fmt::Display>::fmt::h289d4f072dbab567
+                  0 ┊          0.00% ┊    18 ┊  0.03% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::write
+                    ┊                ┊    18 ┊  0.03% ┊     std::io::impls::<impl std::io::Write for &'a mut W>::write::hb0915e9baef1a41b
+                  0 ┊          0.00% ┊    15 ┊  0.03% ┊ std::error::Error::type_id
+                    ┊                ┊    15 ┊  0.03% ┊     std::error::Error::type_id::hc259f20f01bc805f
+                  0 ┊          0.00% ┊    14 ┊  0.02% ┊ core::fmt::ArgumentV1::show_usize
+                    ┊                ┊    14 ┊  0.02% ┊     core::fmt::ArgumentV1::show_usize::hfae8c3232f8e141e
+                  0 ┊          0.00% ┊    11 ┊  0.02% ┊ std::error::Error::cause
+                    ┊                ┊    11 ┊  0.02% ┊     std::error::Error::cause::h4980985f30856d32
+                  0 ┊          0.00% ┊    11 ┊  0.02% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::flush
+                    ┊                ┊    11 ┊  0.02% ┊     std::io::impls::<impl std::io::Write for &'a mut W>::flush::h19ff0277e6b3d742
+                  0 ┊          0.00% ┊    11 ┊  0.02% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::write_all
+                    ┊                ┊    11 ┊  0.02% ┊     std::io::impls::<impl std::io::Write for &'a mut W>::write_all::hcfa3a97487c6f2fb
+                  0 ┊          0.00% ┊     6 ┊  0.01% ┊ <monos::One as monos::Code>::code
+                    ┊                ┊     6 ┊  0.01% ┊     <monos::One as monos::Code>::code::h94feb5b1732d1e4b
+                  0 ┊          0.00% ┊     6 ┊  0.01% ┊ <monos::Two as monos::Code>::code
+                    ┊                ┊     6 ┊  0.01% ┊     <monos::Two as monos::Code>::code::h394b28ea75b29629
+                  0 ┊          0.00% ┊     6 ┊  0.01% ┊ <monos::Zero as monos::Code>::code
+                    ┊                ┊     6 ┊  0.01% ┊     <monos::Zero as monos::Code>::code::h86bfbb5b849aa69f
+                  0 ┊          0.00% ┊     6 ┊  0.01% ┊ <std::io::Write::write_fmt::Adaptor<'a, T> as core::fmt::Write>::write_str
+                    ┊                ┊     6 ┊  0.01% ┊     <std::io::Write::write_fmt::Adaptor<'a, T> as core::fmt::Write>::write_str::h1fcd48dcfdd79843
+               7357 ┊         12.64% ┊ 38632 ┊ 66.37% ┊ Σ [237 Total Rows]

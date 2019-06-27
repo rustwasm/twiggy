@@ -1,18 +1,12 @@
 Name,ShallowSize,ShallowSizePercent,Path
-wee_alloc::alloc_first_fit::h9a72de3af77ef93f,225,7.987220447284344,func[3] -> wee_alloc::alloc_first_fit::h9a72de3af77ef93f
-func[3],1,0.03549875754348598,wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e -> func[3]
-wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e,152,5.395811146609868,func[2] -> wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
-func[2],1,0.03549875754348598,<wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6 -> hello -> func[2]
-<wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6,136,4.827831025914093,func[5] -> <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
-func[5],1,0.03549875754348598,elem[0] -> func[5]
+wee_alloc::alloc_first_fit::h9a72de3af77ef93f,226,8.022719204827832,wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e -> wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e,153,5.431309904153355,<wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6 -> hello -> wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+<wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6,137,4.863329783457579,elem[0] -> <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
 elem[0],12,0.42598509052183176,table[0] -> elem[0]
 table[0],4,0.1419950301739439,
-hello,164,5.8217962371317,func[8] -> hello
-func[8],1,0.03549875754348598,"export ""hello"" -> func[8]"
+hello,165,5.857294994675186,"export ""hello"" -> hello"
 "export ""hello""",8,0.2839900603478878,
-hello,164,5.8217962371317,func[8] -> hello
-func[8],1,0.03549875754348598,"export ""hello"" -> func[8]"
+hello,165,5.857294994675186,"export ""hello"" -> hello"
 "export ""hello""",8,0.2839900603478878,
-goodbye,44,1.5619453319133831,func[9] -> goodbye
-func[9],1,0.03549875754348598,"export ""goodbye"" -> func[9]"
+goodbye,45,1.5974440894568689,"export ""goodbye"" -> goodbye"
 "export ""goodbye""",10,0.3549875754348598,

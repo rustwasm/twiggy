@@ -1,14 +1,14 @@
  Retained Bytes │ Retained % │ Item
-────────────────┼────────────┼────────────────────────────────────────────────
+────────────────┼────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
            1034 ┊     36.71% ┊ data[3]
             777 ┊     27.58% ┊ "function names" subsection
-            387 ┊     13.74% ┊ func[2]
-            378 ┊     13.42% ┊ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+            387 ┊     13.74% ┊ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
             271 ┊      9.62% ┊ table[0]
             267 ┊      9.48% ┊ elem[0]
-            226 ┊      8.02% ┊ func[3]
-            225 ┊      7.99% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+            226 ┊      8.02% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
             177 ┊      6.28% ┊ export "hello"
-            169 ┊      6.00% ┊ func[8]
-            ... ┊        ... ┊ ... and 39 more.
-            ... ┊        ... ┊ Σ [49 Total Rows]
+            169 ┊      6.00% ┊ hello
+            137 ┊      4.86% ┊ <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
+             77 ┊      2.73% ┊ <wee_alloc::LargeAllocPolicy as wee_alloc::AllocPolicy>::new_cell_for_free_list::h8f071b7bce0301ba
+            ... ┊        ... ┊ ... and 27 more.
+            ... ┊        ... ┊ Σ [37 Total Rows]

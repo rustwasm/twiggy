@@ -1,1 +1,1 @@
-{"items":[{"name":"hello","shallow_size":164,"shallow_size_percent":5.8217962371317,"retained_size":164,"retained_size_percent":5.8217962371317}]}
+{"items":[{"name":"hello","shallow_size":165,"shallow_size_percent":5.857294994675186,"retained_size":169,"retained_size_percent":5.999290024849131,"children":[{"name":"type[5]: () -> i32","shallow_size":4,"shallow_size_percent":0.1419950301739439,"retained_size":4,"retained_size_percent":0.1419950301739439}]}]}

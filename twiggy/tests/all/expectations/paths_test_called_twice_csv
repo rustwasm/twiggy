@@ -1,12 +1,8 @@
 Name,ShallowSize,ShallowSizePercent,Path
-calledTwice,5,3.4722222222222223,func[1] -> calledTwice
-func[1],1,0.6944444444444444,bark -> woof -> func[1]
-bark,5,3.4722222222222223,func[2] -> bark
-func[2],1,0.6944444444444444,"export ""bark"" -> awoo -> func[2]"
+calledTwice,6,4.166666666666666,bark -> woof -> calledTwice
+bark,6,4.166666666666666,"export ""bark"" -> awoo -> bark"
 "export ""bark""",7,4.861111111111112,
-awoo,5,3.4722222222222223,func[4] -> awoo
-func[4],1,0.6944444444444444,"export ""awoo"" -> func[4]"
+awoo,6,4.166666666666666,"export ""awoo"" -> awoo"
 "export ""awoo""",7,4.861111111111112,
-woof,8,5.555555555555555,func[3] -> woof
-func[3],1,0.6944444444444444,"export ""woof"" -> func[3]"
+woof,9,6.25,"export ""woof"" -> woof"
 "export ""woof""",7,4.861111111111112,

@@ -1,10 +1,10 @@
  Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %      │ Monomorphizations
 ────────────────────┼────────────────┼───────┼────────┼────────────────────────────────────────────────────────
-               2139 ┊          3.68% ┊  3246 ┊  5.58% ┊ alloc::slice::merge_sort
-                    ┊                ┊  1107 ┊  1.90% ┊     alloc::slice::merge_sort::hb3d195f9800bdad6
-                    ┊                ┊  2139 ┊  3.68% ┊     ... and 2 more.
-               1454 ┊          2.50% ┊  4219 ┊  7.25% ┊ <&'a T as core::fmt::Debug>::fmt
-                    ┊                ┊  2765 ┊  4.75% ┊     <&'a T as core::fmt::Debug>::fmt::h1c27955d8de3ff17
-                    ┊                ┊  1454 ┊  2.50% ┊     ... and 3 more.
-               3709 ┊          6.37% ┊ 31021 ┊ 53.30% ┊ ... and 196 more.
-               7302 ┊         12.55% ┊ 38486 ┊ 66.12% ┊ Σ [202 Total Rows]
+               2141 ┊          3.68% ┊  3249 ┊  5.58% ┊ alloc::slice::merge_sort
+                    ┊                ┊  1108 ┊  1.90% ┊     alloc::slice::merge_sort::hb3d195f9800bdad6
+                    ┊                ┊  2141 ┊  3.68% ┊     ... and 2 more.
+               1457 ┊          2.50% ┊  4223 ┊  7.26% ┊ <&'a T as core::fmt::Debug>::fmt
+                    ┊                ┊  2766 ┊  4.75% ┊     <&'a T as core::fmt::Debug>::fmt::h1c27955d8de3ff17
+                    ┊                ┊  1457 ┊  2.50% ┊     ... and 3 more.
+               3759 ┊          6.46% ┊ 31160 ┊ 53.54% ┊ ... and 196 more.
+               7357 ┊         12.64% ┊ 38632 ┊ 66.37% ┊ Σ [202 Total Rows]
