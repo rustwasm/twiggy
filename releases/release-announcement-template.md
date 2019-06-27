@@ -5,11 +5,9 @@
 * [GitHub][]
 * [crates.io][]
 
-Upgrade to this release by reinstalling with cargo:
+Upgrade to this release by reinstalling with `cargo`:
 
-```toml
-cargo install -f twiggy
-```
+    cargo install -f twiggy
 
 ## Changelog
 
