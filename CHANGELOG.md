@@ -1,3 +1,30 @@
+### 0.6.0
+
+Released 2019-06-27.
+
+* Merge Wasm function and code entries into a single item in results. This
+  means that output that used to look like:
+
+      387 ┊     13.74% ┊ func[2]
+      378 ┊     13.42% ┊   ⤷ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+      226 ┊      8.02% ┊       ⤷ func[3]
+      225 ┊      7.99% ┊           ⤷ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+
+  Will simply appear like this from now on:
+
+      387 ┊     13.74% ┊ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+      226 ┊      8.02% ┊   ⤷ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+
+  Why merge them into a single item? They are physically split at the binary
+  level to allow parallel type checking of individual functions, since the
+  checker knows all function's types by the time it has their code bodies. But
+  despite being split, there is always a one-to-one relationship between
+  function entries and code entries. They are logically part of the "same"
+  thing, and there is no deduplication or sharing going on here that makes it so
+  it makes sense for Twiggy to talk about them separately. Finally, merging them
+  together means that results are presented in a more readable and more compact
+  way. Win-win!
+
 ### 0.5.0
 
 Released 2019-05-15.
