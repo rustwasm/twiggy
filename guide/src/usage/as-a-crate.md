@@ -30,5 +30,5 @@ fn main() {
 }
 ```
 
-For a more in-depth example, take a look at is the implementation of the
+For a more in-depth example, take a look at the implementation of the
 `twiggy` CLI crate.
