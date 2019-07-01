@@ -4,16 +4,13 @@ The `twiggy garbage` sub-command finds and displays dead code and data that is
 not transitively referenced by any exports or public functions.
 
 ```
-$ twiggy garbage path/to/input.wasm
  Bytes │ Size % │ Garbage Item
-───────┼────────┼──────────────────────
-    11 ┊  5.58% ┊ unusedAddThreeNumbers
-     8 ┊  4.06% ┊ unusedAddOne
-     7 ┊  3.55% ┊ type[2]
-     5 ┊  2.54% ┊ type[1]
-     5 ┊  2.54% ┊ unusedChild
-     4 ┊  2.03% ┊ type[0]
-     1 ┊  0.51% ┊ func[0]
-     1 ┊  0.51% ┊ func[1]
-     1 ┊  0.51% ┊ func[2]
+───────┼────────┼────────────────────────────────
+    12 ┊  6.09% ┊ unusedAddThreeNumbers
+     9 ┊  4.57% ┊ unusedAddOne
+     7 ┊  3.55% ┊ type[2]: (i32, i32, i32) -> i32
+     6 ┊  3.05% ┊ unusedChild
+     5 ┊  2.54% ┊ type[1]: (i32) -> i32
+     4 ┊  2.03% ┊ type[0]: () -> i32
+    43 ┊ 21.83% ┊ Σ [6 Total Rows]
 ```
