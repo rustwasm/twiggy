@@ -4,22 +4,20 @@ First, ensure you have the `wasm32-unknown-unknown` Rust target installed and
 up-to-date:
 
 ```
-rustup install nightly
-rustup update nightly
-rustup target add wasm32-unknown-unknown --toolchain nightly
+rustup target add wasm32-unknown-unknown
 ```
 
 Next, install `wasm-bindgen`:
 
 ```
-cargo +nightly install wasm-bindgen-cli
+cargo install wasm-bindgen-cli
 ```
 
 Finally, build `twiggy`'s WebAssembly API with `wasm-bindgen`:
 
 ```
 cd twiggy/wasm-api
-cargo +nightly build --release --target wasm32-unknown-unknown
+cargo build --release --target wasm32-unknown-unknown
 wasm-bindgen ../target/wasm32-unknown-unknown/release/twiggy_wasm_api.wasm --out-dir .
 ```
 

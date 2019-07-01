@@ -4,20 +4,14 @@ The `twiggy dominators` sub-command displays the dominator tree of a binary's
 call graph.
 
 ```
-$ twiggy dominators path/to/input.wasm
  Retained Bytes │ Retained % │ Dominator Tree
-────────────────┼────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-         284691 ┊     47.92% ┊ export "items_parse"
-         284677 ┊     47.91% ┊   ⤷ func[17]
-         284676 ┊     47.91% ┊       ⤷ items_parse
-         128344 ┊     21.60% ┊           ⤷ func[47]
-         128343 ┊     21.60% ┊               ⤷ twiggy_parser::wasm::<impl twiggy_parser::Parse<'a> for parity_wasm::elements::module::Module>::parse_items::h033e4aa1338b4363
-          98403 ┊     16.56% ┊           ⤷ func[232]
-          98402 ┊     16.56% ┊               ⤷ twiggy_ir::demangle::h7fb5cfffc912bc2f
-          34206 ┊      5.76% ┊           ⤷ func[20]
-          34205 ┊      5.76% ┊               ⤷ <parity_wasm::elements::section::Section as parity_wasm::elements::Deserialize>::deserialize::hdd814798147ca8dc
-           2855 ┊      0.48% ┊           ⤷ func[552]
-           2854 ┊      0.48% ┊               ⤷ <alloc::btree::map::BTreeMap<K, V>>::insert::he64f84697ccf122d
-           1868 ┊      0.31% ┊           ⤷ func[53]
-           1867 ┊      0.31% ┊               ⤷ twiggy_ir::ItemsBuilder::finish::h1b98f5cc4c80137d
+────────────────┼────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         175726 ┊     14.99% ┊ export "items_parse"
+         175712 ┊     14.98% ┊   ⤷ items_parse
+         131407 ┊     11.21% ┊       ⤷ twiggy_parser::wasm_parse::<impl twiggy_parser::Parse for wasmparser::readers::module::ModuleReader>::parse_items::h39c45381d868d181
+          18492 ┊      1.58% ┊       ⤷ wasmparser::binary_reader::BinaryReader::read_operator::hb1c7cde18e148939
+           2677 ┊      0.23% ┊       ⤷ alloc::collections::btree::map::BTreeMap<K,V>::insert::hd2463626e5ac3441
+           1349 ┊      0.12% ┊       ⤷ wasmparser::readers::module::ModuleReader::read::hb76af8efd547784f
+           1081 ┊      0.09% ┊       ⤷ core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &mut F>::call_once::h1ff7fe5b944492c3
+            776 ┊      0.07% ┊       ⤷ <wasmparser::readers::import_section::ImportSectionReader as wasmparser::readers::section_reader::SectionReader>::read::h12903e6d8d4091bd
 ```
