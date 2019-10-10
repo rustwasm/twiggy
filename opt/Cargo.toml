@@ -16,7 +16,7 @@ path = "opt.rs"
 regex = "1.2.1"
 
 [dependencies]
-structopt = { version = "0.2", optional = true }
+structopt = { version = "0.3", optional = true }
 twiggy-traits = { version = "=0.6.0", path = "../traits" }
 wasm-bindgen = { version = "0.2.49", optional = true }
 cfg-if = "0.1.9"
