@@ -17,5 +17,5 @@ cpp_demangle = { version = "0.2.13", default-features = false }
 frozen = "1"
 petgraph = "0.4.13"
 rustc-demangle = "0.1.16"
-serde = "1.0.101"
+serde = "1.0.102"
 serde_derive = "1.0.101"
