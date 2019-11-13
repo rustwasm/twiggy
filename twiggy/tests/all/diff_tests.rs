@@ -14,14 +14,22 @@ test!(
     "5"
 );
 
-// TODO: Update this test once `--all` flag is added.
 test!(
     diff_wee_alloc_all,
     "diff",
     "./fixtures/wee_alloc.wasm",
     "./fixtures/wee_alloc.2.wasm",
-    "-n",
-    "100"
+    "-a"
+);
+
+test!(
+    diff_wee_alloc_all_json,
+    "diff",
+    "./fixtures/wee_alloc.wasm",
+    "./fixtures/wee_alloc.2.wasm",
+    "-a",
+    "-f",
+    "json"
 );
 
 test!(

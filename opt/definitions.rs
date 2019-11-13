@@ -535,6 +535,10 @@ pub struct Diff {
     /// Whether or not `items` should be treated as regular expressions.
     #[structopt(long = "regex")]
     using_regexps: bool,
+
+    /// Displays all items. Overrides -n <max_items>
+    #[structopt(short = "a", long = "all")]
+    all_items: bool,
 }
 
 impl Default for Diff {
@@ -554,6 +558,7 @@ impl Default for Diff {
             items: Default::default(),
             max_items: 20,
             using_regexps: false,
+            all_items: false,
         }
     }
 }
@@ -572,7 +577,7 @@ impl Diff {
 impl Diff {
     /// The maximum number of items to display.
     pub fn max_items(&self) -> u32 {
-        self.max_items
+        if self.all_items { u32::MAX } else { self.max_items }
     }
 
     /// Whether or not `items` should be treated as regular expressions.
@@ -583,6 +588,7 @@ impl Diff {
     /// Set the maximum number of items to display.
     pub fn set_max_items(&mut self, n: u32) {
         self.max_items = n;
+        self.all_items = false;
     }
 
     /// Set whether or not `items` should be treated as regular expressions.
