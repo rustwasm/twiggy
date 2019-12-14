@@ -12,20 +12,29 @@ use twiggy_traits as traits;
 /// The largest items found in a binary.
 #[derive(Debug)]
 pub struct Top {
-    items: Vec<ir::Id>,
+    items: Vec<TopEntry>,
     opts: opt::Top,
+}
+
+#[derive(Debug)]
+pub struct TopEntry {
+    name: String,
+    shallow_size: u32,
+    shallow_size_percent: f64,
+    retained_size: Option<u32>,
+    retained_size_percent: Option<f64>,
 }
 
 impl Top {
     /// Get a list of the largest items.
-    pub fn items(&self) -> &[ir::Id] {
+    pub fn items(&self) -> &[TopEntry] {
         self.items.as_ref()
     }
 }
 
 impl traits::Emit for Top {
     #[cfg(feature = "emit_text")]
-    fn emit_text(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_text(&self, _items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         // A struct used to represent a row in the table that will be emitted.
         struct TableRow {
             size: u32,
@@ -33,23 +42,20 @@ impl traits::Emit for Top {
             name: String,
         };
 
-        // Helper function used to process an item, and return a struct
-        // representing a row containing its size and name.
-        fn process_item(id: ir::Id, items: &ir::Items, retained: bool) -> TableRow {
-            let item = &items[id];
-            let size = if retained {
-                items.retained_size(id)
+        fn create_row(entry: &TopEntry) -> TableRow {
+            let (size, size_percent) = if let (Some(retained_size), Some(retained_size_percent)) =
+                (entry.retained_size, entry.retained_size_percent)
+            {
+                (retained_size, retained_size_percent)
             } else {
-                item.size()
+                (entry.shallow_size, entry.shallow_size_percent)
             };
-            let size_percent = (f64::from(size)) / (f64::from(items.size())) * 100.0;
-            let name = item.name().to_string();
             TableRow {
+                name: entry.name.clone(),
                 size,
                 size_percent,
-                name,
             }
-        };
+        }
 
         // Helper function used to summnarize a sequence of table rows. This is
         // used to generate the remaining summary and total rows. Returns a tuple
@@ -83,30 +89,22 @@ impl traits::Emit for Top {
         ]);
 
         // Process the number of items specified, and add them to the table.
-        self.items
-            .iter()
-            .take(max_items)
-            .map(|&id| process_item(id, items, retained))
-            .for_each(
-                |TableRow {
-                     size,
-                     size_percent,
-                     name,
-                 }| {
-                    table.add_row(vec![
-                        size.to_string(),
-                        format!("{:.2}%", size_percent),
-                        name,
-                    ])
-                },
-            );
+        self.items.iter().take(max_items).map(create_row).for_each(
+            |TableRow {
+                 size,
+                 size_percent,
+                 name,
+             }| {
+                table.add_row(vec![
+                    size.to_string(),
+                    format!("{:.2}%", size_percent),
+                    name,
+                ])
+            },
+        );
 
         // Find the summary statistics by processing the remaining items.
-        let remaining_rows = self
-            .items
-            .iter()
-            .skip(max_items)
-            .map(|&id| process_item(id, items, retained));
+        let remaining_rows = self.items.iter().skip(max_items).map(create_row);
         let (rem_size, rem_size_percent, rem_count) = summarize_rows(remaining_rows);
 
         // If there were items remaining, add a summary row to the table.
@@ -121,10 +119,7 @@ impl traits::Emit for Top {
         }
 
         // Add a row containing the totals to the table.
-        let all_rows = self
-            .items
-            .iter()
-            .map(|&id| process_item(id, items, retained));
+        let all_rows = self.items.iter().map(create_row);
         let (total_size, total_size_percent, total_count) = summarize_rows(all_rows);
         let total_name_col = format!("Σ [{} Total Rows]", total_count);
         let (total_size_col, total_size_percent_col) = if retained {
@@ -149,22 +144,20 @@ impl traits::Emit for Top {
         let max_items = self.opts.max_items() as usize;
         let items_iter = self.items.iter();
 
-        for &id in items_iter.take(max_items) {
-            let item = &items[id];
-
+        for item in items_iter.take(max_items) {
             let mut obj = arr.object()?;
-            obj.field("name", item.name())?;
+            obj.field("name", item.name.as_ref())?;
 
-            let size = item.size();
-            let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
-            obj.field("shallow_size", size)?;
+            let shallow_size = item.shallow_size;
+            let size_percent = f64::from(shallow_size) / f64::from(items.size()) * 100.0;
+            obj.field("shallow_size", shallow_size)?;
             obj.field("shallow_size_percent", size_percent)?;
 
-            if self.opts.retained() {
-                let size = items.retained_size(id);
-                let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
-                obj.field("retained_size", size)?;
-                obj.field("retained_size_percent", size_percent)?;
+            if let (Some(retained_size), Some(retained_size_percent)) =
+                (item.retained_size, item.retained_size_percent)
+            {
+                obj.field("retained_size", retained_size)?;
+                obj.field("retained_size_percent", retained_size_percent)?;
             }
         }
 
@@ -172,7 +165,7 @@ impl traits::Emit for Top {
     }
 
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_csv(&self, _items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
         let mut wtr = csv::Writer::from_writer(dest);
 
         #[derive(Serialize, Debug)]
@@ -188,32 +181,48 @@ impl traits::Emit for Top {
         let max_items = self.opts.max_items() as usize;
         let items_iter = self.items.iter();
 
-        for &id in items_iter.take(max_items) {
-            let item = &items[id];
-
-            let (shallow_size, shallow_size_percent) = {
-                let size = item.size();
-                let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
-                (size, size_percent)
-            };
-            let (retained_size, retained_size_percent) = if self.opts.retained() {
-                let size = items.retained_size(id);
-                let size_percent = f64::from(size) / f64::from(items.size()) * 100.0;
-                (Some(size), Some(size_percent))
-            } else {
-                (None, None)
-            };
-
+        for TopEntry {
+            shallow_size,
+            shallow_size_percent,
+            retained_size,
+            retained_size_percent,
+            name,
+        } in items_iter.take(max_items)
+        {
             wtr.serialize(CsvRecord {
-                name: item.name().to_string(),
-                shallow_size,
-                shallow_size_percent,
-                retained_size,
-                retained_size_percent,
+                name: name.clone(),
+                shallow_size: *shallow_size,
+                shallow_size_percent: *shallow_size_percent,
+                retained_size: *retained_size,
+                retained_size_percent: *retained_size_percent,
             })?;
             wtr.flush()?;
         }
         Ok(())
+    }
+}
+
+// Helper function used to process an item, and return a struct
+// representing a row containing its size and name.
+fn create_top_entry(item: &ir::Item, items: &ir::Items, retained: bool) -> TopEntry {
+    let shallow_size = item.size();
+    let shallow_size_percent = (f64::from(shallow_size)) / (f64::from(items.size())) * 100.0;
+    let (retained_size, retained_size_percent) = if retained {
+        let retained_size = items.retained_size(item.id());
+        (
+            Some(retained_size),
+            Some((f64::from(retained_size)) / (f64::from(items.size())) * 100.0),
+        )
+    } else {
+        (None, None)
+    };
+    let name = item.name().to_string();
+    TopEntry {
+        shallow_size,
+        shallow_size_percent,
+        retained_size,
+        retained_size_percent,
+        name,
     }
 }
 
@@ -229,22 +238,19 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Top, traits::Error>
         items.compute_retained_sizes();
     }
 
-    let mut top_items: Vec<_> = items
+    let mut top_items: Vec<TopEntry> = items
         .iter()
         .filter(|item| item.id() != items.meta_root())
+        .map(|item: &ir::Item| create_top_entry(item, &items, opts.retained()))
         .collect();
 
     top_items.sort_by(|a, b| {
         if opts.retained() {
-            items
-                .retained_size(b.id())
-                .cmp(&items.retained_size(a.id()))
+            b.retained_size.unwrap().cmp(&a.retained_size.unwrap())
         } else {
-            b.size().cmp(&a.size())
+            b.shallow_size.cmp(&a.shallow_size)
         }
     });
-
-    let top_items: Vec<_> = top_items.into_iter().map(|i| i.id()).collect();
 
     Ok(Top {
         items: top_items,
