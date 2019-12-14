@@ -7,5 +7,10 @@ mod analyses;
 mod formats;
 
 pub use analyses::{
-    diff::diff, dominators::dominators, garbage::garbage, monos::monos, paths::paths, top::top,
+    diff::diff,
+    dominators::dominators,
+    garbage::garbage,
+    monos::monos,
+    paths::paths,
+    top::{top, Top},
 };

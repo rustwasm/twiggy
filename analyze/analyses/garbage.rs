@@ -10,7 +10,7 @@ use twiggy_opt as opt;
 use twiggy_traits as traits;
 
 #[derive(Debug)]
-struct Garbage {
+pub struct Garbage {
     items: Vec<ir::Id>,
     data_segments: Vec<ir::Id>,
     limit: usize,
@@ -143,10 +143,7 @@ impl traits::Emit for Garbage {
 }
 
 /// Find items that are not transitively referenced by any exports or public functions.
-pub fn garbage(
-    items: &ir::Items,
-    opts: &opt::Garbage,
-) -> Result<Box<dyn traits::Emit>, traits::Error> {
+pub fn garbage(items: &ir::Items, opts: &opt::Garbage) -> Result<Garbage, traits::Error> {
     let mut unreachable_items = get_unreachable_items(&items).collect::<Vec<_>>();
     unreachable_items.sort_by(|a, b| b.size().cmp(&a.size()));
 
@@ -171,13 +168,11 @@ pub fn garbage(
         )
     };
 
-    let garbage_items = Garbage {
+    Ok(Garbage {
         items: items_non_data,
         data_segments,
         limit: opts.max_items() as usize,
-    };
-
-    Ok(Box::new(garbage_items) as Box<_>)
+    })
 }
 
 pub(crate) fn get_unreachable_items(items: &ir::Items) -> impl Iterator<Item = &ir::Item> {

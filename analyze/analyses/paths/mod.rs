@@ -12,16 +12,13 @@ mod paths_entry;
 use self::paths_entry::PathsEntry;
 
 #[derive(Debug)]
-struct Paths {
+pub struct Paths {
     opts: opt::Paths,
     entries: Vec<PathsEntry>,
 }
 
 /// Find all retaining paths for the given items.
-pub fn paths(
-    items: &mut ir::Items,
-    opts: &opt::Paths,
-) -> Result<Box<dyn traits::Emit>, traits::Error> {
+pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> Result<Paths, traits::Error> {
     // The predecessor tree only needs to be computed if we are ascending
     // through the retaining paths.
     if !opts.descending() {
@@ -35,9 +32,7 @@ pub fn paths(
         .map(|id| create_entry(*id, &items, &opts, &mut BTreeSet::new()))
         .collect();
 
-    let paths = Paths { opts, entries };
-
-    Ok(Box::new(paths) as Box<_>)
+    Ok(Paths { opts, entries })
 }
 
 /// This helper function is used to collect the `ir::Id` values for the top-most

@@ -9,9 +9,18 @@ use twiggy_ir as ir;
 use twiggy_opt as opt;
 use twiggy_traits as traits;
 
-struct Top {
+/// The largest items found in a binary.
+#[derive(Debug)]
+pub struct Top {
     items: Vec<ir::Id>,
     opts: opt::Top,
+}
+
+impl Top {
+    /// Get a list of the largest items.
+    pub fn items(&self) -> &[ir::Id] {
+        self.items.as_ref()
+    }
 }
 
 impl traits::Emit for Top {
@@ -209,7 +218,7 @@ impl traits::Emit for Top {
 }
 
 /// Run the `top` analysis on the given IR items.
-pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<dyn traits::Emit>, traits::Error> {
+pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Top, traits::Error> {
     if opts.retaining_paths() {
         return Err(traits::Error::with_msg(
             "retaining paths are not yet implemented",
@@ -237,10 +246,8 @@ pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<dyn traits::Emi
 
     let top_items: Vec<_> = top_items.into_iter().map(|i| i.id()).collect();
 
-    let top = Top {
+    Ok(Top {
         items: top_items,
         opts: opts.clone(),
-    };
-
-    Ok(Box::new(top) as Box<_>)
+    })
 }

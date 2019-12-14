@@ -10,13 +10,15 @@ use crate::analyses::garbage;
 
 mod emit;
 
-struct DominatorTree {
+#[derive(Debug)]
+pub struct DominatorTree {
     tree: BTreeMap<ir::Id, Vec<ir::Id>>,
     items: Vec<ir::Id>,
     opts: opt::Dominators,
     unreachable_items_summary: Option<UnreachableItemsSummary>,
 }
 
+#[derive(Debug)]
 struct UnreachableItemsSummary {
     count: usize,
     size: u32,
@@ -27,7 +29,7 @@ struct UnreachableItemsSummary {
 pub fn dominators(
     items: &mut ir::Items,
     opts: &opt::Dominators,
-) -> Result<Box<dyn traits::Emit>, traits::Error> {
+) -> Result<DominatorTree, traits::Error> {
     items.compute_dominator_tree();
     items.compute_dominators();
     items.compute_retained_sizes();
@@ -53,14 +55,12 @@ pub fn dominators(
             .collect()
     };
 
-    let tree = DominatorTree {
+    Ok(DominatorTree {
         tree: items.dominator_tree().clone(),
         items: dominator_items,
         opts: opts.clone(),
         unreachable_items_summary: summarize_unreachable_items(items, opts),
-    };
-
-    Ok(Box::new(tree) as Box<_>)
+    })
 }
 
 fn summarize_unreachable_items(

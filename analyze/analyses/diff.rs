@@ -13,7 +13,7 @@ use twiggy_opt as opt;
 use twiggy_traits as traits;
 
 #[derive(Debug)]
-struct Diff {
+pub struct Diff {
     deltas: Vec<DiffEntry>,
 }
 
@@ -98,7 +98,7 @@ pub fn diff(
     old_items: &mut ir::Items,
     new_items: &mut ir::Items,
     opts: &opt::Diff,
-) -> Result<Box<dyn traits::Emit>, traits::Error> {
+) -> Result<Diff, traits::Error> {
     let max_items = opts.max_items() as usize;
 
     // Given a set of items, create a HashMap of the items' names and sizes.
@@ -214,6 +214,5 @@ pub fn diff(
     deltas.push(total);
 
     // Return the results so that they can be emitted.
-    let diff = Diff { deltas };
-    Ok(Box::new(diff) as Box<_>)
+    Ok(Diff { deltas })
 }

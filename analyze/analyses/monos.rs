@@ -13,7 +13,7 @@ use twiggy_opt as opt;
 use twiggy_traits as traits;
 
 #[derive(Debug)]
-struct Monos {
+pub struct Monos {
     monos: Vec<MonosEntry>,
 }
 
@@ -211,10 +211,7 @@ impl traits::Emit for Monos {
 }
 
 /// Find bloaty monomorphizations of generic functions.
-pub fn monos(
-    items: &mut ir::Items,
-    opts: &opt::Monos,
-) -> Result<Box<dyn traits::Emit>, traits::Error> {
+pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> Result<Monos, traits::Error> {
     // Type alias used to represent a map of generic function names and instantiations.
     type MonosMap<'a> = BTreeMap<&'a str, Vec<(String, u32)>>;
 
@@ -358,5 +355,5 @@ pub fn monos(
         monos.push(remaining);
     }
     monos.push(total);
-    Ok(Box::new(Monos { monos }) as Box<_>)
+    Ok(Monos { monos })
 }
