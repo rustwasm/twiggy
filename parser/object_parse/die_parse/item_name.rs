@@ -29,19 +29,18 @@ pub fn item_name<R>(
 where
     R: gimli::Reader,
 {
-    die.attr_value(gimli::DW_AT_linkage_name)
-        .transpose()
-        .or_else(|| die.attr_value(gimli::DW_AT_name).transpose())
-        .transpose()?
-        .map(
-            |attr: gimli::read::AttributeValue<R>| -> Result<String, traits::Error> {
-                Ok(
-                    dwarf
-                        .attr_string(unit, attr)?
-                        .to_string()? // This `to_string()` creates a `Result<Cow<'_, str>, _>`.
-                        .to_string(), // This `to_string()` creates the String we return.
-                )
-            },
+    let attr: Option<gimli::read::AttributeValue<R>> =
+        match die.attr_value(gimli::DW_AT_linkage_name)? {
+            x @ Some(_) => x,
+            None => die.attr_value(gimli::DW_AT_name)?,
+        };
+    attr.map(|attr| -> Result<String, traits::Error> {
+        Ok(
+            dwarf
+                .attr_string(unit, attr)?
+                .to_string()? // This `to_string()` creates a `Result<Cow<'_, str>, _>`.
+                .to_string(), // This `to_string()` creates the String we return.
         )
-        .transpose()
+    })
+    .transpose()
 }
