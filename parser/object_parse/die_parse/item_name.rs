@@ -3,14 +3,24 @@ use twiggy_traits as traits;
 
 use super::FallilbleOption;
 
-/// Calculate the item's name. For more information about this, refer to Section 2.15 of
-/// the DWARF v5 specification: 'Identifier Names'. Any DIE associated representing an
-/// entity that has been given a name may have a `DW_AT_name` attribute. If there was
-/// not a name assigned to the entity in the source code, the attribute may either not
-/// exist, or be a single null byte.
+/// Calculate the item's name. If no name was assigned, a name will be
+/// decided elsewhere using the `ir::ItemKind` variant that was determined
+/// for the entity.
 ///
-/// If no name was assigned, a name will be decided elsewhere using the
-/// ir::ItemKind variant that was determined for the entity.
+/// For more information on identifier names and linkage names, refer to
+/// Section 2.15 and Section 2.22 of the DWARF v5 specification, respectively.
+///
+/// > _"Any debugging information entry representing a program entity that
+/// > has been given a name may have a DW_AT_name attribute, whose value
+/// > is a string representing the name as it appears in the source program."_
+///
+/// - DWARF v5 Spec. Section 2.15
+///
+/// > _"A debugging information entry may have a DW_AT_linkage_name attribute
+/// > whose value is a null-terminated string describing the object file
+/// > linkage name associated with the corresponding entity."_
+///
+/// -- DWARF v5 Spec. Section 2.22
 pub fn item_name<R>(
     die: &gimli::DebuggingInformationEntry<R, R::Offset>,
     dwarf: &gimli::Dwarf<R>,
