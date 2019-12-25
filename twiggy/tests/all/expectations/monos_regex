@@ -1,0 +1,27 @@
+ Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %     │ Monomorphizations
+────────────────────┼────────────────┼───────┼───────┼─────────────────────────────────────────────────────────────────────────────────────
+               2141 ┊          3.68% ┊  3249 ┊ 5.58% ┊ alloc::slice::merge_sort
+                    ┊                ┊  1108 ┊ 1.90% ┊     alloc::slice::merge_sort::hb3d195f9800bdad6
+                    ┊                ┊  1108 ┊ 1.90% ┊     alloc::slice::merge_sort::hfcf2318d7dc71d03
+                    ┊                ┊  1033 ┊ 1.77% ┊     alloc::slice::merge_sort::hcfca67f5c75a52ef
+                658 ┊          1.13% ┊   843 ┊ 1.45% ┊ <alloc::raw_vec::RawVec<T, A>>::double
+                    ┊                ┊   185 ┊ 0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h28f86621ee2a10aa
+                    ┊                ┊   185 ┊ 0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h956450b93bdc9e1e
+                    ┊                ┊   185 ┊ 0.32% ┊     <alloc::raw_vec::RawVec<T, A>>::double::hcb2fb5861b96a3b0
+                    ┊                ┊   176 ┊ 0.30% ┊     <alloc::raw_vec::RawVec<T, A>>::double::ha715b4e5cc3c60ae
+                    ┊                ┊   112 ┊ 0.19% ┊     <alloc::raw_vec::RawVec<T, A>>::double::h77ff8547127c5db2
+                236 ┊          0.41% ┊   357 ┊ 0.61% ┊ alloc::slice::insert_head
+                    ┊                ┊   121 ┊ 0.21% ┊     alloc::slice::insert_head::h2cdb84a455761146
+                    ┊                ┊   121 ┊ 0.21% ┊     alloc::slice::insert_head::haf6e08236bab8bde
+                    ┊                ┊   115 ┊ 0.20% ┊     alloc::slice::insert_head::hed0e79da03eeec8b
+                210 ┊          0.36% ┊   290 ┊ 0.50% ┊ <alloc::vec::Vec<T>>::push
+                    ┊                ┊    80 ┊ 0.14% ┊     <alloc::vec::Vec<T>>::push::h98b02eda22d1ca25
+                    ┊                ┊    71 ┊ 0.12% ┊     <alloc::vec::Vec<T>>::push::h5729b9e7651ef67b
+                    ┊                ┊    71 ┊ 0.12% ┊     <alloc::vec::Vec<T>>::push::hc927b4bedb35b00d
+                    ┊                ┊    68 ┊ 0.12% ┊     <alloc::vec::Vec<T>>::push::h9415ef699ccc65d8
+                 40 ┊          0.07% ┊    60 ┊ 0.10% ┊ <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop
+                    ┊                ┊    20 ┊ 0.03% ┊     <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop::h420ff33e8bc0de30
+                    ┊                ┊    20 ┊ 0.03% ┊     <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop::hab66cea5bda1ed02
+                    ┊                ┊    20 ┊ 0.03% ┊     <alloc::raw_vec::RawVec<T, A> as core::ops::drop::Drop>::drop::hbe243f4c44295f3d
+                  0 ┊          0.00% ┊   871 ┊ 1.50% ┊ ... and 16 more.
+               3285 ┊          5.64% ┊  5670 ┊ 9.74% ┊ Σ [39 Total Rows]

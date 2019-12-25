@@ -361,13 +361,17 @@ impl Paths {
 /// List the generic function monomorphizations that are contributing to
 /// code bloat.
 #[wasm_bindgen]
-#[derive(Clone, Debug)]
-#[derive(StructOpt)]
+#[derive(Clone, Debug, StructOpt)]
 pub struct Monos {
     /// The path to the input binary to size profile.
     #[cfg(feature = "cli")]
     #[structopt(parse(from_os_str))]
     input: path::PathBuf,
+
+    /// The names of the generic functions whose monomorphizations
+    /// should be printed.
+    #[cfg(feature = "cli")]
+    functions: Vec<String>,
 
     /// The parse mode for the input binary data.
     #[cfg(feature = "cli")]
@@ -411,6 +415,10 @@ pub struct Monos {
     /// function. Overrides -n <max_monos>
     #[structopt(long = "all-monos")]
     all_monos: bool,
+
+    /// Whether or not `names` should be treated as regular expressions.
+    #[structopt(long = "regex")]
+    using_regexps: bool,
 }
 
 impl Default for Monos {
@@ -425,6 +433,8 @@ impl Default for Monos {
             #[cfg(feature = "cli")]
             output_format: Default::default(),
 
+            functions: Default::default(),
+
             only_generics: false,
             max_generics: 10,
             max_monos: 10,
@@ -432,7 +442,19 @@ impl Default for Monos {
             all_generics_and_monos: false,
             all_generics: false,
             all_monos: false,
+
+            using_regexps: false,
         }
+    }
+}
+
+impl Monos {
+    // TODO: wasm-bindgen doesn't support sending Vec<String> across the wasm
+    // ABI boundary yet.
+
+    /// The functions to find call paths to.
+    pub fn functions(&self) -> &[String] {
+        &self.functions
     }
 }
 
@@ -465,6 +487,11 @@ impl Monos {
         } else {
             self.max_monos
         }
+    }
+
+    /// Whether or not `functions` should be treated as regular expressions.
+    pub fn using_regexps(&self) -> bool {
+        self.using_regexps
     }
 
     /// Set whether to hide individual monomorphizations and only show the

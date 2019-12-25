@@ -57,3 +57,21 @@ test!(
     "-f",
     "json"
 );
+
+test!(
+    monos_regex,
+    "monos",
+    "./fixtures/monos.wasm",
+    "--regex",
+    "-m",
+    "5",
+    "^<?alloc::.*"
+);
+
+test!(
+    monos_functions,
+    "monos",
+    "./fixtures/monos.wasm",
+    "alloc::slice::insert_head",
+    "alloc::slice::merge_sort"
+);

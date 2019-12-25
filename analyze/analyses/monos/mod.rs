@@ -1,6 +1,7 @@
 use std::cmp;
 use std::collections::{BTreeMap, BTreeSet};
 
+use regex;
 use twiggy_ir as ir;
 use twiggy_opt as opt;
 use twiggy_traits as traits;
@@ -20,7 +21,14 @@ type MonosMap<'a> = BTreeMap<&'a str, Vec<(String, u32)>>;
 
 /// Collect the monomorphizations of generic functions into a map, then
 /// process the entries and sort the resulting vector.
-fn collect_monomorphizations<'a>(items: &'a ir::Items) -> MonosMap {
+fn collect_monomorphizations<'a>(
+    items: &'a ir::Items,
+    opts: &opt::Monos,
+) -> Result<MonosMap<'a>, traits::Error> {
+    let args_given = !opts.functions().is_empty();
+    let using_regexps = opts.using_regexps();
+    let regexps = regex::RegexSet::new(opts.functions())?;
+
     let unsorted_monos: BTreeMap<&'a str, BTreeSet<(String, u32)>> = items
         .iter()
         .filter_map(|item| {
@@ -30,6 +38,11 @@ fn collect_monomorphizations<'a>(items: &'a ir::Items) -> MonosMap {
                 None
             }
         })
+        .filter(|(generic, inst)| match (args_given, using_regexps) {
+            (true, true) => regexps.is_match(generic),
+            (true, false) => opts.functions().iter().any(|name| name == generic),
+            (false, _) => true,
+        })
         .fold(BTreeMap::new(), |mut monos, (generic, inst)| {
             monos
                 .entry(generic)
@@ -38,7 +51,7 @@ fn collect_monomorphizations<'a>(items: &'a ir::Items) -> MonosMap {
             monos
         });
 
-    unsorted_monos
+    Ok(unsorted_monos
         .into_iter()
         .map(|(generic, inst_set)| {
             let mut insts = inst_set.into_iter().collect::<Vec<_>>();
@@ -47,7 +60,7 @@ fn collect_monomorphizations<'a>(items: &'a ir::Items) -> MonosMap {
             });
             (generic, insts)
         })
-        .collect()
+        .collect())
 }
 
 /// Helper function usedd to summarize a sequence of `MonosEntry` objects.
@@ -175,7 +188,7 @@ pub fn monos(
     items: &mut ir::Items,
     opts: &opt::Monos,
 ) -> Result<Box<dyn traits::Emit>, traits::Error> {
-    let monos_map = collect_monomorphizations(&items);
+    let monos_map = collect_monomorphizations(&items, &opts)?;
     let mut monos = process_monomorphizations(monos_map, &opts);
     monos = add_stats(monos, &opts);
     Ok(Box::new(Monos { monos }) as Box<_>)
