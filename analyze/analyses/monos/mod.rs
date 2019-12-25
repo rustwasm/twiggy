@@ -133,27 +133,37 @@ fn process_monomorphizations(monos_map: MonosMap, opts: &opt::Monos) -> Vec<Mono
 fn add_stats(mut monos: Vec<MonosEntry>, opts: &opt::Monos) -> Vec<MonosEntry> {
     let max_generics = opts.max_generics() as usize;
 
-    // Create an entry to represent the remaining rows that will be truncated.
-    let (rem_cnt, rem_size, rem_savings) = summarize_entries(monos.iter().skip(max_generics));
-    let remaining = MonosEntry {
-        name: format!("... and {} more.", rem_cnt),
-        size: rem_size,
-        insts: vec![],
-        bloat: rem_savings,
+    // Create an entry to represent the remaining rows that will be truncated,
+    // only if there are more generics than we will display.
+    let remaining: Option<MonosEntry> = {
+        if monos.len() > max_generics {
+            let (rem_cnt, rem_size, rem_savings) =
+                summarize_entries(monos.iter().skip(max_generics));
+            Some(MonosEntry {
+                name: format!("... and {} more.", rem_cnt),
+                size: rem_size,
+                insts: vec![],
+                bloat: rem_savings,
+            })
+        } else {
+            None
+        }
     };
 
     // Create an entry to represent the 'total' summary.
-    let (total_cnt, total_size, total_savings) = summarize_entries(monos.iter());
-    let total = MonosEntry {
-        name: format!("Σ [{} Total Rows]", total_cnt),
-        size: total_size,
-        insts: vec![],
-        bloat: total_savings,
+    let total = {
+        let (total_cnt, total_size, total_savings) = summarize_entries(monos.iter());
+        MonosEntry {
+            name: format!("Σ [{} Total Rows]", total_cnt),
+            size: total_size,
+            insts: vec![],
+            bloat: total_savings,
+        }
     };
 
     // Truncate the vector, and add the 'remaining' and 'total' summary entries.
     monos.truncate(max_generics);
-    if rem_cnt > 0 {
+    if let Some(remaining) = remaining {
         monos.push(remaining);
     }
     monos.push(total);
