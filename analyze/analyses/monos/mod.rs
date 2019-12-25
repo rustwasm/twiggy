@@ -128,18 +128,10 @@ fn process_monomorphizations(monos_map: MonosMap, opts: &opt::Monos) -> Vec<Mono
     monos
 }
 
-/// Find bloaty monomorphizations of generic functions.
-pub fn monos(
-    items: &mut ir::Items,
-    opts: &opt::Monos,
-) -> Result<Box<dyn traits::Emit>, traits::Error> {
-    // Collect the options that will be needed.
+/// Adds entries to summarize remaining rows that will be truncated, and
+/// totals for the entire set of monomorphizations.
+fn add_stats(mut monos: Vec<MonosEntry>, opts: &opt::Monos) -> Vec<MonosEntry> {
     let max_generics = opts.max_generics() as usize;
-
-    // Collect the monomorphizations of generic functions into a map, then
-    // process the entries and sort the resulting vector.
-    let monos_map = collect_monomorphizations(&items);
-    let mut monos = process_monomorphizations(monos_map, &opts);
 
     // Create an entry to represent the remaining rows that will be truncated.
     let (rem_cnt, rem_size, rem_savings) = summarize_entries(monos.iter().skip(max_generics));
@@ -165,5 +157,16 @@ pub fn monos(
         monos.push(remaining);
     }
     monos.push(total);
+    monos
+}
+
+/// Find bloaty monomorphizations of generic functions.
+pub fn monos(
+    items: &mut ir::Items,
+    opts: &opt::Monos,
+) -> Result<Box<dyn traits::Emit>, traits::Error> {
+    let monos_map = collect_monomorphizations(&items);
+    let mut monos = process_monomorphizations(monos_map, &opts);
+    monos = add_stats(monos, &opts);
     Ok(Box::new(Monos { monos }) as Box<_>)
 }
