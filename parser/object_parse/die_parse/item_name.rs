@@ -19,7 +19,10 @@ pub fn item_name<R>(
 where
     R: gimli::Reader,
 {
-    die.attr_value(gimli::DW_AT_name)?
+    die.attr_value(gimli::DW_AT_linkage_name)
+        .transpose()
+        .or_else(|| die.attr_value(gimli::DW_AT_name).transpose())
+        .transpose()?
         .map(
             |attr: gimli::read::AttributeValue<R>| -> Result<String, traits::Error> {
                 Ok(
