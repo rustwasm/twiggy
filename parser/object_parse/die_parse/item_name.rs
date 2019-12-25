@@ -1,4 +1,5 @@
 use gimli;
+use twiggy_traits as traits;
 
 use super::FallilbleOption;
 
@@ -18,13 +19,16 @@ pub fn item_name<R>(
 where
     R: gimli::Reader,
 {
-    if let Some(attr) = die.attr_value(gimli::DW_AT_name)? {
-        let s = dwarf.attr_string(unit, attr)?;
-        Ok(Some(
-            s.to_string()? // This `to_string()` creates a `Result<Cow<'_, str>, _>`.
-                .to_string(), // This `to_string()` creates the String we return.
-        ))
-    } else {
-        Ok(None)
-    }
+    die.attr_value(gimli::DW_AT_name)?
+        .map(
+            |attr: gimli::read::AttributeValue<R>| -> Result<String, traits::Error> {
+                Ok(
+                    dwarf
+                        .attr_string(unit, attr)?
+                        .to_string()? // This `to_string()` creates a `Result<Cow<'_, str>, _>`.
+                        .to_string(), // This `to_string()` creates the String we return.
+                )
+            },
+        )
+        .transpose()
 }
