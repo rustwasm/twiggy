@@ -38,7 +38,7 @@ fn collect_monomorphizations<'a>(
                 None
             }
         })
-        .filter(|(generic, inst)| match (args_given, using_regexps) {
+        .filter(|(generic, _)| match (args_given, using_regexps) {
             (true, true) => regexps.is_match(generic),
             (true, false) => opts.functions().iter().any(|name| name == generic),
             (false, _) => true,
