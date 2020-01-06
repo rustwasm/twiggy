@@ -1,4 +1,3 @@
-
 // Fun times ahead!
 //
 // Apparently, proc-macros don't play well with `cfg_attr` yet, and their
@@ -41,7 +40,7 @@ pub enum Options {
     /// Find and display code and data that is not transitively referenced by
     /// any exports or public functions.
     #[structopt(name = "garbage")]
-    Garbage(Garbage)
+    Garbage(Garbage),
 }
 
 /// List the top code size offenders in a binary.
@@ -361,7 +360,8 @@ impl Paths {
 /// List the generic function monomorphizations that are contributing to
 /// code bloat.
 #[wasm_bindgen]
-#[derive(Clone, Debug, StructOpt)]
+#[derive(Clone, Debug)]
+#[derive(StructOpt)]
 pub struct Monos {
     /// The path to the input binary to size profile.
     #[cfg(feature = "cli")]
@@ -370,7 +370,6 @@ pub struct Monos {
 
     /// The names of the generic functions whose monomorphizations
     /// should be printed.
-    #[cfg(feature = "cli")]
     functions: Vec<String>,
 
     /// The parse mode for the input binary data.
@@ -604,7 +603,11 @@ impl Diff {
 impl Diff {
     /// The maximum number of items to display.
     pub fn max_items(&self) -> u32 {
-        if self.all_items { u32::MAX } else { self.max_items }
+        if self.all_items {
+            u32::MAX
+        } else {
+            self.max_items
+        }
     }
 
     /// Whether or not `items` should be treated as regular expressions.
@@ -691,7 +694,11 @@ impl Garbage {
 
     /// The maximum number of items to display.
     pub fn max_items(&self) -> u32 {
-        if self.all_items { u32::MAX } else { self.max_items }
+        if self.all_items {
+            u32::MAX
+        } else {
+            self.max_items
+        }
     }
 
     /// Set the maximum number of items to display.
