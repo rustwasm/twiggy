@@ -1,0 +1,11 @@
+ Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %     │ Monomorphizations
+────────────────────┼────────────────┼───────┼───────┼─────────────────────────────────────────────────
+               2141 ┊          3.68% ┊  3249 ┊ 5.58% ┊ alloc::slice::merge_sort
+                    ┊                ┊  1108 ┊ 1.90% ┊     alloc::slice::merge_sort::hb3d195f9800bdad6
+                    ┊                ┊  1108 ┊ 1.90% ┊     alloc::slice::merge_sort::hfcf2318d7dc71d03
+                    ┊                ┊  1033 ┊ 1.77% ┊     alloc::slice::merge_sort::hcfca67f5c75a52ef
+                236 ┊          0.41% ┊   357 ┊ 0.61% ┊ alloc::slice::insert_head
+                    ┊                ┊   121 ┊ 0.21% ┊     alloc::slice::insert_head::h2cdb84a455761146
+                    ┊                ┊   121 ┊ 0.21% ┊     alloc::slice::insert_head::haf6e08236bab8bde
+                    ┊                ┊   115 ┊ 0.20% ┊     alloc::slice::insert_head::hed0e79da03eeec8b
+               2377 ┊          4.08% ┊  3606 ┊ 6.20% ┊ Σ [8 Total Rows]
