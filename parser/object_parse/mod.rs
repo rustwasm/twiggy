@@ -10,9 +10,6 @@ use typed_arena::Arena;
 mod compilation_unit_parse;
 mod die_parse;
 
-use self::compilation_unit_parse::{CompUnitEdgesExtra, CompUnitItemsExtra};
-use super::Parse;
-
 // Helper function used to load a given section of the file.
 fn load_section<'a, 'file, 'input, Sect, Endian>(
     arena: &'a Arena<Cow<'file, [u8]>>,
@@ -54,7 +51,7 @@ pub fn parse(items: &mut ir::ItemsBuilder, data: &[u8]) -> Result<(), traits::Er
     let debug_ranges: gimli::DebugRanges<_> = load_section(&arena, &file, endian);
     let debug_rnglists: gimli::DebugRngLists<_> = load_section(&arena, &file, endian);
     let ranges = gimli::RangeLists::new(debug_ranges, debug_rnglists);
-    let mut dwarf = gimli::Dwarf {
+    let dwarf = gimli::Dwarf {
         debug_abbrev,
         debug_addr,
         debug_info,
@@ -66,48 +63,35 @@ pub fn parse(items: &mut ir::ItemsBuilder, data: &[u8]) -> Result<(), traits::Er
         ..Default::default()
     };
 
-    dwarf.parse_items(items, ())?;
-    dwarf.parse_edges(items, ())?;
+    parse_items(items, &dwarf)?;
+    parse_edges(items, &dwarf)?;
     Ok(())
 }
 
-impl<'a, R: gimli::Reader> Parse<'a> for gimli::Dwarf<R> {
-    type ItemsExtra = ();
-
-    fn parse_items(
-        &mut self,
-        items: &mut ir::ItemsBuilder,
-        _extra: Self::ItemsExtra,
-    ) -> Result<(), traits::Error> {
-        // Parse the items in each compilation unit.
-        let mut headers = self.units().enumerate();
-        while let Some((unit_id, header)) = headers.next()? {
-            let mut unit = self.unit(header)?;
-            let extra = CompUnitItemsExtra {
-                unit_id,
-                dwarf: self,
-            };
-            unit.parse_items(items, extra)?
-        }
-
-        Ok(())
+fn parse_items<R: gimli::Reader>(
+    items: &mut ir::ItemsBuilder,
+    dwarf: &gimli::Dwarf<R>,
+) -> Result<(), traits::Error> {
+    // Parse the items in each compilation unit.
+    let mut headers = dwarf.units().enumerate();
+    while let Some((unit_id, header)) = headers.next()? {
+        let unit = dwarf.unit(header)?;
+        compilation_unit_parse::parse_items(items, dwarf, &unit, unit_id)?
     }
 
-    type EdgesExtra = ();
+    Ok(())
+}
 
-    fn parse_edges(
-        &mut self,
-        items: &mut ir::ItemsBuilder,
-        _extra: Self::EdgesExtra,
-    ) -> Result<(), traits::Error> {
-        // Parse the edges in each compilation unit.
-        let mut headers = self.units().enumerate();
-        while let Some((unit_id, header)) = headers.next()? {
-            let mut unit = self.unit(header)?;
-            let extra = CompUnitEdgesExtra { unit_id };
-            unit.parse_edges(items, extra)?
-        }
-
-        Ok(())
+fn parse_edges<R: gimli::Reader>(
+    items: &mut ir::ItemsBuilder,
+    dwarf: &gimli::Dwarf<R>,
+) -> Result<(), traits::Error> {
+    // Parse the edges in each compilation unit.
+    let mut headers = dwarf.units().enumerate();
+    while let Some((unit_id, header)) = headers.next()? {
+        let unit = dwarf.unit(header)?;
+        compilation_unit_parse::parse_edges(items, &unit, unit_id)?
     }
+
+    Ok(())
 }
