@@ -108,7 +108,7 @@ dependencies = [
 
 [[package]]
 name = "cpp_demangle"
-version = "0.2.14"
+version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "cfg-if 0.1.10 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -542,7 +542,7 @@ dependencies = [
 name = "twiggy-ir"
 version = "0.6.0"
 dependencies = [
- "cpp_demangle 0.2.14 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cpp_demangle 0.2.15 (registry+https://github.com/rust-lang/crates.io-index)",
  "frozen 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "petgraph 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustc-demangle 0.1.16 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -721,7 +721,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum cfg-if 0.1.10 (registry+https://github.com/rust-lang/crates.io-index)" = "4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822"
 "checksum clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)" = "5067f5bb2d80ef5d68b4c87db81601f0b75bca627bc2ef76b141d7b846a3c6d9"
 "checksum colored 1.9.3 (registry+https://github.com/rust-lang/crates.io-index)" = "f4ffc801dacf156c5854b9df4f425a626539c3a6ef7893cc0c5084a23f0b6c59"
-"checksum cpp_demangle 0.2.14 (registry+https://github.com/rust-lang/crates.io-index)" = "4115af6f575a7bc82c613e9e0ed7cc36a5e4fc3a8b54920dc0c820823a31a0d6"
+"checksum cpp_demangle 0.2.15 (registry+https://github.com/rust-lang/crates.io-index)" = "6e69147adfe3ce87fc3c0c9b867b4dd8a73cef415abd8f1095ed9629adac3f97"
 "checksum csv 1.0.7 (registry+https://github.com/rust-lang/crates.io-index)" = "9044e25afb0924b5a5fc5511689b0918629e85d68ea591e5e87fbf1e85ea1b3b"
 "checksum csv-core 0.1.4 (registry+https://github.com/rust-lang/crates.io-index)" = "4dd8e6d86f7ba48b4276ef1317edc8cc36167546d8972feb4a2b5fec0b374105"
 "checksum diff 0.1.12 (registry+https://github.com/rust-lang/crates.io-index)" = "0e25ea47919b1560c4e3b7fe0aaab9becf5b84a10325ddf7db0f0ba5e1026499"
