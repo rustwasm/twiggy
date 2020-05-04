@@ -141,7 +141,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "failure"
-version = "0.1.7"
+version = "0.1.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "backtrace 0.3.9 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -515,7 +515,7 @@ version = "0.6.0"
 dependencies = [
  "colored 1.9.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "diff 0.1.12 (registry+https://github.com/rust-lang/crates.io-index)",
- "failure 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "failure 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "structopt 0.3.14 (registry+https://github.com/rust-lang/crates.io-index)",
  "twiggy-analyze 0.6.0",
  "twiggy-ir 0.6.0",
@@ -579,7 +579,7 @@ name = "twiggy-traits"
 version = "0.6.0"
 dependencies = [
  "csv 1.0.7 (registry+https://github.com/rust-lang/crates.io-index)",
- "failure 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "failure 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "gimli 0.20.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex 1.3.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "twiggy-ir 0.6.0",
@@ -725,7 +725,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum csv 1.0.7 (registry+https://github.com/rust-lang/crates.io-index)" = "9044e25afb0924b5a5fc5511689b0918629e85d68ea591e5e87fbf1e85ea1b3b"
 "checksum csv-core 0.1.4 (registry+https://github.com/rust-lang/crates.io-index)" = "4dd8e6d86f7ba48b4276ef1317edc8cc36167546d8972feb4a2b5fec0b374105"
 "checksum diff 0.1.12 (registry+https://github.com/rust-lang/crates.io-index)" = "0e25ea47919b1560c4e3b7fe0aaab9becf5b84a10325ddf7db0f0ba5e1026499"
-"checksum failure 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)" = "b8529c2421efa3066a5cbd8063d2244603824daccb6936b079010bb2aa89464b"
+"checksum failure 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)" = "d32e9bd16cc02eae7db7ef620b392808b89f6a5e16bb3497d159c6b92a0f4f86"
 "checksum failure_derive 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)" = "030a733c8287d6213886dd487564ff5c8f6aae10278b3588ed177f9d18f8d231"
 "checksum fallible-iterator 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "4443176a9f2c162692bd3d352d745ef9413eec5782a80d8fd6f8a1ac692a07f7"
 "checksum fixedbitset 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "37ab347416e802de484e4d03c7316c48f1ecb56574dfd4a46a80f173ce1de04d"
