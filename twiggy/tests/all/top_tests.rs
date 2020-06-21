@@ -68,6 +68,15 @@ test!(
     "csv"
 );
 
+// Threaded modules should not cause a panic.
+test!(
+    top_threaded_module,
+    "top",
+    "-n",
+    "25",
+    "./fixtures/threads.wasm"
+);
+
 // This should not fail to open and write `whatever-output.txt`.
 test!(
     output_to_file,
