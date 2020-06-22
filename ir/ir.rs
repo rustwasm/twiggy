@@ -45,16 +45,22 @@ impl ItemsBuilder {
     /// Add the given item to to the graph and return the `Id` that it was
     /// assigned.
     pub fn add_item(&mut self, item: Item) -> Id {
+        // --- --- 8< --- ---
+        let dbg_clone = item.clone();
+        // --- --- 8< --- ---
+
         let id = item.id;
         self.size_added += item.size;
         self.items.insert(id, item);
 
         let old_value = self.parsed.insert(id);
-        // panic happen as this is call 2 times with 7,
-        assert!(
-            old_value,
-            "should not parse the same key into multiple items"
-        );
+
+        // --- --- 8< --- ---
+        if !old_value {
+            dbg!(dbg_clone);
+            panic!("value with id {:?} parsed into multiple items!", id);
+        }
+        // --- --- 8< --- ---
 
         id
     }
