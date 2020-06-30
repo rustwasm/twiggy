@@ -35,7 +35,7 @@ version = "=0.6.0"
 path = "../traits"
 
 [dependencies.wasm-bindgen]
-version = "0.2.63"
+version = "0.2.64"
 
 [features]
 default = ["emit_json"]
