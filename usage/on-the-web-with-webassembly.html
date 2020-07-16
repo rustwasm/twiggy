@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>🕸 On the Web with WebAssembly - Twiggy🌱</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="spacer"></li><li class="chapter-item expanded "><a href="../install.html"><strong aria-hidden="true">1.</strong> 📦 Install</a></li><li class="chapter-item expanded "><a href="../concepts/index.html"><strong aria-hidden="true">2.</strong> 💡 Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../concepts/call-graph.html"><strong aria-hidden="true">2.1.</strong> Call Graph</a></li><li class="chapter-item expanded "><a href="../concepts/paths.html"><strong aria-hidden="true">2.2.</strong> Paths</a></li><li class="chapter-item expanded "><a href="../concepts/dominators-and-retained-size.html"><strong aria-hidden="true">2.3.</strong> Dominators and Retained Size</a></li><li class="chapter-item expanded "><a href="../concepts/generic-functions-and-monomorphization.html"><strong aria-hidden="true">2.4.</strong> Generic Functions and Monomorphization</a></li></ol></li><li class="chapter-item expanded "><a href="../usage/index.html"><strong aria-hidden="true">3.</strong> 🏋️‍♀️ Usage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../usage/command-line-interface/index.html"><strong aria-hidden="true">3.1.</strong> ⌨ Command Line Interface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../usage/command-line-interface/top.html"><strong aria-hidden="true">3.1.1.</strong> twiggy top</a></li><li class="chapter-item expanded "><a href="../usage/command-line-interface/paths.html"><strong aria-hidden="true">3.1.2.</strong> twiggy paths</a></li><li class="chapter-item expanded "><a href="../usage/command-line-interface/monos.html"><strong aria-hidden="true">3.1.3.</strong> twiggy monos</a></li><li class="chapter-item expanded "><a href="../usage/command-line-interface/dominators.html"><strong aria-hidden="true">3.1.4.</strong> twiggy dominators</a></li><li class="chapter-item expanded "><a href="../usage/command-line-interface/diff.html"><strong aria-hidden="true">3.1.5.</strong> twiggy diff</a></li><li class="chapter-item expanded "><a href="../usage/command-line-interface/garbage.html"><strong aria-hidden="true">3.1.6.</strong> twiggy garbage</a></li></ol></li><li class="chapter-item expanded "><a href="../usage/as-a-crate.html"><strong aria-hidden="true">3.2.</strong> 🦀 As a Crate</a></li><li class="chapter-item expanded "><a href="../usage/on-the-web-with-webassembly.html" class="active"><strong aria-hidden="true">3.3.</strong> 🕸 On the Web with WebAssembly</a></li></ol></li><li class="chapter-item expanded "><a href="../supported-binary-formats.html"><strong aria-hidden="true">4.</strong> 🔎 Supported Binary Formats</a></li><li class="spacer"></li><li class="chapter-item expanded "><a href="../contributing/index.html"><strong aria-hidden="true">5.</strong> 🙌 Contributing to Twiggy</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../contributing/building.html"><strong aria-hidden="true">5.1.</strong> Building</a></li><li class="chapter-item expanded "><a href="../contributing/testing.html"><strong aria-hidden="true">5.2.</strong> Testing</a></li><li class="chapter-item expanded "><a href="../contributing/code-formatting.html"><strong aria-hidden="true">5.3.</strong> Code Formatting</a></li><li class="chapter-item expanded "><a href="../contributing/pull-requests.html"><strong aria-hidden="true">5.4.</strong> Pull Requests</a></li><li class="chapter-item expanded "><a href="../contributing/team.html"><strong aria-hidden="true">5.5.</strong> Team</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Twiggy🌱</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#-on-the-web-with-webassembly" id="-on-the-web-with-webassembly">🕸 On the Web with WebAssembly</a></h1>
+<p>First, ensure you have the <code>wasm32-unknown-unknown</code> Rust target installed and
+up-to-date:</p>
+<pre><code>rustup target add wasm32-unknown-unknown
+</code></pre>
+<p>Next, install <code>wasm-bindgen</code>:</p>
+<pre><code>cargo install wasm-bindgen-cli
+</code></pre>
+<p>Finally, build <code>twiggy</code>'s WebAssembly API with <code>wasm-bindgen</code>:</p>
+<pre><code>cd twiggy/wasm-api
+cargo build --release --target wasm32-unknown-unknown
+wasm-bindgen ../target/wasm32-unknown-unknown/release/twiggy_wasm_api.wasm --out-dir .
+</code></pre>
+<p>This should produce two artifacts in the current directory:</p>
+<ol>
+<li><code>twiggy_wasm_api_bg.wasm</code>: The WebAssembly file containing <code>twiggy</code>.</li>
+<li><code>twiggy_wasm_api.js</code>: The JavaScript bindings to <code>twiggy</code>'s WebAssembly.</li>
+</ol>
+<p>You can now use <code>twiggy</code> from JavaScript like this:</p>
+<pre><code class="language-js">import { Items, Monos } from './twiggy_wasm_api';
+
+// Parse a binary's data into a collection of items.
+const items = Items.parse(myData);
+
+// Configure an analysis and its options.
+const opts = Monos.new();
+opts.set_max_generics(10);
+opts.set_max_monos(10);
+
+// Run the analysis on the parsed items.
+const monos = JSON.parse(items.monos(opts));
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../usage/as-a-crate.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../supported-binary-formats.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../usage/as-a-crate.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../supported-binary-formats.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

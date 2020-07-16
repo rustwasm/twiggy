@@ -1,0 +1,718 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Twiggy🌱</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="spacer"></li><li class="chapter-item expanded "><a href="install.html"><strong aria-hidden="true">1.</strong> 📦 Install</a></li><li class="chapter-item expanded "><a href="concepts/index.html"><strong aria-hidden="true">2.</strong> 💡 Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="concepts/call-graph.html"><strong aria-hidden="true">2.1.</strong> Call Graph</a></li><li class="chapter-item expanded "><a href="concepts/paths.html"><strong aria-hidden="true">2.2.</strong> Paths</a></li><li class="chapter-item expanded "><a href="concepts/dominators-and-retained-size.html"><strong aria-hidden="true">2.3.</strong> Dominators and Retained Size</a></li><li class="chapter-item expanded "><a href="concepts/generic-functions-and-monomorphization.html"><strong aria-hidden="true">2.4.</strong> Generic Functions and Monomorphization</a></li></ol></li><li class="chapter-item expanded "><a href="usage/index.html"><strong aria-hidden="true">3.</strong> 🏋️‍♀️ Usage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="usage/command-line-interface/index.html"><strong aria-hidden="true">3.1.</strong> ⌨ Command Line Interface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="usage/command-line-interface/top.html"><strong aria-hidden="true">3.1.1.</strong> twiggy top</a></li><li class="chapter-item expanded "><a href="usage/command-line-interface/paths.html"><strong aria-hidden="true">3.1.2.</strong> twiggy paths</a></li><li class="chapter-item expanded "><a href="usage/command-line-interface/monos.html"><strong aria-hidden="true">3.1.3.</strong> twiggy monos</a></li><li class="chapter-item expanded "><a href="usage/command-line-interface/dominators.html"><strong aria-hidden="true">3.1.4.</strong> twiggy dominators</a></li><li class="chapter-item expanded "><a href="usage/command-line-interface/diff.html"><strong aria-hidden="true">3.1.5.</strong> twiggy diff</a></li><li class="chapter-item expanded "><a href="usage/command-line-interface/garbage.html"><strong aria-hidden="true">3.1.6.</strong> twiggy garbage</a></li></ol></li><li class="chapter-item expanded "><a href="usage/as-a-crate.html"><strong aria-hidden="true">3.2.</strong> 🦀 As a Crate</a></li><li class="chapter-item expanded "><a href="usage/on-the-web-with-webassembly.html"><strong aria-hidden="true">3.3.</strong> 🕸 On the Web with WebAssembly</a></li></ol></li><li class="chapter-item expanded "><a href="supported-binary-formats.html"><strong aria-hidden="true">4.</strong> 🔎 Supported Binary Formats</a></li><li class="spacer"></li><li class="chapter-item expanded "><a href="contributing/index.html"><strong aria-hidden="true">5.</strong> 🙌 Contributing to Twiggy</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="contributing/building.html"><strong aria-hidden="true">5.1.</strong> Building</a></li><li class="chapter-item expanded "><a href="contributing/testing.html"><strong aria-hidden="true">5.2.</strong> Testing</a></li><li class="chapter-item expanded "><a href="contributing/code-formatting.html"><strong aria-hidden="true">5.3.</strong> Code Formatting</a></li><li class="chapter-item expanded "><a href="contributing/pull-requests.html"><strong aria-hidden="true">5.4.</strong> Pull Requests</a></li><li class="chapter-item expanded "><a href="contributing/team.html"><strong aria-hidden="true">5.5.</strong> Team</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Twiggy🌱</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div align="center">
+<h1><a class="header" href="#twiggy" id="twiggy">Twiggy🌱</a></h1>
+<p><strong>A code size profiler for Wasm</strong></p>
+<p>
+    <a href="https://docs.rs/twiggy/"><img src="https://docs.rs/twiggy/badge.svg"/></a>
+    <a href="https://crates.io/crates/twiggy"><img src="https://img.shields.io/crates/v/twiggy.svg"/></a>
+    <a href="https://crates.io/crates/twiggy"><img src="https://img.shields.io/crates/d/twiggy.svg"/></a>
+    <a href="https://travis-ci.org/rustwasm/twiggy"><img src="https://travis-ci.org/rustwasm/twiggy.svg?branch=master"/></a>
+  </p>
+<h3>
+    <a href="https://rustwasm.github.io/twiggy">Guide</a>
+    <span> | </span>
+    <a href="https://rustwasm.github.io/twiggy/contributing/index.html">Contributing</a>
+    <span> | </span>
+    <a href="https://discordapp.com/channels/442252698964721669/443151097398296587">Chat</a>
+  </h3>
+<p><sub>Built with 🦀🕸 by <a href="https://rustwasm.github.io/">The Rust and WebAssembly Working Group</a></sub></p>
+</div>
+<h2><a class="header" href="#about" id="about">About</a></h2>
+<p>Twiggy is a code size profiler for Wasm. It analyzes a binary's call graph to
+answer questions like:</p>
+<ul>
+<li>
+<p>Why was this function included in the binary in the first place? Who calls it?</p>
+</li>
+<li>
+<p>What is the <em>retained size</em> of this function? I.e. how much space would be
+saved if I removed it and all the functions that become dead code after its
+removal.</p>
+</li>
+</ul>
+<p>Use Twiggy to make your binaries slim!</p>
+<div align="center">
+  <img src="./twiggy.png"/>
+</div>
+<h1><a class="header" href="#-install" id="-install">📦 Install</a></h1>
+<p>Ensure that you have the <a href="https://www.rust-lang.org/">Rust toolchain installed</a>,
+then run:</p>
+<pre><code>cargo install twiggy
+</code></pre>
+<h1><a class="header" href="#-concepts" id="-concepts">💡 Concepts</a></h1>
+<p>This section provides some background knowledge on concepts that are useful to
+understand when using Twiggy.</p>
+<h1><a class="header" href="#call-graph" id="call-graph">Call Graph</a></h1>
+<p>Consider the following functions:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub fn shred() {
+    gnar_gnar();
+    bluebird();
+}
+
+fn gnar_gnar() {
+    weather_report();
+    pow();
+}
+
+fn bluebird() {
+    weather_report();
+}
+
+fn weather_report() {
+    shred();
+}
+
+fn pow() {
+    fluffy();
+    soft();
+}
+
+fn fluffy() {}
+
+fn soft() {}
+
+pub fn baker() {
+    hood();
+}
+
+fn hood() {}
+<span class="boring">}
+</span></code></pre></pre>
+<p>If we treat every function as a <em>vertex</em> in a graph, and if we add an <em>edge</em>
+from <em>A</em> to <em>B</em> if function <em>A</em> calls function <em>B</em>, then we get the following
+<em>call graph</em>:</p>
+<p><a href="concepts/./call-graph.svg"><img alt="Call Graph" src="concepts/./call-graph.svg"/></a></p>
+<h1><a class="header" href="#paths" id="paths">Paths</a></h1>
+<p>If there is a <em>path</em> where <em>A → B → ... → C</em> through the <a href="concepts/./call-graph.html">call
+graph</a>, then we say that <em>C</em> is <em>reachable</em> through from
+<em>A</em>. <em>Dead code</em> is code that is not <em>reachable</em> in the call graph from any
+publicly exported functions (for libraries) or the <code>main</code> function (for
+executables).</p>
+<p>Recall our example call graph:</p>
+<p><a href="concepts/./call-graph.svg"><img alt="Call Graph" src="concepts/./call-graph.svg"/></a></p>
+<p>Imagine that <code>shred</code> was our executable's <code>main</code> function. In this scenario,
+there is no path through the call graph from <code>shred</code> to <code>baker</code> or <code>hood</code>, so
+they are dead code. We would expect that the linker would remove them, and they
+wouldn't show up in the final binary.</p>
+<p>But what if some function that you <em>thought</em> was dead code is appearing inside
+your binary? Maybe it is deep down in some library you depend on, but inside a
+submodule of that library that you aren't using, and you wouldn't expect it to
+be included in the final binary.</p>
+<p>In this scenario, <code>twiggy</code> can show you all the paths in the call graph that
+lead to the unexpected function. This lets you understand why the unwelcome
+function is present, and decide what you can do about it. Maybe if you
+refactored your code to avoid calling <em>Y</em>, then there wouldn't be any paths to
+the unwelcome function anymore, it would be dead code, and the linker would
+remove it.</p>
+<h1><a class="header" href="#dominators-and-retained-size" id="dominators-and-retained-size">Dominators and Retained Size</a></h1>
+<p>Let's continue to use this example call graph:</p>
+<p><a href="concepts/./call-graph.svg"><img alt="Call Graph" src="concepts/./call-graph.svg"/></a></p>
+<p>Imagine the <code>pow</code> function itself might is not very large. But it calls
+functions <code>soft</code> and <code>fluffy</code>, both of which are <strong>huge</strong>. And they are both
+<em>only</em> called by <code>pow</code>, so if <code>pow</code> were removed, then <code>soft</code> and <code>fluffy</code> would
+both become dead code and get removed as well. Therefore, <code>pow</code>'s &quot;real&quot; size is
+huge, even though it doesn't look like it at a glance.</p>
+<p>The <em>dominator</em> relationship gives us a way to reason about the <em>retained size</em>
+of a function.</p>
+<p>In a graph that is rooted at vertex <em>R</em>, vertex <em>A</em> is said to
+<a href="https://en.wikipedia.org/wiki/Dominator_(graph_theory)"><em>dominate</em></a> vertex <em>B</em> if every path in the graph from <em>R</em> to <em>B</em>
+includes <em>A</em>. It follows that if <em>A</em> were removed from the graph, then <em>B</em> would
+become unreachable.</p>
+<p>In our call graphs, the roots are the <code>main</code> function (for executables) or
+publicly exported functions (for libraries).</p>
+<p><em>V</em> is the <em>immediate dominator</em> of a vertex <em>U</em> if <em>V != U</em>, and there does not
+exist another distinct vertex <em>W</em> that is dominated by <em>V</em> but also dominates
+<em>U</em>. If we take all the vertices from a graph, remove the edges, and then add
+edges for each immediate dominator relationship, then we get a tree. Here is the
+dominator tree for our call graph from earlier, where <code>shred</code> is the root:</p>
+<p><a href="concepts/./dominator-tree.svg"><img alt="Dominator Tree" src="concepts/./dominator-tree.svg"/></a></p>
+<p>Using the dominator relationship, we can find the <em>retained size</em> of some
+function by taking its shallow size and adding the retained sizes of each
+function that it immediately dominates.</p>
+<h1><a class="header" href="#generic-functions-and-monomorphization" id="generic-functions-and-monomorphization">Generic Functions and Monomorphization</a></h1>
+<p>Generic functions with type parameters in Rust and template functions in C++ can
+lead to code bloat if you aren't careful. Every time you instantiate these
+generic functions with a concrete set of types, the compiler will <em>monomorphize</em>
+the function, creating a copy of its body replacing its generic placeholders
+with the specific operations that apply to the concrete types. This presents
+many opportunities for compiler optimizations based on which particular concrete
+types each copy of the function is working with, but these copies add up quickly
+in terms of code size.</p>
+<p>Example of monomorphization in Rust:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn generic_function&lt;T: MyTrait&gt;(t: T) { ... }
+
+// Each of these will generate a new copy of `generic_function`!
+generic_function::&lt;MyTraitImpl&gt;(...);
+generic_function::&lt;AnotherMyTraitImpl&gt;(...);
+generic_function::&lt;MyTraitImplAlso&gt;(...);
+<span class="boring">}
+</span></code></pre></pre>
+<p>Example of monomorphization in C++:</p>
+<pre><code class="language-c++">template&lt;typename T&gt;
+void generic_function(T t) { ... }
+
+// Each of these will also generate a new copy of `generic_function`!
+generic_function&lt;uint32_t&gt;(...);
+generic_function&lt;bool&gt;(...);
+generic_function&lt;MyClass&gt;(...);
+</code></pre>
+<p>If you can afford the runtime cost of dynamic dispatch, then changing these
+functions to use trait objects in Rust or virtual methods in C++ can likely save
+a significant amounts of code size. With dynamic dispatch, the generic
+function's body is not copied, and the generic bits within the function become
+indirect function calls.</p>
+<p>Example of dynamic dispatch in Rust:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn generic_function(t: &amp;MyTrait) { ... }
+// or
+fn generic_function(t: Box&lt;MyTrait&gt;) { ... }
+// etc...
+
+// No more code bloat!
+let x = MyTraitImpl::new();
+generic_function(&amp;x);
+let y = AnotherMyTraitImpl::new();
+generic_function(&amp;y);
+let z = MyTraitImplAlso::new();
+generic_function(&amp;z);
+<span class="boring">}
+</span></code></pre></pre>
+<p>Example of dynamic dispatch in C++:</p>
+<pre><code class="language-c++">class GenericBase {
+  public:
+    virtual void generic_impl() = 0;
+};
+
+class MyThing : public GenericBase {
+  public
+    virtual void generic_impl() override { ... }
+};
+
+class AnotherThing : public GenericBase {
+  public
+    virtual void generic_impl() override { ... }
+};
+
+class AlsoThing : public GenericBase {
+  public
+    virtual void generic_impl() override { ... }
+};
+
+void generic(GenericBase&amp; thing) { ... }
+
+// No more code bloat!
+MyThing x;
+generic(x);
+AnotherThing y;
+generic(y);
+AlsoThing z;
+generic(z);
+</code></pre>
+<p><code>twiggy</code> can analyze a binary to find which generic functions are being
+monomorphized repeatedly, and calculate an estimation of how much code size
+could be saved by switching from monomorphization to dynamic dispatch.</p>
+<h1><a class="header" href="#-usage" id="-usage">🏋️‍♀️ Usage</a></h1>
+<p>Twiggy is primarily a command line tool, but it can also be used as a library
+crate from within other Rust projects, or compiled to WebAssembly and used from
+JavaScript on the Web or from Node.js</p>
+<h1><a class="header" href="#-command-line-interface" id="-command-line-interface">⌨ Command Line Interface</a></h1>
+<p><code>twiggy</code> is primarily a command line tool.</p>
+<p>To get the most up-to-date usage for the version of <code>twiggy</code> that you have
+installed, you can always run:</p>
+<pre><code>twiggy --help
+</code></pre>
+<p>Or, to get more information about a sub-command, run:</p>
+<pre><code>twiggy subcmd --help
+</code></pre>
+<h1><a class="header" href="#twiggy-top" id="twiggy-top"><code>twiggy top</code></a></h1>
+<p>The <code>twiggy top</code> sub-command summarizes and lists the top code size offenders in
+a binary.</p>
+<pre><code> Shallow Bytes │ Shallow % │ Item
+───────────────┼───────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+          1034 ┊    36.71% ┊ data[3]
+           777 ┊    27.58% ┊ &quot;function names&quot; subsection
+           226 ┊     8.02% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+           165 ┊     5.86% ┊ hello
+           153 ┊     5.43% ┊ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+           137 ┊     4.86% ┊ &lt;wee_alloc::size_classes::SizeClassAllocPolicy&lt;'a&gt; as wee_alloc::AllocPolicy&gt;::new_cell_for_free_list::h3987e3054b8224e6
+            77 ┊     2.73% ┊ &lt;wee_alloc::LargeAllocPolicy as wee_alloc::AllocPolicy&gt;::new_cell_for_free_list::h8f071b7bce0301ba
+            45 ┊     1.60% ┊ goodbye
+            25 ┊     0.89% ┊ data[1]
+            25 ┊     0.89% ┊ data[2]
+           153 ┊     5.43% ┊ ... and 27 more.
+          2817 ┊   100.00% ┊ Σ [37 Total Rows]
+</code></pre>
+<h1><a class="header" href="#twiggy-paths" id="twiggy-paths"><code>twiggy paths</code></a></h1>
+<p>The <code>twiggy paths</code> sub-command finds the call paths to a function in the given
+binary's call graph. This tells you what other functions are calling this
+function, why this function is not dead code, and therefore why it wasn't
+removed by the linker.</p>
+<pre><code> Shallow Bytes │ Shallow % │ Retaining Paths
+───────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+           153 ┊     5.43% ┊ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
+               ┊           ┊   ⬑ &lt;wee_alloc::size_classes::SizeClassAllocPolicy&lt;'a&gt; as wee_alloc::AllocPolicy&gt;::new_cell_for_free_list::h3987e3054b8224e6
+               ┊           ┊       ⬑ elem[0]
+               ┊           ┊           ⬑ table[0]
+               ┊           ┊   ⬑ hello
+               ┊           ┊       ⬑ export &quot;hello&quot;
+
+</code></pre>
+<h1><a class="header" href="#twiggy-monos" id="twiggy-monos"><code>twiggy monos</code></a></h1>
+<p>The <code>twiggy monos</code> sub-command lists the generic function monomorphizations that
+are contributing to code bloat.</p>
+<pre><code> Apprx. Bloat Bytes │ Apprx. Bloat % │ Bytes │ %      │ Monomorphizations
+────────────────────┼────────────────┼───────┼────────┼────────────────────────────────────────────────────────
+               2141 ┊          3.68% ┊  3249 ┊  5.58% ┊ alloc::slice::merge_sort
+                    ┊                ┊  1108 ┊  1.90% ┊     alloc::slice::merge_sort::hb3d195f9800bdad6
+                    ┊                ┊  1108 ┊  1.90% ┊     alloc::slice::merge_sort::hfcf2318d7dc71d03
+                    ┊                ┊  1033 ┊  1.77% ┊     alloc::slice::merge_sort::hcfca67f5c75a52ef
+               1457 ┊          2.50% ┊  4223 ┊  7.26% ┊ &lt;&amp;'a T as core::fmt::Debug&gt;::fmt
+                    ┊                ┊  2766 ┊  4.75% ┊     &lt;&amp;'a T as core::fmt::Debug&gt;::fmt::h1c27955d8de3ff17
+                    ┊                ┊   636 ┊  1.09% ┊     &lt;&amp;'a T as core::fmt::Debug&gt;::fmt::hea6a77c4dcddb7ac
+                    ┊                ┊   481 ┊  0.83% ┊     &lt;&amp;'a T as core::fmt::Debug&gt;::fmt::hfbacf6f5c9f53bb2
+                    ┊                ┊   340 ┊  0.58% ┊     ... and 1 more.
+               3759 ┊          6.46% ┊ 31160 ┊ 53.54% ┊ ... and 214 more.
+               7357 ┊         12.64% ┊ 38632 ┊ 66.37% ┊ Σ [223 Total Rows]
+</code></pre>
+<h1><a class="header" href="#twiggy-dominators" id="twiggy-dominators"><code>twiggy dominators</code></a></h1>
+<p>The <code>twiggy dominators</code> sub-command displays the dominator tree of a binary's
+call graph.</p>
+<pre><code> Retained Bytes │ Retained % │ Dominator Tree
+────────────────┼────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         175726 ┊     14.99% ┊ export &quot;items_parse&quot;
+         175712 ┊     14.98% ┊   ⤷ items_parse
+         131407 ┊     11.21% ┊       ⤷ twiggy_parser::wasm_parse::&lt;impl twiggy_parser::Parse for wasmparser::readers::module::ModuleReader&gt;::parse_items::h39c45381d868d181
+          18492 ┊      1.58% ┊       ⤷ wasmparser::binary_reader::BinaryReader::read_operator::hb1c7cde18e148939
+           2677 ┊      0.23% ┊       ⤷ alloc::collections::btree::map::BTreeMap&lt;K,V&gt;::insert::hd2463626e5ac3441
+           1349 ┊      0.12% ┊       ⤷ wasmparser::readers::module::ModuleReader::read::hb76af8efd547784f
+           1081 ┊      0.09% ┊       ⤷ core::ops::function::impls::&lt;impl core::ops::function::FnOnce&lt;A&gt; for &amp;mut F&gt;::call_once::h1ff7fe5b944492c3
+            776 ┊      0.07% ┊       ⤷ &lt;wasmparser::readers::import_section::ImportSectionReader as wasmparser::readers::section_reader::SectionReader&gt;::read::h12903e6d8d4091bd
+</code></pre>
+<h1><a class="header" href="#twiggy-diff" id="twiggy-diff"><code>twiggy diff</code></a></h1>
+<p>The <code>twiggy diff</code> sub-command computes the delta size of each item between old
+and new versions of a binary.</p>
+<pre><code> Delta Bytes │ Item
+─────────────┼──────────────────────────────────────────────
+       -1034 ┊ data[3]
+        -593 ┊ &quot;function names&quot; subsection
+        +396 ┊ wee_alloc::alloc_first_fit::he2a4ddf96981c0ce
+        +243 ┊ goodbye
+        -226 ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
+        -262 ┊ ... and 29 more.
+       -1476 ┊ Σ [34 Total Rows]
+</code></pre>
+<h1><a class="header" href="#twiggy-garbage" id="twiggy-garbage"><code>twiggy garbage</code></a></h1>
+<p>The <code>twiggy garbage</code> sub-command finds and displays dead code and data that is
+not transitively referenced by any exports or public functions.</p>
+<pre><code> Bytes │ Size % │ Garbage Item
+───────┼────────┼────────────────────────────────
+    12 ┊  6.09% ┊ unusedAddThreeNumbers
+     9 ┊  4.57% ┊ unusedAddOne
+     7 ┊  3.55% ┊ type[2]: (i32, i32, i32) -&gt; i32
+     6 ┊  3.05% ┊ unusedChild
+     5 ┊  2.54% ┊ type[1]: (i32) -&gt; i32
+     4 ┊  2.03% ┊ type[0]: () -&gt; i32
+    43 ┊ 21.83% ┊ Σ [6 Total Rows]
+</code></pre>
+<h1><a class="header" href="#-as-a-crate" id="-as-a-crate">🦀 As a Crate</a></h1>
+<p><code>twiggy</code> is divided into a collection of crates that you can use
+programmatically, but no long-term stability is promised. We will follow semver
+as best as we can, but will err on the side of being more conservative with
+breaking version bumps than might be strictly necessary.</p>
+<p>Here is a simple example:</p>
+<pre><pre class="playground"><code class="language-rust">extern crate twiggy_analyze;
+extern crate twiggy_opt;
+extern crate twiggy_parser;
+
+use std::fs;
+use std::io;
+
+fn main() {
+    let mut file = fs::File::open(&quot;path/to/some/binary&quot;).unwrap();
+    let mut data = vec![];
+    file.read_to_end(&amp;mut data).unwrap();
+
+    let items = twiggy_parser::parse(&amp;data).unwrap();
+
+    let options = twiggy_opt::Top::default();
+    let top = twiggy_analyze::top(&amp;mut items, &amp;options).unwrap();
+
+    let mut stdout = io::stdout();
+    top.emit_text(&amp;items, &amp;mut stdout).unwrap();
+}
+</code></pre></pre>
+<p>For a more in-depth example, take a look at the implementation of the
+<code>twiggy</code> CLI crate.</p>
+<h1><a class="header" href="#-on-the-web-with-webassembly" id="-on-the-web-with-webassembly">🕸 On the Web with WebAssembly</a></h1>
+<p>First, ensure you have the <code>wasm32-unknown-unknown</code> Rust target installed and
+up-to-date:</p>
+<pre><code>rustup target add wasm32-unknown-unknown
+</code></pre>
+<p>Next, install <code>wasm-bindgen</code>:</p>
+<pre><code>cargo install wasm-bindgen-cli
+</code></pre>
+<p>Finally, build <code>twiggy</code>'s WebAssembly API with <code>wasm-bindgen</code>:</p>
+<pre><code>cd twiggy/wasm-api
+cargo build --release --target wasm32-unknown-unknown
+wasm-bindgen ../target/wasm32-unknown-unknown/release/twiggy_wasm_api.wasm --out-dir .
+</code></pre>
+<p>This should produce two artifacts in the current directory:</p>
+<ol>
+<li><code>twiggy_wasm_api_bg.wasm</code>: The WebAssembly file containing <code>twiggy</code>.</li>
+<li><code>twiggy_wasm_api.js</code>: The JavaScript bindings to <code>twiggy</code>'s WebAssembly.</li>
+</ol>
+<p>You can now use <code>twiggy</code> from JavaScript like this:</p>
+<pre><code class="language-js">import { Items, Monos } from './twiggy_wasm_api';
+
+// Parse a binary's data into a collection of items.
+const items = Items.parse(myData);
+
+// Configure an analysis and its options.
+const opts = Monos.new();
+opts.set_max_generics(10);
+opts.set_max_monos(10);
+
+// Run the analysis on the parsed items.
+const monos = JSON.parse(items.monos(opts));
+</code></pre>
+<h1><a class="header" href="#-supported-binary-formats" id="-supported-binary-formats">🔎 Supported Binary Formats</a></h1>
+<h2><a class="header" href="#full-support" id="full-support">Full Support</a></h2>
+<p><code>twiggy</code> currently supports these binary formats:</p>
+<ul>
+<li>✔️ WebAssembly's <code>.wasm</code> format</li>
+</ul>
+<h2><a class="header" href="#partial-work-in-progress-support" id="partial-work-in-progress-support">Partial, Work-in-Progress Support</a></h2>
+<p><code>twiggy</code> has partial, work-in-progress support for these binary formats <em>when
+they have <a href="http://dwarfstd.org/">DWARF</a> debug info</em>:</p>
+<ul>
+<li>⚠ ELF</li>
+<li>⚠ Mach-O</li>
+</ul>
+<h2><a class="header" href="#unsupported" id="unsupported">Unsupported</a></h2>
+<ul>
+<li>❌ PE/COFF</li>
+</ul>
+<p>Although <code>twiggy</code> doesn't currently support these binary formats, it is designed
+with extensibility in mind. The input is translated into a format-agnostic
+internal representation (IR), and adding support for new formats only requires
+parsing them into this IR. The vast majority of <code>twiggy</code> will not need
+modification.</p>
+<p>We would love to gain support for new binary formats! If you're interested in
+helping out with that implementation work, <a href="./contributing/index.html">read this to learn how to contribute
+to Twiggy!</a></p>
+<h1><a class="header" href="#-contributing-to-twiggy" id="-contributing-to-twiggy">🙌 Contributing to Twiggy</a></h1>
+<p>Hi! We'd love to have your contributions! If you want help or mentorship, reach
+out to us in a GitHub issue, or ping <code>fitzgen</code> in <a href="irc://irc.mozilla.org#rust-wasm"><code>#rust-wasm</code> on
+<code>irc.mozilla.org</code></a> and introduce yourself.</p>
+<h2><a class="header" href="#code-of-conduct" id="code-of-conduct">Code of Conduct</a></h2>
+<p>We abide by the <a href="https://www.rust-lang.org/en-US/conduct.html">Rust Code of Conduct</a> and ask that you do as well.</p>
+<h1><a class="header" href="#building" id="building">Building</a></h1>
+<h2><a class="header" href="#building-for-the-native-target" id="building-for-the-native-target">Building for the Native Target</a></h2>
+<pre><code>$ cargo build --all --exclude twiggy-wasm-api
+</code></pre>
+<h2><a class="header" href="#building-for-the-wasm32-unknown-unknown-target" id="building-for-the-wasm32-unknown-unknown-target">Building for the <code>wasm32-unknown-unknown</code> Target</a></h2>
+<pre><code>$ JOB=wasm ./ci/script.sh
+</code></pre>
+<h1><a class="header" href="#testing" id="testing">Testing</a></h1>
+<pre><code>$ cargo test --all --exclude twiggy-wasm-api
+</code></pre>
+<h2><a class="header" href="#authoring-new-tests" id="authoring-new-tests">Authoring New Tests</a></h2>
+<p>Integration tests live in the <code>twiggy/tests</code> directory:</p>
+<pre><code>twiggy/tests
+├── expectations
+├── fixtures
+└── tests.rs
+</code></pre>
+<ul>
+<li>
+<p>The <code>twiggy/tests/tests.rs</code> file contains the <code>#[test]</code> definitions.</p>
+</li>
+<li>
+<p>The <code>twiggy/tests/fixtures</code> directory contains input binaries for tests.</p>
+</li>
+<li>
+<p>The <code>twiggy/tests/expectations</code> directory contains the expected output of test
+commands.</p>
+</li>
+</ul>
+<h2><a class="header" href="#updating-test-expectations" id="updating-test-expectations">Updating Test Expectations</a></h2>
+<p>To automatically update all test expectations, you can run the tests with the
+<code>TWIGGY_UPDATE_TEST_EXPECTATIONS=1</code> environment variable set. Make sure that you
+look at the changes before committing them, and that they match your intentions!</p>
+<p>TIP: You can use <code>git add -p</code> to examine individual hunks when staging changes
+before committing!</p>
+<h1><a class="header" href="#code-formatting" id="code-formatting">Code Formatting</a></h1>
+<p>We use <a href="https://github.com/rust-lang-nursery/rustfmt"><code>rustfmt</code></a> to enforce a
+consistent code style across the whole code base.</p>
+<p>You can install the latest version of <code>rustfmt</code> with this command:</p>
+<pre><code>$ rustup update
+$ rustup component add rustfmt --toolchain stable
+</code></pre>
+<p>Ensure that <code>~/.rustup/toolchains/$YOUR_HOST_TARGET/bin/</code> is on your <code>$PATH</code>.</p>
+<p>Once that is taken care of, you can (re)format all code by running this command
+from the root of the repository:</p>
+<pre><code>$ cargo fmt --all
+</code></pre>
+<h1><a class="header" href="#linting" id="linting">Linting</a></h1>
+<p>We use <a href="https://github.com/rust-lang/rust-clippy"><code>clippy</code></a> to lint the codebase.
+This helps avoid common mistakes, and ensures that code is correct,
+performant, and idiomatic.</p>
+<p>You can install the latest version of <code>clippy</code> with this command:</p>
+<pre><code>$ rustup update
+$ rustup component add clippy --toolchain stable
+</code></pre>
+<p>Once that is complete, you can lint your code to check for mistakes by running
+this command from the root of the repository:</p>
+<pre><code>$ cargo clippy
+</code></pre>
+<h1><a class="header" href="#pull-requests" id="pull-requests">Pull Requests</a></h1>
+<p>All pull requests must be reviewed and approved of by at least one
+<a href="contributing/./team.html">team</a> member before merging. See <a href="contributing/pull-requests.html#contributions-we-want">Contributions We
+Want</a> for details on what should be included in what
+kind of pull request.</p>
+<h2><a class="header" href="#contributions-we-want" id="contributions-we-want">Contributions We Want</a></h2>
+<ul>
+<li>
+<p><strong>Bug fixes!</strong> Include a regression test.</p>
+</li>
+<li>
+<p><strong>Support for more binary formats!</strong> See <a href="https://github.com/rustwasm/twiggy/issues/4">this issue</a> for
+details.</p>
+</li>
+<li>
+<p><strong>New analyses and queries!</strong> Help expose information about monomorphizations
+or inlining. Report diffs between two versions of the same binary. Etc...</p>
+</li>
+</ul>
+<p>If you make two of these kinds of contributions, you should seriously consider
+joining our <a href="contributing/./team.html">team</a>!</p>
+<h2><a class="header" href="#where-we-need-help" id="where-we-need-help">Where We Need Help</a></h2>
+<ul>
+<li>
+<p>Issues labeled <a href="https://github.com/rustwasm/twiggy/labels/help%20wanted">&quot;help wanted&quot;</a> are issues where we could use a
+little help from you.</p>
+</li>
+<li>
+<p>Issues labeled <a href="https://github.com/rustwasm/twiggy/labels/mentored">&quot;mentored&quot;</a> are issues that don't really involve any
+more investigation, just implementation. We've outlined what needs to be done,
+and a <a href="contributing/./team.html">team</a> member has volunteered to help whoever claims the
+issue to implement it, and get the implementation merged.</p>
+</li>
+<li>
+<p>Issues labeled <a href="https://github.com/rustwasm/twiggy/labels/good%20first%20issue">&quot;good first issue&quot;</a> are issues where fixing them would be
+a great introduction to the code base.</p>
+</li>
+</ul>
+<h1><a class="header" href="#team" id="team">Team</a></h1>
+<h2><a class="header" href="#members" id="members">Members</a></h2>
+<table><thead><tr><th align="center"><a href="https://github.com/fitzgen"><img alt="fitzgen" src="https://github.com/fitzgen.png" width="117"></a></th><th align="center"><a href="https://github.com/data-pup"><img alt="data-pup" src="https://github.com/data-pup.png" width="117"></a></th></tr></thead><tbody>
+<tr><td align="center"><a href="https://github.com/fitzgen"><code>fitzgen</code></a></td><td align="center"><a href="https://github.com/data-pup"><code>data-pup</code></a></td></tr>
+</tbody></table>
+<h2><a class="header" href="#responsibilities" id="responsibilities">Responsibilities</a></h2>
+<p>Team members review pull requests, triage new issues, mentor new contributors,
+and maintain the Twiggy project.</p>
+<p>Larger, more nuanced decisions about design, architecture, breaking changes,
+trade offs, etc are made by team consensus. In other words, decisions on things
+that aren't straightforward improvements or bug fixes to things that already
+exist in <code>twiggy</code>. If consensus can't be made, then <code>fitzgen</code> has the last
+word.</p>
+<p><strong>We need more team members!</strong>
+<a href="https://github.com/rustwasm/twiggy/issues/3">Drop a comment on this issue if you are interested in joining.</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
