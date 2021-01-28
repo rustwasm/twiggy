@@ -765,9 +765,9 @@ checksum = "72b6c0220ded549d63860c78c38f3bcc558d1ca3f4efa74942c536ddbbb55e87"
 
 [[package]]
 name = "wasmparser"
-version = "0.42.1"
+version = "0.45.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1527c84a5bd585215f29c06b0e2a5274e478ad4dfc970d26ffad66fdc6cb311d"
+checksum = "8b4eab1d9971d0803729cba3617b56eb04fcb4bd25361cb63880ed41a42f20d5"
 
 [[package]]
 name = "winapi"
