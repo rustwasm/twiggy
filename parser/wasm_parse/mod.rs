@@ -463,7 +463,7 @@ impl<'a> Parse<'a> for (IndexedSection<'a>, IndexedSection<'a>) {
                     // indices get pushed onto the stack.
                     Operator::CallIndirect { .. } => continue,
 
-                    Operator::GetGlobal { global_index } | Operator::SetGlobal { global_index } => {
+                    Operator::GlobalGet { global_index } | Operator::GlobalSet { global_index } => {
                         let g_id = indices.globals[global_index as usize];
                         edges.push((body_id, g_id));
                     }
