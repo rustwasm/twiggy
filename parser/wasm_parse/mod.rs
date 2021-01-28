@@ -844,9 +844,16 @@ impl<'a> Parse<'a> for wasmparser::ElementSectionReader<'a> {
                 wasmparser::ElementKind::Active { table_index, .. } => {
                     items.add_edge(indices.tables[table_index as usize], elem_id);
                 }
-                wasmparser::ElementKind::Passive(_ty) => {}
+                wasmparser::ElementKind::Passive { .. } => {}
             }
-            for func_idx in elem.items.get_items_reader()? {
+            let elem_items = match elem.kind {
+                wasmparser::ElementKind::Active { items, .. } => items,
+                // @@@ This is probably wrong. dogscience
+                wasmparser::ElementKind::Passive { .. } => {
+                    continue;
+                }
+            };
+            for func_idx in elem_items.get_items_reader()? {
                 let func_idx = func_idx?;
                 items.add_edge(elem_id, indices.functions[func_idx as usize]);
             }
