@@ -920,7 +920,7 @@ fn iterate_with_size<'a, S: SectionWithLimitedItems + SectionReader>(
 
 fn ty2str(t: Type) -> &'static str {
     match t {
-        Type::Null => "nil", // @@@ untested
+        Type::NullRef => "nil", // @@@ untested
         Type::I32 => "i32",
         Type::I64 => "i64",
         Type::F32 => "f32",
