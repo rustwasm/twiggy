@@ -130,6 +130,10 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
                 wasmparser::SectionCode::Code | wasmparser::SectionCode::Function => {
                     unreachable!("unexpected code or function section found");
                 }
+                wasmparser::SectionCode::Alias { .. } => {} // @@@
+                wasmparser::SectionCode::Module { .. } => {} // @@@
+                wasmparser::SectionCode::Instance { .. } => {} // @@@
+                wasmparser::SectionCode::ModuleCode { .. } => {} // @@@
             };
             let id = Id::section(idx);
             let added = items.size_added() - start;
@@ -195,6 +199,8 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
                             wasmparser::ImportSectionEntryType::Global(_) => {
                                 indices.globals.push(id);
                             }
+                            wasmparser::ImportSectionEntryType::Module(_) => {} // @@@
+                            wasmparser::ImportSectionEntryType::Instance(_) => {} // @@@
                         }
                     }
                 }
@@ -289,6 +295,10 @@ impl<'a> Parse<'a> for wasmparser::ModuleReader<'a> {
                 wasmparser::SectionCode::Code | wasmparser::SectionCode::Function => {
                     unreachable!("unexpected code or function section found");
                 }
+                wasmparser::SectionCode::Alias
+                | wasmparser::SectionCode::Module
+                | wasmparser::SectionCode::Instance
+                | wasmparser::SectionCode::ModuleCode => {} // @@@
             }
         }
 
@@ -313,6 +323,10 @@ fn get_section_name(section: &wasmparser::Section<'_>) -> String {
         wasmparser::SectionCode::Code => "code section headers".to_string(),
         wasmparser::SectionCode::Data => "data section headers".to_string(),
         wasmparser::SectionCode::DataCount => "data count section headers".to_string(),
+        wasmparser::SectionCode::Alias
+        | wasmparser::SectionCode::Module
+        | wasmparser::SectionCode::Instance
+        | wasmparser::SectionCode::ModuleCode => "@@@".to_string(),
     }
 }
 
@@ -576,31 +590,38 @@ impl<'a> Parse<'a> for wasmparser::TypeSectionReader<'a> {
             let (ty, size) = ty?;
             let id = Id::entry(idx, i);
 
-            let mut name = format!("type[{}]: (", i);
-            for (i, param) in ty.params.iter().enumerate() {
-                if i != 0 {
-                    name.push_str(", ");
-                }
-                name.push_str(ty2str(*param));
-            }
-            name.push_str(") -> ");
-
-            match ty.returns.len() {
-                0 => name.push_str("nil"),
-                1 => name.push_str(ty2str(ty.returns[0])),
-                _ => {
-                    name.push_str("(");
-                    for (i, result) in ty.returns.iter().enumerate() {
+            match ty {
+                wasmparser::TypeDef::Func(func) => {
+                    let mut name = format!("type[{}]: (", i);
+                    for (i, param) in func.params.iter().enumerate() {
                         if i != 0 {
                             name.push_str(", ");
                         }
-                        name.push_str(ty2str(*result));
+                        name.push_str(ty2str(*param));
                     }
-                    name.push_str(")");
-                }
-            }
+                    name.push_str(") -> ");
 
-            items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
+                    match func.returns.len() {
+                        0 => name.push_str("nil"),
+                        1 => name.push_str(ty2str(func.returns[0])),
+                        _ => {
+                            name.push_str("(");
+                            for (i, result) in func.returns.iter().enumerate() {
+                                if i != 0 {
+                                    name.push_str(", ");
+                                }
+                                name.push_str(ty2str(*result));
+                            }
+                            name.push_str(")");
+                        }
+                    }
+
+                    items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
+                }
+                // @@@ Is this correct?
+                wasmparser::TypeDef::Module(_module) => {}
+                wasmparser::TypeDef::Instance(_instance) => {}
+            }
         }
         Ok(())
     }
@@ -623,7 +644,7 @@ impl<'a> Parse<'a> for wasmparser::ImportSectionReader<'a> {
         for (i, imp) in iterate_with_size(self).enumerate() {
             let (imp, size) = imp?;
             let id = Id::entry(idx, i);
-            let name = format!("import {}::{}", imp.module, imp.field);
+            let name = format!("import {}::{}", imp.module, imp.field.unwrap_or("@@@"));
             items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
         }
         Ok(())
@@ -749,6 +770,9 @@ impl<'a> Parse<'a> for wasmparser::ExportSectionReader<'a> {
                 wasmparser::ExternalKind::Global => {
                     items.add_edge(exp_id, indices.globals[exp.index as usize]);
                 }
+                wasmparser::ExternalKind::Type
+                | wasmparser::ExternalKind::Module
+                | wasmparser::ExternalKind::Instance => {} // @@@
             }
         }
 
