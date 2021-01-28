@@ -853,7 +853,7 @@ impl<'a> Parse<'a> for wasmparser::ElementSectionReader<'a> {
                     wasmparser::ElementItem::Func(func_idx) => {
                         items.add_edge(elem_id, indices.functions[func_idx as usize]);
                     }
-                    wasmparser::ElementItem::Null => {}
+                    wasmparser::ElementItem::Null(_ty) => {}
                 }
             }
         }
@@ -919,14 +919,13 @@ fn iterate_with_size<'a, S: SectionWithLimitedItems + SectionReader>(
 
 fn ty2str(t: Type) -> &'static str {
     match t {
-        Type::NullRef => "nil", // @@@ untested
         Type::I32 => "i32",
         Type::I64 => "i64",
         Type::F32 => "f32",
         Type::F64 => "f64",
         Type::V128 => "v128",
-        Type::AnyFunc => "anyfunc",
-        Type::AnyRef => "anyref",
+        Type::FuncRef => "anyfunc",  // @@@ rename?
+        Type::ExternRef => "anyref", // @@@ rename?
         Type::Func | Type::EmptyBlockType => "?",
     }
 }
