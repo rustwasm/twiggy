@@ -284,6 +284,7 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                             wasmparser::ImportSectionEntryType::Global(_) => {
                                 indices.globals.push(id);
                             }
+                            wasmparser::ImportSectionEntryType::Event(_) => {} // @@@
                             wasmparser::ImportSectionEntryType::Module(_) => {} // @@@
                             wasmparser::ImportSectionEntryType::Instance(_) => {} // @@@
                         }
@@ -873,7 +874,8 @@ impl<'a> Parse<'a> for wasmparser::ExportSectionReader<'a> {
                 wasmparser::ExternalKind::Global => {
                     items.add_edge(exp_id, indices.globals[exp.index as usize]);
                 }
-                wasmparser::ExternalKind::Type
+                wasmparser::ExternalKind::Event
+                | wasmparser::ExternalKind::Type
                 | wasmparser::ExternalKind::Module
                 | wasmparser::ExternalKind::Instance => {} // @@@
             }
@@ -1056,6 +1058,7 @@ fn ty2str(t: Type) -> &'static str {
         Type::F32 => "f32",
         Type::F64 => "f64",
         Type::V128 => "v128",
+        Type::ExnRef => "exnref",    // @@@
         Type::FuncRef => "anyfunc",  // @@@ rename?
         Type::ExternRef => "anyref", // @@@ rename?
         Type::Func | Type::EmptyBlockType => "?",
