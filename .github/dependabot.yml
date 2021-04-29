@@ -1,0 +1,35 @@
+version: 2
+updates:
+- package-ecosystem: cargo
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "08:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: wasmparser
+    versions:
+    - 0.73.0
+    - 0.73.1
+    - 0.74.0
+    - 0.75.0
+    - 0.76.0
+    - 0.77.0
+  - dependency-name: wasm-bindgen
+    versions:
+    - 0.2.70
+    - 0.2.71
+    - 0.2.72
+  - dependency-name: regex
+    versions:
+    - 1.4.3
+    - 1.4.4
+    - 1.4.5
+  - dependency-name: serde_derive
+    versions:
+    - 1.0.123
+    - 1.0.124
+  - dependency-name: serde
+    versions:
+    - 1.0.123
+    - 1.0.124
