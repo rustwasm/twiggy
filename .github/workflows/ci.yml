@@ -46,5 +46,7 @@ jobs:
       with:
        toolchain: stable
     - name: Run test script
+      env:
+        JOB: test
       run: ./ci/script.sh
     
