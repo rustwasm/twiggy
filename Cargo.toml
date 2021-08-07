@@ -6,7 +6,8 @@ members = [
   "./parser",
   "./twiggy",
   "./traits",
-  "./wasm-api"
+  "./wasm-api",
+  "./job_runner"
 ]
 
 [profile.release]

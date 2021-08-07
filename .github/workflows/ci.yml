@@ -25,10 +25,10 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: clippy
-  build:
+  test:
     strategy:
       matrix:
-        os: ['windows-latest', 'macos-latest']
+        os: ['ubuntu-latest', 'windows-latest', 'macos-latest']
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
@@ -36,19 +36,8 @@ jobs:
     - uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
-    - name: Build
-      run: cargo build
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions-rs/toolchain@v1
-      with:
-       toolchain: stable
-    - name: Run test script
-      env:
-        JOB: test
-      run: ./ci/script.sh
+    - name: Test
+      run: cargo run --bin job_runner -- --test
   wasm:
     runs-on: ubuntu-latest
     steps:
@@ -57,7 +46,5 @@ jobs:
       with:
        toolchain: stable
     - name: Run test script with WASM job
-      env:
-        JOB: wasm
-      run: ./ci/script.sh
+      run: cargo run --bin job_runner -- --wasm
     
