@@ -78,7 +78,8 @@ impl<R: gimli::Reader> DieLocationAttributes<R> {
         dwarf: &gimli::Dwarf<R>,
         unit: &gimli::Unit<R>,
     ) -> FallilbleOption<u64> {
-        if let Some(offset) = self.dw_at_ranges()? {
+        if let Some(raw_offset) = self.dw_at_ranges()? {
+            let offset = dwarf.ranges_offset_from_raw(unit, raw_offset);
             let ranges = dwarf.ranges(unit, offset)?;
             let size = ranges
                 .map(|r| Ok(r.end - r.begin))
@@ -104,7 +105,7 @@ impl<R: gimli::Reader> DieLocationAttributes<R> {
     /// into the `.debug_ranges` section of the file.
     fn dw_at_ranges(
         &self,
-    ) -> FallilbleOption<gimli::RangeListsOffset<<R as gimli::Reader>::Offset>> {
+    ) -> FallilbleOption<gimli::RawRangeListsOffset<<R as gimli::Reader>::Offset>> {
         match &self.dw_at_ranges {
             Some(gimli::AttributeValue::RangeListsRef(offset)) => Ok(Some(*offset)),
             Some(_) => Err(traits::Error::with_msg("Unexpected DW_AT_ranges value")),
