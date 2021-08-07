@@ -28,7 +28,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: ['ubuntu-latest', 'windows-latest', 'macos-latest']
+        os: ['windows-latest', 'macos-latest']
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
@@ -38,4 +38,26 @@ jobs:
         toolchain: stable
     - name: Build
       run: cargo build
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions-rs/toolchain@v1
+      with:
+       toolchain: stable
+    - name: Run test script
+      env:
+        JOB: test
+      run: ./ci/script.sh
+  wasm:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions-rs/toolchain@v1
+      with:
+       toolchain: stable
+    - name: Run test script with WASM job
+      env:
+        JOB: wasm
+      run: ./ci/script.sh
     
