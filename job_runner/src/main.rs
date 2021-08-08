@@ -18,12 +18,16 @@ fn main() -> Result<()> {
         Command::new("cargo")
             .args(["test", "--all", "--exclude", "twiggy-wasm-api"])
             .output()
-            .and_then(|output| {
+            .map(|output| -> Result<()> {
                 std::io::stdout().write_all(&output.stdout).unwrap();
                 std::io::stderr().write_all(&output.stderr).unwrap();
 
-                Ok(())
-            })?;
+                if !output.status.success() {
+                    Err(anyhow!("Failed tests!"))
+                } else {
+                    Ok(())
+                }
+            })??;
     } else if args.wasm {
         Command::new("rustup")
             .args(["update", "nightly"])
@@ -38,12 +42,16 @@ fn main() -> Result<()> {
                 "nightly",
             ])
             .output()
-            .and_then(|output| {
+            .map(|output| -> Result<()> {
                 std::io::stdout().write_all(&output.stdout).unwrap();
                 std::io::stderr().write_all(&output.stderr).unwrap();
 
-                Ok(())
-            })?;
+                if !output.status.success() {
+                    Err(anyhow!("Failed to add wasm32-unknown-unknown!"))
+                } else {
+                    Ok(())
+                }
+            })??;
 
         Command::new("cargo")
             .current_dir("./wasm-api")
@@ -55,34 +63,58 @@ fn main() -> Result<()> {
                 "wasm32-unknown-unknown",
             ])
             .output()
-            .and_then(|output| {
+            .map(|output| -> Result<()> {
                 std::io::stdout().write_all(&output.stdout).unwrap();
                 std::io::stderr().write_all(&output.stderr).unwrap();
 
-                Ok(())
-            })?;
+                if !output.status.success() {
+                    Err(anyhow!("Failed to build wasm32-unknown-unknown!"))
+                } else {
+                    Ok(())
+                }
+            })??;
 
         // Install wasm bindgen
+        println!("Opening wasm-api cargo.toml");
         let manifest_text = std::fs::read_to_string("./wasm-api/Cargo.toml")?;
+        println!("Cargo.toml {:?}", manifest_text);
         let manifest = cargo_toml::Manifest::from_str(&manifest_text)?;
 
         let dep = manifest.dependencies.get("wasm-bindgen").unwrap();
         let version = dep.detail().unwrap().version.as_ref().unwrap().clone();
 
+        
         let wasm_bindgen_executable = if cfg!(target_os = "windows") {
-            "./wasm-api/bin/wasm-bindgen.exe"
+            String::from("./wasm-api/bin/wasm-bindgen.exe")
         } else {
-            "./wasm-api/bin/wasm-bindgen"
+            let curr_dir = std::env::current_dir().unwrap();
+            String::from(
+                curr_dir
+                    .join("wasm-api/bin/wasm-bindgen")
+                    .to_str()
+                    .unwrap(),
+            )
         };
 
-        let matches_version = Command::new(wasm_bindgen_executable)
-            .current_dir("./wasm-api")
+        println!(
+            "Running wasm bindgen for version from {:?}",
+            std::env::current_dir().unwrap()
+        );
+        let matches_version = Command::new(&wasm_bindgen_executable)
+            .current_dir("wasm-api")
             .arg("--version")
             .output()
-            .map(|output| String::from_utf8(output.stdout).unwrap() == version)
+            .map(|output| {
+                std::io::stdout().write_all(&output.stdout).unwrap();
+                std::io::stderr().write_all(&output.stderr).unwrap();
+
+                let desired = String::from("wasm-bindgen ") + &version;
+                String::from_utf8(output.stdout).unwrap().trim_end_matches(&['\n', '\r'][..]) == desired
+            })
             .unwrap_or(false);
 
         if !matches_version {
+            println!("Install wasm bindgen");
             Command::new("cargo")
                 .args([
                     "+nightly",
@@ -95,15 +127,20 @@ fn main() -> Result<()> {
                     "./wasm-api",
                 ])
                 .output()
-                .and_then(|output| {
+                .map(|output| -> Result<()> {
                     std::io::stdout().write_all(&output.stdout).unwrap();
                     std::io::stderr().write_all(&output.stderr).unwrap();
 
-                    Ok(())
-                })?;
+                    if !output.status.success() {
+                        Err(anyhow!("Failed to build wasm32-unknown-unknown!"))
+                    } else {
+                        Ok(())
+                    }
+                })??;
         }
 
-        Command::new(wasm_bindgen_executable)
+        println!("Running wasm bindgen for packing");
+        Command::new(&wasm_bindgen_executable)
             .current_dir("./wasm-api")
             .args([
                 "--out-dir",
@@ -111,12 +148,16 @@ fn main() -> Result<()> {
                 "../target/wasm32-unknown-unknown/release/twiggy_wasm_api.wasm",
             ])
             .output()
-            .and_then(|output| {
+            .map(|output| -> Result<()> {
                 std::io::stdout().write_all(&output.stdout).unwrap();
                 std::io::stderr().write_all(&output.stderr).unwrap();
 
-                Ok(())
-            })?;
+                if !output.status.success() {
+                    Err(anyhow!("Failed to run wasm-bindgen"))
+                } else {
+                    Ok(())
+                }
+            })??;
 
         // This can fail and it's ok
         let _ = Command::new("cp")
