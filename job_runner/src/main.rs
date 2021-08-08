@@ -83,17 +83,11 @@ fn main() -> Result<()> {
         let dep = manifest.dependencies.get("wasm-bindgen").unwrap();
         let version = dep.detail().unwrap().version.as_ref().unwrap().clone();
 
-        
         let wasm_bindgen_executable = if cfg!(target_os = "windows") {
             String::from("./wasm-api/bin/wasm-bindgen.exe")
         } else {
             let curr_dir = std::env::current_dir().unwrap();
-            String::from(
-                curr_dir
-                    .join("wasm-api/bin/wasm-bindgen")
-                    .to_str()
-                    .unwrap(),
-            )
+            String::from(curr_dir.join("wasm-api/bin/wasm-bindgen").to_str().unwrap())
         };
 
         println!(
@@ -109,7 +103,10 @@ fn main() -> Result<()> {
                 std::io::stderr().write_all(&output.stderr).unwrap();
 
                 let desired = String::from("wasm-bindgen ") + &version;
-                String::from_utf8(output.stdout).unwrap().trim_end_matches(&['\n', '\r'][..]) == desired
+                String::from_utf8(output.stdout)
+                    .unwrap()
+                    .trim_end_matches(&['\n', '\r'][..])
+                    == desired
             })
             .unwrap_or(false);
 
