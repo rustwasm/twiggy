@@ -1,8 +1,7 @@
 # 📦 Install
 
-Ensure that you have the [Rust toolchain installed](https://www.rust-lang.org/),
-then run:
-
+First, ensure that you have the [Rust toolchain installed](https://www.rust-lang.org/).
+Then, run:  
 ```
 cargo install twiggy
 ```
