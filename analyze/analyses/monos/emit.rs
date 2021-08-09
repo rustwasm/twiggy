@@ -21,7 +21,7 @@ impl traits::Emit for Monos {
             size: u32,
             size_percent: f64,
             name: String,
-        };
+        }
 
         // Given an entry representing a generic function and its various
         // monomorphizations, return a vector of table rows.
@@ -122,7 +122,7 @@ impl traits::Emit for Monos {
                 obj.field("shallow_size_percent", size_percent)?;
             }
             Ok(())
-        };
+        }
 
         let items_size = f64::from(items.size());
         let mut arr = json::array(dest)?;

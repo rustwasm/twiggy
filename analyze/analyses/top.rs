@@ -22,7 +22,7 @@ impl traits::Emit for Top {
             size: u32,
             size_percent: f64,
             name: String,
-        };
+        }
 
         // Helper function used to process an item, and return a struct
         // representing a row containing its size and name.
@@ -40,7 +40,7 @@ impl traits::Emit for Top {
                 size_percent,
                 name,
             }
-        };
+        }
 
         // Helper function used to summnarize a sequence of table rows. This is
         // used to generate the remaining summary and total rows. Returns a tuple
