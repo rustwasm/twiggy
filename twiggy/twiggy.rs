@@ -17,7 +17,7 @@ fn main() {
     let options = opt::Options::from_args();
     if let Err(e) = run(&options) {
         eprintln!("error: {}", e);
-        for c in Fail::iter_causes(&e) {
+        for c in <dyn Fail>::iter_causes(&e) {
             eprintln!("  caused by: {}", c);
         }
         process::exit(1);
