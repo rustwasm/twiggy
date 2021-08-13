@@ -20,7 +20,7 @@ impl traits::Emit for Paths {
             .entries
             .iter()
             .flat_map(|entry| {
-                process_entry(entry, 0, self.opts.max_paths() as usize, &items, &self.opts)
+                process_entry(entry, 0, self.opts.max_paths() as usize, items, &self.opts)
             })
             .map(
                 |TableRow {
@@ -85,7 +85,7 @@ impl traits::Emit for Paths {
         // to the CSV writer to be serialized.
         let mut wtr = csv::Writer::from_writer(dest);
         for record in self.entries.iter().flat_map(|entry| {
-            process_entry(entry, 0, self.opts.max_paths() as usize, &items, &self.opts)
+            process_entry(entry, 0, self.opts.max_paths() as usize, items, &self.opts)
         }) {
             wtr.serialize(record)?;
             wtr.flush()?;
@@ -146,7 +146,7 @@ mod emit_text_helpers {
                 .iter()
                 .take(paths)
                 .flat_map(move |child_entry| {
-                    process_entry(child_entry, depth + 1, paths, &items, &opts)
+                    process_entry(child_entry, depth + 1, paths, items, opts)
                 });
             Box::new(row_iter.chain(children_iter))
         } else if depth == opts.max_depth() {
@@ -214,7 +214,7 @@ mod emit_json_helpers {
         if depth < opts.max_depth() {
             for child in children.iter().take(paths) {
                 let mut obj = callers.object()?;
-                process_entry(child, &mut obj, depth + 1, paths, items, &opts)?;
+                process_entry(child, &mut obj, depth + 1, paths, items, opts)?;
             }
         }
 
@@ -270,7 +270,7 @@ mod emit_csv_helpers {
                 .iter()
                 .take(paths)
                 .flat_map(move |child_entry| {
-                    process_entry(child_entry, depth + 1, paths, &items, &opts)
+                    process_entry(child_entry, depth + 1, paths, items, opts)
                 });
             Box::new(record_iter.chain(children_iter))
         } else if depth == opts.max_depth() {

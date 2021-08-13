@@ -188,8 +188,8 @@ pub fn monos(
     items: &mut ir::Items,
     opts: &opt::Monos,
 ) -> Result<Box<dyn traits::Emit>, traits::Error> {
-    let monos_map = collect_monomorphizations(&items, &opts)?;
-    let mut monos = process_monomorphizations(monos_map, &opts);
-    monos = add_stats(monos, &opts);
+    let monos_map = collect_monomorphizations(items, opts)?;
+    let mut monos = process_monomorphizations(monos_map, opts);
+    monos = add_stats(monos, opts);
     Ok(Box::new(Monos { monos }) as Box<_>)
 }

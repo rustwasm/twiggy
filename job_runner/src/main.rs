@@ -6,29 +6,10 @@ fn main() -> Result<()> {
     let (args, _) = opts! {
         synopsis "Twiggy CI job runner";
         opt wasm:bool, desc:"Run wasm jobs";
-        opt test:bool, desc:"Run tests";
     }
     .parse_or_exit();
 
-    if args.wasm && args.test {
-        anyhow!("Choose only one mode!");
-    }
-
-    if args.test {
-        Command::new("cargo")
-            .args(["test", "--all", "--exclude", "twiggy-wasm-api"])
-            .output()
-            .map(|output| -> Result<()> {
-                std::io::stdout().write_all(&output.stdout).unwrap();
-                std::io::stderr().write_all(&output.stderr).unwrap();
-
-                if !output.status.success() {
-                    Err(anyhow!("Failed tests!"))
-                } else {
-                    Ok(())
-                }
-            })??;
-    } else if args.wasm {
+    if args.wasm {
         Command::new("rustup")
             .args(["update", "nightly"])
             .output()?;

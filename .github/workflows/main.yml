@@ -37,7 +37,7 @@ jobs:
       with:
         toolchain: stable
     - name: Test
-      run: cargo run --bin job_runner -- --test
+      run: cargo test --all --exclude twiggy-wasm-api 
   wasm:
     runs-on: ubuntu-latest
     steps:
