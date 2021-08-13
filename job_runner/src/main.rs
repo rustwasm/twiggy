@@ -14,21 +14,7 @@ fn main() -> Result<()> {
         anyhow!("Choose only one mode!");
     }
 
-    if args.test {
-        Command::new("cargo")
-            .args(["test", "--all", "--exclude", "twiggy-wasm-api"])
-            .output()
-            .map(|output| -> Result<()> {
-                std::io::stdout().write_all(&output.stdout).unwrap();
-                std::io::stderr().write_all(&output.stderr).unwrap();
-
-                if !output.status.success() {
-                    Err(anyhow!("Failed tests!"))
-                } else {
-                    Ok(())
-                }
-            })??;
-    } else if args.wasm {
+    if args.wasm {
         Command::new("rustup")
             .args(["update", "nightly"])
             .output()?;

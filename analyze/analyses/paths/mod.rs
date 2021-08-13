@@ -30,9 +30,9 @@ pub fn paths(
 
     // Initialize the collection of Id values whose retaining paths we will emit.
     let opts = opts.clone();
-    let entries = get_starting_positions(&items, &opts)?
+    let entries = get_starting_positions(items, &opts)?
         .iter()
-        .map(|id| create_entry(*id, &items, &opts, &mut BTreeSet::new()))
+        .map(|id| create_entry(*id, items, &opts, &mut BTreeSet::new()))
         .collect();
 
     let paths = Paths { opts, entries };
@@ -71,7 +71,7 @@ fn get_starting_positions(
         let regexps = regex::RegexSet::new(opts.functions())?;
         let matches = items
             .iter()
-            .filter(|item| regexps.is_match(&item.name()))
+            .filter(|item| regexps.is_match(item.name()))
             .map(|item| item.id())
             .collect();
         Ok(matches)
@@ -138,7 +138,7 @@ fn create_entry(
     seen.insert(id);
     let children = children_ids
         .into_iter()
-        .map(|id| create_entry(id, &items, &opts, seen))
+        .map(|id| create_entry(id, items, opts, seen))
         .collect();
     seen.remove(&id);
 
