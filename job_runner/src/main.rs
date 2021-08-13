@@ -6,13 +6,8 @@ fn main() -> Result<()> {
     let (args, _) = opts! {
         synopsis "Twiggy CI job runner";
         opt wasm:bool, desc:"Run wasm jobs";
-        opt test:bool, desc:"Run tests";
     }
     .parse_or_exit();
-
-    if args.wasm && args.test {
-        anyhow!("Choose only one mode!");
-    }
 
     if args.wasm {
         Command::new("rustup")
