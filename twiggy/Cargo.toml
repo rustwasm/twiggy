@@ -6,7 +6,7 @@ license = "Apache-2.0/MIT"
 name = "twiggy"
 readme = "../README.md"
 repository = "https://github.com/rustwasm/twiggy"
-version = "0.6.0"
+version = "0.7.0"
 edition = "2018"
 
 [badges]
