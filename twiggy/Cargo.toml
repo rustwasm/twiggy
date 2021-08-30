@@ -19,11 +19,11 @@ path = "./twiggy.rs"
 [dependencies]
 failure = "0.1.8"
 structopt = "0.3"
-twiggy-analyze = { version = "=0.6.0", path = "../analyze" }
-twiggy-ir = { version = "=0.6.0", path = "../ir" }
-twiggy-opt = { version = "=0.6.0", path = "../opt", features = ["cli"] }
-twiggy-parser = { version = "=0.6.0", path = "../parser" }
-twiggy-traits = { version = "=0.6.0", path = "../traits" }
+twiggy-analyze = { version = "=0.7.0", path = "../analyze" }
+twiggy-ir = { version = "=0.7.0", path = "../ir" }
+twiggy-opt = { version = "=0.7.0", path = "../opt", features = ["cli"] }
+twiggy-parser = { version = "=0.7.0", path = "../parser" }
+twiggy-traits = { version = "=0.7.0", path = "../traits" }
 
 [dev-dependencies]
 colored = "2.0.0"

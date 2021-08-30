@@ -1,3 +1,7 @@
+### 0.7.8
+* Fix a bug with `wasm32-wasi`.
+* Updated some dependencies.
+
 ### 0.6.0
 
 Released 2019-06-27.
