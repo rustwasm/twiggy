@@ -20,7 +20,7 @@ csv = "1.1.6"
 regex = "1.4.2"
 serde = "1.0"
 serde_derive = "1.0"
-petgraph = "0.6.1"
+petgraph = "0.6.2"
 
 [features]
 default = ["emit_csv", "emit_json", "emit_text"]
