@@ -56,7 +56,7 @@ impl<'a> ModuleReader<'a> {
         let (section, bytes_consumed) =
             match self.parser.parse(&self.data[self.offset..], self.eof())? {
                 wasmparser::Chunk::NeedMoreData { .. } => {
-                    panic!("@@@ nyi");
+                    return Err(traits::Error::from("wasm binary cannot be fully parsed"));
                 }
                 wasmparser::Chunk::Parsed { consumed, payload } => (payload, consumed),
             };
@@ -97,7 +97,6 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
         // The function and code sections must be handled differently, so these
         // are not placed in the same `sections` array as the rest.
         let mut idx = 0;
-        // @@@ revert to old style.
         loop {
             let start = self.current_position();
             let at_eof = self.offset == self.data.len();
@@ -107,13 +106,13 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
             let (section, bytes_consumed) =
                 match self.parser.parse(&self.data[self.offset..], at_eof)? {
                     wasmparser::Chunk::NeedMoreData { .. } => {
-                        panic!("@@@ nyi");
+                        return Err(traits::Error::from("wasm binary cannot be fully parsed"));
                     }
                     wasmparser::Chunk::Parsed { consumed, payload } => (payload, consumed),
                 };
             self.offset += bytes_consumed;
-            let size = self.current_position() - start; // @@@ refactor this nonsense
-            let indexed_section = IndexedSection(idx, section); // @@@ bananas
+            let size = self.current_position() - start;
+            let indexed_section = IndexedSection(idx, section);
             match indexed_section.1 {
                 wasmparser::Payload::CodeSectionStart { range, .. } => {
                     code_section = Some(self.new_code_section(idx, start, range)?);
@@ -130,8 +129,8 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 }
                 _ => sections.push(indexed_section),
             };
-            sizes.insert(idx, size as u32); // @@@ delete if unused.
-            idx += 1; // @@@ wrong. we're counting any payload as a section.
+            sizes.insert(idx, size as u32);
+            idx += 1;
         }
 
         // Before we actually parse any items prepare to parse a few sections
@@ -211,8 +210,15 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 | wasmparser::Payload::FunctionSection(_) => {
                     unreachable!("unexpected code or function section found");
                 }
-
-                _ => {} // @@@
+                wasmparser::Payload::Version { .. }
+                | wasmparser::Payload::CodeSectionEntry { .. }
+                | wasmparser::Payload::AliasSection { .. }
+                | wasmparser::Payload::EventSection { .. }
+                | wasmparser::Payload::InstanceSection { .. }
+                | wasmparser::Payload::ModuleSectionStart { .. }
+                | wasmparser::Payload::ModuleSectionEntry { .. }
+                | wasmparser::Payload::UnknownSection { .. }
+                | wasmparser::Payload::End { .. } => {}
             };
             let id = Id::section(idx);
             let added = items.size_added() - start;
@@ -284,9 +290,9 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                             wasmparser::ImportSectionEntryType::Global(_) => {
                                 indices.globals.push(id);
                             }
-                            wasmparser::ImportSectionEntryType::Event(_) => {} // @@@
-                            wasmparser::ImportSectionEntryType::Module(_) => {} // @@@
-                            wasmparser::ImportSectionEntryType::Instance(_) => {} // @@@
+                            wasmparser::ImportSectionEntryType::Event(_) => {}
+                            wasmparser::ImportSectionEntryType::Module(_) => {}
+                            wasmparser::ImportSectionEntryType::Instance(_) => {}
                         }
                     }
                 }
@@ -388,8 +394,15 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 | wasmparser::Payload::FunctionSection { .. } => {
                     unreachable!("unexpected code or function section found");
                 }
-
-                _ => {} // @@@
+                wasmparser::Payload::Version { .. }
+                | wasmparser::Payload::CodeSectionEntry { .. }
+                | wasmparser::Payload::AliasSection { .. }
+                | wasmparser::Payload::EventSection { .. }
+                | wasmparser::Payload::InstanceSection { .. }
+                | wasmparser::Payload::ModuleSectionStart { .. }
+                | wasmparser::Payload::ModuleSectionEntry { .. }
+                | wasmparser::Payload::UnknownSection { .. }
+                | wasmparser::Payload::End { .. } => {}
             }
         }
 
@@ -423,8 +436,13 @@ fn get_section_name(section: &wasmparser::Payload<'_>) -> String {
         wasmparser::Payload::CodeSectionEntry { .. } => {
             panic!("unexpected CodeSectionEntry");
         }
-
-        _ => format!("@@@ {:?}", section), // @@@
+        wasmparser::Payload::AliasSection { .. }
+        | wasmparser::Payload::EventSection { .. }
+        | wasmparser::Payload::InstanceSection { .. }
+        | wasmparser::Payload::ModuleSectionStart { .. }
+        | wasmparser::Payload::ModuleSectionEntry { .. }
+        | wasmparser::Payload::UnknownSection { .. }
+        | wasmparser::Payload::End { .. } => format!("{:?}", section),
     }
 }
 
@@ -525,16 +543,8 @@ impl<'a> Parse<'a> for (FunctionSection<'a>, CodeSection<'a>) {
         let added = items.size_added() - start;
         let code_section_size = code_section.byte_size as u32;
         let func_section_size = func_section.byte_size as u32;
-        // @@@ bye
-        //let code_section_size = sizes
-        //    .get(&code_section.index)
-        //    .ok_or_else(|| traits::Error::with_msg("Could not find section size"))?;
-        //let func_section_size = sizes
-        //        .get(&func_section.index)
-        //        .ok_or_else(|| traits::Error::with_msg("Could not find section size"))?;
         let size = code_section_size + func_section_size;
-        //println!("size={} added={} code_section_size={} func_section_size={}", size, added, code_section_size, func_section_size);
-        //println!("sizes={:#?}", sizes);
+
         assert!(added <= size);
         items.add_root(ir::Item::new(id, name, size - added, ir::Misc::new()));
 
@@ -735,7 +745,6 @@ impl<'a> Parse<'a> for wasmparser::TypeSectionReader<'a> {
 
                     items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
                 }
-                // @@@ Is this correct?
                 wasmparser::TypeDef::Module(_module) => {}
                 wasmparser::TypeDef::Instance(_instance) => {}
             }
@@ -761,7 +770,7 @@ impl<'a> Parse<'a> for wasmparser::ImportSectionReader<'a> {
         for (i, imp) in iterate_with_size(self).enumerate() {
             let (imp, size) = imp?;
             let id = Id::entry(idx, i);
-            let name = format!("import {}::{}", imp.module, imp.field.unwrap_or("@@@"));
+            let name = format!("import {}::{}", imp.module, imp.field.unwrap_or("unknown"));
             items.add_item(ir::Item::new(id, name, size, ir::Misc::new()));
         }
         Ok(())
@@ -890,7 +899,7 @@ impl<'a> Parse<'a> for wasmparser::ExportSectionReader<'a> {
                 wasmparser::ExternalKind::Event
                 | wasmparser::ExternalKind::Type
                 | wasmparser::ExternalKind::Module
-                | wasmparser::ExternalKind::Instance => {} // @@@
+                | wasmparser::ExternalKind::Instance => {}
             }
         }
 
@@ -900,7 +909,7 @@ impl<'a> Parse<'a> for wasmparser::ExportSectionReader<'a> {
 
 struct StartSection<'a> {
     function_index: u32,
-    data: &'a [u8], // @@@ we only need the size.
+    data: &'a [u8], // We only need the size.
 }
 
 impl<'a> Parse<'a> for StartSection<'a> {
@@ -1071,9 +1080,8 @@ fn ty2str(t: Type) -> &'static str {
         Type::F32 => "f32",
         Type::F64 => "f64",
         Type::V128 => "v128",
-        Type::ExnRef => "exnref",    // @@@
-        Type::FuncRef => "anyfunc",  // @@@ rename?
-        Type::ExternRef => "anyref", // @@@ rename?
+        Type::FuncRef => "funcref",
+        Type::ExnRef | Type::ExternRef => "externref",
         Type::Func | Type::EmptyBlockType => "?",
     }
 }
