@@ -18,7 +18,7 @@ regex = "1.4.2"
 [dependencies]
 structopt = { version = "0.3", optional = true }
 twiggy-traits = { version = "=0.7.0", path = "../traits" }
-wasm-bindgen = { version = "0.2.69", optional = true }
+wasm-bindgen = { version = "0.2.80", optional = true }
 cfg-if = "1.0.0"
 
 [features]
