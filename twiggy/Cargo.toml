@@ -27,4 +27,4 @@ twiggy-traits = { version = "=0.7.0", path = "../traits" }
 
 [dev-dependencies]
 colored = "2.0.0"
-diff = "0.1.12"
+diff = "0.1.13"
