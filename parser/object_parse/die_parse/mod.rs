@@ -1,7 +1,5 @@
 use gimli;
 use twiggy_ir as ir;
-use twiggy_traits as traits;
-
 mod item_name;
 mod location_attrs;
 
@@ -10,7 +8,7 @@ use self::location_attrs::DieLocationAttributes;
 
 /// This type alias is used to represent an option return value for
 /// a procedure that could return an Error.
-type FallilbleOption<T> = Result<Option<T>, traits::Error>;
+type FallilbleOption<T> = anyhow::Result<Option<T>>;
 
 pub(super) fn parse_items<R: gimli::Reader>(
     items: &mut ir::ItemsBuilder,
@@ -19,7 +17,7 @@ pub(super) fn parse_items<R: gimli::Reader>(
     unit_id: usize,
     entry: &gimli::DebuggingInformationEntry<R>,
     entry_id: usize,
-) -> Result<(), traits::Error> {
+) -> anyhow::Result<()> {
     let item: ir::Item = match entry.tag() {
         gimli::DW_TAG_subprogram => {
             if let Some(size) = DieLocationAttributes::try_from(entry)?.entity_size(dwarf, unit)? {
@@ -27,7 +25,7 @@ pub(super) fn parse_items<R: gimli::Reader>(
                 let name = item_name(entry, dwarf, unit)?
                     .unwrap_or_else(|| format!("Subroutine[{}][{}]", unit_id, entry_id));
                 let kind: ir::ItemKind = ir::Code::new(&name).into();
-                ir::Item::new(id, name, size as u32, kind)
+                ir::Item::new(id, &name, size as u32, kind)
             } else {
                 return Ok(());
             }
@@ -42,7 +40,7 @@ pub(super) fn parse_items<R: gimli::Reader>(
 pub(super) fn parse_edges<R: gimli::Reader>(
     _items: &mut ir::ItemsBuilder,
     _entry: &gimli::DebuggingInformationEntry<R>,
-) -> Result<(), traits::Error> {
+) -> anyhow::Result<()> {
     // TODO: Add edges representing the call graph.
     Ok(())
 }

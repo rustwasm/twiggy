@@ -27,7 +27,7 @@ struct UnreachableItemsSummary {
 pub fn dominators(
     items: &mut ir::Items,
     opts: &opt::Dominators,
-) -> Result<Box<dyn traits::Emit>, traits::Error> {
+) -> anyhow::Result<Box<dyn traits::Emit>> {
     items.compute_dominator_tree();
     items.compute_dominators();
     items.compute_retained_sizes();

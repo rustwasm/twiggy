@@ -1,10 +1,10 @@
 use std::io;
 
-use csv;
-use serde_derive::Serialize;
-
 use crate::formats::json;
 use crate::formats::table::{Align, Table};
+use anyhow::anyhow;
+use csv;
+use serde_derive::Serialize;
 use twiggy_ir as ir;
 use twiggy_opt as opt;
 use twiggy_traits as traits;
@@ -16,7 +16,7 @@ struct Top {
 
 impl traits::Emit for Top {
     #[cfg(feature = "emit_text")]
-    fn emit_text(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_text(&self, items: &ir::Items, dest: &mut dyn io::Write) -> anyhow::Result<()> {
         // A struct used to represent a row in the table that will be emitted.
         struct TableRow {
             size: u32,
@@ -134,7 +134,7 @@ impl traits::Emit for Top {
     }
 
     #[cfg(feature = "emit_json")]
-    fn emit_json(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_json(&self, items: &ir::Items, dest: &mut dyn io::Write) -> anyhow::Result<()> {
         let mut arr = json::array(dest)?;
 
         let max_items = self.opts.max_items() as usize;
@@ -163,7 +163,7 @@ impl traits::Emit for Top {
     }
 
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_csv(&self, items: &ir::Items, dest: &mut dyn io::Write) -> anyhow::Result<()> {
         let mut wtr = csv::Writer::from_writer(dest);
 
         #[derive(Serialize, Debug)]
@@ -209,11 +209,9 @@ impl traits::Emit for Top {
 }
 
 /// Run the `top` analysis on the given IR items.
-pub fn top(items: &mut ir::Items, opts: &opt::Top) -> Result<Box<dyn traits::Emit>, traits::Error> {
+pub fn top(items: &mut ir::Items, opts: &opt::Top) -> anyhow::Result<Box<dyn traits::Emit>> {
     if opts.retaining_paths() {
-        return Err(traits::Error::with_msg(
-            "retaining paths are not yet implemented",
-        ));
+        return Err(anyhow!("retaining paths are not yet implemented",));
     }
 
     if opts.retained() {

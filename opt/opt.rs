@@ -218,9 +218,9 @@ cfg_if! {
         }
 
         impl FromStr for OutputDestination {
-            type Err = traits::Error;
+            type Err = anyhow::Error;
 
-            fn from_str(s: &str) -> Result<Self, traits::Error> {
+            fn from_str(s: &str) -> anyhow::Result<Self> {
                 if s == "-" {
                     Ok(OutputDestination::Stdout)
                 } else {
@@ -232,7 +232,7 @@ cfg_if! {
 
         impl OutputDestination {
             /// Open the output destination as an `io::Write`.
-            pub fn open(&self) -> Result<Box<dyn io::Write>, traits::Error> {
+            pub fn open(&self) -> anyhow::Result<Box<dyn io::Write>> {
                 Ok(match *self {
                     OutputDestination::Path(ref path) => {
                         Box::new(io::BufWriter::new(fs::File::create(path)?)) as Box<_>

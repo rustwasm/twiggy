@@ -18,10 +18,7 @@ struct Paths {
 }
 
 /// Find all retaining paths for the given items.
-pub fn paths(
-    items: &mut ir::Items,
-    opts: &opt::Paths,
-) -> Result<Box<dyn traits::Emit>, traits::Error> {
+pub fn paths(items: &mut ir::Items, opts: &opt::Paths) -> anyhow::Result<Box<dyn traits::Emit>> {
     // The predecessor tree only needs to be computed if we are ascending
     // through the retaining paths.
     if !opts.descending() {
@@ -42,10 +39,7 @@ pub fn paths(
 
 /// This helper function is used to collect the `ir::Id` values for the top-most
 /// path entries for the `Paths` object, based on the given options.
-fn get_starting_positions(
-    items: &ir::Items,
-    opts: &opt::Paths,
-) -> Result<Vec<ir::Id>, traits::Error> {
+fn get_starting_positions(items: &ir::Items, opts: &opt::Paths) -> anyhow::Result<Vec<ir::Id>> {
     // Collect Id's if no arguments are given and we are ascending the retaining paths.
     let get_functions_default = || -> Vec<ir::Id> {
         let mut sorted_items = items
@@ -67,7 +61,7 @@ fn get_starting_positions(
     };
 
     // Collect Id's if arguments were given that should be used as regular expressions.
-    let get_regexp_matches = || -> Result<Vec<ir::Id>, traits::Error> {
+    let get_regexp_matches = || -> anyhow::Result<Vec<ir::Id>> {
         let regexps = regex::RegexSet::new(opts.functions())?;
         let matches = items
             .iter()

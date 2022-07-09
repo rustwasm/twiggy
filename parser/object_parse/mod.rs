@@ -1,10 +1,9 @@
-use std::borrow::{Borrow, Cow};
-
+use anyhow::anyhow;
 use fallible_iterator::FallibleIterator;
 use gimli;
 use object::{self, Object};
+use std::borrow::{Borrow, Cow};
 use twiggy_ir as ir;
-use twiggy_traits as traits;
 use typed_arena::Arena;
 
 mod compilation_unit_parse;
@@ -29,8 +28,9 @@ where
     Sect::from(gimli::EndianSlice::new(data_ref, endian))
 }
 
-pub fn parse(items: &mut ir::ItemsBuilder, data: &[u8]) -> Result<(), traits::Error> {
-    let file: object::File = object::File::parse(data)?;
+pub fn parse(items: &mut ir::ItemsBuilder, data: &[u8]) -> anyhow::Result<()> {
+    let file: object::File = object::File::parse(data)
+        .map_err(|err| anyhow!("Failed to parse data with err: {:?}", err))?;
 
     // Identify the file's endianty and create a typed arena to load sections.
     let arena = Arena::new();
@@ -71,7 +71,7 @@ pub fn parse(items: &mut ir::ItemsBuilder, data: &[u8]) -> Result<(), traits::Er
 fn parse_items<R: gimli::Reader>(
     items: &mut ir::ItemsBuilder,
     dwarf: &gimli::Dwarf<R>,
-) -> Result<(), traits::Error> {
+) -> anyhow::Result<()> {
     // Parse the items in each compilation unit.
     let mut headers = dwarf.units().enumerate();
     while let Some((unit_id, header)) = headers.next()? {
@@ -85,7 +85,7 @@ fn parse_items<R: gimli::Reader>(
 fn parse_edges<R: gimli::Reader>(
     items: &mut ir::ItemsBuilder,
     dwarf: &gimli::Dwarf<R>,
-) -> Result<(), traits::Error> {
+) -> anyhow::Result<()> {
     // Parse the edges in each compilation unit.
     let mut headers = dwarf.units().enumerate();
     while let Some((unit_id, header)) = headers.next()? {

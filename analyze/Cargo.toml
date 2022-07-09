@@ -13,6 +13,7 @@ edition = "2018"
 path = "./analyze.rs"
 
 [dependencies]
+anyhow = "1.0"
 twiggy-ir = { version = "=0.7.0", path = "../ir" }
 twiggy-opt = { version = "=0.7.0", path = "../opt", default-features = false }
 twiggy-traits = { version = "=0.7.0", path = "../traits" }

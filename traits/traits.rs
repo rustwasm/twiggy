@@ -1,133 +1,11 @@
 //! Common traits and types used throughout all of `twiggy`.
-
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 
-use std::fmt;
+use anyhow::anyhow;
 use std::io;
 use std::str::FromStr;
-
-use failure::Fail;
-
 use twiggy_ir as ir;
-
-/// An error that ocurred in `twiggy` when parsing, analyzing, or emitting
-/// items.
-#[derive(Debug)]
-pub struct Error {
-    inner: Box<ErrorInner>,
-}
-
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.inner)
-    }
-}
-
-impl failure::Fail for Error {
-    fn cause(&self) -> Option<&dyn failure::Fail> {
-        self.inner.cause()
-    }
-
-    fn backtrace(&self) -> Option<&failure::Backtrace> {
-        self.inner.backtrace()
-    }
-}
-
-#[derive(Debug, Fail)]
-enum ErrorInner {
-    #[fail(display = "{}", _0)]
-    Msg(String),
-
-    #[fail(display = "I/O error: {}", _0)]
-    Io(#[cause] io::Error),
-
-    #[fail(display = "WASM error: {}", _0)]
-    Wasm(#[cause] wasmparser::BinaryReaderError),
-
-    #[fail(display = "formatting error: {}", _0)]
-    Fmt(#[cause] fmt::Error),
-
-    #[fail(display = "CSV error: {}", _0)]
-    Csv(#[cause] csv::Error),
-
-    #[fail(display = "Regex error: {}", _0)]
-    Regex(#[cause] regex::Error),
-
-    #[cfg(feature = "dwarf")]
-    #[fail(display = "Gimli error: {}", _0)]
-    Gimli(#[cause] gimli::Error),
-}
-
-impl<'a> From<&'a str> for Error {
-    fn from(msg: &'a str) -> Error {
-        Error::with_msg(msg)
-    }
-}
-
-impl From<io::Error> for Error {
-    fn from(e: io::Error) -> Error {
-        Error {
-            inner: Box::new(ErrorInner::Io(e)),
-        }
-    }
-}
-
-impl From<wasmparser::BinaryReaderError> for Error {
-    fn from(e: wasmparser::BinaryReaderError) -> Error {
-        Error {
-            inner: Box::new(ErrorInner::Wasm(e)),
-        }
-    }
-}
-
-impl From<fmt::Error> for Error {
-    fn from(e: fmt::Error) -> Error {
-        Error {
-            inner: Box::new(ErrorInner::Fmt(e)),
-        }
-    }
-}
-
-impl From<csv::Error> for Error {
-    fn from(e: csv::Error) -> Error {
-        Error {
-            inner: Box::new(ErrorInner::Csv(e)),
-        }
-    }
-}
-
-impl From<regex::Error> for Error {
-    fn from(e: regex::Error) -> Error {
-        Error {
-            inner: Box::new(ErrorInner::Regex(e)),
-        }
-    }
-}
-
-#[cfg(feature = "dwarf")]
-impl From<gimli::Error> for Error {
-    fn from(e: gimli::Error) -> Error {
-        Error {
-            inner: Box::new(ErrorInner::Gimli(e)),
-        }
-    }
-}
-
-impl Error {
-    /// Create an error with the given message.
-    pub fn with_msg<S: Into<String>>(msg: S) -> Error {
-        Error {
-            inner: Box::new(ErrorInner::Msg(msg.into())),
-        }
-    }
-}
-
-#[test]
-fn size_of_error_is_one_word() {
-    use std::mem;
-    assert_eq!(mem::size_of::<Error>(), mem::size_of::<usize>());
-}
 
 /// An analysis takes our IR and returns some kind of data results that can be
 /// emitted.
@@ -136,7 +14,7 @@ pub trait Analyze {
     type Data: Emit;
 
     /// Run this analysis on the given IR items.
-    fn analyze(items: &mut ir::Items) -> Result<Self::Data, Error>;
+    fn analyze(items: &mut ir::Items) -> anyhow::Result<Self::Data>;
 }
 
 /// Selects the parse mode for the input data.
@@ -158,15 +36,15 @@ impl Default for ParseMode {
 }
 
 impl FromStr for ParseMode {
-    type Err = Error;
+    type Err = anyhow::Error;
 
-    fn from_str(s: &str) -> Result<Self, Error> {
+    fn from_str(s: &str) -> anyhow::Result<Self> {
         match s {
             "wasm" => Ok(ParseMode::Wasm),
             #[cfg(feature = "dwarf")]
             "dwarf" => Ok(ParseMode::Dwarf),
             "auto" => Ok(ParseMode::Auto),
-            _ => Err(Error::with_msg(format!("Unknown parse mode: {}", s))),
+            _ => Err(anyhow!("Unknown parse mode: {}", s)),
         }
     }
 }
@@ -177,14 +55,15 @@ pub enum OutputFormat {
     /// Human readable text.
     #[cfg(feature = "emit_text")]
     Text,
+
     // /// Hyper Text Markup Language.
     // Html,
-
     // /// Graphviz dot format.
     // Dot,
     /// Comma-separated values (CSV) format.
     #[cfg(feature = "emit_csv")]
     Csv,
+
     /// JavaScript Object Notation format.
     #[cfg(feature = "emit_json")]
     Json,
@@ -200,9 +79,9 @@ impl Default for OutputFormat {
 }
 
 impl FromStr for OutputFormat {
-    type Err = Error;
+    type Err = anyhow::Error;
 
-    fn from_str(s: &str) -> Result<Self, Error> {
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             #[cfg(feature = "emit_text")]
             "text" => Ok(OutputFormat::Text),
@@ -210,7 +89,7 @@ impl FromStr for OutputFormat {
             "json" => Ok(OutputFormat::Json),
             #[cfg(feature = "emit_csv")]
             "csv" => Ok(OutputFormat::Csv),
-            _ => Err(Error::with_msg(format!("Unknown output format: {}", s))),
+            _ => Err(anyhow!("Unknown output format: {}", s)),
         }
     }
 }
@@ -224,7 +103,7 @@ pub trait Emit {
         items: &ir::Items,
         destination: &mut dyn io::Write,
         format: OutputFormat,
-    ) -> Result<(), Error> {
+    ) -> anyhow::Result<()> {
         match format {
             #[cfg(feature = "emit_text")]
             OutputFormat::Text => self.emit_text(items, destination),
@@ -239,7 +118,7 @@ pub trait Emit {
 
     /// Emit human readable text.
     #[cfg(feature = "emit_text")]
-    fn emit_text(&self, items: &ir::Items, destination: &mut dyn io::Write) -> Result<(), Error>;
+    fn emit_text(&self, items: &ir::Items, destination: &mut dyn io::Write) -> anyhow::Result<()>;
 
     // /// Emit HTML.
     // fn emit_html(&self, destination: &mut dyn io::Write) -> Result<(), Error>;
@@ -249,9 +128,9 @@ pub trait Emit {
 
     /// Emit CSV.
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, items: &ir::Items, destination: &mut dyn io::Write) -> Result<(), Error>;
+    fn emit_csv(&self, items: &ir::Items, destination: &mut dyn io::Write) -> anyhow::Result<()>;
 
     /// Emit JSON.
     #[cfg(feature = "emit_json")]
-    fn emit_json(&self, items: &ir::Items, destination: &mut dyn io::Write) -> Result<(), Error>;
+    fn emit_json(&self, items: &ir::Items, destination: &mut dyn io::Write) -> anyhow::Result<()>;
 }

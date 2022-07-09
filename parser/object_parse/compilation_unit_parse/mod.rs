@@ -1,15 +1,14 @@
+use super::die_parse;
+use anyhow::anyhow;
 use gimli;
 use twiggy_ir as ir;
-use twiggy_traits as traits;
-
-use super::die_parse;
 
 pub(super) fn parse_items<R: gimli::Reader>(
     items: &mut ir::ItemsBuilder,
     dwarf: &gimli::Dwarf<R>,
     unit: &gimli::Unit<R>,
     unit_id: usize,
-) -> Result<(), traits::Error> {
+) -> anyhow::Result<()> {
     // Initialize an entry ID counter.
     let mut entry_id = 0;
 
@@ -17,10 +16,9 @@ pub(super) fn parse_items<R: gimli::Reader>(
     let mut die_cursor = unit.entries();
 
     if die_cursor.next_dfs()?.is_none() {
-        let e = traits::Error::with_msg(
+        return Err(anyhow!(
             "Unexpected error while traversing debugging information entries.",
-        );
-        return Err(e);
+        ));
     }
 
     // Parse the contained debugging information entries in depth-first order.
@@ -44,7 +42,7 @@ pub(super) fn parse_edges<R: gimli::Reader>(
     items: &mut ir::ItemsBuilder,
     unit: &gimli::Unit<R>,
     unit_id: usize,
-) -> Result<(), traits::Error> {
+) -> anyhow::Result<()> {
     // Initialize an entry ID counter.
     let mut entry_id = 0;
 
@@ -52,10 +50,9 @@ pub(super) fn parse_edges<R: gimli::Reader>(
     let mut die_cursor = unit.entries();
 
     if die_cursor.next_dfs()?.is_none() {
-        let e = traits::Error::with_msg(
-            "Unexpected error while traversing debugging information entries.",
-        );
-        return Err(e);
+        return Err(anyhow!(
+            "Unexpected error while traversing debugging information entries."
+        ));
     }
 
     // Parse the contained debugging information entries in depth-first order.

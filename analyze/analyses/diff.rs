@@ -1,13 +1,12 @@
-use std::cmp;
-use std::collections::{HashMap, HashSet};
-use std::io;
-
+use crate::formats::json;
+use crate::formats::table::{Align, Table};
+use anyhow::anyhow;
 use csv;
 use regex;
 use serde::{self, ser::SerializeStruct};
-
-use crate::formats::json;
-use crate::formats::table::{Align, Table};
+use std::cmp;
+use std::collections::{HashMap, HashSet};
+use std::io;
 use twiggy_ir as ir;
 use twiggy_opt as opt;
 use twiggy_traits as traits;
@@ -52,7 +51,7 @@ impl serde::Serialize for DiffEntry {
 
 impl traits::Emit for Diff {
     #[cfg(feature = "emit_text")]
-    fn emit_text(&self, _items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_text(&self, _items: &ir::Items, dest: &mut dyn io::Write) -> anyhow::Result<()> {
         let mut table = Table::with_header(vec![
             (Align::Right, "Delta Bytes".into()),
             (Align::Left, "Item".to_string()),
@@ -68,7 +67,7 @@ impl traits::Emit for Diff {
     }
 
     #[cfg(feature = "emit_json")]
-    fn emit_json(&self, _items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_json(&self, _items: &ir::Items, dest: &mut dyn io::Write) -> anyhow::Result<()> {
         let mut arr = json::array(dest)?;
 
         for entry in &self.deltas {
@@ -81,7 +80,7 @@ impl traits::Emit for Diff {
     }
 
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, _items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_csv(&self, _items: &ir::Items, dest: &mut dyn io::Write) -> anyhow::Result<()> {
         let mut wtr = csv::Writer::from_writer(dest);
 
         for entry in &self.deltas {
@@ -98,7 +97,7 @@ pub fn diff(
     old_items: &mut ir::Items,
     new_items: &mut ir::Items,
     opts: &opt::Diff,
-) -> Result<Box<dyn traits::Emit>, traits::Error> {
+) -> anyhow::Result<Box<dyn traits::Emit>> {
     let max_items = opts.max_items() as usize;
 
     // Given a set of items, create a HashMap of the items' names and sizes.
@@ -116,7 +115,7 @@ pub fn diff(
     // Given an item name, create a `DiffEntry` object representing the
     // change in size, or an error if the name could not be found in
     // either of the item collections.
-    let get_item_delta = |name: String| -> Result<DiffEntry, traits::Error> {
+    let get_item_delta = |name: String| -> anyhow::Result<DiffEntry> {
         let old_size = old_sizes.get::<str>(&name);
         let new_size = new_sizes.get::<str>(&name);
         let delta: i64 = match (old_size, new_size) {
@@ -124,10 +123,7 @@ pub fn diff(
             (Some(old_size), None) => -old_size,
             (None, Some(new_size)) => *new_size,
             (None, None) => {
-                return Err(traits::Error::with_msg(format!(
-                    "Could not find item with name `{}`",
-                    name
-                )));
+                return Err(anyhow!("Could not find item with name `{}`", name));
             }
         };
         Ok(DiffEntry { name, delta })
@@ -135,7 +131,7 @@ pub fn diff(
 
     // Given a result returned by `get_item_delta`, return false if the result
     // represents an unchanged item. Ignore errors, these are handled separately.
-    let unchanged_items_filter = |res: &Result<DiffEntry, traits::Error>| -> bool {
+    let unchanged_items_filter = |res: &anyhow::Result<DiffEntry>| -> bool {
         if let Ok(DiffEntry { delta: 0, .. }) = res {
             false
         } else {
@@ -169,7 +165,7 @@ pub fn diff(
         .into_iter()
         .map(get_item_delta)
         .filter(unchanged_items_filter)
-        .collect::<Result<Vec<_>, traits::Error>>()?;
+        .collect::<anyhow::Result<Vec<_>>>()?;
     deltas.sort();
 
     // Create an entry to summarize the diff rows that will be truncated.

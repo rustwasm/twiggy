@@ -15,7 +15,7 @@ use crate::formats::table::{Align, Table};
 
 impl traits::Emit for DominatorTree {
     #[cfg(feature = "emit_text")]
-    fn emit_text(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_text(&self, items: &ir::Items, dest: &mut dyn io::Write) -> anyhow::Result<()> {
         let mut table = Table::with_header(vec![
             (Align::Right, "Retained Bytes".to_string()),
             (Align::Right, "Retained %".to_string()),
@@ -93,14 +93,14 @@ impl traits::Emit for DominatorTree {
     }
 
     #[cfg(feature = "emit_json")]
-    fn emit_json(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_json(&self, items: &ir::Items, dest: &mut dyn io::Write) -> anyhow::Result<()> {
         fn recursive_add_children(
             items: &ir::Items,
             opts: &opt::Dominators,
             dominator_tree: &BTreeMap<ir::Id, Vec<ir::Id>>,
             id: ir::Id,
             obj: &mut json::Object,
-        ) -> Result<(), traits::Error> {
+        ) -> anyhow::Result<()> {
             add_json_item(items, id, obj)?;
 
             if let Some(children) = dominator_tree.get(&id) {
@@ -145,14 +145,14 @@ impl traits::Emit for DominatorTree {
     }
 
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_csv(&self, items: &ir::Items, dest: &mut dyn io::Write) -> anyhow::Result<()> {
         fn recursive_add_children(
             items: &ir::Items,
             opts: &opt::Dominators,
             dominator_tree: &BTreeMap<ir::Id, Vec<ir::Id>>,
             id: ir::Id,
             wtr: &mut csv::Writer<&mut dyn io::Write>,
-        ) -> Result<(), traits::Error> {
+        ) -> anyhow::Result<()> {
             add_csv_item(items, id, wtr)?;
             if let Some(children) = dominator_tree.get(&id) {
                 let mut children = children.to_vec();
@@ -214,11 +214,7 @@ fn add_text_item(items: &ir::Items, depth: u32, id: ir::Id, table: &mut Table) {
 }
 
 #[cfg(feature = "emit_json")]
-fn add_json_item(
-    items: &ir::Items,
-    id: ir::Id,
-    obj: &mut json::Object,
-) -> Result<(), traits::Error> {
+fn add_json_item(items: &ir::Items, id: ir::Id, obj: &mut json::Object) -> anyhow::Result<()> {
     let item = &items[id];
 
     obj.field("name", item.name())?;
@@ -253,7 +249,7 @@ fn add_csv_item(
     items: &ir::Items,
     id: ir::Id,
     wtr: &mut csv::Writer<&mut dyn io::Write>,
-) -> Result<(), traits::Error> {
+) -> anyhow::Result<()> {
     let item = &items[id];
     let (shallow_size, shallow_size_percent) = (
         item.size(),
