@@ -14,7 +14,7 @@ use super::Monos;
 
 impl traits::Emit for Monos {
     #[cfg(feature = "emit_text")]
-    fn emit_text(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_text(&self, items: &ir::Items, dest: &mut dyn io::Write) -> anyhow::Result<()> {
         struct TableRow {
             bloat: Option<u32>,
             bloat_percent: Option<f64>,
@@ -88,14 +88,14 @@ impl traits::Emit for Monos {
     }
 
     #[cfg(feature = "emit_json")]
-    fn emit_json(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_json(&self, items: &ir::Items, dest: &mut dyn io::Write) -> anyhow::Result<()> {
         // Given an entry representing a generic function and its various
         // monomorphizations, add its information to the given JSON object.
         fn process_entry(
             entry: &MonosEntry,
             obj: &mut json::Object,
             total_size: f64,
-        ) -> Result<(), traits::Error> {
+        ) -> anyhow::Result<()> {
             let get_size_percent = |size: u32| (f64::from(size)) / total_size * 100.0;
             let MonosEntry {
                 name,
@@ -135,7 +135,7 @@ impl traits::Emit for Monos {
     }
 
     #[cfg(feature = "emit_csv")]
-    fn emit_csv(&self, items: &ir::Items, dest: &mut dyn io::Write) -> Result<(), traits::Error> {
+    fn emit_csv(&self, items: &ir::Items, dest: &mut dyn io::Write) -> anyhow::Result<()> {
         // Calculate the total size of the collection of items, and define a
         // helper closure to calculate a percent value for a given u32 size.
         let items_size = f64::from(items.size());

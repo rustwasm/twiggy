@@ -13,7 +13,8 @@ edition = "2018"
 path = "./traits.rs"
 
 [dependencies]
-failure = "0.1.8"
+thiserror = "1.0"
+anyhow = "1.0"
 gimli = { version = "0.26.1", optional = true, default-features = false, features = ["std", "read"] }
 wasmparser = "0.73.0"
 twiggy-ir = { version = "=0.7.0", path = "../ir" }

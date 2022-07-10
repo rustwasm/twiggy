@@ -1,7 +1,5 @@
-use gimli;
-use twiggy_traits as traits;
-
 use super::FallilbleOption;
+use gimli;
 
 /// Calculate the item's name. If no name was assigned, a name will be
 /// decided elsewhere using the `ir::ItemKind` variant that was determined
@@ -34,7 +32,7 @@ where
             x @ Some(_) => x,
             None => die.attr_value(gimli::DW_AT_name)?,
         };
-    attr.map(|attr| -> Result<String, traits::Error> {
+    attr.map(|attr| -> anyhow::Result<String> {
         Ok(
             dwarf
                 .attr_string(unit, attr)?

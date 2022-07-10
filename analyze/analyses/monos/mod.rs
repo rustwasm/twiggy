@@ -24,7 +24,7 @@ type MonosMap<'a> = BTreeMap<&'a str, Vec<(String, u32)>>;
 fn collect_monomorphizations<'a>(
     items: &'a ir::Items,
     opts: &opt::Monos,
-) -> Result<MonosMap<'a>, traits::Error> {
+) -> anyhow::Result<MonosMap<'a>> {
     let args_given = !opts.functions().is_empty();
     let using_regexps = opts.using_regexps();
     let regexps = regex::RegexSet::new(opts.functions())?;
@@ -184,10 +184,7 @@ fn add_stats(mut monos: Vec<MonosEntry>, opts: &opt::Monos) -> Vec<MonosEntry> {
 }
 
 /// Find bloaty monomorphizations of generic functions.
-pub fn monos(
-    items: &mut ir::Items,
-    opts: &opt::Monos,
-) -> Result<Box<dyn traits::Emit>, traits::Error> {
+pub fn monos(items: &mut ir::Items, opts: &opt::Monos) -> anyhow::Result<Box<dyn traits::Emit>> {
     let monos_map = collect_monomorphizations(items, opts)?;
     let mut monos = process_monomorphizations(monos_map, opts);
     monos = add_stats(monos, opts);

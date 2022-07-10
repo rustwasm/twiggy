@@ -21,7 +21,7 @@ const WASM_MAGIC_NUMBER: [u8; 4] = [0x00, 0x61, 0x73, 0x6D];
 pub fn read_and_parse<P: AsRef<path::Path>>(
     path: P,
     mode: traits::ParseMode,
-) -> Result<ir::Items, traits::Error> {
+) -> anyhow::Result<ir::Items> {
     let path = path.as_ref();
     let mut file = fs::File::open(path)?;
     let mut data = vec![];
@@ -36,7 +36,7 @@ pub fn read_and_parse<P: AsRef<path::Path>>(
 }
 
 /// Parse the given data into IR items.
-pub fn parse(data: &[u8]) -> Result<ir::Items, traits::Error> {
+pub fn parse(data: &[u8]) -> anyhow::Result<ir::Items> {
     parse_fallback(data)
 }
 
@@ -50,7 +50,7 @@ pub(crate) trait Parse<'a> {
         &mut self,
         items: &mut ir::ItemsBuilder,
         extra: Self::ItemsExtra,
-    ) -> Result<(), traits::Error>;
+    ) -> anyhow::Result<()>;
 
     /// Any extra data needed to parse this type's edges.
     type EdgesExtra;
@@ -61,10 +61,10 @@ pub(crate) trait Parse<'a> {
         &mut self,
         items: &mut ir::ItemsBuilder,
         extra: Self::EdgesExtra,
-    ) -> Result<(), traits::Error>;
+    ) -> anyhow::Result<()>;
 }
 
-fn parse_auto(extension: Option<&OsStr>, data: &[u8]) -> Result<ir::Items, traits::Error> {
+fn parse_auto(extension: Option<&OsStr>, data: &[u8]) -> anyhow::Result<ir::Items> {
     if sniff_wasm(extension, &data) {
         parse_wasm(&data)
     } else {
@@ -83,7 +83,7 @@ fn sniff_wasm(extension: Option<&OsStr>, data: &[u8]) -> bool {
     }
 }
 
-fn parse_wasm(data: &[u8]) -> Result<ir::Items, traits::Error> {
+fn parse_wasm(data: &[u8]) -> anyhow::Result<ir::Items> {
     let mut items = ir::ItemsBuilder::new(data.len() as u32);
 
     let mut module1 = wasm_parse::ModuleReader::new(data);
@@ -95,7 +95,7 @@ fn parse_wasm(data: &[u8]) -> Result<ir::Items, traits::Error> {
 }
 
 #[cfg(feature = "dwarf")]
-fn parse_other(data: &[u8]) -> Result<ir::Items, traits::Error> {
+fn parse_other(data: &[u8]) -> anyhow::Result<ir::Items> {
     let mut items = ir::ItemsBuilder::new(data.len() as u32);
 
     object_parse::parse(&mut items, data)?;
@@ -103,6 +103,6 @@ fn parse_other(data: &[u8]) -> Result<ir::Items, traits::Error> {
     Ok(items.finish())
 }
 
-fn parse_fallback(data: &[u8]) -> Result<ir::Items, traits::Error> {
+fn parse_fallback(data: &[u8]) -> anyhow::Result<ir::Items> {
     parse_wasm(data)
 }

@@ -4,27 +4,20 @@
 #![deny(missing_debug_implementations)]
 
 use std::process;
-
-use failure::Fail;
 use structopt::StructOpt;
-
 use twiggy_analyze as analyze;
 use twiggy_opt::{self as opt, CommonCliOptions};
 use twiggy_parser as parser;
-use twiggy_traits as traits;
 
 fn main() {
     let options = opt::Options::from_args();
     if let Err(e) = run(&options) {
         eprintln!("error: {}", e);
-        for c in <dyn Fail>::iter_causes(&e) {
-            eprintln!("  caused by: {}", c);
-        }
         process::exit(1);
     }
 }
 
-fn run(opts: &opt::Options) -> Result<(), traits::Error> {
+fn run(opts: &opt::Options) -> anyhow::Result<()> {
     let mut items = parser::read_and_parse(opts.input(), opts.parse_mode())?;
 
     let data = match opts {

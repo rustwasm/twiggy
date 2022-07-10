@@ -1,8 +1,7 @@
+use super::FallilbleOption;
+use anyhow::anyhow;
 use fallible_iterator::FallibleIterator;
 use gimli;
-use twiggy_traits as traits;
-
-use super::FallilbleOption;
 
 /// This struct holds the values for DWARF attributes related to an object's
 /// location in a binary. This is intended to help consolidate the error
@@ -23,9 +22,7 @@ impl<R: gimli::Reader> DieLocationAttributes<R> {
     /// debugging information entry (DIE). Reading these attributes may fail,
     /// so this will return a Result rather than a plain `Self`.
     /// TODO: Use the TryFrom trait once it is stable.
-    pub fn try_from(
-        die: &gimli::DebuggingInformationEntry<R, R::Offset>,
-    ) -> Result<Self, traits::Error> {
+    pub fn try_from(die: &gimli::DebuggingInformationEntry<R, R::Offset>) -> anyhow::Result<Self> {
         Ok(Self {
             dw_at_low_pc: die.attr_value(gimli::DW_AT_low_pc)?,
             dw_at_high_pc: die.attr_value(gimli::DW_AT_high_pc)?,
@@ -62,9 +59,7 @@ impl<R: gimli::Reader> DieLocationAttributes<R> {
             // address in DW_AT_low_pc. If so, return the offset as the contiguous size.
             (Some(_), Some(gimli::AttributeValue::Udata(offset))) => Ok(Some(*offset)),
             // Return an error if DW_AT_high_pc is not encoded as expected.
-            (Some(_), Some(_)) => Err(traits::Error::with_msg(
-                "Unexpected DW_AT_high_pc attribute value",
-            )),
+            (Some(_), Some(_)) => Err(anyhow!("Unexpected DW_AT_high_pc attribute value")),
             // If none of the above conditions were met, this is either a
             // noncontiguous entity, or the DIE does not represent a defintion.
             _ => Ok(None),
@@ -94,9 +89,7 @@ impl<R: gimli::Reader> DieLocationAttributes<R> {
     fn dw_at_low_pc(&self) -> FallilbleOption<u64> {
         match &self.dw_at_low_pc {
             Some(gimli::AttributeValue::Addr(address)) => Ok(Some(*address)),
-            Some(_) => Err(traits::Error::with_msg(
-                "Unexpected base address attribute value",
-            )),
+            Some(_) => Err(anyhow!("Unexpected base address attribute value",)),
             None => Ok(None),
         }
     }
@@ -108,7 +101,7 @@ impl<R: gimli::Reader> DieLocationAttributes<R> {
     ) -> FallilbleOption<gimli::RawRangeListsOffset<<R as gimli::Reader>::Offset>> {
         match &self.dw_at_ranges {
             Some(gimli::AttributeValue::RangeListsRef(offset)) => Ok(Some(*offset)),
-            Some(_) => Err(traits::Error::with_msg("Unexpected DW_AT_ranges value")),
+            Some(_) => Err(anyhow!("Unexpected DW_AT_ranges value")),
             None => Ok(None),
         }
     }
