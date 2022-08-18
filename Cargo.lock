@@ -608,7 +608,7 @@ dependencies = [
  "twiggy-ir",
  "twiggy-traits",
  "typed-arena",
- "wasmparser",
+ "wasmparser 0.89.1",
 ]
 
 [[package]]
@@ -621,7 +621,7 @@ dependencies = [
  "regex",
  "thiserror",
  "twiggy-ir",
- "wasmparser",
+ "wasmparser 0.73.1",
 ]
 
 [[package]]
@@ -737,6 +737,15 @@ name = "wasmparser"
 version = "0.73.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b8526ab131cbc49495a483c98954913ae7b83551adacab5e294cf77992e70ee7"
+
+[[package]]
+name = "wasmparser"
+version = "0.89.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ab5d3e08b13876f96dd55608d03cd4883a0545884932d5adf11925876c96daef"
+dependencies = [
+ "indexmap",
+]
 
 [[package]]
 name = "winapi"
