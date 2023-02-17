@@ -43,7 +43,7 @@ Example of dynamic dispatch in Rust:
 ```rust
 fn generic_function(t: &MyTrait) { ... }
 // or
-fn generic_function(t: Box<MyTrait>) { ... }
+fn generic_function(t: Box<dyn MyTrait>) { ... }
 // etc...
 
 // No more code bloat!
