@@ -20,9 +20,9 @@ your binary? Maybe it is deep down in some library you depend on, but inside a
 submodule of that library that you aren't using, and you wouldn't expect it to
 be included in the final binary.
 
-In this scenario, `twiggy` can show you all the paths in the call graph that
-lead to the unexpected function. This lets you understand why the unwelcome
-function is present, and decide what you can do about it. Maybe if you
-refactored your code to avoid calling *Y*, then there wouldn't be any paths to
-the unwelcome function anymore, it would be dead code, and the linker would
-remove it.
+In this scenario, [`twiggy` can show](../usage/command-line-interface/paths.md)
+you all the paths in the call graph that lead to the unexpected function. This
+lets you understand why the unwelcome function is present, and decide what you
+can do about it. Maybe if you refactored your code to avoid calling *Y*, then
+there wouldn't be any paths tothe unwelcome function anymore, it would be dead
+code, and the linker would remove it.

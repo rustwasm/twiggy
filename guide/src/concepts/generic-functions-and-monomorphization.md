@@ -89,6 +89,7 @@ AlsoThing z;
 generic(z);
 ```
 
-`twiggy` can analyze a binary to find which generic functions are being
-monomorphized repeatedly, and calculate an estimation of how much code size
-could be saved by switching from monomorphization to dynamic dispatch.
+[`twiggy` can analyze](../usage/command-line-interface/monos.md) a binary to
+find which generic functions are being monomorphized repeatedly, and calculate
+an estimation of how much code size could be saved by switching from
+monomorphization to dynamic dispatch.
