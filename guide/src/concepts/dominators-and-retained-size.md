@@ -29,8 +29,9 @@ dominator tree for our call graph from earlier, where `shred` is the root:
 
 [<img alt="Dominator Tree" src="./dominator-tree.svg"/>](./dominator-tree.svg)
 
-Using the dominator relationship, we can find the *retained size* of some
-function by taking its shallow size and adding the retained sizes of each
-function that it immediately dominates.
+Using the dominator relationship,
+[`twiggy` can](../usage/command-line-interface/dominators.md) help you find the
+*retained size* of some function by taking its shallow size and adding the
+retained sizes of each function that it immediately dominates.
 
 [dominators]: https://en.wikipedia.org/wiki/Dominator_(graph_theory)
