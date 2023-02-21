@@ -61,7 +61,7 @@ impl<R: gimli::Reader> DieLocationAttributes<R> {
             // Return an error if DW_AT_high_pc is not encoded as expected.
             (Some(_), Some(_)) => Err(anyhow!("Unexpected DW_AT_high_pc attribute value")),
             // If none of the above conditions were met, this is either a
-            // noncontiguous entity, or the DIE does not represent a defintion.
+            // noncontiguous entity, or the DIE does not represent a definition.
             _ => Ok(None),
         }
     }
