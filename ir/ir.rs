@@ -25,7 +25,7 @@ pub struct ItemsBuilder {
 
     // Maps the offset some data begins at to its IR item's identifier, and the
     // byte length of the data.
-    data: BTreeMap<u32, (Id, u32)>,
+    data: BTreeMap<u64, (Id, u64)>,
 }
 
 impl ItemsBuilder {
@@ -82,12 +82,12 @@ impl ItemsBuilder {
     pub fn link_data(&mut self, offset: i64, len: usize, id: Id) {
         if offset >= 0 && offset <= i64::from(u32::MAX) && offset as usize + len < u32::MAX as usize
         {
-            self.data.insert(offset as u32, (id, len as u32));
+            self.data.insert(offset as u64, (id, len as u64));
         }
     }
 
     /// Locate the data section defining memory at the given offset.
-    pub fn get_data(&self, offset: u32) -> Option<Id> {
+    pub fn get_data(&self, offset: u64) -> Option<Id> {
         self.data
             .range(offset..)
             .next()

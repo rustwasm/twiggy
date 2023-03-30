@@ -208,7 +208,7 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 wasmparser::Payload::Version { .. }
                 | wasmparser::Payload::CodeSectionEntry { .. }
                 | wasmparser::Payload::AliasSection { .. }
-                | wasmparser::Payload::EventSection { .. }
+                | wasmparser::Payload::TagSection { .. }
                 | wasmparser::Payload::InstanceSection { .. }
                 | wasmparser::Payload::ModuleSectionStart { .. }
                 | wasmparser::Payload::ModuleSectionEntry { .. }
@@ -281,7 +281,7 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                             wasmparser::ImportSectionEntryType::Global(_) => {
                                 indices.globals.push(id);
                             }
-                            wasmparser::ImportSectionEntryType::Event(_) => {}
+                            wasmparser::ImportSectionEntryType::Tag(_) => {}
                             wasmparser::ImportSectionEntryType::Module(_) => {}
                             wasmparser::ImportSectionEntryType::Instance(_) => {}
                         }
@@ -389,7 +389,7 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 wasmparser::Payload::Version { .. }
                 | wasmparser::Payload::CodeSectionEntry { .. }
                 | wasmparser::Payload::AliasSection { .. }
-                | wasmparser::Payload::EventSection { .. }
+                | wasmparser::Payload::TagSection { .. }
                 | wasmparser::Payload::InstanceSection { .. }
                 | wasmparser::Payload::ModuleSectionStart { .. }
                 | wasmparser::Payload::ModuleSectionEntry { .. }
@@ -429,7 +429,7 @@ fn get_section_name(section: &wasmparser::Payload<'_>) -> String {
             panic!("unexpected CodeSectionEntry");
         }
         wasmparser::Payload::AliasSection { .. }
-        | wasmparser::Payload::EventSection { .. }
+        | wasmparser::Payload::TagSection { .. }
         | wasmparser::Payload::InstanceSection { .. }
         | wasmparser::Payload::ModuleSectionStart { .. }
         | wasmparser::Payload::ModuleSectionEntry { .. }
@@ -606,7 +606,7 @@ impl<'a> Parse<'a> for (FunctionSection<'a>, CodeSection<'a>) {
                     | Operator::F32Load { memarg }
                     | Operator::F64Load { memarg } => {
                         if let Some(Operator::I32Const { value }) = prev {
-                            if let Some(data_id) = items.get_data(value as u32 + memarg.offset) {
+                            if let Some(data_id) = items.get_data(value as u64 + memarg.offset) {
                                 edges.push((body_id, data_id));
                             }
                         }
@@ -644,6 +644,13 @@ impl<'a> Parse<'a> for wasmparser::NameSectionReader<'a> {
                 wasmparser::Name::Function(_) => "\"function names\" subsection",
                 wasmparser::Name::Local(_) => "\"local names\" subsection",
                 wasmparser::Name::Unknown { .. } => "\"unknown name\" subsection",
+                wasmparser::Name::Label(_) => "\"label names\" subsection",
+                wasmparser::Name::Type(_) => "\"type names\" subsection",
+                wasmparser::Name::Table(_) => "\"table names\" subsection",
+                wasmparser::Name::Memory(_) => "\"memory names\" subsection",
+                wasmparser::Name::Global(_) => "\"global names\" subsection",
+                wasmparser::Name::Element(_) => "\"element names\" subsection",
+                wasmparser::Name::Data(_) => "\"data names\" subsection",
             };
             let id = Id::entry(idx, i);
             items.add_root(ir::Item::new(id, name, size, ir::DebugInfo::new()));
@@ -856,7 +863,7 @@ impl<'a> Parse<'a> for wasmparser::ExportSectionReader<'a> {
                 wasmparser::ExternalKind::Global => {
                     items.add_edge(exp_id, indices.globals[exp.index as usize]);
                 }
-                wasmparser::ExternalKind::Event
+                wasmparser::ExternalKind::Tag
                 | wasmparser::ExternalKind::Type
                 | wasmparser::ExternalKind::Module
                 | wasmparser::ExternalKind::Instance => {}
