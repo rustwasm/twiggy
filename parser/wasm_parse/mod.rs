@@ -141,9 +141,8 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
         // can collapse corresponding entries from the code and function
         // sections into a single representative IR item.
         match (function_section, code_section) {
-            (Some(function_section), Some(code_section)) => {
-                (function_section, code_section).parse_items(items, (imported_functions, &names))?
-            }
+            (Some(function_section), Some(code_section)) => (function_section, code_section)
+                .parse_items(items, (imported_functions, &names.function_names))?,
             _ => Err(anyhow!("function or code section is missing",))?,
         };
 
@@ -193,7 +192,7 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                     reader.parse_items(items, idx)?;
                 }
                 wasmparser::Payload::DataSection(mut reader) => {
-                    reader.parse_items(items, idx)?;
+                    reader.parse_items(items, (idx, &names.data_names))?;
                 }
                 wasmparser::Payload::DataCountSection { range, .. } => {
                     DataCountSection {
@@ -438,10 +437,14 @@ fn get_section_name(section: &wasmparser::Payload<'_>) -> String {
     }
 }
 
-fn parse_names_section<'a>(
-    indexed_sections: &[IndexedSection<'a>],
-) -> anyhow::Result<HashMap<usize, &'a str>> {
-    let mut names = HashMap::new();
+#[derive(Default)]
+struct Names<'a> {
+    function_names: HashMap<usize, &'a str>,
+    data_names: HashMap<usize, &'a str>,
+}
+
+fn parse_names_section<'a>(indexed_sections: &[IndexedSection<'a>]) -> anyhow::Result<Names<'a>> {
+    let mut names = Names::default();
     for IndexedSection(_, section) in indexed_sections.iter() {
         if let wasmparser::Payload::CustomSection {
             name: "name",
@@ -458,15 +461,25 @@ fn parse_names_section<'a>(
                 } else {
                     continue;
                 };
-                let f = match subsection {
-                    wasmparser::Name::Function(f) => f,
+                match subsection {
+                    wasmparser::Name::Function(f) => {
+                        let mut map = f.get_map()?;
+                        for _ in 0..map.get_count() {
+                            let naming = map.read()?;
+                            names
+                                .function_names
+                                .insert(naming.index as usize, naming.name);
+                        }
+                    }
+                    wasmparser::Name::Data(d) => {
+                        let mut map = d.get_map()?;
+                        for _ in 0..map.get_count() {
+                            let naming = map.read()?;
+                            names.data_names.insert(naming.index as usize, naming.name);
+                        }
+                    }
                     _ => continue,
                 };
-                let mut map = f.get_map()?;
-                for _ in 0..map.get_count() {
-                    let naming = map.read()?;
-                    names.insert(naming.index as usize, naming.name);
-                }
             }
         }
     }
@@ -974,13 +987,20 @@ impl<'a> Parse<'a> for wasmparser::ElementSectionReader<'a> {
 }
 
 impl<'a> Parse<'a> for wasmparser::DataSectionReader<'a> {
-    type ItemsExtra = usize;
+    type ItemsExtra = (usize, &'a HashMap<usize, &'a str>);
 
-    fn parse_items(&mut self, items: &mut ir::ItemsBuilder, idx: usize) -> anyhow::Result<()> {
+    fn parse_items(
+        &mut self,
+        items: &mut ir::ItemsBuilder,
+        (idx, names): Self::ItemsExtra,
+    ) -> anyhow::Result<()> {
         for (i, d) in iterate_with_size(self).enumerate() {
             let (d, size) = d?;
             let id = Id::entry(idx, i);
-            let name = format!("data[{}]", i);
+            let name = names.get(&i).map_or_else(
+                || format!("data[{}]", i),
+                |name| format!("data segment \"{}\"", name),
+            );
             items.add_item(ir::Item::new(id, name, size, ir::Data::new(None)));
 
             // Get the constant address (if any) from the initialization
