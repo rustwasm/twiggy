@@ -155,6 +155,7 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                     name,
                     data,
                     data_offset,
+                    ..
                 } => {
                     CustomSectionReader {
                         name,
@@ -335,6 +336,7 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                     name,
                     data,
                     data_offset,
+                    ..
                 } => {
                     CustomSectionReader {
                         name,
@@ -445,6 +447,7 @@ fn parse_names_section<'a>(
             name: "name",
             data,
             data_offset,
+            ..
         } = section
         {
             for subsection in wasmparser::NameSectionReader::new(data, *data_offset)? {
