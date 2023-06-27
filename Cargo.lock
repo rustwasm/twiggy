@@ -105,9 +105,9 @@ dependencies = [
 
 [[package]]
 name = "cpp_demangle"
-version = "0.3.5"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eeaa953eaad386a53111e47172c2fedba671e5684c8dd601a5f474f4f118710f"
+checksum = "ee34052ee3d93d6d8f3e6f81d85c47921f6653a19a7b70e939e3e602d893a674"
 dependencies = [
  "cfg-if",
 ]
