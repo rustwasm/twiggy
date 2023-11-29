@@ -184,7 +184,7 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 wasmparser::Payload::StartSection { func, range } => {
                     StartSection {
                         function_index: func,
-                        data: &self.data[range.start..range.end],
+                        _data: &self.data[range.start..range.end],
                     }
                     .parse_items(items, idx)?;
                 }
@@ -193,12 +193,6 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 }
                 wasmparser::Payload::DataSection(mut reader) => {
                     reader.parse_items(items, (idx, &names.data_names))?;
-                }
-                wasmparser::Payload::DataCountSection { range, .. } => {
-                    DataCountSection {
-                        size: range.end - range.start,
-                    }
-                    .parse_items(items, idx)?;
                 }
                 wasmparser::Payload::CodeSectionStart { .. }
                 | wasmparser::Payload::FunctionSection(_) => {
@@ -212,7 +206,8 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 | wasmparser::Payload::ModuleSectionStart { .. }
                 | wasmparser::Payload::ModuleSectionEntry { .. }
                 | wasmparser::Payload::UnknownSection { .. }
-                | wasmparser::Payload::End { .. } => {}
+                | wasmparser::Payload::End { .. }
+                | wasmparser::Payload::DataCountSection { .. } => {}
             };
             let id = Id::section(idx);
             let added = items.size_added() - start;
@@ -365,7 +360,7 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 wasmparser::Payload::StartSection { func, range } => {
                     StartSection {
                         function_index: func,
-                        data: &self.data[range.start..range.end],
+                        _data: &self.data[range.start..range.end],
                     }
                     .parse_edges(items, (&indices, idx))?;
                 }
@@ -374,12 +369,6 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 }
                 wasmparser::Payload::DataSection(mut reader) => {
                     reader.parse_edges(items, ())?;
-                }
-                wasmparser::Payload::DataCountSection { range, .. } => {
-                    DataCountSection {
-                        size: range.end - range.start,
-                    }
-                    .parse_edges(items, ())?;
                 }
                 wasmparser::Payload::CodeSectionStart { .. }
                 | wasmparser::Payload::FunctionSection { .. } => {
@@ -393,7 +382,8 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 | wasmparser::Payload::ModuleSectionStart { .. }
                 | wasmparser::Payload::ModuleSectionEntry { .. }
                 | wasmparser::Payload::UnknownSection { .. }
-                | wasmparser::Payload::End { .. } => {}
+                | wasmparser::Payload::End { .. }
+                | wasmparser::Payload::DataCountSection { .. } => {}
             }
         }
 
@@ -889,17 +879,13 @@ impl<'a> Parse<'a> for wasmparser::ExportSectionReader<'a> {
 
 struct StartSection<'a> {
     function_index: u32,
-    data: &'a [u8], // We only need the size.
+    _data: &'a [u8], // We only need the size.
 }
 
 impl<'a> Parse<'a> for StartSection<'a> {
     type ItemsExtra = usize;
 
-    fn parse_items(&mut self, items: &mut ir::ItemsBuilder, idx: usize) -> anyhow::Result<()> {
-        let size = self.data.len() as u32;
-        let id = Id::section(idx);
-        let name = "\"start\" section";
-        items.add_root(ir::Item::new(id, name, size, ir::Misc::new()));
+    fn parse_items(&mut self, _: &mut ir::ItemsBuilder, _: usize) -> anyhow::Result<()> {
         Ok(())
     }
 
@@ -914,28 +900,6 @@ impl<'a> Parse<'a> for StartSection<'a> {
             Id::section(idx),
             indices.functions[self.function_index as usize],
         );
-        Ok(())
-    }
-}
-
-struct DataCountSection {
-    size: usize,
-}
-
-impl<'a> Parse<'a> for DataCountSection {
-    type ItemsExtra = usize;
-
-    fn parse_items(&mut self, items: &mut ir::ItemsBuilder, idx: usize) -> anyhow::Result<()> {
-        let size = self.size as u32;
-        let id = Id::section(idx);
-        let name = "\"data count\" section";
-        items.add_root(ir::Item::new(id, name, size, ir::Misc::new()));
-        Ok(())
-    }
-
-    type EdgesExtra = ();
-
-    fn parse_edges(&mut self, _items: &mut ir::ItemsBuilder, (): ()) -> anyhow::Result<()> {
         Ok(())
     }
 }
