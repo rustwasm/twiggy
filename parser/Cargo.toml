@@ -14,10 +14,10 @@ path = "./parser.rs"
 
 [dependencies]
 anyhow = "1.0"
-fallible-iterator = { version = "0.2.0", optional = true }
-gimli = { version = "0.27.3", optional = true, default-features = false, features = ["std", "read"] }
-object = { version = "0.17.0", optional = true }
-wasmparser = "0.80.0"
+fallible-iterator = { version = "0.3.0", optional = true }
+gimli = { version = "0.28.1", optional = true, default-features = true, features = ["std", "read"] }
+object = { version = "0.32.2", optional = true }
+wasmparser = "0.80.2"
 typed-arena = { version = "2.0.2", optional = true }
 twiggy-ir = { version = "=0.7.0", path = "../ir" }
 twiggy-traits = { version = "=0.7.0", path = "../traits" }

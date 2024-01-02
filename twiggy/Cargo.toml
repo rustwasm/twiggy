@@ -26,5 +26,6 @@ twiggy-parser = { version = "=0.7.0", path = "../parser" }
 twiggy-traits = { version = "=0.7.0", path = "../traits" }
 
 [dev-dependencies]
-colored = "2.0.0"
+colored = "2.1.0"
 diff = "0.1.13"
+wasm-bindgen-test = "0.2"
