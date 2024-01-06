@@ -711,4 +711,8 @@ impl Garbage {
     pub fn show_data_segments(&self) -> bool {
         self.show_data_segments
     }
+
+    pub fn set_show_data_segments(&mut self, show: bool) {
+        self.show_data_segments = show;
+    }
 }
