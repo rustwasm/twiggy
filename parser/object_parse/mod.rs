@@ -1,7 +1,7 @@
 use anyhow::anyhow;
 use fallible_iterator::FallibleIterator;
 use gimli;
-use object::{self, Object};
+use object::{self, Object, ObjectSection, Section};
 use std::borrow::{Borrow, Cow};
 use twiggy_ir as ir;
 use typed_arena::Arena;
@@ -22,7 +22,8 @@ where
     'a: 'file,
 {
     let data = file
-        .section_data_by_name(Sect::section_name())
+        .section_by_name(Sect::section_name())
+        .map(|s| s.uncompressed_data().unwrap())
         .unwrap_or(Cow::Borrowed(&[]));
     let data_ref = (*arena.alloc(data)).borrow();
     Sect::from(gimli::EndianSlice::new(data_ref, endian))
@@ -68,15 +69,19 @@ pub fn parse(items: &mut ir::ItemsBuilder, data: &[u8]) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn parse_items<R: gimli::Reader>(
+fn parse_items<R: gimli::Reader<Offset = usize>>(
     items: &mut ir::ItemsBuilder,
     dwarf: &gimli::Dwarf<R>,
 ) -> anyhow::Result<()> {
     // Parse the items in each compilation unit.
-    let mut headers = dwarf.units().enumerate();
-    while let Some((unit_id, header)) = headers.next()? {
+    let mut units = dwarf.units();
+    let mut i = 0;
+    while let Some(header) = units.next()? {
+        // FIXME: what's unit_id
+        let unit_id = header.offset();
         let unit = dwarf.unit(header)?;
-        compilation_unit_parse::parse_items(items, dwarf, &unit, unit_id)?
+        compilation_unit_parse::parse_items(items, dwarf, &unit, unit_id)?;
+        i += 1;
     }
 
     Ok(())

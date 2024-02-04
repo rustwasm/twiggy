@@ -15,8 +15,11 @@ path = "./traits.rs"
 [dependencies]
 thiserror = "1.0"
 anyhow = "1.0"
-gimli = { version = "0.27.3", optional = true, default-features = false, features = ["std", "read"] }
-wasmparser = "0.80.0"
+gimli = { version = "0.27.3", optional = true, default-features = false, features = [
+  "std",
+  "read",
+] }
+wasmparser = "0.121"
 twiggy-ir = { version = "=0.7.0", path = "../ir" }
 csv = "1.2.2"
 regex = "1.4.2"

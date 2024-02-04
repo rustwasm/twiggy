@@ -75,10 +75,12 @@ impl<R: gimli::Reader> DieLocationAttributes<R> {
     ) -> FallilbleOption<u64> {
         if let Some(raw_offset) = self.dw_at_ranges()? {
             let offset = dwarf.ranges_offset_from_raw(unit, raw_offset);
-            let ranges = dwarf.ranges(unit, offset)?;
-            let size = ranges
-                .map(|r| Ok(r.end - r.begin))
-                .fold(0, |res, size| Ok(res + size))?;
+            let mut ranges = dwarf.ranges(unit, offset)?;
+            let mut size = 0;
+            while let Some(next) = ranges.next()? {
+                size += next.end - next.begin;
+            }
+
             Ok(Some(size))
         } else {
             Ok(None)
