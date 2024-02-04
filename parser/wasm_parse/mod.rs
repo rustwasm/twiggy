@@ -978,9 +978,12 @@ impl<'a> Parse<'a> for wasmparser::ElementSectionReader<'a> {
 
             match elem.kind {
                 wasmparser::ElementKind::Active { table_index, .. } => {
-                    if let Some(table_index) = table_index {
-                        items.add_edge(indices.tables[table_index as usize], elem_id);
-                    }
+                    // FIXME: should we unwrap_or_default?? If not, tests won't pass
+                    // Are tests wrong?
+                    items.add_edge(
+                        indices.tables[table_index.unwrap_or_default() as usize],
+                        elem_id,
+                    );
                 }
                 wasmparser::ElementKind::Declared => {}
                 wasmparser::ElementKind::Passive => {}

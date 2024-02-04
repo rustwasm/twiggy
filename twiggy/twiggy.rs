@@ -32,6 +32,54 @@ fn run(opts: &opt::Options) -> anyhow::Result<()> {
         }
     };
 
+    // eprintln!("DominatorTree");
+    // for (key, values) in items.dominator_tree().iter() {
+    //     let item = &items[*key];
+    //     let item_name = item.name();
+    //     let retained_size = items.retained_size(*key);
+    //     eprintln!(
+    //         "{} (size={}, retained={}):",
+    //         item_name,
+    //         item.size(),
+    //         retained_size
+    //     );
+    //     for child in values.iter() {
+    //         let item = &items[*child];
+    //         let retained_size = items.retained_size(*child);
+    //         let child_name = item.name();
+    //         eprintln!(
+    //             "  {} (size={}, retained={})",
+    //             child_name,
+    //             item.size(),
+    //             retained_size
+    //         );
+    //     }
+    // }
+
+    // eprintln!("\n\nEdges");
+    // for item in items.iter() {
+    //     let item_name = item.name();
+    //     let retained_size = items.retained_size(item.id());
+    //     eprintln!(
+    //         "{} (size={}, retained={}):",
+    //         item_name,
+    //         item.size(),
+    //         retained_size
+    //     );
+
+    //     for child in items.neighbors(item.id()) {
+    //         let item = &items[child];
+    //         let retained_size = items.retained_size(child);
+    //         let child_name = item.name();
+    //         eprintln!(
+    //             "  {} (size={}, retained={})",
+    //             child_name,
+    //             item.size(),
+    //             retained_size
+    //         );
+    //     }
+    // }
+
     let mut dest = opts.output_destination().open()?;
 
     data.emit(&items, &mut *dest, opts.output_format())
