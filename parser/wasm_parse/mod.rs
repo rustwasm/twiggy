@@ -148,10 +148,6 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
             _ => Err(anyhow!("function or code section is missing",))?,
         };
 
-        println!("sections");
-        for s in sections.iter() {
-            println!("{}", s.0)
-        }
         for IndexedSection(idx, section) in sections.into_iter() {
             let start = items.size_added();
             let name = get_section_name(&section);
