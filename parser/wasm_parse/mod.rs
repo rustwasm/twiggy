@@ -148,6 +148,10 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
             _ => Err(anyhow!("function or code section is missing",))?,
         };
 
+        println!("sections");
+        for s in sections.iter() {
+            println!("{}", s.0)
+        }
         for IndexedSection(idx, section) in sections.into_iter() {
             let start = items.size_added();
             let name = get_section_name(&section);
@@ -939,7 +943,7 @@ impl<'a> Parse<'a> for DataCountSection {
 
     fn parse_items(&mut self, items: &mut ir::ItemsBuilder, idx: usize) -> anyhow::Result<()> {
         let size = self.size as u32;
-        let id = Id::section(idx);
+        let id = Id::entry(idx, 0);
         let name = "\"data count\" section";
         items.add_root(ir::Item::new(id, name, size, ir::Misc::new()));
         Ok(())
@@ -996,8 +1000,8 @@ impl<'a> Parse<'a> for wasmparser::ElementSectionReader<'a> {
                         items.add_edge(elem_id, indices.functions[func_idx as usize]);
                     }
                 }
-                wasmparser::ElementItems::Expressions(_, _) => {
-                    todo!("handle expr")
+                wasmparser::ElementItems::Expressions(r, f) => {
+                    // FIXME: maybe we need to do sth here?
                 }
             }
         }

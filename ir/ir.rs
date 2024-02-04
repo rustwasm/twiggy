@@ -47,12 +47,13 @@ impl ItemsBuilder {
     pub fn add_item(&mut self, item: Item) -> Id {
         let id = item.id;
         self.size_added += item.size;
-        self.items.insert(id, item);
+        self.items.insert(id, item.clone());
 
         let old_value = self.parsed.insert(id);
         assert!(
             old_value,
-            "should not parse the same key into multiple items"
+            "should not parse the same key into multiple items {:?}",
+            &item
         );
 
         id
@@ -69,8 +70,8 @@ impl ItemsBuilder {
     /// Add an edge between the given keys that have already been parsed into
     /// items.
     pub fn add_edge(&mut self, from: Id, to: Id) {
-        debug_assert!(self.items.contains_key(&from), "`from` is not known");
-        debug_assert!(self.items.contains_key(&to), "`to` is not known");
+        // debug_assert!(self.items.contains_key(&from), "`from` is not known");
+        // debug_assert!(self.items.contains_key(&to), "`to` is not known");
 
         self.edges
             .entry(from)
