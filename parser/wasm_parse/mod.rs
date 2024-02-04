@@ -201,6 +201,7 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 | wasmparser::Payload::FunctionSection(_) => {
                     unreachable!("unexpected code or function section found");
                 }
+
                 wasmparser::Payload::Version { .. }
                 | wasmparser::Payload::CodeSectionEntry { .. }
                 | wasmparser::Payload::ComponentAliasSection(_)
@@ -209,7 +210,15 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 | wasmparser::Payload::ModuleSection { .. }
                 | wasmparser::Payload::UnknownSection { .. }
                 | wasmparser::Payload::End { .. } => {}
-                _ => {}
+
+                wasmparser::Payload::CoreTypeSection(_) => todo!(),
+                wasmparser::Payload::ComponentSection { parser, range } => todo!(),
+                wasmparser::Payload::ComponentInstanceSection(_) => todo!(),
+                wasmparser::Payload::ComponentTypeSection(_) => todo!(),
+                wasmparser::Payload::ComponentCanonicalSection(_) => todo!(),
+                wasmparser::Payload::ComponentStartSection { start, range } => todo!(),
+                wasmparser::Payload::ComponentImportSection(_) => todo!(),
+                wasmparser::Payload::ComponentExportSection(_) => todo!(),
             };
             let id = Id::section(idx);
             let added = items.size_added() - start;
@@ -383,7 +392,15 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 | wasmparser::Payload::ModuleSection { .. }
                 | wasmparser::Payload::UnknownSection { .. }
                 | wasmparser::Payload::End { .. } => {}
-                _ => {}
+
+                wasmparser::Payload::CoreTypeSection(_) => todo!(),
+                wasmparser::Payload::ComponentSection { parser, range } => todo!(),
+                wasmparser::Payload::ComponentInstanceSection(_) => todo!(),
+                wasmparser::Payload::ComponentTypeSection(_) => todo!(),
+                wasmparser::Payload::ComponentCanonicalSection(_) => todo!(),
+                wasmparser::Payload::ComponentStartSection { start, range } => todo!(),
+                wasmparser::Payload::ComponentImportSection(_) => todo!(),
+                wasmparser::Payload::ComponentExportSection(_) => todo!(),
             }
         }
 
@@ -423,7 +440,15 @@ fn get_section_name(section: &wasmparser::Payload<'_>) -> String {
         | wasmparser::Payload::ModuleSection { .. }
         | wasmparser::Payload::UnknownSection { .. }
         | wasmparser::Payload::End { .. } => format!("{:?}", section),
-        _ => format!("{:?}", section),
+
+        wasmparser::Payload::CoreTypeSection(_) => todo!(),
+        wasmparser::Payload::ComponentSection { parser, range } => todo!(),
+        wasmparser::Payload::ComponentInstanceSection(_) => todo!(),
+        wasmparser::Payload::ComponentTypeSection(_) => todo!(),
+        wasmparser::Payload::ComponentCanonicalSection(_) => todo!(),
+        wasmparser::Payload::ComponentStartSection { start, range } => todo!(),
+        wasmparser::Payload::ComponentImportSection(_) => todo!(),
+        wasmparser::Payload::ComponentExportSection(_) => todo!(),
     }
 }
 
@@ -635,6 +660,7 @@ impl<'a> Parse<'a> for wasmparser::NameSectionReader<'a> {
             let subsection = if let Ok(subsection) = subsection {
                 subsection
             } else {
+                start = self.original_position();
                 continue;
             };
             let size = (self.original_position() - start) as u32;
@@ -865,7 +891,7 @@ impl<'a> Parse<'a> for wasmparser::ExportSectionReader<'a> {
                 wasmparser::ExternalKind::Global => {
                     items.add_edge(exp_id, indices.globals[exp.index as usize]);
                 }
-                wasmparser::ExternalKind::Tag | wasmparser::ExternalKind::Memory => {}
+                wasmparser::ExternalKind::Tag => {}
             }
         }
 
