@@ -4,8 +4,8 @@ use std::borrow::{Borrow, BorrowMut};
 use std::collections::HashMap;
 use std::ops::Range;
 use twiggy_ir::{self as ir, Id};
-use wasmparser::{self, FromReader, Operator, SectionReader, Type};
-use wasmparser::{SectionLimited, SectionWithLimitedItems};
+use wasmparser::SectionLimited;
+use wasmparser::{self, FromReader, Operator, ValType as Type};
 
 #[derive(Default)]
 pub struct SectionIndices {
@@ -152,16 +152,11 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
             let start = items.size_added();
             let name = get_section_name(&section);
             match section {
-                wasmparser::Payload::CustomSection {
-                    name,
-                    data,
-                    data_offset,
-                    ..
-                } => {
+                wasmparser::Payload::CustomSection(c) => {
                     CustomSectionReader {
-                        name,
-                        data,
-                        data_offset,
+                        name: c.name(),
+                        data: c.data(),
+                        data_offset: c.data_offset(),
                     }
                     .parse_items(items, idx)?;
                 }
@@ -208,13 +203,13 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 }
                 wasmparser::Payload::Version { .. }
                 | wasmparser::Payload::CodeSectionEntry { .. }
-                | wasmparser::Payload::AliasSection { .. }
+                | wasmparser::Payload::ComponentAliasSection(_)
                 | wasmparser::Payload::TagSection { .. }
                 | wasmparser::Payload::InstanceSection { .. }
-                | wasmparser::Payload::ModuleSectionStart { .. }
-                | wasmparser::Payload::ModuleSectionEntry { .. }
+                | wasmparser::Payload::ModuleSection { .. }
                 | wasmparser::Payload::UnknownSection { .. }
                 | wasmparser::Payload::End { .. } => {}
+                _ => {}
             };
             let id = Id::section(idx);
             let added = items.size_added() - start;
@@ -270,38 +265,36 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                     for (i, import) in reader.clone().into_iter().enumerate() {
                         let id = Id::entry(*idx, i);
                         match import?.ty {
-                            wasmparser::ImportSectionEntryType::Function(_) => {
+                            wasmparser::TypeRef::Func(_) => {
                                 indices.functions.push(id);
                             }
-                            wasmparser::ImportSectionEntryType::Table(_) => {
+                            wasmparser::TypeRef::Table(_) => {
                                 indices.tables.push(id);
                             }
-                            wasmparser::ImportSectionEntryType::Memory(_) => {
+                            wasmparser::TypeRef::Memory(_) => {
                                 indices.memories.push(id);
                             }
-                            wasmparser::ImportSectionEntryType::Global(_) => {
+                            wasmparser::TypeRef::Global(_) => {
                                 indices.globals.push(id);
                             }
-                            wasmparser::ImportSectionEntryType::Tag(_) => {}
-                            wasmparser::ImportSectionEntryType::Module(_) => {}
-                            wasmparser::ImportSectionEntryType::Instance(_) => {}
+                            wasmparser::TypeRef::Tag(_) => {}
                         }
                     }
                 }
                 wasmparser::Payload::GlobalSection(reader) => {
-                    for i in 0..reader.get_count() {
+                    for i in 0..reader.count() {
                         let id = Id::entry(*idx, i as usize);
                         indices.globals.push(id);
                     }
                 }
                 wasmparser::Payload::MemorySection(reader) => {
-                    for i in 0..reader.get_count() {
+                    for i in 0..reader.count() {
                         let id = Id::entry(*idx, i as usize);
                         indices.memories.push(id);
                     }
                 }
                 wasmparser::Payload::TableSection(reader) => {
-                    for i in 0..reader.get_count() {
+                    for i in 0..reader.count() {
                         let id = Id::entry(*idx, i as usize);
                         indices.tables.push(id);
                     }
@@ -319,7 +312,7 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
             (function_section.as_ref(), code_section.as_ref())
         {
             indices.code = Some(code_section.index);
-            for i in 0..function_section.reader.get_count() {
+            for i in 0..function_section.reader.count() {
                 let id = Id::entry(code_section.index, i as usize);
                 indices.functions.push(id);
             }
@@ -333,16 +326,11 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
         };
         for IndexedSection(idx, section) in sections.into_iter() {
             match section {
-                wasmparser::Payload::CustomSection {
-                    name,
-                    data,
-                    data_offset,
-                    ..
-                } => {
+                wasmparser::Payload::CustomSection(c) => {
                     CustomSectionReader {
-                        name,
-                        data,
-                        data_offset,
+                        name: c.name(),
+                        data: c.data(),
+                        data_offset: c.data_offset(),
                     }
                     .parse_edges(items, ())?;
                 }
@@ -389,13 +377,13 @@ impl<'a> Parse<'a> for ModuleReader<'a> {
                 }
                 wasmparser::Payload::Version { .. }
                 | wasmparser::Payload::CodeSectionEntry { .. }
-                | wasmparser::Payload::AliasSection { .. }
+                | wasmparser::Payload::ComponentAliasSection { .. }
                 | wasmparser::Payload::TagSection { .. }
                 | wasmparser::Payload::InstanceSection { .. }
-                | wasmparser::Payload::ModuleSectionStart { .. }
-                | wasmparser::Payload::ModuleSectionEntry { .. }
+                | wasmparser::Payload::ModuleSection { .. }
                 | wasmparser::Payload::UnknownSection { .. }
                 | wasmparser::Payload::End { .. } => {}
+                _ => {}
             }
         }
 
@@ -435,6 +423,7 @@ fn get_section_name(section: &wasmparser::Payload<'_>) -> String {
         | wasmparser::Payload::ModuleSection { .. }
         | wasmparser::Payload::UnknownSection { .. }
         | wasmparser::Payload::End { .. } => format!("{:?}", section),
+        _ => format!("{:?}", section),
     }
 }
 
@@ -1031,16 +1020,27 @@ impl<'a> Parse<'a> for wasmparser::DataSectionReader<'a> {
     }
 }
 
-fn iterate_with_size<'a, T: FromReader<'a>>(
-    s: &'a mut SectionLimited<'a, T>,
-) -> impl Iterator<Item = anyhow::Result<(T, u32)>> + 'a {
+fn iterate_with_size<'a, 'b, T: FromReader<'b>>(
+    s: &'a mut SectionLimited<'b, T>,
+) -> impl Iterator<Item = anyhow::Result<(T, u32)>> + 'a + 'b
+where
+    T: 'b,
+{
     let iter = s.clone().into_iter_with_offsets();
-    let mut last_offset = 0;
-    iter.map(move |item| {
+    let end_offset = s.range().end;
+    let another_iter = s
+        .clone()
+        .into_iter_with_offsets()
+        .skip(1)
+        .map(|item| -> Result<u32, anyhow::Error> {
+            let (offset, _) = item?;
+            Ok(offset as u32)
+        })
+        .chain(Some(Ok(end_offset as u32)));
+
+    iter.zip(another_iter).map(move |(item, end_offset)| {
         let (offset, item) = item?;
-        let size = offset - last_offset;
-        last_offset = offset;
-        Ok((item, size as u32))
+        Ok((item, end_offset? - offset as u32))
     })
 }
 
@@ -1051,8 +1051,8 @@ fn ty2str(t: Type) -> &'static str {
         Type::F32 => "f32",
         Type::F64 => "f64",
         Type::V128 => "v128",
-        Type::FuncRef => "funcref",
-        Type::ExnRef | Type::ExternRef => "externref",
-        Type::Func | Type::EmptyBlockType => "?",
+        Type::Ref(f) if f.is_func_ref() => "funcref",
+        Type::Ref(f) if f.is_extern_ref() => "externref",
+        Type::Ref(_) => "?",
     }
 }

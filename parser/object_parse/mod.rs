@@ -77,8 +77,7 @@ fn parse_items<R: gimli::Reader<Offset = usize>>(
     let mut units = dwarf.units();
     let mut i = 0;
     while let Some(header) = units.next()? {
-        // FIXME: what's unit_id
-        let unit_id = header.offset();
+        let unit_id = i;
         let unit = dwarf.unit(header)?;
         compilation_unit_parse::parse_items(items, dwarf, &unit, unit_id)?;
         i += 1;
@@ -92,10 +91,13 @@ fn parse_edges<R: gimli::Reader>(
     dwarf: &gimli::Dwarf<R>,
 ) -> anyhow::Result<()> {
     // Parse the edges in each compilation unit.
-    let mut headers = dwarf.units().enumerate();
-    while let Some((unit_id, header)) = headers.next()? {
+    let mut units = dwarf.units();
+    let mut i = 0;
+    while let Some(header) = units.next()? {
+        let unit_id = i;
         let unit = dwarf.unit(header)?;
-        compilation_unit_parse::parse_edges(items, &unit, unit_id)?
+        compilation_unit_parse::parse_edges(items, &unit, unit_id)?;
+        i += 1;
     }
 
     Ok(())
