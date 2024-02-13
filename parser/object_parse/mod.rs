@@ -1,7 +1,7 @@
 use anyhow::anyhow;
 use fallible_iterator::FallibleIterator;
 use gimli;
-use object::{self, Object};
+use object::{self, Object, ObjectSection};
 use std::borrow::{Borrow, Cow};
 use twiggy_ir as ir;
 use typed_arena::Arena;
@@ -22,7 +22,11 @@ where
     'a: 'file,
 {
     let data = file
-        .section_data_by_name(Sect::section_name())
+        .section_by_name(Sect::section_name())
+        .map(|s| s.uncompressed_data())
+        .transpose()
+        .ok()
+        .flatten()
         .unwrap_or(Cow::Borrowed(&[]));
     let data_ref = (*arena.alloc(data)).borrow();
     Sect::from(gimli::EndianSlice::new(data_ref, endian))
