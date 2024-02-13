@@ -1,0 +1,14 @@
+ Shallow Bytes │ Shallow % │ Item
+───────────────┼───────────┼──────────────────────────────
+             8 ┊    12.70% ┊ wasm magic bytes
+             7 ┊    11.11% ┊ f
+             7 ┊    11.11% ┊ custom section 'name' headers
+             6 ┊     9.52% ┊ code section headers
+             6 ┊     9.52% ┊ "function names" subsection
+             6 ┊     9.52% ┊ "memory names" subsection
+             5 ┊     7.94% ┊ data[0]
+             3 ┊     4.76% ┊ type[0]: () -> nil
+             3 ┊     4.76% ┊ type section headers
+             3 ┊     4.76% ┊ memory[0]
+             9 ┊    14.29% ┊ ... and 3 more.
+            63 ┊   100.00% ┊ Σ [13 Total Rows]

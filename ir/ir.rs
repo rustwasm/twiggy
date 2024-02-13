@@ -48,7 +48,6 @@ impl ItemsBuilder {
         let id = item.id;
         self.size_added += item.size;
         self.items.insert(id, item);
-
         let old_value = self.parsed.insert(id);
         assert!(
             old_value,
