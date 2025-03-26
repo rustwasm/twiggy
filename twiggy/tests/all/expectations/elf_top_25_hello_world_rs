@@ -1,13 +1,16 @@
  Shallow Bytes │ Shallow % │ Item
-───────────────┼───────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
          19545 ┊     6.23% ┊ std::backtrace_rs::symbolize::gimli::Cache::with_global::hda41e5ce2e638dbf
          12227 ┊     3.90% ┊ std::backtrace_rs::symbolize::gimli::Context::new::h36f7279e64f729ba
           9710 ┊     3.09% ┊ gimli::read::dwarf::Unit<R>::new::ha14026aa0df75fc3
+          9563 ┊     3.05% ┊ miniz_oxide::inflate::core::decompress::hac20cdac69cf1b03
           6776 ┊     2.16% ┊ addr2line::ResUnit<R>::find_function_or_location::{{closure}}::hb0f4e11c2628b129
           5918 ┊     1.89% ┊ addr2line::Lines::parse::hf56d45532c9cdd53
           5016 ┊     1.60% ┊ addr2line::function::Function<R>::parse_children::ha5a223c2ceda250b
           4715 ┊     1.50% ┊ gimli::read::unit::parse_attribute::he3623f25de2bc58f
           3792 ┊     1.21% ┊ gimli::read::rnglists::RngListIter<R>::next::h0a17264f919a4338
+          3183 ┊     1.01% ┊ <&T as core::fmt::Display>::fmt::h98b2a165420fa5eb
+          3005 ┊     0.96% ┊ rustc_demangle::try_demangle::h15f91ce94fd1193f
           2850 ┊     0.91% ┊ std::backtrace_rs::symbolize::gimli::elf::<impl std::backtrace_rs::symbolize::gimli::Mapping>::new_debug::h9ec6bbf4be39e1b3
           2727 ┊     0.87% ┊ core::slice::sort::stable::quicksort::quicksort::he669545dd2c45c0a
           2611 ┊     0.83% ┊ core::slice::sort::stable::quicksort::quicksort::he7b04f966ead366f
@@ -19,11 +22,8 @@
           2360 ┊     0.75% ┊ addr2line::render_file::h8b2b27d4ac1b7166
           2278 ┊     0.73% ┊ std::panicking::rust_panic_with_hook::h66e909d048c263a9
           2152 ┊     0.69% ┊ <&str as core::str::pattern::Pattern>::is_contained_in::h8969625a96e5f095
+          2136 ┊     0.68% ┊ main
           1895 ┊     0.60% ┊ gimli::read::unit::Attribute<R>::value::h1b2c3068fe9de893
-          1770 ┊     0.56% ┊ std::backtrace_rs::symbolize::gimli::elf::<impl std::backtrace_rs::symbolize::gimli::Mapping>::load_dwarf_package::hb981420b97ec182c
-          1762 ┊     0.56% ┊ std::backtrace_rs::print::BacktraceFrameFmt::print_raw_with_column::h697ccd437a3283ff
-          1723 ┊     0.55% ┊ core::slice::sort::stable::drift::sort::haca7490b7abbc741
-          1715 ┊     0.55% ┊ core::slice::sort::stable::drift::sort::h87924e34d9c671d6
-          1673 ┊     0.53% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::parse::h903c159729c23fa7
-         88020 ┊    28.06% ┊ ... and 315 more.
-        193771 ┊    61.76% ┊ Σ [340 Total Rows]
+          1810 ┊     0.58% ┊ rustc_demangle::v0::Printer::print_path::h237f306c4cf20d50
+        124787 ┊    39.77% ┊ ... and 394 more.
+        241592 ┊    77.00% ┊ Σ [419 Total Rows]
