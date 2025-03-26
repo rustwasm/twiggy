@@ -96,11 +96,7 @@ fn parse_wasm(data: &[u8]) -> anyhow::Result<ir::Items> {
 
 #[cfg(feature = "dwarf")]
 fn parse_other(data: &[u8]) -> anyhow::Result<ir::Items> {
-    let mut items = ir::ItemsBuilder::new(data.len() as u32);
-
-    object_parse::parse(&mut items, data)?;
-
-    Ok(items.finish())
+    object_parse::parse(&data)
 }
 
 fn parse_fallback(data: &[u8]) -> anyhow::Result<ir::Items> {

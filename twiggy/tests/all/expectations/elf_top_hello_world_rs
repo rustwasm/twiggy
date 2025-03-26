@@ -1,327 +1,327 @@
  Shallow Bytes │ Shallow % │ Item
 ───────────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-         19545 ┊     1.10% ┊ std::backtrace_rs::symbolize::gimli::Cache::with_global::hda41e5ce2e638dbf
-         12227 ┊     0.69% ┊ std::backtrace_rs::symbolize::gimli::Context::new::h36f7279e64f729ba
-          9710 ┊     0.54% ┊ gimli::read::dwarf::Unit<R>::new::ha14026aa0df75fc3
-          6776 ┊     0.38% ┊ addr2line::ResUnit<R>::find_function_or_location::{{closure}}::hb0f4e11c2628b129
-          5918 ┊     0.33% ┊ addr2line::Lines::parse::hf56d45532c9cdd53
-          5016 ┊     0.28% ┊ addr2line::function::Function<R>::parse_children::ha5a223c2ceda250b
-          4715 ┊     0.26% ┊ gimli::read::unit::parse_attribute::he3623f25de2bc58f
-          3792 ┊     0.21% ┊ gimli::read::rnglists::RngListIter<R>::next::h0a17264f919a4338
-          2850 ┊     0.16% ┊ std::backtrace_rs::symbolize::gimli::elf::<impl std::backtrace_rs::symbolize::gimli::Mapping>::new_debug::h9ec6bbf4be39e1b3
-          2727 ┊     0.15% ┊ core::slice::sort::stable::quicksort::quicksort::he669545dd2c45c0a
-          2611 ┊     0.15% ┊ core::slice::sort::stable::quicksort::quicksort::he7b04f966ead366f
-          2575 ┊     0.14% ┊ core::slice::sort::stable::quicksort::quicksort::h3030826ddfc51330
-          2525 ┊     0.14% ┊ gimli::read::line::parse_attribute::hc037578c427b09f8
-          2500 ┊     0.14% ┊ core::slice::sort::stable::quicksort::quicksort::h16560da3e7ccbec2
-          2481 ┊     0.14% ┊ core::slice::sort::stable::quicksort::quicksort::hc3b4b6276e848b30
-          2455 ┊     0.14% ┊ gimli::read::index::UnitIndex<R>::parse::h43e6494ccf64cfc2
-          2360 ┊     0.13% ┊ addr2line::render_file::h8b2b27d4ac1b7166
-          2278 ┊     0.13% ┊ std::panicking::rust_panic_with_hook::h66e909d048c263a9
-          2152 ┊     0.12% ┊ <&str as core::str::pattern::Pattern>::is_contained_in::h8969625a96e5f095
-          1895 ┊     0.11% ┊ gimli::read::unit::Attribute<R>::value::h1b2c3068fe9de893
-          1770 ┊     0.10% ┊ std::backtrace_rs::symbolize::gimli::elf::<impl std::backtrace_rs::symbolize::gimli::Mapping>::load_dwarf_package::hb981420b97ec182c
-          1762 ┊     0.10% ┊ std::backtrace_rs::print::BacktraceFrameFmt::print_raw_with_column::h697ccd437a3283ff
-          1723 ┊     0.10% ┊ core::slice::sort::stable::drift::sort::haca7490b7abbc741
-          1715 ┊     0.10% ┊ core::slice::sort::stable::drift::sort::h87924e34d9c671d6
-          1673 ┊     0.09% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::parse::h903c159729c23fa7
-          1667 ┊     0.09% ┊ core::slice::sort::stable::drift::sort::h9699b14e6b8eeac6
-          1667 ┊     0.09% ┊ core::slice::sort::stable::drift::sort::h6a89c85573c7525e
-          1648 ┊     0.09% ┊ core::slice::sort::stable::drift::sort::h6270578f0a10da67
-          1509 ┊     0.08% ┊ gimli::read::unit::DebugInfoUnitHeadersIter<R>::next::h5d3aeb3046c03cc8
-          1479 ┊     0.08% ┊ rust_eh_personality
-          1399 ┊     0.08% ┊ gimli::read::unit::skip_attributes::h828f1e65d71b1795
-          1385 ┊     0.08% ┊ <gimli::read::line::LineProgramHeader<R,Offset> as core::clone::Clone>::clone::h800b4fec4eaecf1e
-          1369 ┊     0.08% ┊ core::slice::sort::shared::smallsort::small_sort_general::h0ea0989a301d140a
-          1359 ┊     0.08% ┊ std::path::Components::as_path::h9accfcd53762045c
-          1345 ┊     0.08% ┊ addr2line::LoopingLookup<T,L,F>::new_lookup::h87530e8350e94277
-          1293 ┊     0.07% ┊ core::str::pattern::StrSearcher::new::h9068c00d28f01e1d
-          1290 ┊     0.07% ┊ addr2line::ResUnit<R>::find_function_or_location::ha089d54f9483837d
-          1234 ┊     0.07% ┊ core::str::count::do_count_chars::h8d3bc63d9ea1b16d
-          1226 ┊     0.07% ┊ <std::ffi::os_str::Display as core::fmt::Debug>::fmt::h29fd4e12e2eee8a1
-          1111 ┊     0.06% ┊ core::fmt::Formatter::pad::hcc5fe622846bf700
-          1107 ┊     0.06% ┊ core::slice::sort::unstable::quicksort::quicksort::hde6146079546189c
-          1021 ┊     0.06% ┊ addr2line::function::name_entry::h116069d56455a1c9
-          1019 ┊     0.06% ┊ std::backtrace_rs::symbolize::gimli::libs_dl_iterate_phdr::callback::ha48d66b54948c07f
-          1018 ┊     0.06% ┊ core::str::slice_error_fail_rt::h11f1a83693378e5e
-           965 ┊     0.05% ┊ <std::sys::backtrace::BacktraceLock::print::DisplayBacktrace as core::fmt::Display>::fmt::hfc616348d9ad0abc
-           908 ┊     0.05% ┊ <std::path::Components as core::iter::traits::iterator::Iterator>::next::h3aef65383ab370ed
-           896 ┊     0.05% ┊ <std::io::stdio::StdoutLock as std::io::Write>::write_all::h3f6001ad97c76a67
-           885 ┊     0.05% ┊ core::slice::sort::shared::smallsort::sort8_stable::h1f7037265b7cde71
-           871 ┊     0.05% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::section::h063c35e11a5fb579
-           837 ┊     0.05% ┊ <std::path::Components as core::iter::traits::double_ended::DoubleEndedIterator>::next_back::h472e5d056eb7d600
-           828 ┊     0.05% ┊ gimli::read::line::FileEntryFormat::parse::hece510097cbb85f6
-           800 ┊     0.04% ┊ std::env::current_exe::hdfa8f56b3902be98
-           800 ┊     0.04% ┊ alloc::collections::btree::map::IntoIter<K,V,A>::dying_next::hc26059ba6bd08a35
-           800 ┊     0.04% ┊ alloc::collections::btree::map::IntoIter<K,V,A>::dying_next::h8c00ec0cfe47f85c
-           796 ┊     0.04% ┊ gimli::read::unit::EntriesCursor<R>::next_entry::h73109155b0cfbb79
-           756 ┊     0.04% ┊ hello_world::main::h566bf36a5559a1df
-           755 ┊     0.04% ┊ <std::io::error::Error as core::fmt::Display>::fmt::h754a49e4fc8ec8aa
-           729 ┊     0.04% ┊ std::path::Path::_strip_prefix::hae021232137938e4
-           717 ┊     0.04% ┊ addr2line::function::name_attr::haa2849a636d5d14e
-           707 ┊     0.04% ┊ std::sys::pal::unix::fs::try_statx::hbd180b48ef89543a
-           707 ┊     0.04% ┊ <std::backtrace_rs::symbolize::SymbolName as core::fmt::Display>::fmt::hd60040bbf8d6e65e
-           669 ┊     0.04% ┊ <std::path::Components as core::cmp::PartialEq>::eq::hf7d693bc9d3db288
-           665 ┊     0.04% ┊ std::sys::backtrace::_print_fmt::{{closure}}::{{closure}}::hd9ebbb6a4c9af557
-           658 ┊     0.04% ┊ gimli::read::aranges::ArangeHeader<R,Offset>::parse::h627e2d8385c297d9
-           644 ┊     0.04% ┊ gimli::read::line::parse_file_v5::h944532e78aebf022
-           634 ┊     0.04% ┊ core::fmt::Formatter::pad_integral::h96d805165c239be7
-           627 ┊     0.04% ┊ std::backtrace_rs::symbolize::gimli::elf::locate_build_id::h8f0e03516a869370
-           622 ┊     0.03% ┊ <core::fmt::builders::PadAdapter as core::fmt::Write>::write_str::h0a318b9bf7874d58
-           600 ┊     0.03% ┊ std::io::buffered::bufwriter::BufWriter<W>::flush_buf::hbb5a0c476fdeeda3
-           585 ┊     0.03% ┊ Subroutine[1][17345]
-           580 ┊     0.03% ┊ std::backtrace_rs::symbolize::gimli::mmap::h733944155c56fb74
-           573 ┊     0.03% ┊ std::sync::poison::once::Once::call_once::{{closure}}::hc150627084d9a3a4
-           571 ┊     0.03% ┊ alloc::string::String::from_utf8_lossy::h93e501670dab1f99
-           546 ┊     0.03% ┊ std::sys::sync::once::futex::Once::call::hba7a0ad2312b9b6c
-           544 ┊     0.03% ┊ core::char::methods::<impl char>::escape_debug_ext::h5b07a35fc7892fbd
-           531 ┊     0.03% ┊ core::fmt::num::<impl core::fmt::Debug for usize>::fmt::hde35892ade72905a
-           512 ┊     0.03% ┊ std::fs::OpenOptions::_open::h3d9016e7403a40fb
-           510 ┊     0.03% ┊ core::fmt::write::h7ca648217bc79799
-           504 ┊     0.03% ┊ core::str::converts::from_utf8::h15cfaf624c64090a
-           488 ┊     0.03% ┊ gimli::read::dwarf::Dwarf<R>::attr_string::h0e75a900b61c12a6
-           473 ┊     0.03% ┊ <core::str::pattern::CharSearcher as core::str::pattern::Searcher>::next_match::h9ab7cc93e8464f46
-           454 ┊     0.03% ┊ std::sys::pal::unix::stack_overflow::imp::make_handler::h9e165333838f87d4
-           450 ┊     0.03% ┊ std::sys::pal::common::small_c_string::run_with_cstr_allocating::hf236ad3c74738e9f
-           440 ┊     0.02% ┊ std::sys::backtrace::output_filename::h9781837ccdb241fc
-           439 ┊     0.02% ┊ std::sys::pal::unix::stack_overflow::imp::signal_handler::h92742cf6f22d3519
-           437 ┊     0.02% ┊ memchr::arch::x86_64::memchr::memchr_raw::detect::h719eaebe20b32dd8
-           430 ┊     0.02% ┊ std::sys::sync::rwlock::futex::RwLock::read_contended::h9accba1397abf8da
-           430 ┊     0.02% ┊ <core::str::lossy::Utf8Chunks as core::iter::traits::iterator::Iterator>::next::h97482783f67b8f88
-           421 ┊     0.02% ┊ Subroutine[4][108]
-           385 ┊     0.02% ┊ core::fmt::Write::write_char::h0a09fc357ced39c1
-           375 ┊     0.02% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::build_id::h7e7f0e883eadbb35
-           370 ┊     0.02% ┊ core::fmt::Write::write_char::h972c5529c2f90ef3
-           369 ┊     0.02% ┊ std::thread::current::init_current::h5e99390f2ba3935c
-           361 ┊     0.02% ┊ core::str::<impl str>::trim_start_matches::hc0cb9387a22fd376
-           350 ┊     0.02% ┊ core::slice::sort::shared::smallsort::sort4_stable::h28eb5be87ef03567
-           346 ┊     0.02% ┊ std::sys::backtrace::_print_fmt::{{closure}}::h70b130b38c57ae5b
-           344 ┊     0.02% ┊ std::sys::pal::common::small_c_string::run_with_cstr_allocating::h95da3f3db4cb1477
-           338 ┊     0.02% ┊ core::unicode::unicode_data::grapheme_extend::lookup_slow::h85519d9e141c7502
-           328 ┊     0.02% ┊ std::sys::pal::unix::fs::stat::h266d7dae3a38ed93
-           325 ┊     0.02% ┊ std::sys::pal::unix::fs::canonicalize::h8bb2afa9539cf4a3
-           325 ┊     0.02% ┊ std::sys::os_str::bytes::Slice::check_public_boundary::slow_path::h9e2d1b965ad2cc58
-           322 ┊     0.02% ┊ core::slice::sort::stable::driftsort_main::hb8621187dfb7544f
-           310 ┊     0.02% ┊ <std::path::StripPrefixError as core::fmt::Debug>::fmt::h6aafd60ff76e2d43
-           304 ┊     0.02% ┊ Subroutine[1][13525]
-           301 ┊     0.02% ┊ Subroutine[1][14714]
-           294 ┊     0.02% ┊ core::panicking::assert_failed_inner::h4797f91cd349a0eb
-           292 ┊     0.02% ┊ core::slice::sort::stable::driftsort_main::h83cc964da71e2ff7
-           292 ┊     0.02% ┊ std::io::buffered::bufwriter::BufWriter<W>::write_all_cold::heb355a4a2bc49055
-           290 ┊     0.02% ┊ core::slice::sort::stable::driftsort_main::hc846aefa3cbbc7e4
-           290 ┊     0.02% ┊ core::slice::sort::stable::driftsort_main::h5373cee129331aa9
-           290 ┊     0.02% ┊ core::slice::sort::stable::driftsort_main::h74c6341819ee8327
-           287 ┊     0.02% ┊ core::unicode::printable::is_printable::hbf49a5e8240f47ca
-           285 ┊     0.02% ┊ std::path::PathBuf::push::hc9487e1bbc4c97d4
-           282 ┊     0.02% ┊ core::fmt::num::imp::<impl core::fmt::Display for i32>::fmt::h658fefd5335c76dd
-           281 ┊     0.02% ┊ core::fmt::num::imp::<impl core::fmt::Display for u64>::fmt::hb59860de16ff6386
-           272 ┊     0.02% ┊ <std::panicking::begin_panic_handler::FormatStringPayload as core::panic::PanicPayload>::take_box::hcc87bf2f8e8b2692
-           272 ┊     0.02% ┊ core::unicode::printable::check::hc1a558886616d218
-           264 ┊     0.01% ┊ Subroutine[3][1044]
-           262 ┊     0.01% ┊ core::slice::sort::unstable::heapsort::heapsort::h889d5bf36096fa0d
-           262 ┊     0.01% ┊ core::fmt::num::imp::<impl core::fmt::Display for u32>::fmt::hd89c3b0fb0c52137
-           259 ┊     0.01% ┊ core::ptr::drop_in_place<addr2line::Context<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>::h4268fda4a6d43be1
-           259 ┊     0.01% ┊ core::slice::sort::shared::pivot::median3_rec::he1c7ffe0976a3b32
-           258 ┊     0.01% ┊ std::io::default_read_to_end::small_probe_read::ha32225b8ea8f5dc9
-           257 ┊     0.01% ┊ std::io::Write::write_fmt::h7960c58bfa5ccbcb
-           257 ┊     0.01% ┊ std::io::Write::write_fmt::he22fb4446a287736
-           254 ┊     0.01% ┊ Subroutine[1][385]
-           247 ┊     0.01% ┊ std::sys::sync::mutex::futex::Mutex::lock_contended::h2821e64f818bf249
-           244 ┊     0.01% ┊ core::fmt::Write::write_char::hb54623d23c69d352
-           243 ┊     0.01% ┊ <&str as alloc::ffi::c_str::CString::new::SpecNewImpl>::spec_new_impl::h616d1b730c85d035
-           242 ┊     0.01% ┊ gimli::read::reader::Reader::read_sized_offset::h04a8d25f6fea9b31
-           240 ┊     0.01% ┊ Subroutine[3][140]
-           238 ┊     0.01% ┊ <&T as core::fmt::Debug>::fmt::hb092aacdce63f621
-           238 ┊     0.01% ┊ core::str::pattern::simd_contains::{{closure}}::h888902ba7f345811
-           234 ┊     0.01% ┊ std::sys::thread_local::guard::key::enable::hbcc9e853fe020472
-           231 ┊     0.01% ┊ std::path::Components::parse_next_component_back::h77ed0cf7d9ae78e9
-           224 ┊     0.01% ┊ <*mut T as core::fmt::Debug>::fmt::he34ee2b410132f82
-           224 ┊     0.01% ┊ gimli::read::line::parse_directory_v5::h0d8c9277ab0a9f73
-           220 ┊     0.01% ┊ core::ptr::drop_in_place<gimli::read::abbrev::AbbreviationsCache>::h45a25fe1ad85b8da
-           219 ┊     0.01% ┊ alloc::raw_vec::RawVecInner<A>::reserve::do_reserve_and_handle::hd7ab3d187bac400c
-           218 ┊     0.01% ┊ core::ptr::drop_in_place<addr2line::ResUnit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>::h7492e6f400909d19
-           214 ┊     0.01% ┊ core::ptr::drop_in_place<alloc::vec::Vec<addr2line::SupUnit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>>::h494bff32f2df7835
-           214 ┊     0.01% ┊ std::sys::sync::rwlock::futex::RwLock::wake_writer_or_readers::hf18a4c259452807b
-           210 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h6a3b8b853b7430dc
-           209 ┊     0.01% ┊ Subroutine[1][7734]
-           209 ┊     0.01% ┊ std::alloc::default_alloc_error_hook::h12b0c4ceeff18ff1
-           208 ┊     0.01% ┊ Subroutine[1][7707]
-           207 ┊     0.01% ┊ core::ptr::drop_in_place<alloc::boxed::Box<[addr2line::SupUnit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>]>>::heef9927682101b6e
-           205 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h9da2f31eaaaa0341
-           205 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h71aa19d38df4b41b
-           205 ┊     0.01% ┊ <char as core::fmt::Display>::fmt::h37a2c537887808ef
-           204 ┊     0.01% ┊ std::backtrace_rs::symbolize::gimli::stash::Stash::allocate::hda7ea54ddf8a1ffd
-           204 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h31dab48396be7c7e
-           204 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h668857774898427d
-           204 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h2f835b58d7dabb99
-           202 ┊     0.01% ┊ std::backtrace_rs::symbolize::Symbol::name::h64f81e3dcb927431
-           201 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h39295f8b0829c958
-           201 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h0c3d318f00653ac8
-           199 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h625f12e9ee0a8d9f
-           199 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h495ab69bc2f25486
-           198 ┊     0.01% ┊ core::slice::sort::unstable::ipnsort::hb998e5831b4e2d6d
-           198 ┊     0.01% ┊ std::panicking::begin_panic_handler::{{closure}}::h8d9aa8be7e8634cf
-           197 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::ha0086ebc794a3760
-           197 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h56bb137d70aad5b2
-           197 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::ha007d4d7aa7607ee
-           196 ┊     0.01% ┊ core::ptr::drop_in_place<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>::h355edf1f5deb95b1
-           196 ┊     0.01% ┊ std::path::Path::is_dir::h56984e0361123dfe
-           194 ┊     0.01% ┊ core::ptr::drop_in_place<std::backtrace_rs::symbolize::gimli::stash::Stash>::h91af8f43ca9aa9af
-           192 ┊     0.01% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::h98b437f79c29d0d0
-           191 ┊     0.01% ┊ alloc::sync::Arc<T,A>::drop_slow::h62371afa8205e3c7
-           190 ┊     0.01% ┊ Subroutine[1][1644]
-           190 ┊     0.01% ┊ std::path::Path::is_file::h7722c1eb54c08310
-           190 ┊     0.01% ┊ <std::path::Component as core::cmp::PartialEq>::eq::h693394f516f80852
-           179 ┊     0.01% ┊ core::slice::sort::shared::pivot::median3_rec::h7cac5f13fb74e99c
-           179 ┊     0.01% ┊ core::slice::sort::shared::pivot::median3_rec::hc3f75eb10a8b70e9
-           178 ┊     0.01% ┊ core::slice::sort::shared::pivot::median3_rec::ha870fcbc283a9d9c
-           176 ┊     0.01% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::search_symtab::h9b19010430f2334b
-           175 ┊     0.01% ┊ core::slice::sort::shared::pivot::median3_rec::h8cefdf732d71fb1b
-           174 ┊     0.01% ┊ core::ptr::drop_in_place<core::result::Result<addr2line::Lines,gimli::read::Error>>::had6fb9ae98925941
-           172 ┊     0.01% ┊ core::slice::sort::shared::pivot::median3_rec::h42b780a0c4603ce1
-           168 ┊     0.01% ┊ Subroutine[1][18968]
-           167 ┊     0.01% ┊ core::ptr::drop_in_place<alloc::vec::Vec<(usize,std::backtrace_rs::symbolize::gimli::Mapping)>>::h6ab65bd7ed4875a5
-           167 ┊     0.01% ┊ Subroutine[1][1883]
-           165 ┊     0.01% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::h597461426f894e15
-           162 ┊     0.01% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::h9568280638b302c3
-           162 ┊     0.01% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::ha6bc733a27628b1b
-           161 ┊     0.01% ┊ <std::panicking::begin_panic_handler::FormatStringPayload as core::panic::PanicPayload>::get::hf9c1519b7ec0b98a
-           160 ┊     0.01% ┊ <std::backtrace_rs::symbolize::gimli::parse_running_mmaps::MapsEntry as core::str::traits::FromStr>::from_str::{{closure}}::hba4839afd3c67372
-           159 ┊     0.01% ┊ Subroutine[1][1806]
-           158 ┊     0.01% ┊ core::ptr::drop_in_place<core::result::Result<addr2line::function::Functions<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>,gimli::read::Error>>::hd2dece211376735c
-           158 ┊     0.01% ┊ __rust_drop_panic
-           158 ┊     0.01% ┊ __rust_foreign_exception
-           158 ┊     0.01% ┊ alloc::raw_vec::RawVecInner<A>::reserve::do_reserve_and_handle::h26ffaf193b9a64fb
-           155 ┊     0.01% ┊ __rust_start_panic
-           152 ┊     0.01% ┊ Subroutine[1][11956]
-           150 ┊     0.01% ┊ Subroutine[1][18998]
-           148 ┊     0.01% ┊ Subroutine[1][6226]
-           147 ┊     0.01% ┊ Subroutine[1][1491]
-           146 ┊     0.01% ┊ <char as core::fmt::Debug>::fmt::hfe309ac9bb7091e9
-           144 ┊     0.01% ┊ core::ptr::drop_in_place<core::result::Result<core::option::Option<alloc::boxed::Box<(alloc::sync::Arc<gimli::read::dwarf::Dwarf<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>,gimli::read::dwarf::Unit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>,usize>)>>,gimli::read::Error>>::h6b33aab73669d1b8
-           144 ┊     0.01% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::h620ab964516d2c25
-           143 ┊     0.01% ┊ core::fmt::num::<impl core::fmt::LowerHex for i64>::fmt::he694f9a0fec4c4a8
-           141 ┊     0.01% ┊ core::fmt::num::<impl core::fmt::UpperHex for i8>::fmt::h9ad2f3f67ff25e33
-           139 ┊     0.01% ┊ core::ptr::drop_in_place<std::backtrace_rs::symbolize::gimli::Mapping>::hc8e3ded1007aa9ad
-           138 ┊     0.01% ┊ alloc::sync::Arc<T,A>::drop_slow::hd438b38b1c9e676e
-           134 ┊     0.01% ┊ Subroutine[1][1034]
-           132 ┊     0.01% ┊ std::sys::pal::common::small_c_string::run_with_cstr_allocating::hcbba1fd78405442e
-           127 ┊     0.01% ┊ Subroutine[1][917]
-           124 ┊     0.01% ┊ Subroutine[1][1520]
-           124 ┊     0.01% ┊ core::ptr::drop_in_place<alloc::sync::ArcInner<gimli::read::abbrev::Abbreviations>>::h0a448843e74b8402
-           124 ┊     0.01% ┊ Subroutine[1][6044]
-           123 ┊     0.01% ┊ Subroutine[1][1676]
-           123 ┊     0.01% ┊ <&T as core::fmt::Display>::fmt::ha354cfe835191325
-           122 ┊     0.01% ┊ Subroutine[1][7263]
-           119 ┊     0.01% ┊ Subroutine[1][1224]
-           119 ┊     0.01% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h592abffa244b3ffa
-           119 ┊     0.01% ┊ Subroutine[1][7424]
-           118 ┊     0.01% ┊ Subroutine[1][1011]
-           118 ┊     0.01% ┊ Subroutine[1][1408]
-           118 ┊     0.01% ┊ Subroutine[1][1430]
-           118 ┊     0.01% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::hfafa66d5244ad089
-           118 ┊     0.01% ┊ std::panicking::default_hook::{{closure}}::{{closure}}::h2283dd2e917d06d9
-           117 ┊     0.01% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h3ddc3ff784431805
-           117 ┊     0.01% ┊ core::result::unwrap_failed::ha0269c4bdff93d7d
-           115 ┊     0.01% ┊ core::ptr::drop_in_place<<alloc::collections::btree::map::IntoIter<K,V,A> as core::ops::drop::Drop>::drop::DropGuard<u64,core::result::Result<alloc::sync::Arc<gimli::read::abbrev::Abbreviations>,gimli::read::Error>,alloc::alloc::Global>>::h5c69c28574895d1f
-           113 ┊     0.01% ┊ alloc::raw_vec::finish_grow::hd5248612660e0649
-           107 ┊     0.01% ┊ core::ptr::drop_in_place<alloc::boxed::Box<panic_unwind::imp::Exception>>::h0a16b989c2d8d3e7
-           106 ┊     0.01% ┊ core::slice::<impl [T]>::copy_from_slice::len_mismatch_fail::do_panic::runtime::hba08b046e17560cf
-           105 ┊     0.01% ┊ std::sys::thread_local::guard::key::enable::run::h2ae81be8f849caeb
-           105 ┊     0.01% ┊ core::option::expect_failed::h11ade060093e7060
-           104 ┊     0.01% ┊ rust_panic
-           103 ┊     0.01% ┊ <alloc::string::String as core::fmt::Write>::write_str::h894be4ba3897f209
-           102 ┊     0.01% ┊ core::slice::index::slice_start_index_len_fail::do_panic::runtime::h99bec6cc2c4712f7
-           102 ┊     0.01% ┊ core::slice::index::slice_end_index_len_fail::do_panic::runtime::hecbdc4cd5a9cfe0c
-           102 ┊     0.01% ┊ core::slice::index::slice_index_order_fail::do_panic::runtime::h9d9282754e122488
-           101 ┊     0.01% ┊ Subroutine[1][1605]
-           100 ┊     0.01% ┊ alloc::raw_vec::finish_grow::hf30946d0f8052e8a
-            98 ┊     0.01% ┊ Subroutine[1][1448]
-            96 ┊     0.01% ┊ core::ptr::drop_in_place<std::io::stdio::StdinLock>::hcb6bdaa26d89af95
-            96 ┊     0.01% ┊ Subroutine[1][1367]
-            95 ┊     0.01% ┊ <core::fmt::builders::PadAdapter as core::fmt::Write>::write_char::h2736d7139d213399
-            93 ┊     0.01% ┊ <std::panicking::begin_panic_handler::FormatStringPayload as core::fmt::Display>::fmt::hbee76ecaff42d0fb
-            93 ┊     0.01% ┊ Subroutine[5][29]
-            91 ┊     0.01% ┊ core::panicking::panic_bounds_check::ha76acd1fe0c5813b
-            90 ┊     0.01% ┊ core::ptr::drop_in_place<alloc::sync::ArcInner<gimli::read::dwarf::Dwarf<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>>::h20142409a3ad2600
-            90 ┊     0.01% ┊ Subroutine[1][1930]
-            89 ┊     0.00% ┊ std::sys::backtrace::BacktraceLock::print::h3fb349e80cbe0423
-            88 ┊     0.00% ┊ std::sync::once_lock::OnceLock<T>::initialize::h2847148379cd6f5e
-            88 ┊     0.00% ┊ <std::panicking::begin_panic::Payload<A> as core::panic::PanicPayload>::take_box::h27227def7db7f971
-            84 ┊     0.00% ┊ core::fmt::Formatter::pad_integral::write_prefix::hd30895a40eef31e8
-            83 ┊     0.00% ┊ Subroutine[1][2095]
-            82 ┊     0.00% ┊ core::cell::panic_already_borrowed::h262913cd8451b517
-            81 ┊     0.00% ┊ Subroutine[1][20920]
-            79 ┊     0.00% ┊ core::panicking::panic_nounwind_nobacktrace::hdf7fac9038a56f32
-            75 ┊     0.00% ┊ <core::ops::range::Range<Idx> as core::fmt::Debug>::fmt::h5f4c0b6c92d5cb19
-            74 ┊     0.00% ┊ Subroutine[1][1473]
-            74 ┊     0.00% ┊ Subroutine[1][1597]
-            74 ┊     0.00% ┊ Subroutine[1][1871]
-            72 ┊     0.00% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::hf5be52176721d4d0
-            72 ┊     0.00% ┊ Subroutine[1][7413]
-            72 ┊     0.00% ┊ alloc::sync::Arc<T,A>::drop_slow::h7fb2849d4e951291
-            71 ┊     0.00% ┊ <std::panicking::begin_panic_handler::StaticStrPayload as core::panic::PanicPayload>::take_box::h299bcc6f215e7abf
-            71 ┊     0.00% ┊ __rust_panic_cleanup
-            70 ┊     0.00% ┊ Subroutine[1][7752]
-            69 ┊     0.00% ┊ core::panicking::panic_nounwind::h2f7749cb358aa979
-            67 ┊     0.00% ┊ core::panicking::panic_nounwind_fmt::h57347130f21a7343
-            64 ┊     0.00% ┊ std::thread::current::current::h6e1ac74d3b8c367c
-            60 ┊     0.00% ┊ std::backtrace_rs::backtrace::libunwind::trace::trace_fn::h1a05ca021649cca3
-            59 ┊     0.00% ┊ Subroutine[1][2028]
-            59 ┊     0.00% ┊ core::panicking::panic::h209220e15dcf6e53
-            58 ┊     0.00% ┊ core::ptr::drop_in_place<std::backtrace_rs::backtrace::libunwind::Bomb>::ha1f8a5ec382c7873
-            58 ┊     0.00% ┊ std::thread::ThreadId::new::exhausted::h587e4c0974c27867
-            58 ┊     0.00% ┊ core::slice::index::slice_end_index_overflow_fail::h44ceca6bfa85b168
-            58 ┊     0.00% ┊ core::slice::sort::shared::smallsort::panic_on_ord_violation::h1646a55e979504ab
-            58 ┊     0.00% ┊ core::str::traits::str_index_overflow_fail::hfac46406dea00eae
-            55 ┊     0.00% ┊ Subroutine[1][1971]
-            54 ┊     0.00% ┊ alloc::raw_vec::capacity_overflow::h1d367b37f58596d3
-            54 ┊     0.00% ┊ core::panicking::panic_const::panic_const_div_by_zero::hbdf06d0496e98425
-            54 ┊     0.00% ┊ core::panicking::panic_const::panic_const_rem_by_zero::h3a1a875e01d18d87
-            45 ┊     0.00% ┊ core::ptr::drop_in_place<std::sync::poison::rwlock::RwLockReadGuard<std::panicking::Hook>>::ha82cb38c0a693c4a
-            43 ┊     0.00% ┊ core::panicking::assert_failed::hf5c4898457e9114b
-            43 ┊     0.00% ┊ std::panicking::begin_panic::{{closure}}::hacefc94753723f51
-            40 ┊     0.00% ┊ core::ptr::drop_in_place<core::option::Option<std::thread::Thread>>::hc42aa4992967fe47
-            38 ┊     0.00% ┊ std::panicking::begin_panic::h49f2e0fca21e5b3f
-            38 ┊     0.00% ┊ <std::panicking::begin_panic::Payload<A> as core::fmt::Display>::fmt::h5e98bb22df1a2514
-            34 ┊     0.00% ┊ core::ptr::drop_in_place<core::result::Result<addr2line::FrameIter<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>,gimli::read::Error>>::he5e9ff7990c6beed
-            32 ┊     0.00% ┊ Subroutine[1][2116]
-            31 ┊     0.00% ┊ Subroutine[1][6979]
-            31 ┊     0.00% ┊ core::panicking::panic_fmt::hf8ffc7c15bfb58a0
-            31 ┊     0.00% ┊ <core::cell::BorrowMutError as core::fmt::Debug>::fmt::hb6a448964972af09
-            30 ┊     0.00% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::ha8a0ade38236097b
-            29 ┊     0.00% ┊ <std::panicking::begin_panic_handler::StaticStrPayload as core::fmt::Display>::fmt::ha8b97b10cb290fed
-            28 ┊     0.00% ┊ Subroutine[1][1993]
-            28 ┊     0.00% ┊ rust_begin_unwind
-            26 ┊     0.00% ┊ <T as core::any::Any>::type_id::h8c3c3ba1f2ebb1e5
-            26 ┊     0.00% ┊ <T as core::any::Any>::type_id::h4a17315c30ff84f5
-            26 ┊     0.00% ┊ <std::panicking::begin_panic::Payload<A> as core::panic::PanicPayload>::get::h48667e67edde2549
-            24 ┊     0.00% ┊ <alloc::string::String as core::fmt::Display>::fmt::h29bfab9f1324032c
-            24 ┊     0.00% ┊ core::option::unwrap_failed::h12717cc50f158ee2
-            23 ┊     0.00% ┊ Subroutine[1][2014]
-            23 ┊     0.00% ┊ <&T as core::fmt::Display>::fmt::h0e3ec628b856fe61
-            22 ┊     0.00% ┊ Subroutine[2][49]
-            22 ┊     0.00% ┊ panic_unwind::imp::panic::exception_cleanup::hd82a5d231fa7c9c4
-            21 ┊     0.00% ┊ Subroutine[1][948]
-            21 ┊     0.00% ┊ Subroutine[1][1960]
-            21 ┊     0.00% ┊ <&T as core::fmt::Debug>::fmt::hdec3cd7df363df61
-            21 ┊     0.00% ┊ <core::fmt::Arguments as core::fmt::Display>::fmt::h6430220142ee8748
-            20 ┊     0.00% ┊ core::fmt::Write::write_fmt::hc33de75ff1a2fe80
-            20 ┊     0.00% ┊ core::fmt::Write::write_fmt::hea57ac09249d6db1
-            20 ┊     0.00% ┊ core::fmt::Write::write_fmt::hf47284dc58d6c2ab
-            20 ┊     0.00% ┊ core::fmt::Write::write_fmt::h94697419a1ac377a
-            20 ┊     0.00% ┊ core::fmt::Write::write_fmt::hc02d8edaf996c92b
-            19 ┊     0.00% ┊ std::panicking::panic_count::is_zero_slow_path::h964c4711602484bf
-            18 ┊     0.00% ┊ __rg_oom
-            18 ┊     0.00% ┊ alloc::alloc::handle_alloc_error::hff7cd8bed17d1d5d
-            18 ┊     0.00% ┊ core::slice::<impl [T]>::copy_from_slice::len_mismatch_fail::h9edd9812268a51b4
-            17 ┊     0.00% ┊ Subroutine[1][880]
-            17 ┊     0.00% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h999ac850b3e1500f
-            17 ┊     0.00% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h7967143d080ac78b
-            17 ┊     0.00% ┊ Subroutine[1][7147]
-            17 ┊     0.00% ┊ Subroutine[1][7149]
-            16 ┊     0.00% ┊ <std::panicking::begin_panic_handler::StaticStrPayload as core::panic::PanicPayload>::get::hbad44de501108bc7
-            16 ┊     0.00% ┊ core::panicking::panic_cannot_unwind::hf517234e476fc7c7
+         19545 ┊     6.23% ┊ std::backtrace_rs::symbolize::gimli::Cache::with_global::hda41e5ce2e638dbf
+         12227 ┊     3.90% ┊ std::backtrace_rs::symbolize::gimli::Context::new::h36f7279e64f729ba
+          9710 ┊     3.09% ┊ gimli::read::dwarf::Unit<R>::new::ha14026aa0df75fc3
+          6776 ┊     2.16% ┊ addr2line::ResUnit<R>::find_function_or_location::{{closure}}::hb0f4e11c2628b129
+          5918 ┊     1.89% ┊ addr2line::Lines::parse::hf56d45532c9cdd53
+          5016 ┊     1.60% ┊ addr2line::function::Function<R>::parse_children::ha5a223c2ceda250b
+          4715 ┊     1.50% ┊ gimli::read::unit::parse_attribute::he3623f25de2bc58f
+          3792 ┊     1.21% ┊ gimli::read::rnglists::RngListIter<R>::next::h0a17264f919a4338
+          2850 ┊     0.91% ┊ std::backtrace_rs::symbolize::gimli::elf::<impl std::backtrace_rs::symbolize::gimli::Mapping>::new_debug::h9ec6bbf4be39e1b3
+          2727 ┊     0.87% ┊ core::slice::sort::stable::quicksort::quicksort::he669545dd2c45c0a
+          2611 ┊     0.83% ┊ core::slice::sort::stable::quicksort::quicksort::he7b04f966ead366f
+          2575 ┊     0.82% ┊ core::slice::sort::stable::quicksort::quicksort::h3030826ddfc51330
+          2525 ┊     0.80% ┊ gimli::read::line::parse_attribute::hc037578c427b09f8
+          2500 ┊     0.80% ┊ core::slice::sort::stable::quicksort::quicksort::h16560da3e7ccbec2
+          2481 ┊     0.79% ┊ core::slice::sort::stable::quicksort::quicksort::hc3b4b6276e848b30
+          2455 ┊     0.78% ┊ gimli::read::index::UnitIndex<R>::parse::h43e6494ccf64cfc2
+          2360 ┊     0.75% ┊ addr2line::render_file::h8b2b27d4ac1b7166
+          2278 ┊     0.73% ┊ std::panicking::rust_panic_with_hook::h66e909d048c263a9
+          2152 ┊     0.69% ┊ <&str as core::str::pattern::Pattern>::is_contained_in::h8969625a96e5f095
+          1895 ┊     0.60% ┊ gimli::read::unit::Attribute<R>::value::h1b2c3068fe9de893
+          1770 ┊     0.56% ┊ std::backtrace_rs::symbolize::gimli::elf::<impl std::backtrace_rs::symbolize::gimli::Mapping>::load_dwarf_package::hb981420b97ec182c
+          1762 ┊     0.56% ┊ std::backtrace_rs::print::BacktraceFrameFmt::print_raw_with_column::h697ccd437a3283ff
+          1723 ┊     0.55% ┊ core::slice::sort::stable::drift::sort::haca7490b7abbc741
+          1715 ┊     0.55% ┊ core::slice::sort::stable::drift::sort::h87924e34d9c671d6
+          1673 ┊     0.53% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::parse::h903c159729c23fa7
+          1667 ┊     0.53% ┊ core::slice::sort::stable::drift::sort::h9699b14e6b8eeac6
+          1667 ┊     0.53% ┊ core::slice::sort::stable::drift::sort::h6a89c85573c7525e
+          1648 ┊     0.53% ┊ core::slice::sort::stable::drift::sort::h6270578f0a10da67
+          1509 ┊     0.48% ┊ gimli::read::unit::DebugInfoUnitHeadersIter<R>::next::h5d3aeb3046c03cc8
+          1479 ┊     0.47% ┊ rust_eh_personality
+          1399 ┊     0.45% ┊ gimli::read::unit::skip_attributes::h828f1e65d71b1795
+          1385 ┊     0.44% ┊ <gimli::read::line::LineProgramHeader<R,Offset> as core::clone::Clone>::clone::h800b4fec4eaecf1e
+          1369 ┊     0.44% ┊ core::slice::sort::shared::smallsort::small_sort_general::h0ea0989a301d140a
+          1359 ┊     0.43% ┊ std::path::Components::as_path::h9accfcd53762045c
+          1345 ┊     0.43% ┊ addr2line::LoopingLookup<T,L,F>::new_lookup::h87530e8350e94277
+          1293 ┊     0.41% ┊ core::str::pattern::StrSearcher::new::h9068c00d28f01e1d
+          1290 ┊     0.41% ┊ addr2line::ResUnit<R>::find_function_or_location::ha089d54f9483837d
+          1234 ┊     0.39% ┊ core::str::count::do_count_chars::h8d3bc63d9ea1b16d
+          1226 ┊     0.39% ┊ <std::ffi::os_str::Display as core::fmt::Debug>::fmt::h29fd4e12e2eee8a1
+          1111 ┊     0.35% ┊ core::fmt::Formatter::pad::hcc5fe622846bf700
+          1107 ┊     0.35% ┊ core::slice::sort::unstable::quicksort::quicksort::hde6146079546189c
+          1021 ┊     0.33% ┊ addr2line::function::name_entry::h116069d56455a1c9
+          1019 ┊     0.32% ┊ std::backtrace_rs::symbolize::gimli::libs_dl_iterate_phdr::callback::ha48d66b54948c07f
+          1018 ┊     0.32% ┊ core::str::slice_error_fail_rt::h11f1a83693378e5e
+           965 ┊     0.31% ┊ <std::sys::backtrace::BacktraceLock::print::DisplayBacktrace as core::fmt::Display>::fmt::hfc616348d9ad0abc
+           908 ┊     0.29% ┊ <std::path::Components as core::iter::traits::iterator::Iterator>::next::h3aef65383ab370ed
+           896 ┊     0.29% ┊ <std::io::stdio::StdoutLock as std::io::Write>::write_all::h3f6001ad97c76a67
+           885 ┊     0.28% ┊ core::slice::sort::shared::smallsort::sort8_stable::h1f7037265b7cde71
+           871 ┊     0.28% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::section::h063c35e11a5fb579
+           837 ┊     0.27% ┊ <std::path::Components as core::iter::traits::double_ended::DoubleEndedIterator>::next_back::h472e5d056eb7d600
+           828 ┊     0.26% ┊ gimli::read::line::FileEntryFormat::parse::hece510097cbb85f6
+           800 ┊     0.25% ┊ std::env::current_exe::hdfa8f56b3902be98
+           800 ┊     0.25% ┊ alloc::collections::btree::map::IntoIter<K,V,A>::dying_next::hc26059ba6bd08a35
+           800 ┊     0.25% ┊ alloc::collections::btree::map::IntoIter<K,V,A>::dying_next::h8c00ec0cfe47f85c
+           796 ┊     0.25% ┊ gimli::read::unit::EntriesCursor<R>::next_entry::h73109155b0cfbb79
+           756 ┊     0.24% ┊ hello_world::main::h566bf36a5559a1df
+           755 ┊     0.24% ┊ <std::io::error::Error as core::fmt::Display>::fmt::h754a49e4fc8ec8aa
+           729 ┊     0.23% ┊ std::path::Path::_strip_prefix::hae021232137938e4
+           717 ┊     0.23% ┊ addr2line::function::name_attr::haa2849a636d5d14e
+           707 ┊     0.23% ┊ std::sys::pal::unix::fs::try_statx::hbd180b48ef89543a
+           707 ┊     0.23% ┊ <std::backtrace_rs::symbolize::SymbolName as core::fmt::Display>::fmt::hd60040bbf8d6e65e
+           669 ┊     0.21% ┊ <std::path::Components as core::cmp::PartialEq>::eq::hf7d693bc9d3db288
+           665 ┊     0.21% ┊ std::sys::backtrace::_print_fmt::{{closure}}::{{closure}}::hd9ebbb6a4c9af557
+           658 ┊     0.21% ┊ gimli::read::aranges::ArangeHeader<R,Offset>::parse::h627e2d8385c297d9
+           644 ┊     0.21% ┊ gimli::read::line::parse_file_v5::h944532e78aebf022
+           634 ┊     0.20% ┊ core::fmt::Formatter::pad_integral::h96d805165c239be7
+           627 ┊     0.20% ┊ std::backtrace_rs::symbolize::gimli::elf::locate_build_id::h8f0e03516a869370
+           622 ┊     0.20% ┊ <core::fmt::builders::PadAdapter as core::fmt::Write>::write_str::h0a318b9bf7874d58
+           600 ┊     0.19% ┊ std::io::buffered::bufwriter::BufWriter<W>::flush_buf::hbb5a0c476fdeeda3
+           585 ┊     0.19% ┊ Subroutine[1][17345]
+           580 ┊     0.18% ┊ std::backtrace_rs::symbolize::gimli::mmap::h733944155c56fb74
+           573 ┊     0.18% ┊ std::sync::poison::once::Once::call_once::{{closure}}::hc150627084d9a3a4
+           571 ┊     0.18% ┊ alloc::string::String::from_utf8_lossy::h93e501670dab1f99
+           546 ┊     0.17% ┊ std::sys::sync::once::futex::Once::call::hba7a0ad2312b9b6c
+           544 ┊     0.17% ┊ core::char::methods::<impl char>::escape_debug_ext::h5b07a35fc7892fbd
+           531 ┊     0.17% ┊ core::fmt::num::<impl core::fmt::Debug for usize>::fmt::hde35892ade72905a
+           512 ┊     0.16% ┊ std::fs::OpenOptions::_open::h3d9016e7403a40fb
+           510 ┊     0.16% ┊ core::fmt::write::h7ca648217bc79799
+           504 ┊     0.16% ┊ core::str::converts::from_utf8::h15cfaf624c64090a
+           488 ┊     0.16% ┊ gimli::read::dwarf::Dwarf<R>::attr_string::h0e75a900b61c12a6
+           473 ┊     0.15% ┊ <core::str::pattern::CharSearcher as core::str::pattern::Searcher>::next_match::h9ab7cc93e8464f46
+           454 ┊     0.14% ┊ std::sys::pal::unix::stack_overflow::imp::make_handler::h9e165333838f87d4
+           450 ┊     0.14% ┊ std::sys::pal::common::small_c_string::run_with_cstr_allocating::hf236ad3c74738e9f
+           440 ┊     0.14% ┊ std::sys::backtrace::output_filename::h9781837ccdb241fc
+           439 ┊     0.14% ┊ std::sys::pal::unix::stack_overflow::imp::signal_handler::h92742cf6f22d3519
+           437 ┊     0.14% ┊ memchr::arch::x86_64::memchr::memchr_raw::detect::h719eaebe20b32dd8
+           430 ┊     0.14% ┊ std::sys::sync::rwlock::futex::RwLock::read_contended::h9accba1397abf8da
+           430 ┊     0.14% ┊ <core::str::lossy::Utf8Chunks as core::iter::traits::iterator::Iterator>::next::h97482783f67b8f88
+           421 ┊     0.13% ┊ Subroutine[4][108]
+           385 ┊     0.12% ┊ core::fmt::Write::write_char::h0a09fc357ced39c1
+           375 ┊     0.12% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::build_id::h7e7f0e883eadbb35
+           370 ┊     0.12% ┊ core::fmt::Write::write_char::h972c5529c2f90ef3
+           369 ┊     0.12% ┊ std::thread::current::init_current::h5e99390f2ba3935c
+           361 ┊     0.12% ┊ core::str::<impl str>::trim_start_matches::hc0cb9387a22fd376
+           350 ┊     0.11% ┊ core::slice::sort::shared::smallsort::sort4_stable::h28eb5be87ef03567
+           346 ┊     0.11% ┊ std::sys::backtrace::_print_fmt::{{closure}}::h70b130b38c57ae5b
+           344 ┊     0.11% ┊ std::sys::pal::common::small_c_string::run_with_cstr_allocating::h95da3f3db4cb1477
+           338 ┊     0.11% ┊ core::unicode::unicode_data::grapheme_extend::lookup_slow::h85519d9e141c7502
+           328 ┊     0.10% ┊ std::sys::pal::unix::fs::stat::h266d7dae3a38ed93
+           325 ┊     0.10% ┊ std::sys::pal::unix::fs::canonicalize::h8bb2afa9539cf4a3
+           325 ┊     0.10% ┊ std::sys::os_str::bytes::Slice::check_public_boundary::slow_path::h9e2d1b965ad2cc58
+           322 ┊     0.10% ┊ core::slice::sort::stable::driftsort_main::hb8621187dfb7544f
+           310 ┊     0.10% ┊ <std::path::StripPrefixError as core::fmt::Debug>::fmt::h6aafd60ff76e2d43
+           304 ┊     0.10% ┊ Subroutine[1][13525]
+           301 ┊     0.10% ┊ Subroutine[1][14714]
+           294 ┊     0.09% ┊ core::panicking::assert_failed_inner::h4797f91cd349a0eb
+           292 ┊     0.09% ┊ core::slice::sort::stable::driftsort_main::h83cc964da71e2ff7
+           292 ┊     0.09% ┊ std::io::buffered::bufwriter::BufWriter<W>::write_all_cold::heb355a4a2bc49055
+           290 ┊     0.09% ┊ core::slice::sort::stable::driftsort_main::hc846aefa3cbbc7e4
+           290 ┊     0.09% ┊ core::slice::sort::stable::driftsort_main::h5373cee129331aa9
+           290 ┊     0.09% ┊ core::slice::sort::stable::driftsort_main::h74c6341819ee8327
+           287 ┊     0.09% ┊ core::unicode::printable::is_printable::hbf49a5e8240f47ca
+           285 ┊     0.09% ┊ std::path::PathBuf::push::hc9487e1bbc4c97d4
+           282 ┊     0.09% ┊ core::fmt::num::imp::<impl core::fmt::Display for i32>::fmt::h658fefd5335c76dd
+           281 ┊     0.09% ┊ core::fmt::num::imp::<impl core::fmt::Display for u64>::fmt::hb59860de16ff6386
+           272 ┊     0.09% ┊ <std::panicking::begin_panic_handler::FormatStringPayload as core::panic::PanicPayload>::take_box::hcc87bf2f8e8b2692
+           272 ┊     0.09% ┊ core::unicode::printable::check::hc1a558886616d218
+           264 ┊     0.08% ┊ Subroutine[3][1044]
+           262 ┊     0.08% ┊ core::slice::sort::unstable::heapsort::heapsort::h889d5bf36096fa0d
+           262 ┊     0.08% ┊ core::fmt::num::imp::<impl core::fmt::Display for u32>::fmt::hd89c3b0fb0c52137
+           259 ┊     0.08% ┊ core::ptr::drop_in_place<addr2line::Context<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>::h4268fda4a6d43be1
+           259 ┊     0.08% ┊ core::slice::sort::shared::pivot::median3_rec::he1c7ffe0976a3b32
+           258 ┊     0.08% ┊ std::io::default_read_to_end::small_probe_read::ha32225b8ea8f5dc9
+           257 ┊     0.08% ┊ std::io::Write::write_fmt::h7960c58bfa5ccbcb
+           257 ┊     0.08% ┊ std::io::Write::write_fmt::he22fb4446a287736
+           254 ┊     0.08% ┊ Subroutine[1][385]
+           247 ┊     0.08% ┊ std::sys::sync::mutex::futex::Mutex::lock_contended::h2821e64f818bf249
+           244 ┊     0.08% ┊ core::fmt::Write::write_char::hb54623d23c69d352
+           243 ┊     0.08% ┊ <&str as alloc::ffi::c_str::CString::new::SpecNewImpl>::spec_new_impl::h616d1b730c85d035
+           242 ┊     0.08% ┊ gimli::read::reader::Reader::read_sized_offset::h04a8d25f6fea9b31
+           240 ┊     0.08% ┊ Subroutine[3][140]
+           238 ┊     0.08% ┊ <&T as core::fmt::Debug>::fmt::hb092aacdce63f621
+           238 ┊     0.08% ┊ core::str::pattern::simd_contains::{{closure}}::h888902ba7f345811
+           234 ┊     0.07% ┊ std::sys::thread_local::guard::key::enable::hbcc9e853fe020472
+           231 ┊     0.07% ┊ std::path::Components::parse_next_component_back::h77ed0cf7d9ae78e9
+           224 ┊     0.07% ┊ <*mut T as core::fmt::Debug>::fmt::he34ee2b410132f82
+           224 ┊     0.07% ┊ gimli::read::line::parse_directory_v5::h0d8c9277ab0a9f73
+           220 ┊     0.07% ┊ core::ptr::drop_in_place<gimli::read::abbrev::AbbreviationsCache>::h45a25fe1ad85b8da
+           219 ┊     0.07% ┊ alloc::raw_vec::RawVecInner<A>::reserve::do_reserve_and_handle::hd7ab3d187bac400c
+           218 ┊     0.07% ┊ core::ptr::drop_in_place<addr2line::ResUnit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>::h7492e6f400909d19
+           214 ┊     0.07% ┊ core::ptr::drop_in_place<alloc::vec::Vec<addr2line::SupUnit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>>::h494bff32f2df7835
+           214 ┊     0.07% ┊ std::sys::sync::rwlock::futex::RwLock::wake_writer_or_readers::hf18a4c259452807b
+           210 ┊     0.07% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h6a3b8b853b7430dc
+           209 ┊     0.07% ┊ Subroutine[1][7734]
+           209 ┊     0.07% ┊ std::alloc::default_alloc_error_hook::h12b0c4ceeff18ff1
+           208 ┊     0.07% ┊ Subroutine[1][7707]
+           207 ┊     0.07% ┊ core::ptr::drop_in_place<alloc::boxed::Box<[addr2line::SupUnit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>]>>::heef9927682101b6e
+           205 ┊     0.07% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h9da2f31eaaaa0341
+           205 ┊     0.07% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h71aa19d38df4b41b
+           205 ┊     0.07% ┊ <char as core::fmt::Display>::fmt::h37a2c537887808ef
+           204 ┊     0.07% ┊ std::backtrace_rs::symbolize::gimli::stash::Stash::allocate::hda7ea54ddf8a1ffd
+           204 ┊     0.07% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h31dab48396be7c7e
+           204 ┊     0.07% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h668857774898427d
+           204 ┊     0.07% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h2f835b58d7dabb99
+           202 ┊     0.06% ┊ std::backtrace_rs::symbolize::Symbol::name::h64f81e3dcb927431
+           201 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h39295f8b0829c958
+           201 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h0c3d318f00653ac8
+           199 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h625f12e9ee0a8d9f
+           199 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h495ab69bc2f25486
+           198 ┊     0.06% ┊ core::slice::sort::unstable::ipnsort::hb998e5831b4e2d6d
+           198 ┊     0.06% ┊ std::panicking::begin_panic_handler::{{closure}}::h8d9aa8be7e8634cf
+           197 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::ha0086ebc794a3760
+           197 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h56bb137d70aad5b2
+           197 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::ha007d4d7aa7607ee
+           196 ┊     0.06% ┊ core::ptr::drop_in_place<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>::h355edf1f5deb95b1
+           196 ┊     0.06% ┊ std::path::Path::is_dir::h56984e0361123dfe
+           194 ┊     0.06% ┊ core::ptr::drop_in_place<std::backtrace_rs::symbolize::gimli::stash::Stash>::h91af8f43ca9aa9af
+           192 ┊     0.06% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::h98b437f79c29d0d0
+           191 ┊     0.06% ┊ alloc::sync::Arc<T,A>::drop_slow::h62371afa8205e3c7
+           190 ┊     0.06% ┊ Subroutine[1][1644]
+           190 ┊     0.06% ┊ std::path::Path::is_file::h7722c1eb54c08310
+           190 ┊     0.06% ┊ <std::path::Component as core::cmp::PartialEq>::eq::h693394f516f80852
+           179 ┊     0.06% ┊ core::slice::sort::shared::pivot::median3_rec::h7cac5f13fb74e99c
+           179 ┊     0.06% ┊ core::slice::sort::shared::pivot::median3_rec::hc3f75eb10a8b70e9
+           178 ┊     0.06% ┊ core::slice::sort::shared::pivot::median3_rec::ha870fcbc283a9d9c
+           176 ┊     0.06% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::search_symtab::h9b19010430f2334b
+           175 ┊     0.06% ┊ core::slice::sort::shared::pivot::median3_rec::h8cefdf732d71fb1b
+           174 ┊     0.06% ┊ core::ptr::drop_in_place<core::result::Result<addr2line::Lines,gimli::read::Error>>::had6fb9ae98925941
+           172 ┊     0.05% ┊ core::slice::sort::shared::pivot::median3_rec::h42b780a0c4603ce1
+           168 ┊     0.05% ┊ Subroutine[1][18968]
+           167 ┊     0.05% ┊ core::ptr::drop_in_place<alloc::vec::Vec<(usize,std::backtrace_rs::symbolize::gimli::Mapping)>>::h6ab65bd7ed4875a5
+           167 ┊     0.05% ┊ Subroutine[1][1883]
+           165 ┊     0.05% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::h597461426f894e15
+           162 ┊     0.05% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::h9568280638b302c3
+           162 ┊     0.05% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::ha6bc733a27628b1b
+           161 ┊     0.05% ┊ <std::panicking::begin_panic_handler::FormatStringPayload as core::panic::PanicPayload>::get::hf9c1519b7ec0b98a
+           160 ┊     0.05% ┊ <std::backtrace_rs::symbolize::gimli::parse_running_mmaps::MapsEntry as core::str::traits::FromStr>::from_str::{{closure}}::hba4839afd3c67372
+           159 ┊     0.05% ┊ Subroutine[1][1806]
+           158 ┊     0.05% ┊ core::ptr::drop_in_place<core::result::Result<addr2line::function::Functions<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>,gimli::read::Error>>::hd2dece211376735c
+           158 ┊     0.05% ┊ __rust_drop_panic
+           158 ┊     0.05% ┊ __rust_foreign_exception
+           158 ┊     0.05% ┊ alloc::raw_vec::RawVecInner<A>::reserve::do_reserve_and_handle::h26ffaf193b9a64fb
+           155 ┊     0.05% ┊ __rust_start_panic
+           152 ┊     0.05% ┊ Subroutine[1][11956]
+           150 ┊     0.05% ┊ Subroutine[1][18998]
+           148 ┊     0.05% ┊ Subroutine[1][6226]
+           147 ┊     0.05% ┊ Subroutine[1][1491]
+           146 ┊     0.05% ┊ <char as core::fmt::Debug>::fmt::hfe309ac9bb7091e9
+           144 ┊     0.05% ┊ core::ptr::drop_in_place<core::result::Result<core::option::Option<alloc::boxed::Box<(alloc::sync::Arc<gimli::read::dwarf::Dwarf<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>,gimli::read::dwarf::Unit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>,usize>)>>,gimli::read::Error>>::h6b33aab73669d1b8
+           144 ┊     0.05% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::h620ab964516d2c25
+           143 ┊     0.05% ┊ core::fmt::num::<impl core::fmt::LowerHex for i64>::fmt::he694f9a0fec4c4a8
+           141 ┊     0.04% ┊ core::fmt::num::<impl core::fmt::UpperHex for i8>::fmt::h9ad2f3f67ff25e33
+           139 ┊     0.04% ┊ core::ptr::drop_in_place<std::backtrace_rs::symbolize::gimli::Mapping>::hc8e3ded1007aa9ad
+           138 ┊     0.04% ┊ alloc::sync::Arc<T,A>::drop_slow::hd438b38b1c9e676e
+           134 ┊     0.04% ┊ Subroutine[1][1034]
+           132 ┊     0.04% ┊ std::sys::pal::common::small_c_string::run_with_cstr_allocating::hcbba1fd78405442e
+           127 ┊     0.04% ┊ Subroutine[1][917]
+           124 ┊     0.04% ┊ Subroutine[1][1520]
+           124 ┊     0.04% ┊ core::ptr::drop_in_place<alloc::sync::ArcInner<gimli::read::abbrev::Abbreviations>>::h0a448843e74b8402
+           124 ┊     0.04% ┊ Subroutine[1][6044]
+           123 ┊     0.04% ┊ Subroutine[1][1676]
+           123 ┊     0.04% ┊ <&T as core::fmt::Display>::fmt::ha354cfe835191325
+           122 ┊     0.04% ┊ Subroutine[1][7263]
+           119 ┊     0.04% ┊ Subroutine[1][1224]
+           119 ┊     0.04% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h592abffa244b3ffa
+           119 ┊     0.04% ┊ Subroutine[1][7424]
+           118 ┊     0.04% ┊ Subroutine[1][1011]
+           118 ┊     0.04% ┊ Subroutine[1][1408]
+           118 ┊     0.04% ┊ Subroutine[1][1430]
+           118 ┊     0.04% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::hfafa66d5244ad089
+           118 ┊     0.04% ┊ std::panicking::default_hook::{{closure}}::{{closure}}::h2283dd2e917d06d9
+           117 ┊     0.04% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h3ddc3ff784431805
+           117 ┊     0.04% ┊ core::result::unwrap_failed::ha0269c4bdff93d7d
+           115 ┊     0.04% ┊ core::ptr::drop_in_place<<alloc::collections::btree::map::IntoIter<K,V,A> as core::ops::drop::Drop>::drop::DropGuard<u64,core::result::Result<alloc::sync::Arc<gimli::read::abbrev::Abbreviations>,gimli::read::Error>,alloc::alloc::Global>>::h5c69c28574895d1f
+           113 ┊     0.04% ┊ alloc::raw_vec::finish_grow::hd5248612660e0649
+           107 ┊     0.03% ┊ core::ptr::drop_in_place<alloc::boxed::Box<panic_unwind::imp::Exception>>::h0a16b989c2d8d3e7
+           106 ┊     0.03% ┊ core::slice::<impl [T]>::copy_from_slice::len_mismatch_fail::do_panic::runtime::hba08b046e17560cf
+           105 ┊     0.03% ┊ std::sys::thread_local::guard::key::enable::run::h2ae81be8f849caeb
+           105 ┊     0.03% ┊ core::option::expect_failed::h11ade060093e7060
+           104 ┊     0.03% ┊ rust_panic
+           103 ┊     0.03% ┊ <alloc::string::String as core::fmt::Write>::write_str::h894be4ba3897f209
+           102 ┊     0.03% ┊ core::slice::index::slice_start_index_len_fail::do_panic::runtime::h99bec6cc2c4712f7
+           102 ┊     0.03% ┊ core::slice::index::slice_end_index_len_fail::do_panic::runtime::hecbdc4cd5a9cfe0c
+           102 ┊     0.03% ┊ core::slice::index::slice_index_order_fail::do_panic::runtime::h9d9282754e122488
+           101 ┊     0.03% ┊ Subroutine[1][1605]
+           100 ┊     0.03% ┊ alloc::raw_vec::finish_grow::hf30946d0f8052e8a
+            98 ┊     0.03% ┊ Subroutine[1][1448]
+            96 ┊     0.03% ┊ core::ptr::drop_in_place<std::io::stdio::StdinLock>::hcb6bdaa26d89af95
+            96 ┊     0.03% ┊ Subroutine[1][1367]
+            95 ┊     0.03% ┊ <core::fmt::builders::PadAdapter as core::fmt::Write>::write_char::h2736d7139d213399
+            93 ┊     0.03% ┊ <std::panicking::begin_panic_handler::FormatStringPayload as core::fmt::Display>::fmt::hbee76ecaff42d0fb
+            93 ┊     0.03% ┊ Subroutine[5][29]
+            91 ┊     0.03% ┊ core::panicking::panic_bounds_check::ha76acd1fe0c5813b
+            90 ┊     0.03% ┊ core::ptr::drop_in_place<alloc::sync::ArcInner<gimli::read::dwarf::Dwarf<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>>::h20142409a3ad2600
+            90 ┊     0.03% ┊ Subroutine[1][1930]
+            89 ┊     0.03% ┊ std::sys::backtrace::BacktraceLock::print::h3fb349e80cbe0423
+            88 ┊     0.03% ┊ std::sync::once_lock::OnceLock<T>::initialize::h2847148379cd6f5e
+            88 ┊     0.03% ┊ <std::panicking::begin_panic::Payload<A> as core::panic::PanicPayload>::take_box::h27227def7db7f971
+            84 ┊     0.03% ┊ core::fmt::Formatter::pad_integral::write_prefix::hd30895a40eef31e8
+            83 ┊     0.03% ┊ Subroutine[1][2095]
+            82 ┊     0.03% ┊ core::cell::panic_already_borrowed::h262913cd8451b517
+            81 ┊     0.03% ┊ Subroutine[1][20920]
+            79 ┊     0.03% ┊ core::panicking::panic_nounwind_nobacktrace::hdf7fac9038a56f32
+            75 ┊     0.02% ┊ <core::ops::range::Range<Idx> as core::fmt::Debug>::fmt::h5f4c0b6c92d5cb19
+            74 ┊     0.02% ┊ Subroutine[1][1473]
+            74 ┊     0.02% ┊ Subroutine[1][1597]
+            74 ┊     0.02% ┊ Subroutine[1][1871]
+            72 ┊     0.02% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::hf5be52176721d4d0
+            72 ┊     0.02% ┊ Subroutine[1][7413]
+            72 ┊     0.02% ┊ alloc::sync::Arc<T,A>::drop_slow::h7fb2849d4e951291
+            71 ┊     0.02% ┊ <std::panicking::begin_panic_handler::StaticStrPayload as core::panic::PanicPayload>::take_box::h299bcc6f215e7abf
+            71 ┊     0.02% ┊ __rust_panic_cleanup
+            70 ┊     0.02% ┊ Subroutine[1][7752]
+            69 ┊     0.02% ┊ core::panicking::panic_nounwind::h2f7749cb358aa979
+            67 ┊     0.02% ┊ core::panicking::panic_nounwind_fmt::h57347130f21a7343
+            64 ┊     0.02% ┊ std::thread::current::current::h6e1ac74d3b8c367c
+            60 ┊     0.02% ┊ std::backtrace_rs::backtrace::libunwind::trace::trace_fn::h1a05ca021649cca3
+            59 ┊     0.02% ┊ Subroutine[1][2028]
+            59 ┊     0.02% ┊ core::panicking::panic::h209220e15dcf6e53
+            58 ┊     0.02% ┊ core::ptr::drop_in_place<std::backtrace_rs::backtrace::libunwind::Bomb>::ha1f8a5ec382c7873
+            58 ┊     0.02% ┊ std::thread::ThreadId::new::exhausted::h587e4c0974c27867
+            58 ┊     0.02% ┊ core::slice::index::slice_end_index_overflow_fail::h44ceca6bfa85b168
+            58 ┊     0.02% ┊ core::slice::sort::shared::smallsort::panic_on_ord_violation::h1646a55e979504ab
+            58 ┊     0.02% ┊ core::str::traits::str_index_overflow_fail::hfac46406dea00eae
+            55 ┊     0.02% ┊ Subroutine[1][1971]
+            54 ┊     0.02% ┊ alloc::raw_vec::capacity_overflow::h1d367b37f58596d3
+            54 ┊     0.02% ┊ core::panicking::panic_const::panic_const_div_by_zero::hbdf06d0496e98425
+            54 ┊     0.02% ┊ core::panicking::panic_const::panic_const_rem_by_zero::h3a1a875e01d18d87
+            45 ┊     0.01% ┊ core::ptr::drop_in_place<std::sync::poison::rwlock::RwLockReadGuard<std::panicking::Hook>>::ha82cb38c0a693c4a
+            43 ┊     0.01% ┊ core::panicking::assert_failed::hf5c4898457e9114b
+            43 ┊     0.01% ┊ std::panicking::begin_panic::{{closure}}::hacefc94753723f51
+            40 ┊     0.01% ┊ core::ptr::drop_in_place<core::option::Option<std::thread::Thread>>::hc42aa4992967fe47
+            38 ┊     0.01% ┊ std::panicking::begin_panic::h49f2e0fca21e5b3f
+            38 ┊     0.01% ┊ <std::panicking::begin_panic::Payload<A> as core::fmt::Display>::fmt::h5e98bb22df1a2514
+            34 ┊     0.01% ┊ core::ptr::drop_in_place<core::result::Result<addr2line::FrameIter<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>,gimli::read::Error>>::he5e9ff7990c6beed
+            32 ┊     0.01% ┊ Subroutine[1][2116]
+            31 ┊     0.01% ┊ Subroutine[1][6979]
+            31 ┊     0.01% ┊ core::panicking::panic_fmt::hf8ffc7c15bfb58a0
+            31 ┊     0.01% ┊ <core::cell::BorrowMutError as core::fmt::Debug>::fmt::hb6a448964972af09
+            30 ┊     0.01% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::ha8a0ade38236097b
+            29 ┊     0.01% ┊ <std::panicking::begin_panic_handler::StaticStrPayload as core::fmt::Display>::fmt::ha8b97b10cb290fed
+            28 ┊     0.01% ┊ Subroutine[1][1993]
+            28 ┊     0.01% ┊ rust_begin_unwind
+            26 ┊     0.01% ┊ <T as core::any::Any>::type_id::h8c3c3ba1f2ebb1e5
+            26 ┊     0.01% ┊ <T as core::any::Any>::type_id::h4a17315c30ff84f5
+            26 ┊     0.01% ┊ <std::panicking::begin_panic::Payload<A> as core::panic::PanicPayload>::get::h48667e67edde2549
+            24 ┊     0.01% ┊ <alloc::string::String as core::fmt::Display>::fmt::h29bfab9f1324032c
+            24 ┊     0.01% ┊ core::option::unwrap_failed::h12717cc50f158ee2
+            23 ┊     0.01% ┊ Subroutine[1][2014]
+            23 ┊     0.01% ┊ <&T as core::fmt::Display>::fmt::h0e3ec628b856fe61
+            22 ┊     0.01% ┊ Subroutine[2][49]
+            22 ┊     0.01% ┊ panic_unwind::imp::panic::exception_cleanup::hd82a5d231fa7c9c4
+            21 ┊     0.01% ┊ Subroutine[1][948]
+            21 ┊     0.01% ┊ Subroutine[1][1960]
+            21 ┊     0.01% ┊ <&T as core::fmt::Debug>::fmt::hdec3cd7df363df61
+            21 ┊     0.01% ┊ <core::fmt::Arguments as core::fmt::Display>::fmt::h6430220142ee8748
+            20 ┊     0.01% ┊ core::fmt::Write::write_fmt::hc33de75ff1a2fe80
+            20 ┊     0.01% ┊ core::fmt::Write::write_fmt::hea57ac09249d6db1
+            20 ┊     0.01% ┊ core::fmt::Write::write_fmt::hf47284dc58d6c2ab
+            20 ┊     0.01% ┊ core::fmt::Write::write_fmt::h94697419a1ac377a
+            20 ┊     0.01% ┊ core::fmt::Write::write_fmt::hc02d8edaf996c92b
+            19 ┊     0.01% ┊ std::panicking::panic_count::is_zero_slow_path::h964c4711602484bf
+            18 ┊     0.01% ┊ __rg_oom
+            18 ┊     0.01% ┊ alloc::alloc::handle_alloc_error::hff7cd8bed17d1d5d
+            18 ┊     0.01% ┊ core::slice::<impl [T]>::copy_from_slice::len_mismatch_fail::h9edd9812268a51b4
+            17 ┊     0.01% ┊ Subroutine[1][880]
+            17 ┊     0.01% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h999ac850b3e1500f
+            17 ┊     0.01% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h7967143d080ac78b
+            17 ┊     0.01% ┊ Subroutine[1][7147]
+            17 ┊     0.01% ┊ Subroutine[1][7149]
+            16 ┊     0.01% ┊ <std::panicking::begin_panic_handler::StaticStrPayload as core::panic::PanicPayload>::get::hbad44de501108bc7
+            16 ┊     0.01% ┊ core::panicking::panic_cannot_unwind::hf517234e476fc7c7
             14 ┊     0.00% ┊ std::alloc::rust_oom::hda180eacbcfe9ee5
             13 ┊     0.00% ┊ std::sys::pal::unix::args::imp::ARGV_INIT_ARRAY::init_wrapper::h13c0c38b9bb45ea7
             13 ┊     0.00% ┊ <std::panicking::begin_panic_handler::StaticStrPayload as core::panic::PanicPayload>::as_str::habf825a303475049
@@ -340,4 +340,4 @@
              9 ┊     0.00% ┊ core::str::slice_error_fail::h91d994a0d1b0561d
              8 ┊     0.00% ┊ core::panic::PanicPayload::as_str::h7f1dc705fbf9ed90
              5 ┊     0.00% ┊ std::sys::backtrace::__rust_begin_short_backtrace::hfacc9bc09697879e
-        193771 ┊    10.86% ┊ Σ [340 Total Rows]
+        193771 ┊    61.76% ┊ Σ [340 Total Rows]

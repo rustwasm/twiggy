@@ -1,7 +1,7 @@
 use anyhow::anyhow;
 use fallible_iterator::FallibleIterator;
 use gimli;
-use object::{Object, ObjectSection};
+use object::{Object, ObjectSection, ObjectSegment};
 use std::borrow::{Borrow, Cow};
 use twiggy_ir as ir;
 use typed_arena::Arena;
@@ -29,7 +29,7 @@ where
     Sect::from(gimli::EndianSlice::new(data_ref, endian))
 }
 
-pub fn parse(items: &mut ir::ItemsBuilder, data: &[u8]) -> anyhow::Result<()> {
+pub fn parse(data: &[u8]) -> anyhow::Result<ir::Items> {
     let file: object::File = object::File::parse(data)
         .map_err(|err| anyhow!("Failed to parse data with err: {:?}", err))?;
 
@@ -64,9 +64,15 @@ pub fn parse(items: &mut ir::ItemsBuilder, data: &[u8]) -> anyhow::Result<()> {
         ..Default::default()
     };
 
-    parse_items(items, &dwarf)?;
-    parse_edges(items, &dwarf)?;
-    Ok(())
+    let mut alloc_size = 0;
+    for segment in file.segments() {
+        alloc_size += segment.size();
+    }
+
+    let mut items = ir::ItemsBuilder::new(alloc_size as u32);
+    parse_items(&mut items, &dwarf)?;
+    parse_edges(&mut items, &dwarf)?;
+    Ok(items.finish())
 }
 
 fn parse_items<R: gimli::Reader>(
