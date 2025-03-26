@@ -1,29 +1,29 @@
  Shallow Bytes │ Shallow % │ Item
-───────────────┼───────────┼───────────────────────────────────────────────────────────────
-          9751 ┊     0.46% ┊ stats_arena_print
-          9503 ┊     0.45% ┊ std::sys_common::backtrace::output::hf6421f76165dc3d9
-          7917 ┊     0.38% ┊ je_stats_print
-          7852 ┊     0.37% ┊ mallocx
-          7019 ┊     0.33% ┊ je_arena_boot
-          6221 ┊     0.30% ┊ je_malloc_vsnprintf
-          6198 ┊     0.30% ┊ std::panicking::default_hook::{{closure}}::h027136eae47935d0
-          4313 ┊     0.21% ┊ je_arena_palloc
-          4028 ┊     0.19% ┊ realloc
-          3908 ┊     0.19% ┊ malloc_init_hard_a0_locked
-          3510 ┊     0.17% ┊ std::sys_common::backtrace::output_fileline::hcf938cef3f70d455
-          3185 ┊     0.15% ┊ calloc
-          3178 ┊     0.15% ┊ malloc
-          3093 ┊     0.15% ┊ rallocx
-          3086 ┊     0.15% ┊ je_arena_ralloc_no_move
-          3015 ┊     0.14% ┊ std::panicking::rust_panic_with_hook::hc482345e1eead25b
-          2952 ┊     0.14% ┊ je_arena_ralloc
-          2696 ┊     0.13% ┊ arena_run_dalloc
-          2302 ┊     0.11% ┊ arena_purge_to_limit
-          2286 ┊     0.11% ┊ core::str::pattern::StrSearcher::new::h05915110cf690552
-          2194 ┊     0.10% ┊ arena_run_heap_remove
-          2168 ┊     0.10% ┊ je_prof_free_sampled_object
-          2158 ┊     0.10% ┊ prof_tdata_destroy_locked
-          2041 ┊     0.10% ┊ stats_print_helper
-          1897 ┊     0.09% ┊ imemalign
-        150168 ┊     7.15% ┊ ... and 753 more.
-        256639 ┊    12.23% ┊ Σ [778 Total Rows]
+───────────────┼───────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         19545 ┊     1.10% ┊ std::backtrace_rs::symbolize::gimli::Cache::with_global::hda41e5ce2e638dbf
+         12227 ┊     0.69% ┊ std::backtrace_rs::symbolize::gimli::Context::new::h36f7279e64f729ba
+          9710 ┊     0.54% ┊ gimli::read::dwarf::Unit<R>::new::ha14026aa0df75fc3
+          6776 ┊     0.38% ┊ addr2line::ResUnit<R>::find_function_or_location::{{closure}}::hb0f4e11c2628b129
+          5918 ┊     0.33% ┊ addr2line::Lines::parse::hf56d45532c9cdd53
+          5016 ┊     0.28% ┊ addr2line::function::Function<R>::parse_children::ha5a223c2ceda250b
+          4715 ┊     0.26% ┊ gimli::read::unit::parse_attribute::he3623f25de2bc58f
+          3792 ┊     0.21% ┊ gimli::read::rnglists::RngListIter<R>::next::h0a17264f919a4338
+          2850 ┊     0.16% ┊ std::backtrace_rs::symbolize::gimli::elf::<impl std::backtrace_rs::symbolize::gimli::Mapping>::new_debug::h9ec6bbf4be39e1b3
+          2727 ┊     0.15% ┊ core::slice::sort::stable::quicksort::quicksort::he669545dd2c45c0a
+          2611 ┊     0.15% ┊ core::slice::sort::stable::quicksort::quicksort::he7b04f966ead366f
+          2575 ┊     0.14% ┊ core::slice::sort::stable::quicksort::quicksort::h3030826ddfc51330
+          2525 ┊     0.14% ┊ gimli::read::line::parse_attribute::hc037578c427b09f8
+          2500 ┊     0.14% ┊ core::slice::sort::stable::quicksort::quicksort::h16560da3e7ccbec2
+          2481 ┊     0.14% ┊ core::slice::sort::stable::quicksort::quicksort::hc3b4b6276e848b30
+          2455 ┊     0.14% ┊ gimli::read::index::UnitIndex<R>::parse::h43e6494ccf64cfc2
+          2360 ┊     0.13% ┊ addr2line::render_file::h8b2b27d4ac1b7166
+          2278 ┊     0.13% ┊ std::panicking::rust_panic_with_hook::h66e909d048c263a9
+          2152 ┊     0.12% ┊ <&str as core::str::pattern::Pattern>::is_contained_in::h8969625a96e5f095
+          1895 ┊     0.11% ┊ gimli::read::unit::Attribute<R>::value::h1b2c3068fe9de893
+          1770 ┊     0.10% ┊ std::backtrace_rs::symbolize::gimli::elf::<impl std::backtrace_rs::symbolize::gimli::Mapping>::load_dwarf_package::hb981420b97ec182c
+          1762 ┊     0.10% ┊ std::backtrace_rs::print::BacktraceFrameFmt::print_raw_with_column::h697ccd437a3283ff
+          1723 ┊     0.10% ┊ core::slice::sort::stable::drift::sort::haca7490b7abbc741
+          1715 ┊     0.10% ┊ core::slice::sort::stable::drift::sort::h87924e34d9c671d6
+          1673 ┊     0.09% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::parse::h903c159729c23fa7
+         88020 ┊     4.93% ┊ ... and 315 more.
+        193771 ┊    10.86% ┊ Σ [340 Total Rows]
