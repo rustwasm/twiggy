@@ -1,0 +1,43 @@
+ Retained Bytes │ Retained % │ Dominator Tree
+────────────────┼────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────
+          20790 ┊      6.63% ┊ _start
+          20756 ┊      6.62% ┊   ⤷ main
+           6787 ┊      2.16% ┊       ⤷ rust_begin_unwind
+           2345 ┊      0.75% ┊       ⤷ core::fmt::Formatter::pad::hcc5fe622846bf700
+           2320 ┊      0.74% ┊       ⤷ <std::io::error::Error as core::fmt::Display>::fmt::h754a49e4fc8ec8aa
+            920 ┊      0.29% ┊       ⤷ hello_world::main::h566bf36a5559a1df
+            904 ┊      0.29% ┊       ⤷ std::sys::pal::unix::stack_overflow::imp::signal_handler::h92742cf6f22d3519
+            718 ┊      0.23% ┊       ⤷ core::fmt::Formatter::pad_integral::h96d805165c239be7
+            546 ┊      0.17% ┊       ⤷ std::sys::sync::once::futex::Once::call::hba7a0ad2312b9b6c
+            510 ┊      0.16% ┊       ⤷ core::fmt::write::h7ca648217bc79799
+            468 ┊      0.15% ┊       ⤷ std::sys::thread_local::guard::key::enable::hbcc9e853fe020472
+            454 ┊      0.14% ┊       ⤷ std::sys::pal::unix::stack_overflow::imp::make_handler::h9e165333838f87d4
+            362 ┊      0.12% ┊       ⤷ core::panicking::assert_failed::hf5c4898457e9114b
+            281 ┊      0.09% ┊       ⤷ core::fmt::num::imp::<impl core::fmt::Display for u64>::fmt::hb59860de16ff6386
+            274 ┊      0.09% ┊       ⤷ alloc::alloc::handle_alloc_error::hff7cd8bed17d1d5d
+            257 ┊      0.08% ┊       ⤷ std::io::Write::write_fmt::h7960c58bfa5ccbcb
+            247 ┊      0.08% ┊       ⤷ std::sys::sync::mutex::futex::Mutex::lock_contended::h2821e64f818bf249
+            229 ┊      0.07% ┊       ⤷ __rust_panic_cleanup
+            137 ┊      0.04% ┊       ⤷ __rust_realloc
+            127 ┊      0.04% ┊       ⤷ core::ptr::drop_in_place<std::io::error::Error>::hef6122dd753b18b9
+             88 ┊      0.03% ┊       ⤷ core::panicking::panic_in_cleanup::h15db6728a9723d70
+             72 ┊      0.02% ┊       ⤷ alloc::sync::Arc<T,A>::drop_slow::h7fb2849d4e951291
+             69 ┊      0.02% ┊       ⤷ core::panicking::panic_nounwind::h2f7749cb358aa979
+             67 ┊      0.02% ┊       ⤷ core::panicking::panic_nounwind_fmt::h57347130f21a7343
+             58 ┊      0.02% ┊       ⤷ std::thread::ThreadId::new::exhausted::h587e4c0974c27867
+             54 ┊      0.02% ┊       ⤷ core::panicking::panic_const::panic_const_rem_by_zero::h3a1a875e01d18d87
+             54 ┊      0.02% ┊       ⤷ __rust_alloc
+             54 ┊      0.02% ┊       ⤷ alloc::raw_vec::capacity_overflow::h1d367b37f58596d3
+             34 ┊      0.01% ┊       ⤷ __rustc_debug_gdb_scripts_section__
+             31 ┊      0.01% ┊       ⤷ core::panicking::panic_fmt::hf8ffc7c15bfb58a0
+             23 ┊      0.01% ┊       ⤷ <&T as core::fmt::Display>::fmt::h0e3ec628b856fe61
+             22 ┊      0.01% ┊       ⤷ alloc::raw_vec::handle_error::he39a50b4f8f417a7
+             21 ┊      0.01% ┊       ⤷ <&T as core::fmt::Debug>::fmt::hdec3cd7df363df61
+             19 ┊      0.01% ┊       ⤷ std::panicking::panic_count::is_zero_slow_path::h964c4711602484bf
+             17 ┊      0.01% ┊       ⤷ core::ptr::drop_in_place<core::result::Result<(),std::io::error::Error>>::h9106c28cca74d265
+             16 ┊      0.01% ┊       ⤷ core::panicking::panic_cannot_unwind::hf517234e476fc7c7
+             16 ┊      0.01% ┊       ⤷ .Lanon.a9d7ff4935140b8d38885355bf97d04a.323
+             10 ┊      0.00% ┊       ⤷ std::sys::pal::unix::abort_internal::hac8a9a93523d7e74
+              5 ┊      0.00% ┊       ⤷ std::sys::backtrace::__rust_begin_short_backtrace::hfacc9bc09697879e
+              4 ┊      0.00% ┊       ⤷ .Lanon.a9d7ff4935140b8d38885355bf97d04a.237
+         221022 ┊     70.45% ┊ [343 Unreachable Items]

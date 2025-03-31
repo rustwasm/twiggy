@@ -25,5 +25,5 @@
           2136 ┊     0.68% ┊ main
           1895 ┊     0.60% ┊ gimli::read::unit::Attribute<R>::value::h1b2c3068fe9de893
           1810 ┊     0.58% ┊ rustc_demangle::v0::Printer::print_path::h237f306c4cf20d50
-        124787 ┊    39.77% ┊ ... and 394 more.
-        241592 ┊    77.00% ┊ Σ [419 Total Rows]
+        125007 ┊    39.84% ┊ ... and 416 more.
+        241812 ┊    77.07% ┊ Σ [441 Total Rows]

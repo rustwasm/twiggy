@@ -1,0 +1,12 @@
+ Shallow Bytes │ Shallow % │ Retaining Paths
+───────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+          2360 ┊     0.75% ┊ addr2line::render_file::h8b2b27d4ac1b7166
+               ┊           ┊   ⬑ addr2line::Lines::parse::hf56d45532c9cdd53
+               ┊           ┊       ⬑ std::backtrace_rs::symbolize::gimli::Cache::with_global::hda41e5ce2e638dbf
+               ┊           ┊           ⬑ std::sys::backtrace::_print_fmt::{{closure}}::h70b130b38c57ae5b
+               ┊           ┊       ⬑ std::backtrace_rs::symbolize::gimli::Context::new::h36f7279e64f729ba
+               ┊           ┊           ⬑ std::backtrace_rs::symbolize::gimli::Cache::with_global::hda41e5ce2e638dbf
+               ┊           ┊           ⬑ std::backtrace_rs::symbolize::gimli::elf::<impl std::backtrace_rs::symbolize::gimli::Mapping>::new_debug::h9ec6bbf4be39e1b3
+               ┊           ┊       ⬑ addr2line::ResUnit<R>::find_function_or_location::{{closure}}::hb0f4e11c2628b129
+               ┊           ┊           ⬑ std::backtrace_rs::symbolize::gimli::Cache::with_global::hda41e5ce2e638dbf
+               ┊           ┊           ⬑ addr2line::ResUnit<R>::find_function_or_location::ha089d54f9483837d

@@ -1,7 +1,7 @@
 //! Rebuild `hello_elf` with:
 //!
 //! ```
-//! rustc -g --target x86_64-unknown-linux-gnu hello_world.rs -o hello_elf -C lto=fat -C opt-level=z
+//! rustc -g --target x86_64-unknown-linux-gnu hello_world.rs -o hello_elf -C lto=fat -C opt-level=z -Clink-arg=-Wl,--emit-relocs
 //! ```
 //!
 //! Rebuild `hello_mach` with:

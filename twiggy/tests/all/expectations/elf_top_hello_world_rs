@@ -357,6 +357,8 @@
             34 ┊     0.01% ┊ __rustc_debug_gdb_scripts_section__
             32 ┊     0.01% ┊ __abi_tag
             32 ┊     0.01% ┊ core::ptr::drop_in_place<std::thread::Thread>::h203009a4ad36bada
+            32 ┊     0.01% ┊ .Lanon.091bb1e21048aea0cb3f6f1d206f2415.40
+            32 ┊     0.01% ┊ .Lanon.091bb1e21048aea0cb3f6f1d206f2415.42
             31 ┊     0.01% ┊ core::panicking::panic_fmt::hf8ffc7c15bfb58a0
             31 ┊     0.01% ┊ <core::cell::BorrowMutError as core::fmt::Debug>::fmt::hb6a448964972af09
             31 ┊     0.01% ┊ <core::fmt::Error as core::fmt::Debug>::fmt::h8fa06cb8cfdceb99.71
@@ -397,6 +399,12 @@
             17 ┊     0.01% ┊ std::sys::personality::gcc::find_eh_action::{{closure}}::h7d1de29a46b6b32b
             16 ┊     0.01% ┊ core::panicking::panic_cannot_unwind::hf517234e476fc7c7
             16 ┊     0.01% ┊ <std::panicking::begin_panic_handler::StaticStrPayload as core::panic::PanicPayload>::get::hbad44de501108bc7
+            16 ┊     0.01% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.323
+            16 ┊     0.01% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.8
+            16 ┊     0.01% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.118
+            16 ┊     0.01% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.1075
+            16 ┊     0.01% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.671
+            16 ┊     0.01% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.736
             16 ┊     0.01% ┊ std::sys::thread_local::guard::key::enable::DTORS::h2a503f494e7daf42
             14 ┊     0.00% ┊ std::alloc::rust_oom::hda180eacbcfe9ee5
             13 ┊     0.00% ┊ std::sys::pal::unix::args::imp::ARGV_INIT_ARRAY::init_wrapper::h13c0c38b9bb45ea7
@@ -413,10 +421,24 @@
              9 ┊     0.00% ┊ std::process::abort::h3a63d3ae4af2eaf1
              9 ┊     0.00% ┊ std::sys::backtrace::__rust_end_short_backtrace::h7d7e47ef99abf6aa
              8 ┊     0.00% ┊ core::panic::PanicPayload::as_str::h7f1dc705fbf9ed90
+             8 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.140
              8 ┊     0.00% ┊ std::sys::pal::unix::args::imp::ARGV_INIT_ARRAY::haa8523b5ba28d87b
              8 ┊     0.00% ┊ memchr::arch::x86_64::memchr::memchr_raw::FN::h8ae04967346b5f89.0
              8 ┊     0.00% ┊ DW.ref.rust_eh_personality
              6 ┊     0.00% ┊ __rust_alloc_error_handler
              5 ┊     0.00% ┊ std::sys::backtrace::__rust_begin_short_backtrace::hfacc9bc09697879e
+             4 ┊     0.00% ┊ .Lanon.c73a592eccae7816b90589f0447882b5.253
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.22
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.132
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.129
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.137
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.134
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.147
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.122
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.144
+             4 ┊     0.00% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.237
+             4 ┊     0.00% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.585
+             4 ┊     0.00% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.868
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.19
              1 ┊     0.00% ┊ std::panicking::default_hook::{{closure}}::FIRST_PANIC::h2a26726726d3d739
-        241592 ┊    77.00% ┊ Σ [419 Total Rows]
+        241812 ┊    77.07% ┊ Σ [441 Total Rows]
