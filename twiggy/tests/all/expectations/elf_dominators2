@@ -1,6 +1,6 @@
  Retained Bytes │ Retained % │ Dominator Tree
 ────────────────┼────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-          20756 ┊      6.62% ┊ main
+          20722 ┊      6.61% ┊ main
            6787 ┊      2.16% ┊   ⤷ rust_begin_unwind
            6759 ┊      2.15% ┊       ⤷ std::sys::backtrace::__rust_end_short_backtrace::h7d7e47ef99abf6aa
            2345 ┊      0.75% ┊   ⤷ core::fmt::Formatter::pad::hcc5fe622846bf700
@@ -43,7 +43,6 @@
              54 ┊      0.02% ┊   ⤷ core::panicking::panic_const::panic_const_rem_by_zero::h3a1a875e01d18d87
              54 ┊      0.02% ┊   ⤷ __rust_alloc
              54 ┊      0.02% ┊   ⤷ alloc::raw_vec::capacity_overflow::h1d367b37f58596d3
-             34 ┊      0.01% ┊   ⤷ __rustc_debug_gdb_scripts_section__
              31 ┊      0.01% ┊   ⤷ core::panicking::panic_fmt::hf8ffc7c15bfb58a0
              23 ┊      0.01% ┊   ⤷ <&T as core::fmt::Display>::fmt::h0e3ec628b856fe61
              22 ┊      0.01% ┊   ⤷ alloc::raw_vec::handle_error::he39a50b4f8f417a7

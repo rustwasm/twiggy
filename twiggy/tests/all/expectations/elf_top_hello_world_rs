@@ -2,7 +2,7 @@
 ───────────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
          19545 ┊     6.23% ┊ std::backtrace_rs::symbolize::gimli::Cache::with_global::hda41e5ce2e638dbf
          12227 ┊     3.90% ┊ std::backtrace_rs::symbolize::gimli::Context::new::h36f7279e64f729ba
-          9710 ┊     3.09% ┊ gimli::read::dwarf::Unit<R>::new::ha14026aa0df75fc3
+          9710 ┊     3.10% ┊ gimli::read::dwarf::Unit<R>::new::ha14026aa0df75fc3
           9563 ┊     3.05% ┊ miniz_oxide::inflate::core::decompress::hac20cdac69cf1b03
           6776 ┊     2.16% ┊ addr2line::ResUnit<R>::find_function_or_location::{{closure}}::hb0f4e11c2628b129
           5918 ┊     1.89% ┊ addr2line::Lines::parse::hf56d45532c9cdd53
@@ -66,9 +66,9 @@
            871 ┊     0.28% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::section::h063c35e11a5fb579
            837 ┊     0.27% ┊ <std::path::Components as core::iter::traits::double_ended::DoubleEndedIterator>::next_back::h472e5d056eb7d600
            828 ┊     0.26% ┊ gimli::read::line::FileEntryFormat::parse::hece510097cbb85f6
-           800 ┊     0.25% ┊ std::env::current_exe::hdfa8f56b3902be98
-           800 ┊     0.25% ┊ alloc::collections::btree::map::IntoIter<K,V,A>::dying_next::hc26059ba6bd08a35
-           800 ┊     0.25% ┊ alloc::collections::btree::map::IntoIter<K,V,A>::dying_next::h8c00ec0cfe47f85c
+           800 ┊     0.26% ┊ std::env::current_exe::hdfa8f56b3902be98
+           800 ┊     0.26% ┊ alloc::collections::btree::map::IntoIter<K,V,A>::dying_next::hc26059ba6bd08a35
+           800 ┊     0.26% ┊ alloc::collections::btree::map::IntoIter<K,V,A>::dying_next::h8c00ec0cfe47f85c
            796 ┊     0.25% ┊ gimli::read::unit::EntriesCursor<R>::next_entry::h73109155b0cfbb79
            779 ┊     0.25% ┊ rustc_demangle::v0::Printer::in_binder::h5dce4ea6a7afaa49
            756 ┊     0.24% ┊ hello_world::main::h566bf36a5559a1df
@@ -354,7 +354,6 @@
             40 ┊     0.01% ┊ core::ptr::drop_in_place<core::option::Option<std::thread::Thread>>::hc42aa4992967fe47
             34 ┊     0.01% ┊ core::ptr::drop_in_place<core::result::Result<addr2line::FrameIter<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>,gimli::read::Error>>::he5e9ff7990c6beed
             34 ┊     0.01% ┊ _start
-            34 ┊     0.01% ┊ __rustc_debug_gdb_scripts_section__
             32 ┊     0.01% ┊ __abi_tag
             32 ┊     0.01% ┊ core::ptr::drop_in_place<std::thread::Thread>::h203009a4ad36bada
             32 ┊     0.01% ┊ .Lanon.091bb1e21048aea0cb3f6f1d206f2415.40
@@ -441,4 +440,4 @@
              4 ┊     0.00% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.868
              4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.19
              1 ┊     0.00% ┊ std::panicking::default_hook::{{closure}}::FIRST_PANIC::h2a26726726d3d739
-        241812 ┊    77.07% ┊ Σ [441 Total Rows]
+        241778 ┊    77.07% ┊ Σ [440 Total Rows]

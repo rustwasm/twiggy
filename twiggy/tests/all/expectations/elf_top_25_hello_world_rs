@@ -2,7 +2,7 @@
 ───────────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
          19545 ┊     6.23% ┊ std::backtrace_rs::symbolize::gimli::Cache::with_global::hda41e5ce2e638dbf
          12227 ┊     3.90% ┊ std::backtrace_rs::symbolize::gimli::Context::new::h36f7279e64f729ba
-          9710 ┊     3.09% ┊ gimli::read::dwarf::Unit<R>::new::ha14026aa0df75fc3
+          9710 ┊     3.10% ┊ gimli::read::dwarf::Unit<R>::new::ha14026aa0df75fc3
           9563 ┊     3.05% ┊ miniz_oxide::inflate::core::decompress::hac20cdac69cf1b03
           6776 ┊     2.16% ┊ addr2line::ResUnit<R>::find_function_or_location::{{closure}}::hb0f4e11c2628b129
           5918 ┊     1.89% ┊ addr2line::Lines::parse::hf56d45532c9cdd53
@@ -25,5 +25,5 @@
           2136 ┊     0.68% ┊ main
           1895 ┊     0.60% ┊ gimli::read::unit::Attribute<R>::value::h1b2c3068fe9de893
           1810 ┊     0.58% ┊ rustc_demangle::v0::Printer::print_path::h237f306c4cf20d50
-        125007 ┊    39.84% ┊ ... and 416 more.
-        241812 ┊    77.07% ┊ Σ [441 Total Rows]
+        124973 ┊    39.84% ┊ ... and 415 more.
+        241778 ┊    77.07% ┊ Σ [440 Total Rows]
