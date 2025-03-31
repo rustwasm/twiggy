@@ -32,12 +32,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
-    - uses: actions-rs/cargo@v1
     - uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
     - name: Test
-      run: cargo test --all --exclude twiggy-wasm-api 
+      run: cargo test --all --exclude twiggy-wasm-api
   wasm:
     runs-on: ubuntu-latest
     steps:
