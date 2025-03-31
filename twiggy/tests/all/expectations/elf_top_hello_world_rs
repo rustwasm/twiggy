@@ -1,781 +1,443 @@
  Shallow Bytes │ Shallow % │ Item
-───────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-          9751 ┊     0.46% ┊ stats_arena_print
-          9503 ┊     0.45% ┊ std::sys_common::backtrace::output::hf6421f76165dc3d9
-          7917 ┊     0.38% ┊ je_stats_print
-          7852 ┊     0.37% ┊ mallocx
-          7019 ┊     0.33% ┊ je_arena_boot
-          6221 ┊     0.30% ┊ je_malloc_vsnprintf
-          6198 ┊     0.30% ┊ std::panicking::default_hook::{{closure}}::h027136eae47935d0
-          4313 ┊     0.21% ┊ je_arena_palloc
-          4028 ┊     0.19% ┊ realloc
-          3908 ┊     0.19% ┊ malloc_init_hard_a0_locked
-          3510 ┊     0.17% ┊ std::sys_common::backtrace::output_fileline::hcf938cef3f70d455
-          3185 ┊     0.15% ┊ calloc
-          3178 ┊     0.15% ┊ malloc
-          3093 ┊     0.15% ┊ rallocx
-          3086 ┊     0.15% ┊ je_arena_ralloc_no_move
-          3015 ┊     0.14% ┊ std::panicking::rust_panic_with_hook::hc482345e1eead25b
-          2952 ┊     0.14% ┊ je_arena_ralloc
-          2696 ┊     0.13% ┊ arena_run_dalloc
-          2302 ┊     0.11% ┊ arena_purge_to_limit
-          2286 ┊     0.11% ┊ core::str::pattern::StrSearcher::new::h05915110cf690552
-          2194 ┊     0.10% ┊ arena_run_heap_remove
-          2168 ┊     0.10% ┊ je_prof_free_sampled_object
-          2158 ┊     0.10% ┊ prof_tdata_destroy_locked
-          2041 ┊     0.10% ┊ stats_print_helper
-          1897 ┊     0.09% ┊ imemalign
-          1773 ┊     0.08% ┊ je_huge_palloc
-          1755 ┊     0.08% ┊ nallocx
-          1749 ┊     0.08% ┊ je_ckh_remove
-          1737 ┊     0.08% ┊ je_ckh_insert
-          1730 ┊     0.08% ┊ je_arena_choose_hard
-          1669 ┊     0.08% ┊ ctl_refresh
-          1625 ┊     0.08% ┊ std::sys_common::gnu::libbacktrace::resolve_symname::h88815b334ac44530
-          1534 ┊     0.07% ┊ ifree
-          1463 ┊     0.07% ┊ je_extent_tree_szsnad_remove
-          1418 ┊     0.07% ┊ chunk_recycle
-          1411 ┊     0.07% ┊ je_huge_ralloc_no_move
-          1408 ┊     0.07% ┊ arena_bin_nonfull_run_tryget
-          1403 ┊     0.07% ┊ std::io::Write::write_all::h473fa4f60d6032e1
-          1366 ┊     0.07% ┊ <str as core::fmt::Debug>::fmt::hd442bb46fa1ef4f6
-          1348 ┊     0.06% ┊ je_extent_tree_ad_remove
-          1330 ┊     0.06% ┊ core::fmt::Formatter::pad::h90f4877164a5175c
-          1271 ┊     0.06% ┊ std::thread::Thread::new::h22e157e52c45c583
-          1154 ┊     0.05% ┊ sdallocx
-          1154 ┊     0.05% ┊ arena_run_first_best_fit
-          1151 ┊     0.05% ┊ mallctlbymib
-          1145 ┊     0.05% ┊ je_arena_chunk_ralloc_huge_expand
-          1145 ┊     0.05% ┊ arena_chunk_alloc
-          1144 ┊     0.05% ┊ mallctl
-          1116 ┊     0.05% ┊ <&'a T as core::fmt::Debug>::fmt::h70985059f8096c86
-          1109 ┊     0.05% ┊ mallctlnametomib
-          1090 ┊     0.05% ┊ arena_bin_malloc_hard
-          1088 ┊     0.05% ┊ hello_world::main::h605ec64d7369fb87
-          1064 ┊     0.05% ┊ je_tcache_create
-          1045 ┊     0.05% ┊ je_quarantine
-          1044 ┊     0.05% ┊ chunk_record
-          1035 ┊     0.05% ┊ core::str::slice_error_fail::h5fe66983d5cd2a61
-          1017 ┊     0.05% ┊ <std::path::Components<'a> as core::iter::iterator::Iterator>::next::h03558bd0059bf783
-          1003 ┊     0.05% ┊ je_arena_reset
-           983 ┊     0.05% ┊ core::fmt::Formatter::pad_integral::hab34042a20d97b9f
-           975 ┊     0.05% ┊ isfree
-           956 ┊     0.05% ┊ tcache_destroy
-           938 ┊     0.04% ┊ je_ckh_new
-           925 ┊     0.04% ┊ <std::io::error::Error as core::fmt::Display>::fmt::hf82a56e6d5f84c41
-           918 ┊     0.04% ┊ xallocx
-           914 ┊     0.04% ┊ je_huge_ralloc
-           900 ┊     0.04% ┊ je_arena_chunk_alloc_huge
-           899 ┊     0.04% ┊ arena_dalloc_bin_locked_impl
-           886 ┊     0.04% ┊ je_arena_malloc_hard
-           867 ┊     0.04% ┊ jemalloc_constructor
-           867 ┊     0.04% ┊ je_arena_tcache_fill_small
-           865 ┊     0.04% ┊ je_arena_new
-           842 ┊     0.04% ┊ core::fmt::write::h230212e8f1fe815c
-           842 ┊     0.04% ┊ arena_run_split_remove
-           837 ┊     0.04% ┊ je_arena_stats_merge
-           821 ┊     0.04% ┊ <std::sync::once::Finish as core::ops::drop::Drop>::drop::hbadcb98738004794
-           782 ┊     0.04% ┊ je_arena_malloc_large
-           771 ┊     0.04% ┊ rust_eh_personality
-           752 ┊     0.04% ┊ ckh_try_insert
-           684 ┊     0.03% ┊ Subroutine[53][4766]
-           671 ┊     0.03% ┊ std::sys::unix::stack_overflow::imp::signal_handler::h51fa63d19ff2eae7
-           650 ┊     0.03% ┊ je_jemalloc_prefork
-           631 ┊     0.03% ┊ <char as core::fmt::Debug>::fmt::hd6d222bac8316e8e
-           629 ┊     0.03% ┊ <core::str::SplitInternal<'a, P>>::next_back::h1b10db37b223f695
-           629 ┊     0.03% ┊ std::path::Components::parse_next_component_back::hdc47d01a173ef454
-           628 ┊     0.03% ┊ <core::str::lossy::Utf8LossyChunksIter<'a> as core::iter::iterator::Iterator>::next::h94ad05e669497aa2
-           628 ┊     0.03% ┊ a0ialloc
-           628 ┊     0.03% ┊ Subroutine[73][1482]
-           624 ┊     0.03% ┊ je_tcache_bin_flush_small
-           617 ┊     0.03% ┊ je_huge_dalloc
-           614 ┊     0.03% ┊ je_arena_postfork_parent
-           614 ┊     0.03% ┊ je_arena_postfork_child
-           604 ┊     0.03% ┊ je_base_alloc
-           594 ┊     0.03% ┊ core::str::from_utf8::hc06d0016b334aa5f
-           590 ┊     0.03% ┊ je_chunk_alloc_dss
-           588 ┊     0.03% ┊ <core::fmt::builders::PadAdapter<'a> as core::fmt::Write>::write_str::hf517995b50d03830
-           578 ┊     0.03% ┊ core::slice::memchr::memchr::h7288366ab3fe0d92
-           575 ┊     0.03% ┊ je_tcache_bin_flush_large
-           572 ┊     0.03% ┊ je_arena_prefork3
-           555 ┊     0.03% ┊ je_chunk_alloc_wrapper
-           548 ┊     0.03% ┊ malloc_usable_size
-           548 ┊     0.03% ┊ arena_run_split_small
-           545 ┊     0.03% ┊ arena_maybe_purge_decay
-           545 ┊     0.03% ┊ ctl_lookup
-           535 ┊     0.03% ┊ <&'a T as core::fmt::Debug>::fmt::h0890225dc6b87428
-           533 ┊     0.03% ┊ <core::str::pattern::StrSearcher<'a, 'b> as core::str::pattern::Searcher<'a>>::next_match::h4cbf3f02b36aaa5a
-           533 ┊     0.03% ┊ sallocx
-           519 ┊     0.02% ┊ core::fmt::num::<impl core::fmt::Debug for usize>::fmt::h9ce15768d731034c
-           511 ┊     0.02% ┊ arenas_extend_ctl
-           496 ┊     0.02% ┊ thread_tcache_enabled_ctl
-           489 ┊     0.02% ┊ je_tcache_boot
-           486 ┊     0.02% ┊ <std::io::stdio::Stdout as std::io::Write>::write_fmt::h02103243eb2e9621
-           486 ┊     0.02% ┊ core::fmt::builders::DebugStruct::field::hfede33d6e671c2e6
-           486 ┊     0.02% ┊ je_malloc_strtoumax
-           483 ┊     0.02% ┊ je_arena_tdata_get_hard
-           481 ┊     0.02% ┊ je_tcache_arena_reassociate
-           475 ┊     0.02% ┊ je_arena_quarantine_junk_small
-           474 ┊     0.02% ┊ <&'a T as core::fmt::Debug>::fmt::hf318979d5bd00a8b
-           471 ┊     0.02% ┊ prof_thread_name_alloc
-           469 ┊     0.02% ┊ <std::io::buffered::BufWriter<W>>::flush_buf::h13a342c62ad7e46c
-           467 ┊     0.02% ┊ je_tcache_get_hard
-           459 ┊     0.02% ┊ core::str::pattern::TwoWaySearcher::next_back::h8654b63cf471c8c5
-           458 ┊     0.02% ┊ <std::thread::local::LocalKey<T>>::try_with::hb1823dccdf84d424
-           458 ┊     0.02% ┊ quarantine_init
-           456 ┊     0.02% ┊ <std::io::lazy::Lazy<T>>::get::hd1c74f97a5bdf3d9
-           436 ┊     0.02% ┊ core::str::pattern::TwoWaySearcher::next::h9a60b3b6e0b3909c
-           433 ┊     0.02% ┊ ckh_isearch
-           428 ┊     0.02% ┊ std::io::Write::write_all::h316d40215257787b
-           427 ┊     0.02% ┊ arena_i_dss_ctl
-           426 ┊     0.02% ┊ chunk_alloc_default
-           426 ┊     0.02% ┊ ctl_init
-           424 ┊     0.02% ┊ je_arena_chunk_dalloc_huge
-           419 ┊     0.02% ┊ je_extent_tree_szsnad_insert
-           414 ┊     0.02% ┊ std::path::Components::parse_next_component::h98675f125798bbf5
-           414 ┊     0.02% ┊ arena_i_chunk_hooks_ctl
-           408 ┊     0.02% ┊ std::io::stdio::stdout::stdout_init::he581a9fbab2d3e69
-           404 ┊     0.02% ┊ je_arena_chunk_ralloc_huge_shrink
-           400 ┊     0.02% ┊ arena_avail_insert
-           395 ┊     0.02% ┊ je_chunk_dalloc_wrapper
-           393 ┊     0.02% ┊ je_extent_tree_ad_insert
-           390 ┊     0.02% ┊ arena_dalloc_large_locked_impl
-           386 ┊     0.02% ┊ core::fmt::builders::DebugTuple::field::h214fa202ab13e8fa
-           383 ┊     0.02% ┊ arena_huge_ralloc_stats_update
-           382 ┊     0.02% ┊ stats_print_atexit
-           381 ┊     0.02% ┊ <&'a T as core::fmt::Debug>::fmt::h07bee056c486e6da
-           377 ┊     0.02% ┊ je_rtree_set
-           372 ┊     0.02% ┊ dallocx
-           372 ┊     0.02% ┊ extent_szsnad_comp
-           365 ┊     0.02% ┊ std::sys_common::at_exit_imp::cleanup::h5e33ec6e45f0cf14
-           364 ┊     0.02% ┊ huge_ralloc_no_move_expand
-           360 ┊     0.02% ┊ je_quarantine_alloc_hook_work
-           355 ┊     0.02% ┊ thread_arena_ctl
-           354 ┊     0.02% ┊ panic_unwind::dwarf::eh::read_encoded_pointer::h5e25cda8f3e133d6
-           353 ┊     0.02% ┊ std::sys_common::thread_local::StaticKey::lazy_init::h95eb6d925b85aed2
-           351 ┊     0.02% ┊ je_arena_dalloc_small
-           345 ┊     0.02% ┊ je_arena_decay_time_set
-           345 ┊     0.02% ┊ arena_i_purge
-           342 ┊     0.02% ┊ je_quarantine_cleanup
-           337 ┊     0.02% ┊ je_prof_reset
-           333 ┊     0.02% ┊ je_rtree_new
-           332 ┊     0.02% ┊ <std::io::buffered::BufWriter<W> as std::io::Write>::write::hcdadf3e4360ef2e0
-           332 ┊     0.02% ┊ <&'a T as core::fmt::Debug>::fmt::h2f0e8ac93401dd16
-           329 ┊     0.02% ┊ je_jemalloc_postfork_parent
-           329 ┊     0.02% ┊ je_jemalloc_postfork_child
-           325 ┊     0.02% ┊ std::ffi::c_str::CString::from_vec_unchecked::h9a2df9f82a79a140
-           322 ┊     0.02% ┊ je_extent_size_quantize_ceil
-           315 ┊     0.02% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::h970700933431f72a
-           312 ┊     0.01% ┊ je_arena_dalloc_junk_small
-           307 ┊     0.01% ┊ <unwind::libunwind::_Unwind_Reason_Code as core::fmt::Debug>::fmt::h38ca401016a94a2e
-           306 ┊     0.01% ┊ je_ckh_delete
-           304 ┊     0.01% ┊ Subroutine[69][1132]
-           303 ┊     0.01% ┊ core::fmt::num::<impl core::fmt::Display for i32>::fmt::he1a8109945a58b2d
-           299 ┊     0.01% ┊ core::fmt::ArgumentV1::show_usize::h3faeb2f970201f0b
-           294 ┊     0.01% ┊ std::sys_common::util::report_overflow::h1b37661f46a55824
-           293 ┊     0.01% ┊ je_tcaches_create
-           291 ┊     0.01% ┊ je_ctl_bymib
-           289 ┊     0.01% ┊ std::sys::unix::backtrace::tracing::imp::unwind_backtrace::h50a634a60cb4e5f7
-           288 ┊     0.01% ┊ Subroutine[52][1076]
-           286 ┊     0.01% ┊ huge_node_get
-           281 ┊     0.01% ┊ std::sys_common::thread_local::register_dtor_fallback::run_dtors::h188583b0680860c6
-           278 ┊     0.01% ┊ core::fmt::num::<impl core::fmt::Display for u32>::fmt::h64d9811fea52b31c
-           275 ┊     0.01% ┊ core::fmt::Write::write_char::haeb27f5d06107768
-           272 ┊     0.01% ┊ core::fmt::Write::write_char::hde90fc4610504e6a
-           272 ┊     0.01% ┊ core::fmt::Formatter::pad_integral::{{closure}}::hf8a34c5c4f7ee7c7
-           272 ┊     0.01% ┊ je_arena_dalloc_large
-           271 ┊     0.01% ┊ arenas_initialized_ctl
-           268 ┊     0.01% ┊ <&'a T as core::fmt::Debug>::fmt::hbca36a7ebe23fbd6
-           259 ┊     0.01% ┊ std::io::Write::write_fmt::h0c411a57c682c76f
-           257 ┊     0.01% ┊ <&'a T as core::fmt::Debug>::fmt::h07ed9a493d6789af
-           254 ┊     0.01% ┊ <alloc::arc::Arc<T>>::drop_slow::hb8a18150fdc64cb7
-           254 ┊     0.01% ┊ arena_chunk_discard
-           253 ┊     0.01% ┊ je_tsd_cleanup
-           251 ┊     0.01% ┊ <std::panicking::PanicPayload<'a> as core::panic::BoxMeUp>::box_me_up::hab217881eeb4554b
-           251 ┊     0.01% ┊ arena_decay_deadline_init
-           243 ┊     0.01% ┊ je_arena_chunk_ralloc_huge_similar
-           242 ┊     0.01% ┊ core::unicode::bool_trie::BoolTrie::lookup::hc84f6090eddabde7
-           241 ┊     0.01% ┊ std::path::Components::include_cur_dir::hca6bdbfb39960015
-           229 ┊     0.01% ┊ core::unicode::printable::check::h5aa3a129d1de1ceb
-           228 ┊     0.01% ┊ je_prof_postfork_parent
-           228 ┊     0.01% ┊ je_prof_postfork_child
-           226 ┊     0.01% ┊ <&'a mut I as core::iter::iterator::Iterator>::next::h5b5fbdf1a835dc36
-           223 ┊     0.01% ┊ <char as core::fmt::Display>::fmt::he3057b305ae35de3
-           213 ┊     0.01% ┊ Subroutine[56][1214]
-           207 ┊     0.01% ┊ <core::str::Utf8Error as core::fmt::Debug>::fmt::h37d8f45785750e8e
-           206 ┊     0.01% ┊ je_malloc_cprintf
-           203 ┊     0.01% ┊ arena_i_lg_dirty_mult_ctl
-           203 ┊     0.01% ┊ arena_i_decay_time_ctl
-           203 ┊     0.01% ┊ je_malloc_printf
-           202 ┊     0.01% ┊ je_pages_trim
-           198 ┊     0.01% ┊ Subroutine[2][85]
-           197 ┊     0.01% ┊ std::sys_common::thread_local::register_dtor_fallback::h87bbee9438530276
-           196 ┊     0.01% ┊ je_tcache_event_hard
-           194 ┊     0.01% ┊ <&'a T as core::fmt::Debug>::fmt::hcf08e12d733892c1
-           192 ┊     0.01% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::h27d2a6e40925ea70
-           192 ┊     0.01% ┊ tdata_tree_iter_start
-           190 ┊     0.01% ┊ je_chunk_alloc_mmap
-           189 ┊     0.01% ┊ core::fmt::Write::write_char::hf68b41500d69a186
-           189 ┊     0.01% ┊ free
-           183 ┊     0.01% ┊ je_ckh_pointer_hash
-           182 ┊     0.01% ┊ je_arena_lg_dirty_mult_set
-           182 ┊     0.01% ┊ thread_tcache_flush_ctl
-           181 ┊     0.01% ┊ stats_arenas_i_lruns_j_ndalloc_ctl
-           181 ┊     0.01% ┊ stats_arenas_i_lruns_j_nrequests_ctl
-           181 ┊     0.01% ┊ stats_arenas_i_lruns_j_curruns_ctl
-           181 ┊     0.01% ┊ stats_arenas_i_hchunks_j_ndalloc_ctl
-           181 ┊     0.01% ┊ stats_arenas_i_hchunks_j_curhchunks_ctl
-           180 ┊     0.01% ┊ stats_arenas_i_lruns_j_nmalloc_ctl
-           180 ┊     0.01% ┊ stats_arenas_i_hchunks_j_nmalloc_ctl
-           180 ┊     0.01% ┊ stats_arenas_i_hchunks_j_nrequests_ctl
-           178 ┊     0.01% ┊ core::result::unwrap_failed::h9678960c2f9cd050
-           178 ┊     0.01% ┊ Subroutine[53][1167]
-           177 ┊     0.01% ┊ je_chunk_hooks_set
-           177 ┊     0.01% ┊ je_pages_map
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_nmalloc_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_ndalloc_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_nrequests_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_curregs_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_nfills_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_nflushes_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_nruns_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_nreruns_ctl
-           176 ┊     0.01% ┊ stats_arenas_i_bins_j_curruns_ctl
-           175 ┊     0.01% ┊ je_ctl_byname
-           171 ┊     0.01% ┊ core::result::unwrap_failed::he689a7c8a2a17555
-           170 ┊     0.01% ┊ je_arena_node_alloc
-           168 ┊     0.01% ┊ <core::char::EscapeDebug as core::iter::iterator::Iterator>::next::hd5df08e14f19ce91
-           165 ┊     0.01% ┊ malloc_stats_print
-           165 ┊     0.01% ┊ stats_arenas_i_small_allocated_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_small_nmalloc_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_small_ndalloc_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_small_nrequests_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_large_nrequests_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_huge_allocated_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_huge_nmalloc_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_huge_ndalloc_ctl
-           165 ┊     0.01% ┊ stats_arenas_i_huge_nrequests_ctl
-           164 ┊     0.01% ┊ <std::panicking::PanicPayload<'a> as core::panic::BoxMeUp>::get::h7f8c7c28017dcdd9
-           164 ┊     0.01% ┊ je_pages_commit
-           163 ┊     0.01% ┊ <core::num::ParseIntError as core::fmt::Debug>::fmt::hd0294cfdd6b27939
-           163 ┊     0.01% ┊ je_rtree_subtree_read_hard
-           163 ┊     0.01% ┊ je_rtree_child_read_hard
-           162 ┊     0.01% ┊ je_arena_basic_stats_merge
-           162 ┊     0.01% ┊ stats_arenas_i_dss_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_lg_dirty_mult_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_decay_time_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_pactive_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_pdirty_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_mapped_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_retained_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_npurge_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_nmadvise_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_purged_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_metadata_mapped_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_metadata_allocated_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_large_allocated_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_large_nmalloc_ctl
-           162 ┊     0.01% ┊ stats_arenas_i_large_ndalloc_ctl
-           161 ┊     0.01% ┊ je_pages_decommit
-           160 ┊     0.01% ┊ std::sys_common::util::dumb_print::hd57f0589da90bb04
-           160 ┊     0.01% ┊ stats_arenas_i_nthreads_ctl
-           158 ┊     0.01% ┊ je_malloc_tsd_boot0
-           154 ┊     0.01% ┊ Subroutine[9][291]
-           154 ┊     0.01% ┊ core::result::unwrap_failed::h834daf9d677b930e
-           150 ┊     0.01% ┊ __rust_start_panic
-           149 ┊     0.01% ┊ core::fmt::builders::DebugTuple::finish::h441f1de7eb8dc25f
-           149 ┊     0.01% ┊ je_extent_tree_ad_iter_start
-           148 ┊     0.01% ┊ <std::sys::unix::backtrace::tracing::imp::UnwindError as core::fmt::Display>::fmt::h33d3c6742134fe25
-           147 ┊     0.01% ┊ core::result::unwrap_failed::hdc8bb807c878a239
-           147 ┊     0.01% ┊ core::result::unwrap_failed::hb6454686213a35f0
-           147 ┊     0.01% ┊ core::result::unwrap_failed::hec375195927e4c10
-           146 ┊     0.01% ┊ Subroutine[52][1183]
-           145 ┊     0.01% ┊ Subroutine[53][1067]
-           145 ┊     0.01% ┊ Subroutine[53][3033]
-           145 ┊     0.01% ┊ je_extent_tree_szsnad_iter_start
-           145 ┊     0.01% ┊ je_extent_tree_ad_reverse_iter_start
-           144 ┊     0.01% ┊ core::result::unwrap_failed::h6f0aa49655e263b1
-           144 ┊     0.01% ┊ epoch_ctl
-           144 ┊     0.01% ┊ quarantine_drain_one
-           143 ┊     0.01% ┊ <&'a T as core::fmt::Display>::fmt::hd9bdd55637637e17
-           141 ┊     0.01% ┊ <alloc::raw_vec::RawVec<T, A>>::reserve::h2c5fcac125b0ef13
-           141 ┊     0.01% ┊ je_extent_tree_szsnad_reverse_iter_start
-           136 ┊     0.01% ┊ je_pages_boot
-           135 ┊     0.01% ┊ stats_cactive_ctl
-           135 ┊     0.01% ┊ stats_allocated_ctl
-           135 ┊     0.01% ┊ stats_active_ctl
-           135 ┊     0.01% ┊ stats_metadata_ctl
-           135 ┊     0.01% ┊ stats_resident_ctl
-           135 ┊     0.01% ┊ stats_mapped_ctl
-           135 ┊     0.01% ┊ stats_retained_ctl
-           134 ┊     0.01% ┊ <std::ffi::c_str::NulError as core::fmt::Debug>::fmt::h1d521ad521526f36
-           134 ┊     0.01% ┊ <alloc::raw_vec::RawVec<T, A>>::reserve_internal::hae393e0614f1e766
-           134 ┊     0.01% ┊ je_malloc_snprintf
-           133 ┊     0.01% ┊ <alloc::arc::Arc<T>>::drop_slow::h9333bd9508b19011
-           131 ┊     0.01% ┊ core::slice::slice_index_len_fail::h2ebdfafc3d5a214c
-           131 ┊     0.01% ┊ core::slice::slice_index_order_fail::he97d1f88c20629f4
-           131 ┊     0.01% ┊ je_witness_depth_error
-           130 ┊     0.01% ┊ core::panicking::panic_bounds_check::hd6c1346a1db12dc3
-           129 ┊     0.01% ┊ std::sys_common::thread_info::THREAD_INFO::__getit::h7e7f29fa92869f4c
-           129 ┊     0.01% ┊ std::panicking::LOCAL_STDERR::__getit::he1d8d94c0f02ac79
-           128 ┊     0.01% ┊ arenas_lg_dirty_mult_ctl
-           128 ┊     0.01% ┊ arenas_decay_time_ctl
-           128 ┊     0.01% ┊ je_prof_prefork0
-           124 ┊     0.01% ┊ <F as alloc::boxed::FnBox<A>>::call_box::h4663c4ab902dc914
-           123 ┊     0.01% ┊ std::sync::once::Once::call_once::{{closure}}::hb738bd589c6a2f32
-           123 ┊     0.01% ┊ rust_panic
-           122 ┊     0.01% ┊ tcache_create_ctl
-           121 ┊     0.01% ┊ <&'a T as core::fmt::Debug>::fmt::h481b2b62a802a0e3
-           120 ┊     0.01% ┊ tdata_tree_iter_recurse
-           119 ┊     0.01% ┊ <core::ops::range::Range<Idx> as core::fmt::Debug>::fmt::h03bc4bfcd1b38db4
-           119 ┊     0.01% ┊ prof_tdata_detach
-           118 ┊     0.01% ┊ std::sys::unix::backtrace::tracing::imp::trace_fn::h8e726c8956eace10
-           116 ┊     0.01% ┊ core::option::expect_failed::hda015a6dabd7e1c9
-           114 ┊     0.01% ┊ je_extent_tree_szsnad_next
-           114 ┊     0.01% ┊ je_extent_tree_szsnad_destroy_recurse
-           114 ┊     0.01% ┊ je_extent_tree_ad_destroy_recurse
-           113 ┊     0.01% ┊ core::ptr::drop_in_place::h83bc15bec67ac3e7
-           113 ┊     0.01% ┊ Subroutine[9][271]
-           113 ┊     0.01% ┊ core::ptr::drop_in_place::h83bc15bec67ac3e7
-           113 ┊     0.01% ┊ Subroutine[11][623]
-           113 ┊     0.01% ┊ Subroutine[14][530]
-           109 ┊     0.01% ┊ je_extent_tree_szsnad_nsearch
-           108 ┊     0.01% ┊ je_ckh_iter
-           107 ┊     0.01% ┊ std::panicking::continue_panic_fmt::hc648628162a9da91
-           107 ┊     0.01% ┊ arenas_hchunk_i_size_ctl
-           107 ┊     0.01% ┊ je_tcache_alloc_small_hard
-           107 ┊     0.01% ┊ je_witness_lock_error
-           106 ┊     0.01% ┊ je_extent_tree_szsnad_psearch
-           105 ┊     0.01% ┊ <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<(dyn std::error::Error + core::marker::Send + core::marker::Sync + 'static)>>::from::StringError as core::fmt::Debug>::fmt::hb75ec5860d4dd52f
-           105 ┊     0.01% ┊ <std::sys::unix::backtrace::tracing::imp::UnwindError as core::fmt::Debug>::fmt::h0123beac8f8591f6
-           104 ┊     0.00% ┊ std::alloc::default_alloc_error_hook::hbfd9e7bf1790d2cb
-           104 ┊     0.00% ┊ panic_unwind::imp::panic::exception_cleanup::h08187430f56feb71
-           104 ┊     0.00% ┊ je_chunk_boot
-           103 ┊     0.00% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h57018242b27a1c76
-           103 ┊     0.00% ┊ Subroutine[10][303]
-           103 ┊     0.00% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::write::h8c677ba6e4cc1315
-           101 ┊     0.00% ┊ je_arena_migrate
-           101 ┊     0.00% ┊ je_extent_tree_szsnad_reverse_iter_recurse
-           101 ┊     0.00% ┊ je_extent_tree_ad_reverse_iter_recurse
-           100 ┊     0.00% ┊ arenas_narenas_ctl
-           100 ┊     0.00% ┊ je_tcache_salloc
-            99 ┊     0.00% ┊ std::sys_common::util::abort::h93d4537fd4ff18dd
-            99 ┊     0.00% ┊ std::thread::local::fast::destroy_value::h494908c669f8c600
-            99 ┊     0.00% ┊ Subroutine[53][603]
-            99 ┊     0.00% ┊ je_malloc_mutex_postfork_child
-            99 ┊     0.00% ┊ je_malloc_tsd_boot1
-            98 ┊     0.00% ┊ alloc::slice::<impl alloc::borrow::ToOwned for [T]>::to_owned::h0b5610a5ab3e1772
-            98 ┊     0.00% ┊ opt_purge_ctl
-            98 ┊     0.00% ┊ arenas_bin_i_nregs_ctl
-            98 ┊     0.00% ┊ arenas_bin_i_run_size_ctl
-            97 ┊     0.00% ┊ je_arena_chunk_cache_maybe_insert
-            97 ┊     0.00% ┊ arenas_bin_i_size_ctl
-            97 ┊     0.00% ┊ je_extent_tree_ad_next
-            96 ┊     0.00% ┊ je_extent_tree_szsnad_iter_recurse
-            96 ┊     0.00% ┊ je_extent_tree_ad_iter_recurse
-            95 ┊     0.00% ┊ arenas_lrun_i_size_ctl
-            94 ┊     0.00% ┊ <*const T as core::fmt::Debug>::fmt::h6c7c2fb814f8a9f6
-            94 ┊     0.00% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::hb8daffb052d01285
-            94 ┊     0.00% ┊ je_extent_tree_szsnad_prev
-            94 ┊     0.00% ┊ rtree_delete_subtree
-            94 ┊     0.00% ┊ je_tcaches_destroy
-            93 ┊     0.00% ┊ <std::panicking::begin_panic::PanicPayload<A> as core::panic::BoxMeUp>::box_me_up::h91e62dbc5ef38066
-            93 ┊     0.00% ┊ core::panicking::panic::h57e76fc0cea76460
-            93 ┊     0.00% ┊ opt_abort_ctl
-            93 ┊     0.00% ┊ opt_stats_print_ctl
-            93 ┊     0.00% ┊ opt_zero_ctl
-            93 ┊     0.00% ┊ opt_redzone_ctl
-            93 ┊     0.00% ┊ opt_tcache_ctl
-            93 ┊     0.00% ┊ je_extent_tree_ad_prev
-            92 ┊     0.00% ┊ arena_i_reset_ctl
-            91 ┊     0.00% ┊ je_prof_prefork1
-            90 ┊     0.00% ┊ je_bootstrap_free
-            89 ┊     0.00% ┊ core::ptr::drop_in_place::hcc75337c6199e459
-            89 ┊     0.00% ┊ Subroutine[56][676]
-            89 ┊     0.00% ┊ je_ctl_nametomib
-            88 ┊     0.00% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h1dc5decc1aeb8beb
-            88 ┊     0.00% ┊ Subroutine[10][305]
-            88 ┊     0.00% ┊ opt_dss_ctl
-            88 ┊     0.00% ┊ opt_lg_chunk_ctl
-            88 ┊     0.00% ┊ opt_narenas_ctl
-            88 ┊     0.00% ┊ opt_lg_dirty_mult_ctl
-            88 ┊     0.00% ┊ opt_decay_time_ctl
-            88 ┊     0.00% ┊ opt_junk_ctl
-            88 ┊     0.00% ┊ opt_quarantine_ctl
-            88 ┊     0.00% ┊ opt_lg_tcache_max_ctl
-            88 ┊     0.00% ┊ arenas_tcache_max_ctl
-            88 ┊     0.00% ┊ arenas_nhbins_ctl
-            88 ┊     0.00% ┊ arenas_nlruns_ctl
-            88 ┊     0.00% ┊ arenas_nhchunks_ctl
-            87 ┊     0.00% ┊ core::ptr::drop_in_place::h54dd06c5e682f2ee
-            87 ┊     0.00% ┊ Subroutine[11][699]
-            87 ┊     0.00% ┊ core::ptr::drop_in_place::h5c15a4951548a3cb
-            87 ┊     0.00% ┊ arenas_nbins_ctl
-            87 ┊     0.00% ┊ je_extent_tree_ad_nsearch
-            87 ┊     0.00% ┊ Subroutine[71][233]
-            86 ┊     0.00% ┊ core::ptr::drop_in_place::h6bfa045642690876
-            86 ┊     0.00% ┊ Subroutine[16][1236]
-            86 ┊     0.00% ┊ Subroutine[18][13]
-            86 ┊     0.00% ┊ config_cache_oblivious_ctl
-            86 ┊     0.00% ┊ config_debug_ctl
-            86 ┊     0.00% ┊ config_fill_ctl
-            86 ┊     0.00% ┊ config_lazy_lock_ctl
-            86 ┊     0.00% ┊ config_munmap_ctl
-            86 ┊     0.00% ┊ config_prof_ctl
-            86 ┊     0.00% ┊ config_prof_libgcc_ctl
-            86 ┊     0.00% ┊ config_prof_libunwind_ctl
-            86 ┊     0.00% ┊ config_stats_ctl
-            86 ┊     0.00% ┊ config_tcache_ctl
-            86 ┊     0.00% ┊ config_thp_ctl
-            86 ┊     0.00% ┊ config_tls_ctl
-            86 ┊     0.00% ┊ config_utrace_ctl
-            86 ┊     0.00% ┊ config_valgrind_ctl
-            86 ┊     0.00% ┊ config_xmalloc_ctl
-            86 ┊     0.00% ┊ arenas_quantum_ctl
-            86 ┊     0.00% ┊ arenas_page_ctl
-            85 ┊     0.00% ┊ version_ctl
-            85 ┊     0.00% ┊ config_malloc_conf_ctl
-            84 ┊     0.00% ┊ je_extent_tree_szsnad_search
-            84 ┊     0.00% ┊ je_extent_tree_ad_psearch
-            83 ┊     0.00% ┊ je_chunk_dalloc_cache
-            82 ┊     0.00% ┊ thread_allocated_ctl
-            82 ┊     0.00% ┊ thread_allocatedp_ctl
-            82 ┊     0.00% ┊ thread_deallocated_ctl
-            82 ┊     0.00% ┊ thread_deallocatedp_ctl
-            82 ┊     0.00% ┊ Subroutine[62][29]
-            81 ┊     0.00% ┊ Subroutine[9][281]
-            81 ┊     0.00% ┊ Subroutine[16][1233]
-            81 ┊     0.00% ┊ je_base_stats_get
-            81 ┊     0.00% ┊ je_ckh_search
-            79 ┊     0.00% ┊ je_arena_chunk_cache_maybe_remove
-            79 ┊     0.00% ┊ stats_arenas_i_index
-            78 ┊     0.00% ┊ Subroutine[53][1968]
-            78 ┊     0.00% ┊ Subroutine[64][34]
-            77 ┊     0.00% ┊ je_chunk_alloc_cache
-            76 ┊     0.00% ┊ je_extent_tree_ad_search
-            75 ┊     0.00% ┊ je_rtree_delete
-            73 ┊     0.00% ┊ aligned_alloc
-            71 ┊     0.00% ┊ je_base_boot
-            71 ┊     0.00% ┊ je_tcaches_flush
-            69 ┊     0.00% ┊ std::sys::unix::decode_error_kind::he3040e377be1527b
-            67 ┊     0.00% ┊ je_nstime_update
-            65 ┊     0.00% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h07e80bed6bbced6b
-            65 ┊     0.00% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h24f5cb31bca5459f
-            65 ┊     0.00% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::he38a20d2cd7826cb
-            65 ┊     0.00% ┊ Subroutine[13][437]
-            65 ┊     0.00% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_fmt::h7f6dbaf291c3a861
-            62 ┊     0.00% ┊ core::fmt::Write::write_fmt::h9d187bda5c498056
-            62 ┊     0.00% ┊ core::fmt::Write::write_fmt::h9ec23e981ba0c2ae
-            62 ┊     0.00% ┊ std::panicking::begin_panic_fmt::h300ed47d18028f56
-            62 ┊     0.00% ┊ core::panicking::panic_fmt::hdfed6caca025caa7
-            62 ┊     0.00% ┊ core::fmt::Write::write_fmt::hc5097c5541bac1b0
-            62 ┊     0.00% ┊ arena_i_index
-            61 ┊     0.00% ┊ je_iarena_cleanup
-            61 ┊     0.00% ┊ tcache_flush_ctl
-            61 ┊     0.00% ┊ tcache_destroy_ctl
-            59 ┊     0.00% ┊ je_malloc_write
-            58 ┊     0.00% ┊ je_arena_cleanup
-            56 ┊     0.00% ┊ memalign
-            55 ┊     0.00% ┊ valloc
-            55 ┊     0.00% ┊ je_bitmap_init
-            54 ┊     0.00% ┊ Subroutine[61][1545]
-            54 ┊     0.00% ┊ je_huge_prof_tctx_get
-            54 ┊     0.00% ┊ je_huge_prof_tctx_reset
-            53 ┊     0.00% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::write_fmt::hd871e40e8c2de9ac
-            53 ┊     0.00% ┊ je_chunk_dss_mergeable
-            52 ┊     0.00% ┊ Subroutine[61][1564]
-            50 ┊     0.00% ┊ je_buferror
-            49 ┊     0.00% ┊ Subroutine[53][4035]
-            49 ┊     0.00% ┊ je_prof_active_set
-            49 ┊     0.00% ┊ je_prof_thread_active_init_set
-            49 ┊     0.00% ┊ je_prof_gdump_set
-            48 ┊     0.00% ┊ arena_i_purge_ctl
-            47 ┊     0.00% ┊ chunk_dalloc_default
-            47 ┊     0.00% ┊ arena_i_decay_ctl
-            45 ┊     0.00% ┊ je_arena_lg_dirty_mult_get
-            45 ┊     0.00% ┊ je_arena_decay_time_get
-            44 ┊     0.00% ┊ je_arena_dss_prec_set
-            44 ┊     0.00% ┊ je_ctl_boot
-            43 ┊     0.00% ┊ je_arena_dss_prec_get
-            43 ┊     0.00% ┊ je_chunk_alloc_base
-            43 ┊     0.00% ┊ je_prof_thread_active_init_get
-            43 ┊     0.00% ┊ je_prof_active_get
-            43 ┊     0.00% ┊ je_prof_gdump_get
-            41 ┊     0.00% ┊ std::sys_common::gnu::libbacktrace::pcinfo_cb::h6a45523994cfd564
-            41 ┊     0.00% ┊ std::panicking::begin_panic::h841b6bf04ec08ff7
-            41 ┊     0.00% ┊ je_nstime_nsec
-            41 ┊     0.00% ┊ je_ckh_string_hash
-            39 ┊     0.00% ┊ je_chunk_dss_boot
-            38 ┊     0.00% ┊ je_bootstrap_calloc
-            38 ┊     0.00% ┊ je_prof_tdata_reinit
-            36 ┊     0.00% ┊ je_extent_tree_szsnad_iter
-            36 ┊     0.00% ┊ je_extent_tree_szsnad_reverse_iter
-            36 ┊     0.00% ┊ je_extent_tree_ad_iter
-            36 ┊     0.00% ┊ je_extent_tree_ad_reverse_iter
-            36 ┊     0.00% ┊ Subroutine[71][26]
-            35 ┊     0.00% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::Range<usize>>::index::{{closure}}::ha012ea3e3cb7df31
-            35 ┊     0.00% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeFrom<usize>>::index::{{closure}}::hf3f82cd622a1338a
-            35 ┊     0.00% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeFrom<usize>>::index::{{closure}}::hf3f82cd622a1338a
-            35 ┊     0.00% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::Range<usize>>::index::{{closure}}::h6a0c8de9dcf409d3
-            35 ┊     0.00% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::Range<usize>>::index::{{closure}}::h6a0c8de9dcf409d3
-            35 ┊     0.00% ┊ je_arenas_tdata_cleanup
-            34 ┊     0.00% ┊ <std::panicking::begin_panic::PanicPayload<A> as core::panic::BoxMeUp>::get::hc431ded15616758b
-            34 ┊     0.00% ┊ std::thread::local::fast::destroy_value::hba7e40b00d422b54
-            33 ┊     0.00% ┊ je_extent_tree_szsnad_destroy
-            33 ┊     0.00% ┊ je_extent_tree_ad_destroy
-            33 ┊     0.00% ┊ prof_thr_uid_alloc
-            32 ┊     0.00% ┊ Subroutine[53][4022]
-            32 ┊     0.00% ┊ je_extent_tree_szsnad_first
-            32 ┊     0.00% ┊ je_extent_tree_ad_first
-            31 ┊     0.00% ┊ Subroutine[12][396]
-            31 ┊     0.00% ┊ Subroutine[69][1016]
-            31 ┊     0.00% ┊ __pthread_atfork
-            30 ┊     0.00% ┊ Subroutine[11][659]
-            30 ┊     0.00% ┊ je_chunk_in_dss
-            30 ┊     0.00% ┊ je_extent_tree_szsnad_last
-            30 ┊     0.00% ┊ je_extent_tree_ad_last
-            29 ┊     0.00% ┊ core::ptr::drop_in_place::he1b1048ced110148
-            29 ┊     0.00% ┊ Subroutine[53][3137]
-            28 ┊     0.00% ┊ Subroutine[12][373]
-            28 ┊     0.00% ┊ Subroutine[12][403]
-            28 ┊     0.00% ┊ je_bootstrap_malloc
-            28 ┊     0.00% ┊ je_nstime_sec
-            27 ┊     0.00% ┊ je_malloc_tsd_cleanup_register
-            26 ┊     0.00% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeTo<usize>>::index::{{closure}}::hae4d2b4e3d5ff4da
-            26 ┊     0.00% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeTo<usize>>::index::{{closure}}::hae4d2b4e3d5ff4da
-            26 ┊     0.00% ┊ <std::thread::local::AccessError as core::fmt::Debug>::fmt::h82ba379c2166096a
-            26 ┊     0.00% ┊ Subroutine[16][1191]
-            26 ┊     0.00% ┊ <core::cell::BorrowError as core::fmt::Debug>::fmt::h73a8cd5ad3b4c0e1
-            26 ┊     0.00% ┊ <core::cell::BorrowMutError as core::fmt::Debug>::fmt::he4cdcfd0901c7ff8
-            26 ┊     0.00% ┊ core::str::traits::<impl core::slice::SliceIndex<str> for core::ops::range::RangeTo<usize>>::index::{{closure}}::hb5e0a0f8d81165c1
-            26 ┊     0.00% ┊ arenas_lrun_i_index
-            26 ┊     0.00% ┊ arenas_hchunk_i_index
-            26 ┊     0.00% ┊ stats_arenas_i_lruns_j_index
-            26 ┊     0.00% ┊ stats_arenas_i_hchunks_j_index
-            26 ┊     0.00% ┊ je_witness_owner_error
-            26 ┊     0.00% ┊ je_witness_not_owner_error
-            24 ┊     0.00% ┊ core::ptr::drop_in_place::hdd46a806b91cab87
-            24 ┊     0.00% ┊ core::ptr::drop_in_place::h0204bb295ff9d9be
-            24 ┊     0.00% ┊ core::ptr::drop_in_place::h2f10d4db852d141e
-            24 ┊     0.00% ┊ core::ptr::drop_in_place::h436d2bdadd5477fa
-            24 ┊     0.00% ┊ Subroutine[14][587]
-            24 ┊     0.00% ┊ Subroutine[16][1220]
-            23 ┊     0.00% ┊ <std::sys_common::poison::PoisonError<T> as core::fmt::Debug>::fmt::h363f19f65be8493c
-            22 ┊     0.00% ┊ alloc::alloc::box_free::h2d38ca789a24527f
-            22 ┊     0.00% ┊ Subroutine[5][1447]
-            22 ┊     0.00% ┊ alloc::alloc::box_free::h4c37ea613812cf93
-            22 ┊     0.00% ┊ Subroutine[9][616]
-            22 ┊     0.00% ┊ Subroutine[10][355]
-            22 ┊     0.00% ┊ Subroutine[11][1093]
-            22 ┊     0.00% ┊ Subroutine[13][615]
-            22 ┊     0.00% ┊ Subroutine[14][738]
-            22 ┊     0.00% ┊ alloc::alloc::box_free::h11435339330a8c15
-            22 ┊     0.00% ┊ Subroutine[18][32]
-            22 ┊     0.00% ┊ je_tcache_prefork
-            22 ┊     0.00% ┊ je_tcache_postfork_parent
-            22 ┊     0.00% ┊ je_tcache_postfork_child
-            21 ┊     0.00% ┊ Subroutine[2][337]
-            21 ┊     0.00% ┊ core::ptr::drop_in_place::h00aa4f82fc8d82aa
-            21 ┊     0.00% ┊ <&'a T as core::fmt::Debug>::fmt::h51d7ce6d11a4fbe9
-            20 ┊     0.00% ┊ rust_oom
-            20 ┊     0.00% ┊ Subroutine[2][346]
-            20 ┊     0.00% ┊ core::ptr::drop_in_place::h03af1b3421392888
-            20 ┊     0.00% ┊ Subroutine[5][1338]
-            20 ┊     0.00% ┊ core::ptr::drop_in_place::h7c734036353acc58
-            20 ┊     0.00% ┊ Subroutine[12][328]
-            20 ┊     0.00% ┊ core::ptr::drop_in_place::h03af1b3421392888
-            20 ┊     0.00% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::write_all::h59a0b91a2b3c18ef
-            20 ┊     0.00% ┊ Subroutine[16][1179]
-            20 ┊     0.00% ┊ Subroutine[16][1242]
-            20 ┊     0.00% ┊ je_huge_malloc
-            19 ┊     0.00% ┊ Subroutine[11][730]
-            19 ┊     0.00% ┊ Subroutine[12][381]
-            19 ┊     0.00% ┊ Subroutine[14][563]
-            18 ┊     0.00% ┊ <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<(dyn std::error::Error + core::marker::Send + core::marker::Sync + 'static)>>::from::StringError as core::fmt::Display>::fmt::h8b562d25e83842e1
-            18 ┊     0.00% ┊ Subroutine[2][437]
-            18 ┊     0.00% ┊ <&'a T as core::fmt::Display>::fmt::hb441e2d5a6b6f594
-            18 ┊     0.00% ┊ <&'a T as core::fmt::Display>::fmt::h5bfdef335ea12289
-            18 ┊     0.00% ┊ arenas_bin_i_index
-            18 ┊     0.00% ┊ stats_arenas_i_bins_j_index
-            18 ┊     0.00% ┊ je_pages_purge
-            16 ┊     0.00% ┊ Subroutine[9][287]
-            16 ┊     0.00% ┊ Subroutine[11][633]
-            16 ┊     0.00% ┊ core::ptr::drop_in_place::h4ba1505547cc98c5
-            16 ┊     0.00% ┊ core::ptr::drop_in_place::h75a53c2d13db8cec
-            16 ┊     0.00% ┊ Subroutine[14][574]
-            16 ┊     0.00% ┊ je_bitmap_info_init
-            15 ┊     0.00% ┊ alloc::raw_vec::capacity_overflow::h5be4429c35602e9b
-            15 ┊     0.00% ┊ je_arena_extent_sn_next
-            15 ┊     0.00% ┊ chunks_rtree_node_alloc
-            15 ┊     0.00% ┊ Subroutine[63][16]
-            14 ┊     0.00% ┊ je_arena_nthreads_inc
-            14 ┊     0.00% ┊ je_arena_nthreads_dec
-            14 ┊     0.00% ┊ Subroutine[63][3]
-            13 ┊     0.00% ┊ <std::sys::unix::backtrace::tracing::imp::UnwindError as std::error::Error>::description::hd0a572c307c61251
-            13 ┊     0.00% ┊ chunk_merge_default
-            13 ┊     0.00% ┊ je_malloc_tsd_malloc
-            13 ┊     0.00% ┊ je_witness_postfork_child
-            13 ┊     0.00% ┊ je_ckh_string_keycomp
-            12 ┊     0.00% ┊ Subroutine[5][1449]
-            12 ┊     0.00% ┊ Subroutine[6][402]
-            12 ┊     0.00% ┊ Subroutine[6][411]
-            12 ┊     0.00% ┊ Subroutine[9][618]
-            12 ┊     0.00% ┊ Subroutine[10][357]
-            12 ┊     0.00% ┊ Subroutine[11][1095]
-            12 ┊     0.00% ┊ Subroutine[13][610]
-            12 ┊     0.00% ┊ Subroutine[14][740]
-            12 ┊     0.00% ┊ Subroutine[16][1628]
-            12 ┊     0.00% ┊ Subroutine[18][35]
-            12 ┊     0.00% ┊ Subroutine[52][784]
-            12 ┊     0.00% ┊ Subroutine[53][4010]
-            12 ┊     0.00% ┊ Subroutine[53][4029]
-            12 ┊     0.00% ┊ je_arena_prefork1
-            12 ┊     0.00% ┊ je_arena_prefork2
-            12 ┊     0.00% ┊ je_base_prefork
-            12 ┊     0.00% ┊ je_base_postfork_parent
-            12 ┊     0.00% ┊ je_base_postfork_child
-            12 ┊     0.00% ┊ je_ctl_prefork
-            12 ┊     0.00% ┊ je_ctl_postfork_parent
-            12 ┊     0.00% ┊ je_ctl_postfork_child
-            12 ┊     0.00% ┊ je_nstime_idivide
-            11 ┊     0.00% ┊ std::error::Error::type_id::hd3bc63ba2d3fff92
-            11 ┊     0.00% ┊ Subroutine[9][314]
-            11 ┊     0.00% ┊ <&'a T as core::fmt::UpperHex>::fmt::h7a0649f419114afa
-            11 ┊     0.00% ┊ Subroutine[11][618]
-            11 ┊     0.00% ┊ <T as core::any::Any>::get_type_id::ha1ff0df66e890a24
-            11 ┊     0.00% ┊ <T as core::any::Any>::get_type_id::hc836aa81abe22797
-            11 ┊     0.00% ┊ std::error::Error::type_id::h56bcd87cb4e2d553
-            11 ┊     0.00% ┊ <T as core::any::Any>::get_type_id::h001e68b0bb3b2367
-            11 ┊     0.00% ┊ <T as core::any::Any>::get_type_id::hd4887dd774c603f3
-            11 ┊     0.00% ┊ Subroutine[18][62]
-            11 ┊     0.00% ┊ Subroutine[18][64]
-            11 ┊     0.00% ┊ <T as core::any::Any>::get_type_id::hbbfc57359055a481
-            11 ┊     0.00% ┊ Subroutine[52][1179]
-            11 ┊     0.00% ┊ je_arena_dalloc_bin_junked_locked
-            11 ┊     0.00% ┊ je_arena_dalloc_large_junked_locked
-            11 ┊     0.00% ┊ Subroutine[53][4135]
-            11 ┊     0.00% ┊ chunk_commit_default
-            11 ┊     0.00% ┊ chunk_decommit_default
-            11 ┊     0.00% ┊ chunk_purge_default
-            11 ┊     0.00% ┊ je_chunk_dss_prec_get
-            11 ┊     0.00% ┊ Subroutine[61][1213]
-            11 ┊     0.00% ┊ je_prof_tdata_init
-            11 ┊     0.00% ┊ je_witness_init
-            10 ┊     0.00% ┊ Subroutine[52][1050]
-            10 ┊     0.00% ┊ posix_memalign
-             9 ┊     0.00% ┊ je_arena_prefork0
-             9 ┊     0.00% ┊ Subroutine[55][19]
-             9 ┊     0.00% ┊ je_chunk_dss_prec_set
-             9 ┊     0.00% ┊ je_nstime_divide
-             8 ┊     0.00% ┊ <std::error::<impl core::convert::From<alloc::string::String> for alloc::boxed::Box<(dyn std::error::Error + core::marker::Send + core::marker::Sync + 'static)>>::from::StringError as std::error::Error>::description::hc243ab6bf3b3b020
-             8 ┊     0.00% ┊ Subroutine[6][120]
-             8 ┊     0.00% ┊ Subroutine[9][284]
-             8 ┊     0.00% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::hb86b66ec7d6b139c
-             8 ┊     0.00% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_char::hd048b9961996a5c6
-             8 ┊     0.00% ┊ std::sys::unix::abort_internal::h004baa50130220ee
-             8 ┊     0.00% ┊ Subroutine[12][393]
-             8 ┊     0.00% ┊ <&'a T as core::fmt::Debug>::fmt::h867c91450316f0df
-             8 ┊     0.00% ┊ rust_begin_unwind
-             8 ┊     0.00% ┊ Subroutine[16][1187]
-             8 ┊     0.00% ┊ core::ops::function::FnOnce::call_once::h9ee4bf858d086012
-             8 ┊     0.00% ┊ core::ops::function::FnOnce::call_once::h124a26927a7df978
-             8 ┊     0.00% ┊ <core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::h24a2e58ecb815b87
-             8 ┊     0.00% ┊ je_a0get
-             8 ┊     0.00% ┊ je_extent_tree_szsnad_new
-             8 ┊     0.00% ┊ je_extent_tree_szsnad_empty
-             8 ┊     0.00% ┊ je_extent_tree_ad_new
-             8 ┊     0.00% ┊ je_extent_tree_ad_empty
-             8 ┊     0.00% ┊ je_malloc_mutex_prefork
-             8 ┊     0.00% ┊ je_malloc_mutex_postfork_parent
-             8 ┊     0.00% ┊ je_nstime_imultiply
-             7 ┊     0.00% ┊ Subroutine[0][9]
-             7 ┊     0.00% ┊ core::ops::function::FnOnce::call_once::he2d9c03c03d31135
-             7 ┊     0.00% ┊ std::io::impls::<impl std::io::Write for &'a mut W>::flush::hb7eae93e98e6a50e
-             7 ┊     0.00% ┊ je_chunk_deregister
-             7 ┊     0.00% ┊ Subroutine[63][13]
-             7 ┊     0.00% ┊ je_nstime_add
-             7 ┊     0.00% ┊ je_nstime_subtract
-             7 ┊     0.00% ┊ je_ckh_pointer_keycomp
-             6 ┊     0.00% ┊ thread_prof_name_ctl
-             6 ┊     0.00% ┊ thread_prof_active_ctl
-             6 ┊     0.00% ┊ opt_utrace_ctl
-             6 ┊     0.00% ┊ opt_xmalloc_ctl
-             6 ┊     0.00% ┊ opt_thp_ctl
-             6 ┊     0.00% ┊ opt_prof_ctl
-             6 ┊     0.00% ┊ opt_prof_prefix_ctl
-             6 ┊     0.00% ┊ opt_prof_active_ctl
-             6 ┊     0.00% ┊ opt_prof_thread_active_init_ctl
-             6 ┊     0.00% ┊ opt_lg_prof_sample_ctl
-             6 ┊     0.00% ┊ opt_lg_prof_interval_ctl
-             6 ┊     0.00% ┊ opt_prof_gdump_ctl
-             6 ┊     0.00% ┊ opt_prof_final_ctl
-             6 ┊     0.00% ┊ opt_prof_leak_ctl
-             6 ┊     0.00% ┊ opt_prof_accum_ctl
-             6 ┊     0.00% ┊ prof_thread_active_init_ctl
-             6 ┊     0.00% ┊ prof_active_ctl
-             6 ┊     0.00% ┊ prof_dump_ctl
-             6 ┊     0.00% ┊ prof_gdump_ctl
-             6 ┊     0.00% ┊ prof_reset_ctl
-             6 ┊     0.00% ┊ prof_interval_ctl
-             6 ┊     0.00% ┊ lg_prof_sample_ctl
-             5 ┊     0.00% ┊ Subroutine[11][637]
-             5 ┊     0.00% ┊ core::ptr::drop_in_place::hdf1e85a3a930a3f7
-             5 ┊     0.00% ┊ je_chunk_register
-             5 ┊     0.00% ┊ je_malloc_tsd_dalloc
-             5 ┊     0.00% ┊ je_witness_prefork
-             5 ┊     0.00% ┊ je_witness_postfork_parent
-             5 ┊     0.00% ┊ je_ckh_count
-             4 ┊     0.00% ┊ std::sys_common::gnu::libbacktrace::syminfo_cb::hd40846c399ef05be
-             4 ┊     0.00% ┊ je_nstime_init
-             4 ┊     0.00% ┊ je_nstime_ns
-             3 ┊     0.00% ┊ std::error::Error::cause::h1842e7f669c07184
-             3 ┊     0.00% ┊ std::sys_common::backtrace::__rust_begin_short_backtrace::hd11dfe924a4590f3
-             3 ┊     0.00% ┊ std::error::Error::cause::h0920d9427df30a8d
-             3 ┊     0.00% ┊ chunk_split_default
-             3 ┊     0.00% ┊ je_chunk_dalloc_mmap
-             3 ┊     0.00% ┊ je_malloc_mutex_boot
-             3 ┊     0.00% ┊ je_nstime_monotonic
-             3 ┊     0.00% ┊ je_pages_huge
-             3 ┊     0.00% ┊ je_pages_nohuge
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::hd4121166870b3c55
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::h2f98a986073ae693
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::h00f1c9103ea558b8
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::h01fee2a396ff6fe2
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::h2392e96cd6c98f07
-             1 ┊     0.00% ┊ std::sys_common::gnu::libbacktrace::error_cb::ha00bcca6a8c78fff
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::h91db727b2917d298
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::h0ba47a6781d07da4
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::h4d789a230c9596dd
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::h889910219e9e334b
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::h052cb0584a047e19
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::hf3603ff5c60e70df
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::h167f5dacdfce22f6
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::h168ae49cd218628a
-             1 ┊     0.00% ┊ core::ptr::drop_in_place::he19035f11e27a37c
-             1 ┊     0.00% ┊ je_thread_allocated_cleanup
-             1 ┊     0.00% ┊ je_thread_deallocated_cleanup
-             1 ┊     0.00% ┊ je_narenas_tdata_cleanup
-             1 ┊     0.00% ┊ je_arenas_tdata_bypass_cleanup
-             1 ┊     0.00% ┊ je_prof_sample_threshold_update
-             1 ┊     0.00% ┊ je_prof_tdata_cleanup
-             1 ┊     0.00% ┊ je_tcache_enabled_cleanup
-             1 ┊     0.00% ┊ je_witnesses_cleanup
-             1 ┊     0.00% ┊ je_witness_fork_cleanup
-             0 ┊     0.00% ┊ je_arena_prof_promoted
-             0 ┊     0.00% ┊ je_prof_alloc_rollback
-             0 ┊     0.00% ┊ je_prof_malloc_sample_object
-             0 ┊     0.00% ┊ je_bt_init
-             0 ┊     0.00% ┊ je_prof_backtrace
-             0 ┊     0.00% ┊ je_prof_lookup
-             0 ┊     0.00% ┊ je_prof_idump
-             0 ┊     0.00% ┊ je_prof_mdump
-             0 ┊     0.00% ┊ je_prof_gdump
-             0 ┊     0.00% ┊ je_prof_thread_name_get
-             0 ┊     0.00% ┊ je_prof_thread_name_set
-             0 ┊     0.00% ┊ je_prof_thread_active_get
-             0 ┊     0.00% ┊ je_prof_thread_active_set
-             0 ┊     0.00% ┊ je_prof_boot0
-             0 ┊     0.00% ┊ je_prof_boot1
-             0 ┊     0.00% ┊ je_prof_boot2
-             0 ┊     0.00% ┊ je_malloc_tsd_no_cleanup
-        256639 ┊    12.23% ┊ Σ [778 Total Rows]
+───────────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         19545 ┊     6.23% ┊ std::backtrace_rs::symbolize::gimli::Cache::with_global::hda41e5ce2e638dbf
+         12227 ┊     3.90% ┊ std::backtrace_rs::symbolize::gimli::Context::new::h36f7279e64f729ba
+          9710 ┊     3.10% ┊ gimli::read::dwarf::Unit<R>::new::ha14026aa0df75fc3
+          9563 ┊     3.05% ┊ miniz_oxide::inflate::core::decompress::hac20cdac69cf1b03
+          6776 ┊     2.16% ┊ addr2line::ResUnit<R>::find_function_or_location::{{closure}}::hb0f4e11c2628b129
+          5918 ┊     1.89% ┊ addr2line::Lines::parse::hf56d45532c9cdd53
+          5016 ┊     1.60% ┊ addr2line::function::Function<R>::parse_children::ha5a223c2ceda250b
+          4715 ┊     1.50% ┊ gimli::read::unit::parse_attribute::he3623f25de2bc58f
+          3792 ┊     1.21% ┊ gimli::read::rnglists::RngListIter<R>::next::h0a17264f919a4338
+          3183 ┊     1.01% ┊ <&T as core::fmt::Display>::fmt::h98b2a165420fa5eb
+          3005 ┊     0.96% ┊ rustc_demangle::try_demangle::h15f91ce94fd1193f
+          2850 ┊     0.91% ┊ std::backtrace_rs::symbolize::gimli::elf::<impl std::backtrace_rs::symbolize::gimli::Mapping>::new_debug::h9ec6bbf4be39e1b3
+          2727 ┊     0.87% ┊ core::slice::sort::stable::quicksort::quicksort::he669545dd2c45c0a
+          2611 ┊     0.83% ┊ core::slice::sort::stable::quicksort::quicksort::he7b04f966ead366f
+          2575 ┊     0.82% ┊ core::slice::sort::stable::quicksort::quicksort::h3030826ddfc51330
+          2525 ┊     0.80% ┊ gimli::read::line::parse_attribute::hc037578c427b09f8
+          2500 ┊     0.80% ┊ core::slice::sort::stable::quicksort::quicksort::h16560da3e7ccbec2
+          2481 ┊     0.79% ┊ core::slice::sort::stable::quicksort::quicksort::hc3b4b6276e848b30
+          2455 ┊     0.78% ┊ gimli::read::index::UnitIndex<R>::parse::h43e6494ccf64cfc2
+          2360 ┊     0.75% ┊ addr2line::render_file::h8b2b27d4ac1b7166
+          2278 ┊     0.73% ┊ std::panicking::rust_panic_with_hook::h66e909d048c263a9
+          2152 ┊     0.69% ┊ <&str as core::str::pattern::Pattern>::is_contained_in::h8969625a96e5f095
+          2136 ┊     0.68% ┊ main
+          1895 ┊     0.60% ┊ gimli::read::unit::Attribute<R>::value::h1b2c3068fe9de893
+          1810 ┊     0.58% ┊ rustc_demangle::v0::Printer::print_path::h237f306c4cf20d50
+          1770 ┊     0.56% ┊ std::backtrace_rs::symbolize::gimli::elf::<impl std::backtrace_rs::symbolize::gimli::Mapping>::load_dwarf_package::hb981420b97ec182c
+          1762 ┊     0.56% ┊ std::backtrace_rs::print::BacktraceFrameFmt::print_raw_with_column::h697ccd437a3283ff
+          1723 ┊     0.55% ┊ core::slice::sort::stable::drift::sort::haca7490b7abbc741
+          1715 ┊     0.55% ┊ core::slice::sort::stable::drift::sort::h87924e34d9c671d6
+          1673 ┊     0.53% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::parse::h903c159729c23fa7
+          1668 ┊     0.53% ┊ gimli::read::abbrev::Abbreviations::insert::he744be7354c8ddb4
+          1667 ┊     0.53% ┊ core::slice::sort::stable::drift::sort::h9699b14e6b8eeac6
+          1667 ┊     0.53% ┊ core::slice::sort::stable::drift::sort::h6a89c85573c7525e
+          1648 ┊     0.53% ┊ core::slice::sort::stable::drift::sort::h6270578f0a10da67
+          1645 ┊     0.52% ┊ rustc_demangle::v0::Printer::print_const::h2f7ee571656e52ca
+          1509 ┊     0.48% ┊ gimli::read::unit::DebugInfoUnitHeadersIter<R>::next::h5d3aeb3046c03cc8
+          1479 ┊     0.47% ┊ rust_eh_personality
+          1478 ┊     0.47% ┊ <rustc_demangle::v0::Ident as core::fmt::Display>::fmt::h2c89897007d38937
+          1399 ┊     0.45% ┊ gimli::read::unit::skip_attributes::h828f1e65d71b1795
+          1385 ┊     0.44% ┊ <gimli::read::line::LineProgramHeader<R,Offset> as core::clone::Clone>::clone::h800b4fec4eaecf1e
+          1369 ┊     0.44% ┊ core::slice::sort::shared::smallsort::small_sort_general::h0ea0989a301d140a
+          1359 ┊     0.43% ┊ std::path::Components::as_path::h9accfcd53762045c
+          1345 ┊     0.43% ┊ addr2line::LoopingLookup<T,L,F>::new_lookup::h87530e8350e94277
+          1293 ┊     0.41% ┊ core::str::pattern::StrSearcher::new::h9068c00d28f01e1d
+          1290 ┊     0.41% ┊ addr2line::ResUnit<R>::find_function_or_location::ha089d54f9483837d
+          1289 ┊     0.41% ┊ rustc_demangle::v0::Printer::print_type::hf7659c4ac9eac460
+          1287 ┊     0.41% ┊ rustc_demangle::v0::Printer::print_type::{{closure}}::h9fb2ab22b07dd597
+          1234 ┊     0.39% ┊ core::str::count::do_count_chars::h8d3bc63d9ea1b16d
+          1226 ┊     0.39% ┊ <std::ffi::os_str::Display as core::fmt::Debug>::fmt::h29fd4e12e2eee8a1
+          1135 ┊     0.36% ┊ miniz_oxide::inflate::core::transfer::h1ba301ca529c2fb7
+          1111 ┊     0.35% ┊ core::fmt::Formatter::pad::hcc5fe622846bf700
+          1107 ┊     0.35% ┊ core::slice::sort::unstable::quicksort::quicksort::hde6146079546189c
+          1021 ┊     0.33% ┊ addr2line::function::name_entry::h116069d56455a1c9
+          1019 ┊     0.32% ┊ std::backtrace_rs::symbolize::gimli::libs_dl_iterate_phdr::callback::ha48d66b54948c07f
+          1018 ┊     0.32% ┊ core::str::slice_error_fail_rt::h11f1a83693378e5e
+          1002 ┊     0.32% ┊ miniz_oxide::inflate::core::init_tree::h5d8a5283e3be71c2
+           996 ┊     0.32% ┊ <core::str::pattern::StrSearcher as core::str::pattern::Searcher>::next::h5b43775b78bb30ad
+           988 ┊     0.31% ┊ <core::iter::sources::from_fn::FromFn<F> as core::iter::traits::iterator::Iterator>::next::hf1d5af80faad76c6
+           965 ┊     0.31% ┊ <std::sys::backtrace::BacktraceLock::print::DisplayBacktrace as core::fmt::Display>::fmt::hfc616348d9ad0abc
+           908 ┊     0.29% ┊ <std::path::Components as core::iter::traits::iterator::Iterator>::next::h3aef65383ab370ed
+           896 ┊     0.29% ┊ <std::io::stdio::StdoutLock as std::io::Write>::write_all::h3f6001ad97c76a67
+           885 ┊     0.28% ┊ core::slice::sort::shared::smallsort::sort8_stable::h1f7037265b7cde71
+           878 ┊     0.28% ┊ <&T as core::fmt::Debug>::fmt::hc5b5f4faaf7df803
+           871 ┊     0.28% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::section::h063c35e11a5fb579
+           837 ┊     0.27% ┊ <std::path::Components as core::iter::traits::double_ended::DoubleEndedIterator>::next_back::h472e5d056eb7d600
+           828 ┊     0.26% ┊ gimli::read::line::FileEntryFormat::parse::hece510097cbb85f6
+           800 ┊     0.26% ┊ std::env::current_exe::hdfa8f56b3902be98
+           800 ┊     0.26% ┊ alloc::collections::btree::map::IntoIter<K,V,A>::dying_next::hc26059ba6bd08a35
+           800 ┊     0.26% ┊ alloc::collections::btree::map::IntoIter<K,V,A>::dying_next::h8c00ec0cfe47f85c
+           796 ┊     0.25% ┊ gimli::read::unit::EntriesCursor<R>::next_entry::h73109155b0cfbb79
+           779 ┊     0.25% ┊ rustc_demangle::v0::Printer::in_binder::h5dce4ea6a7afaa49
+           756 ┊     0.24% ┊ hello_world::main::h566bf36a5559a1df
+           755 ┊     0.24% ┊ <std::io::error::Error as core::fmt::Display>::fmt::h754a49e4fc8ec8aa
+           751 ┊     0.24% ┊ core::unicode::unicode_data::grapheme_extend::OFFSETS::ha43007b4438c7df1
+           729 ┊     0.23% ┊ std::path::Path::_strip_prefix::hae021232137938e4
+           717 ┊     0.23% ┊ addr2line::function::name_attr::haa2849a636d5d14e
+           707 ┊     0.23% ┊ rustc_demangle::v0::Printer::print_const_str_literal::habd22df1223ef280
+           707 ┊     0.23% ┊ std::sys::pal::unix::fs::try_statx::hbd180b48ef89543a
+           707 ┊     0.23% ┊ <std::backtrace_rs::symbolize::SymbolName as core::fmt::Display>::fmt::hd60040bbf8d6e65e
+           669 ┊     0.21% ┊ <std::path::Components as core::cmp::PartialEq>::eq::hf7d693bc9d3db288
+           665 ┊     0.21% ┊ std::sys::backtrace::_print_fmt::{{closure}}::{{closure}}::hd9ebbb6a4c9af557
+           658 ┊     0.21% ┊ gimli::read::aranges::ArangeHeader<R,Offset>::parse::h627e2d8385c297d9
+           644 ┊     0.21% ┊ gimli::read::line::parse_file_v5::h944532e78aebf022
+           634 ┊     0.20% ┊ core::fmt::Formatter::pad_integral::h96d805165c239be7
+           627 ┊     0.20% ┊ std::backtrace_rs::symbolize::gimli::elf::locate_build_id::h8f0e03516a869370
+           624 ┊     0.20% ┊ rustc_demangle::v0::Printer::print_sep_list::h2a7626851cfbf982
+           622 ┊     0.20% ┊ <core::fmt::builders::PadAdapter as core::fmt::Write>::write_str::h0a318b9bf7874d58
+           605 ┊     0.19% ┊ rustc_demangle::v0::Printer::print_path_maybe_open_generics::haee70429fc7749b0
+           600 ┊     0.19% ┊ std::io::buffered::bufwriter::BufWriter<W>::flush_buf::hbb5a0c476fdeeda3
+           585 ┊     0.19% ┊ gimli::read::line::FileEntry<R,Offset>::parse::h9bedad5479aaa9f0
+           580 ┊     0.18% ┊ std::backtrace_rs::symbolize::gimli::mmap::h733944155c56fb74
+           573 ┊     0.18% ┊ std::sync::poison::once::Once::call_once::{{closure}}::hc150627084d9a3a4
+           571 ┊     0.18% ┊ alloc::string::String::from_utf8_lossy::h93e501670dab1f99
+           554 ┊     0.18% ┊ rustc_demangle::v0::Printer::in_binder::hc45a5874ea46f2e6
+           546 ┊     0.17% ┊ std::sys::sync::once::futex::Once::call::hba7a0ad2312b9b6c
+           544 ┊     0.17% ┊ core::char::methods::<impl char>::escape_debug_ext::h5b07a35fc7892fbd
+           531 ┊     0.17% ┊ core::fmt::num::<impl core::fmt::Debug for usize>::fmt::hde35892ade72905a
+           512 ┊     0.16% ┊ std::fs::OpenOptions::_open::h3d9016e7403a40fb
+           510 ┊     0.16% ┊ core::fmt::write::h7ca648217bc79799
+           504 ┊     0.16% ┊ core::str::converts::from_utf8::h15cfaf624c64090a
+           499 ┊     0.16% ┊ rustc_demangle::v0::Printer::print_dyn_trait::h95db945365ec6a68
+           493 ┊     0.16% ┊ <core::str::pattern::CharSearcher as core::str::pattern::Searcher>::next_match::h9ab7cc93e8464f46
+           492 ┊     0.16% ┊ core::char::methods::<impl char>::escape_debug_ext::h5b07a35fc7892fbd.70
+           488 ┊     0.16% ┊ gimli::read::dwarf::Dwarf<R>::attr_string::h0e75a900b61c12a6
+           473 ┊     0.15% ┊ <core::str::pattern::CharSearcher as core::str::pattern::Searcher>::next_match::h9ab7cc93e8464f46.74
+           468 ┊     0.15% ┊ rustc_demangle::v0::Printer::print_const_uint::hdf93d549d542f26a
+           463 ┊     0.15% ┊ miniz_oxide::inflate::core::apply_match::h8a7c8c7c01260912
+           463 ┊     0.15% ┊ rustc_demangle::v0::Parser::ident::habf2e52493a6fcdc
+           454 ┊     0.14% ┊ std::sys::pal::unix::stack_overflow::imp::make_handler::h9e165333838f87d4
+           450 ┊     0.14% ┊ std::sys::pal::common::small_c_string::run_with_cstr_allocating::hf236ad3c74738e9f
+           440 ┊     0.14% ┊ std::sys::backtrace::output_filename::h9781837ccdb241fc
+           439 ┊     0.14% ┊ std::sys::pal::unix::stack_overflow::imp::signal_handler::h92742cf6f22d3519
+           437 ┊     0.14% ┊ memchr::arch::x86_64::memchr::memchr_raw::detect::h719eaebe20b32dd8
+           430 ┊     0.14% ┊ <core::str::lossy::Utf8Chunks as core::iter::traits::iterator::Iterator>::next::h97482783f67b8f88
+           430 ┊     0.14% ┊ std::sys::sync::rwlock::futex::RwLock::read_contended::h9accba1397abf8da
+           421 ┊     0.13% ┊ memchr::arch::x86_64::memchr::memchr_raw::find_sse2::h9f74f60721734c76
+           401 ┊     0.13% ┊ rustc_demangle::v0::Printer::print_backref::hda21e49fae1366c3
+           401 ┊     0.13% ┊ rustc_demangle::v0::Printer::print_backref::hdfbf787058c78742
+           394 ┊     0.13% ┊ rustc_demangle::v0::Printer::print_backref::h6a11ec53c933c747
+           388 ┊     0.12% ┊ alloc::collections::btree::node::Handle<alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Mut,K,V,alloc::collections::btree::node::marker::Internal>,alloc::collections::btree::node::marker::KV>::split::h8ef5e13619fde343
+           385 ┊     0.12% ┊ core::fmt::Write::write_char::h0a09fc357ced39c1
+           384 ┊     0.12% ┊ <core::num::error::ParseIntError as core::fmt::Debug>::fmt::h0003e950974d8f6e
+           375 ┊     0.12% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::build_id::h7e7f0e883eadbb35
+           371 ┊     0.12% ┊ alloc::collections::btree::node::Handle<alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Mut,K,V,NodeType>,alloc::collections::btree::node::marker::KV>::split_leaf_data::h8e6ed369361a4670
+           370 ┊     0.12% ┊ core::fmt::Write::write_char::h972c5529c2f90ef3
+           369 ┊     0.12% ┊ std::thread::current::init_current::h5e99390f2ba3935c
+           361 ┊     0.12% ┊ core::str::<impl str>::trim_start_matches::hc0cb9387a22fd376
+           352 ┊     0.11% ┊ <&mut T as core::fmt::Debug>::fmt::h92a709bcfb43ce2a
+           350 ┊     0.11% ┊ core::slice::sort::shared::smallsort::sort4_stable::h28eb5be87ef03567
+           348 ┊     0.11% ┊ rustc_demangle::v0::HexNibbles::try_parse_uint::hc236a68aa00e4ee2
+           348 ┊     0.11% ┊ rustc_demangle::v0::Printer::print_quoted_escaped_chars::he674fbc7f290f280
+           346 ┊     0.11% ┊ std::sys::backtrace::_print_fmt::{{closure}}::h70b130b38c57ae5b
+           344 ┊     0.11% ┊ std::sys::pal::common::small_c_string::run_with_cstr_allocating::h95da3f3db4cb1477
+           338 ┊     0.11% ┊ core::unicode::unicode_data::grapheme_extend::lookup_slow::h85519d9e141c7502
+           333 ┊     0.11% ┊ alloc::collections::btree::node::Handle<alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Mut,K,V,alloc::collections::btree::node::marker::Internal>,alloc::collections::btree::node::marker::Edge>::insert_fit::hdeb1b4fb9eae7aee
+           328 ┊     0.10% ┊ std::sys::pal::unix::fs::stat::h266d7dae3a38ed93
+           325 ┊     0.10% ┊ std::sys::pal::unix::fs::canonicalize::h8bb2afa9539cf4a3
+           325 ┊     0.10% ┊ std::sys::os_str::bytes::Slice::check_public_boundary::slow_path::h9e2d1b965ad2cc58
+           322 ┊     0.10% ┊ core::slice::sort::stable::driftsort_main::hb8621187dfb7544f
+           321 ┊     0.10% ┊ addr2line::path_push::hff9e096c0ab28e78
+           310 ┊     0.10% ┊ <std::path::StripPrefixError as core::fmt::Debug>::fmt::h6aafd60ff76e2d43
+           304 ┊     0.10% ┊ std::path::Components::len_before_body::hd316a11f89c4e493
+           301 ┊     0.10% ┊ alloc::string::String::push::h0fe1edc9e5c38ee5
+           298 ┊     0.09% ┊ rustc_demangle::v0::Printer::print_generic_arg::h0d4d6f254577a169
+           294 ┊     0.09% ┊ core::panicking::assert_failed_inner::h4797f91cd349a0eb
+           292 ┊     0.09% ┊ core::slice::sort::stable::driftsort_main::h83cc964da71e2ff7
+           292 ┊     0.09% ┊ std::io::buffered::bufwriter::BufWriter<W>::write_all_cold::heb355a4a2bc49055
+           290 ┊     0.09% ┊ core::slice::sort::stable::driftsort_main::h5373cee129331aa9
+           290 ┊     0.09% ┊ core::slice::sort::stable::driftsort_main::h74c6341819ee8327
+           290 ┊     0.09% ┊ core::slice::sort::stable::driftsort_main::hc846aefa3cbbc7e4
+           287 ┊     0.09% ┊ core::unicode::printable::is_printable::hbf49a5e8240f47ca
+           287 ┊     0.09% ┊ <&T as core::fmt::Debug>::fmt::h55fcce6acd4d9f1b
+           285 ┊     0.09% ┊ std::path::PathBuf::push::hc9487e1bbc4c97d4
+           282 ┊     0.09% ┊ core::fmt::num::imp::<impl core::fmt::Display for i32>::fmt::h658fefd5335c76dd
+           281 ┊     0.09% ┊ core::fmt::num::imp::<impl core::fmt::Display for u64>::fmt::hb59860de16ff6386
+           272 ┊     0.09% ┊ core::unicode::printable::check::hc1a558886616d218
+           272 ┊     0.09% ┊ <std::panicking::begin_panic_handler::FormatStringPayload as core::panic::PanicPayload>::take_box::hcc87bf2f8e8b2692
+           266 ┊     0.08% ┊ alloc::collections::btree::node::Handle<alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Mut,K,V,alloc::collections::btree::node::marker::Leaf>,alloc::collections::btree::node::marker::Edge>::insert_fit::h1e783a991dc63870
+           264 ┊     0.08% ┊ core::ffi::c_str::CStr::from_bytes_with_nul::h4b36977ccd3fe23e
+           262 ┊     0.08% ┊ core::fmt::num::imp::<impl core::fmt::Display for u32>::fmt::hd89c3b0fb0c52137
+           262 ┊     0.08% ┊ core::slice::sort::unstable::heapsort::heapsort::h889d5bf36096fa0d
+           259 ┊     0.08% ┊ core::ptr::drop_in_place<addr2line::Context<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>::h4268fda4a6d43be1
+           259 ┊     0.08% ┊ core::slice::sort::shared::pivot::median3_rec::he1c7ffe0976a3b32
+           258 ┊     0.08% ┊ std::io::default_read_to_end::small_probe_read::ha32225b8ea8f5dc9
+           257 ┊     0.08% ┊ std::io::Write::write_fmt::h7960c58bfa5ccbcb
+           257 ┊     0.08% ┊ std::io::Write::write_fmt::he22fb4446a287736
+           256 ┊     0.08% ┊ core::unicode::unicode_data::white_space::WHITESPACE_MAP::he9072658add1587a
+           254 ┊     0.08% ┊ core::num::<impl u64>::from_str_radix::h6d61dccfc3cd009f
+           247 ┊     0.08% ┊ std::sys::sync::mutex::futex::Mutex::lock_contended::h2821e64f818bf249
+           244 ┊     0.08% ┊ core::fmt::Write::write_char::hb54623d23c69d352
+           243 ┊     0.08% ┊ <&str as alloc::ffi::c_str::CString::new::SpecNewImpl>::spec_new_impl::h616d1b730c85d035
+           242 ┊     0.08% ┊ gimli::read::reader::Reader::read_sized_offset::h04a8d25f6fea9b31
+           240 ┊     0.08% ┊ core::slice::memchr::memchr_aligned::h758bb5991ca1b210
+           240 ┊     0.08% ┊ rustc_demangle::v0::Printer::print_lifetime_from_index::h29e958bf3e0da696
+           238 ┊     0.08% ┊ core::str::pattern::simd_contains::{{closure}}::h888902ba7f345811
+           238 ┊     0.08% ┊ <&T as core::fmt::Debug>::fmt::hb092aacdce63f621
+           234 ┊     0.07% ┊ std::sys::thread_local::guard::key::enable::hbcc9e853fe020472
+           231 ┊     0.07% ┊ std::path::Components::parse_next_component_back::h77ed0cf7d9ae78e9
+           224 ┊     0.07% ┊ <*mut T as core::fmt::Debug>::fmt::he34ee2b410132f82
+           224 ┊     0.07% ┊ gimli::read::line::parse_directory_v5::h0d8c9277ab0a9f73
+           223 ┊     0.07% ┊ rustc_demangle::v0::Parser::disambiguator::h42330ef765f2433e
+           222 ┊     0.07% ┊ alloc::raw_vec::RawVecInner<A>::grow_amortized::hd441a9c11358b537
+           222 ┊     0.07% ┊ core::fmt::Write::write_char::h6bcde7d03c9a6ed0
+           220 ┊     0.07% ┊ core::ptr::drop_in_place<gimli::read::abbrev::AbbreviationsCache>::h45a25fe1ad85b8da
+           219 ┊     0.07% ┊ alloc::raw_vec::RawVecInner<A>::reserve::do_reserve_and_handle::hd7ab3d187bac400c
+           218 ┊     0.07% ┊ core::ptr::drop_in_place<addr2line::ResUnit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>::h7492e6f400909d19
+           214 ┊     0.07% ┊ <core::str::iter::Chars as core::iter::traits::iterator::Iterator>::count::h9bacc000cd89f838
+           214 ┊     0.07% ┊ std::sys::sync::rwlock::futex::RwLock::wake_writer_or_readers::hf18a4c259452807b
+           214 ┊     0.07% ┊ core::ptr::drop_in_place<alloc::vec::Vec<addr2line::SupUnit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>>::h494bff32f2df7835
+           210 ┊     0.07% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h6a3b8b853b7430dc
+           209 ┊     0.07% ┊ <std::io::Write::write_fmt::Adapter<T> as core::fmt::Write>::write_str::h32116b9425a9720b
+           209 ┊     0.07% ┊ std::alloc::default_alloc_error_hook::h12b0c4ceeff18ff1
+           208 ┊     0.07% ┊ <std::io::Write::write_fmt::Adapter<T> as core::fmt::Write>::write_str::h1c1c6580ac78f8db
+           207 ┊     0.07% ┊ core::ptr::drop_in_place<alloc::boxed::Box<[addr2line::SupUnit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>]>>::heef9927682101b6e
+           205 ┊     0.07% ┊ <char as core::fmt::Display>::fmt::h37a2c537887808ef
+           205 ┊     0.07% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h9da2f31eaaaa0341
+           205 ┊     0.07% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h71aa19d38df4b41b
+           204 ┊     0.07% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h668857774898427d
+           204 ┊     0.07% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h2f835b58d7dabb99
+           204 ┊     0.07% ┊ std::backtrace_rs::symbolize::gimli::stash::Stash::allocate::hda7ea54ddf8a1ffd
+           204 ┊     0.07% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h31dab48396be7c7e
+           202 ┊     0.06% ┊ std::backtrace_rs::symbolize::Symbol::name::h64f81e3dcb927431
+           201 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h39295f8b0829c958
+           201 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h0c3d318f00653ac8
+           199 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h495ab69bc2f25486
+           199 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h625f12e9ee0a8d9f
+           198 ┊     0.06% ┊ core::slice::sort::unstable::ipnsort::hb998e5831b4e2d6d
+           198 ┊     0.06% ┊ std::panicking::begin_panic_handler::{{closure}}::h8d9aa8be7e8634cf
+           197 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::ha0086ebc794a3760
+           197 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::ha007d4d7aa7607ee
+           197 ┊     0.06% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h56bb137d70aad5b2
+           196 ┊     0.06% ┊ std::path::Path::is_dir::h56984e0361123dfe
+           196 ┊     0.06% ┊ core::ptr::drop_in_place<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>::h355edf1f5deb95b1
+           194 ┊     0.06% ┊ core::ptr::drop_in_place<std::backtrace_rs::symbolize::gimli::stash::Stash>::h91af8f43ca9aa9af
+           192 ┊     0.06% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::h98b437f79c29d0d0
+           191 ┊     0.06% ┊ alloc::sync::Arc<T,A>::drop_slow::h62371afa8205e3c7
+           190 ┊     0.06% ┊ std::path::Path::is_file::h7722c1eb54c08310
+           190 ┊     0.06% ┊ <std::path::Component as core::cmp::PartialEq>::eq::h693394f516f80852
+           190 ┊     0.06% ┊ core::ptr::drop_in_place<alloc::collections::btree::map::BTreeMap<u64,gimli::read::abbrev::Abbreviation>>::h8a944b114b8e200c
+           183 ┊     0.06% ┊ rustc_demangle::v0::Parser::integer_62::h438c4dec904829bc
+           179 ┊     0.06% ┊ core::slice::sort::shared::pivot::median3_rec::h7cac5f13fb74e99c
+           179 ┊     0.06% ┊ core::slice::sort::shared::pivot::median3_rec::hc3f75eb10a8b70e9
+           178 ┊     0.06% ┊ core::slice::sort::shared::pivot::median3_rec::ha870fcbc283a9d9c
+           176 ┊     0.06% ┊ std::backtrace_rs::symbolize::gimli::elf::Object::search_symtab::h9b19010430f2334b
+           175 ┊     0.06% ┊ core::slice::sort::shared::pivot::median3_rec::h8cefdf732d71fb1b
+           174 ┊     0.06% ┊ core::ptr::drop_in_place<core::result::Result<addr2line::Lines,gimli::read::Error>>::had6fb9ae98925941
+           172 ┊     0.05% ┊ core::slice::sort::shared::pivot::median3_rec::h42b780a0c4603ce1
+           168 ┊     0.05% ┊ gimli::read::reader::Reader::read_offset::hc46526cebfe6fd6c
+           167 ┊     0.05% ┊ core::ptr::drop_in_place<alloc::vec::Vec<(usize,std::backtrace_rs::symbolize::gimli::Mapping)>>::h6ab65bd7ed4875a5
+           167 ┊     0.05% ┊ core::ptr::drop_in_place<alloc::vec::Vec<addr2line::ResUnit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>>::hbfcd7244b567f880
+           165 ┊     0.05% ┊ rustc_demangle::v0::Printer::print_sep_list::h901157ef239a7e4b
+           165 ┊     0.05% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::h597461426f894e15
+           164 ┊     0.05% ┊ alloc::collections::btree::node::Handle<alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Mut,K,V,alloc::collections::btree::node::marker::Leaf>,alloc::collections::btree::node::marker::KV>::split::head6fd10a511b70f
+           162 ┊     0.05% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::ha6bc733a27628b1b
+           162 ┊     0.05% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::h9568280638b302c3
+           161 ┊     0.05% ┊ <core::iter::adapters::zip::Zip<A,B> as core::iter::adapters::zip::ZipImpl<A,B>>::nth::h6c9504f415917182
+           161 ┊     0.05% ┊ <std::panicking::begin_panic_handler::FormatStringPayload as core::panic::PanicPayload>::get::hf9c1519b7ec0b98a
+           160 ┊     0.05% ┊ rustc_demangle::v0::Printer::print_sep_list::h6dd76a61b619cb77
+           160 ┊     0.05% ┊ <std::backtrace_rs::symbolize::gimli::parse_running_mmaps::MapsEntry as core::str::traits::FromStr>::from_str::{{closure}}::hba4839afd3c67372
+           159 ┊     0.05% ┊ core::ptr::drop_in_place<alloc::boxed::Box<[addr2line::ResUnit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>]>>::hea39a852b88d1bcd
+           158 ┊     0.05% ┊ alloc::raw_vec::RawVecInner<A>::reserve::do_reserve_and_handle::h26ffaf193b9a64fb
+           158 ┊     0.05% ┊ __rust_foreign_exception
+           158 ┊     0.05% ┊ __rust_drop_panic
+           158 ┊     0.05% ┊ core::ptr::drop_in_place<core::result::Result<addr2line::function::Functions<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>,gimli::read::Error>>::hd2dece211376735c
+           155 ┊     0.05% ┊ __rust_start_panic
+           155 ┊     0.05% ┊ rustc_demangle::v0::Printer::print_sep_list::h10815dc599fcf613
+           152 ┊     0.05% ┊ std::backtrace_rs::symbolize::gimli::elf::decompress_zlib::he29762c2c89f78eb
+           150 ┊     0.05% ┊ rustc_demangle::v0::Printer::print_sep_list::had407f128d50d985
+           150 ┊     0.05% ┊ gimli::read::reader::Reader::read_uleb128::hf34a33accf455e39
+           149 ┊     0.05% ┊ rustc_demangle::v0::Parser::hex_nibbles::h4990ca898190272c
+           148 ┊     0.05% ┊ core::str::validations::next_code_point::h82064dff6a890545
+           147 ┊     0.05% ┊ core::ptr::drop_in_place<alloc::vec::Vec<(gimli::read::UnitOffset,addr2line::lazy::LazyCell<core::result::Result<addr2line::function::Function<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>,gimli::read::Error>>)>>::hec3a880ac7f26592
+           146 ┊     0.05% ┊ <char as core::fmt::Debug>::fmt::hfe309ac9bb7091e9
+           144 ┊     0.05% ┊ core::ptr::drop_in_place<core::result::Result<core::option::Option<alloc::boxed::Box<(alloc::sync::Arc<gimli::read::dwarf::Dwarf<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>,gimli::read::dwarf::Unit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>,usize>)>>,gimli::read::Error>>::h6b33aab73669d1b8
+           144 ┊     0.05% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::h620ab964516d2c25
+           143 ┊     0.05% ┊ core::fmt::num::<impl core::fmt::LowerHex for i64>::fmt::he694f9a0fec4c4a8
+           141 ┊     0.04% ┊ core::fmt::num::<impl core::fmt::UpperHex for i8>::fmt::h9ad2f3f67ff25e33
+           139 ┊     0.04% ┊ core::ptr::drop_in_place<std::backtrace_rs::symbolize::gimli::Mapping>::hc8e3ded1007aa9ad
+           138 ┊     0.04% ┊ alloc::sync::Arc<T,A>::drop_slow::hd438b38b1c9e676e
+           137 ┊     0.04% ┊ __rust_realloc
+           136 ┊     0.04% ┊ core::unicode::unicode_data::grapheme_extend::SHORT_OFFSET_RUNS::h82b4d9ba2a4659d1
+           134 ┊     0.04% ┊ core::ptr::drop_in_place<alloc::vec::Vec<std::backtrace_rs::symbolize::gimli::Library>>::h9ba102d5a07ffbf3
+           132 ┊     0.04% ┊ std::sys::pal::common::small_c_string::run_with_cstr_allocating::hcbba1fd78405442e
+           127 ┊     0.04% ┊ core::ptr::drop_in_place<std::io::error::Error>::hef6122dd753b18b9
+           126 ┊     0.04% ┊ alloc::raw_vec::RawVecInner<A>::try_allocate_in::he0937ae0da3ffbb3
+           124 ┊     0.04% ┊ core::str::<impl str>::split_once::h38f807e582bcaa0e
+           124 ┊     0.04% ┊ core::ptr::drop_in_place<alloc::sync::ArcInner<gimli::read::abbrev::Abbreviations>>::h0a448843e74b8402
+           124 ┊     0.04% ┊ core::ptr::drop_in_place<alloc::boxed::Box<[(gimli::read::UnitOffset,addr2line::lazy::LazyCell<core::result::Result<addr2line::function::Function<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>,gimli::read::Error>>)]>>::hfa3e8612d30f6ed2
+           123 ┊     0.04% ┊ <&T as core::fmt::Display>::fmt::ha354cfe835191325
+           123 ┊     0.04% ┊ core::ptr::drop_in_place<gimli::read::abbrev::Abbreviations>::hfdebd96253791032
+           122 ┊     0.04% ┊ std::sys::os_str::bytes::Slice::to_owned::hefd1799610179eef
+           119 ┊     0.04% ┊ core::ptr::drop_in_place<(alloc::sync::Arc<gimli::read::dwarf::Dwarf<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>,gimli::read::dwarf::Unit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>,usize>)>::ha8e9e52f85fbdd47
+           119 ┊     0.04% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h592abffa244b3ffa
+           119 ┊     0.04% ┊ std::sync::poison::once::Once::call_once_force::{{closure}}::he58acd57e0c7fe42
+           118 ┊     0.04% ┊ std::panicking::default_hook::{{closure}}::{{closure}}::h2283dd2e917d06d9
+           118 ┊     0.04% ┊ core::ptr::drop_in_place<alloc::vec::Vec<std::backtrace_rs::symbolize::gimli::parse_running_mmaps::MapsEntry>>::hc73e49df730414d9
+           118 ┊     0.04% ┊ core::slice::sort::shared::smallsort::insertion_sort_shift_left::hfafa66d5244ad089
+           118 ┊     0.04% ┊ core::ptr::drop_in_place<alloc::vec::Vec<addr2line::LineSequence>>::hc546745e056061cc
+           118 ┊     0.04% ┊ core::ptr::drop_in_place<alloc::vec::Vec<alloc::string::String>>::hb5626159d68b02c9
+           117 ┊     0.04% ┊ core::result::unwrap_failed::ha0269c4bdff93d7d
+           117 ┊     0.04% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h3ddc3ff784431805
+           115 ┊     0.04% ┊ core::ptr::drop_in_place<<alloc::collections::btree::map::IntoIter<K,V,A> as core::ops::drop::Drop>::drop::DropGuard<u64,core::result::Result<alloc::sync::Arc<gimli::read::abbrev::Abbreviations>,gimli::read::Error>,alloc::alloc::Global>>::h5c69c28574895d1f
+           113 ┊     0.04% ┊ alloc::raw_vec::finish_grow::hd5248612660e0649
+           112 ┊     0.04% ┊ alloc::raw_vec::finish_grow::h8678be4c2964c576
+           107 ┊     0.03% ┊ core::ptr::drop_in_place<alloc::boxed::Box<panic_unwind::imp::Exception>>::h0a16b989c2d8d3e7
+           106 ┊     0.03% ┊ core::slice::<impl [T]>::copy_from_slice::len_mismatch_fail::do_panic::runtime::hba08b046e17560cf
+           105 ┊     0.03% ┊ core::option::expect_failed::h11ade060093e7060
+           105 ┊     0.03% ┊ std::sys::thread_local::guard::key::enable::run::h2ae81be8f849caeb
+           104 ┊     0.03% ┊ rust_panic
+           103 ┊     0.03% ┊ <alloc::string::String as core::fmt::Write>::write_str::h894be4ba3897f209.80
+           102 ┊     0.03% ┊ core::slice::index::slice_start_index_len_fail::do_panic::runtime::h99bec6cc2c4712f7
+           102 ┊     0.03% ┊ core::slice::index::slice_end_index_len_fail::do_panic::runtime::hecbdc4cd5a9cfe0c
+           102 ┊     0.03% ┊ core::slice::index::slice_index_order_fail::do_panic::runtime::h9d9282754e122488
+           101 ┊     0.03% ┊ core::ptr::drop_in_place<core::option::Option<gimli::read::line::IncompleteLineProgram<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>,usize>>>::h564181495d6cc907
+           100 ┊     0.03% ┊ alloc::raw_vec::finish_grow::hf30946d0f8052e8a
+            98 ┊     0.03% ┊ core::ptr::drop_in_place<alloc::boxed::Box<[alloc::string::String]>>::h0e8e12d3748e94cd
+            96 ┊     0.03% ┊ core::ptr::drop_in_place<std::io::stdio::StdinLock>::hcb6bdaa26d89af95
+            96 ┊     0.03% ┊ core::ptr::drop_in_place<gimli::read::line::LineRows<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>,gimli::read::line::IncompleteLineProgram<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>,usize>,usize>>::hf1c605198b5e7162
+            95 ┊     0.03% ┊ <core::fmt::builders::PadAdapter as core::fmt::Write>::write_char::h2736d7139d213399
+            93 ┊     0.03% ┊ core::ptr::drop_in_place<panic_unwind::imp::Exception>::hc2382f1a41edffcb
+            93 ┊     0.03% ┊ <std::panicking::begin_panic_handler::FormatStringPayload as core::fmt::Display>::fmt::hbee76ecaff42d0fb
+            91 ┊     0.03% ┊ core::panicking::panic_bounds_check::ha76acd1fe0c5813b
+            90 ┊     0.03% ┊ core::ptr::drop_in_place<alloc::sync::ArcInner<gimli::read::dwarf::Dwarf<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>>::h20142409a3ad2600
+            90 ┊     0.03% ┊ core::ptr::drop_in_place<gimli::read::dwarf::Dwarf<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>::h4c6b1be05d35c98c
+            89 ┊     0.03% ┊ std::sys::backtrace::BacktraceLock::print::h3fb349e80cbe0423
+            88 ┊     0.03% ┊ std::sync::once_lock::OnceLock<T>::initialize::h2847148379cd6f5e
+            86 ┊     0.03% ┊ rustc_demangle::v0::Parser::namespace::hcfb2de0cd9a5e362
+            84 ┊     0.03% ┊ core::fmt::Formatter::pad_integral::write_prefix::hd30895a40eef31e8
+            83 ┊     0.03% ┊ core::ptr::drop_in_place<std::io::buffered::bufwriter::BufWriter<W>::flush_buf::BufGuard>::h7dd03e697c25c149
+            82 ┊     0.03% ┊ core::cell::panic_already_borrowed::h262913cd8451b517
+            81 ┊     0.03% ┊ gimli::read::unit::AttributeValue<R,Offset>::udata_value::h39d75c2400da7c4b
+            79 ┊     0.03% ┊ core::panicking::panic_nounwind_nobacktrace::hdf7fac9038a56f32
+            76 ┊     0.02% ┊ <&[u8] as object::read::read_ref::ReadRef>::read_bytes_at_until::h126d40654e25f2d6
+            75 ┊     0.02% ┊ <core::ops::range::Range<Idx> as core::fmt::Debug>::fmt::h5f4c0b6c92d5cb19
+            74 ┊     0.02% ┊ core::ptr::drop_in_place<gimli::read::dwarf::Unit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>,usize>>::ha25f71c2711d1995
+            74 ┊     0.02% ┊ core::ptr::drop_in_place<addr2line::SupUnit<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>>::haefd33c82fd9a4c0
+            74 ┊     0.02% ┊ core::ptr::drop_in_place<(gimli::read::UnitOffset,addr2line::lazy::LazyCell<core::result::Result<addr2line::function::Function<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>,gimli::read::Error>>)>::h5a5f1f4f2a544244
+            72 ┊     0.02% ┊ alloc::sync::Arc<T,A>::drop_slow::h7fb2849d4e951291
+            72 ┊     0.02% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::hf5be52176721d4d0
+            72 ┊     0.02% ┊ std::sync::poison::once::Once::call_once_force::{{closure}}::h463ff4a0e287c112
+            71 ┊     0.02% ┊ __rust_panic_cleanup
+            71 ┊     0.02% ┊ <std::panicking::begin_panic_handler::StaticStrPayload as core::panic::PanicPayload>::take_box::h299bcc6f215e7abf
+            70 ┊     0.02% ┊ <std::io::Write::write_fmt::Adapter<T> as core::fmt::Write>::write_str::ha9f1eca3feb177ff
+            69 ┊     0.02% ┊ core::panicking::panic_nounwind::h2f7749cb358aa979
+            69 ┊     0.02% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h05ea1f45a6d56eb4
+            67 ┊     0.02% ┊ core::panicking::panic_nounwind_fmt::h57347130f21a7343
+            66 ┊     0.02% ┊ alloc::raw_vec::RawVec<T,A>::grow_one::h719f715c8e93ffa1
+            64 ┊     0.02% ┊ std::thread::current::current::h6e1ac74d3b8c367c
+            60 ┊     0.02% ┊ <gimli::read::abbrev::Attributes as core::ops::deref::Deref>::deref::h0ead6cb51f5fba1d
+            60 ┊     0.02% ┊ std::backtrace_rs::backtrace::libunwind::trace::trace_fn::h1a05ca021649cca3
+            59 ┊     0.02% ┊ core::ptr::drop_in_place<std::sync::reentrant_lock::ReentrantLockGuard<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>>::h67f2b1dc2580eeeb
+            59 ┊     0.02% ┊ core::panicking::panic::h209220e15dcf6e53
+            58 ┊     0.02% ┊ std::thread::ThreadId::new::exhausted::h587e4c0974c27867
+            58 ┊     0.02% ┊ alloc::raw_vec::RawVecInner<A>::reserve::do_reserve_and_handle::hd7fd11311038f025
+            58 ┊     0.02% ┊ core::slice::sort::shared::smallsort::panic_on_ord_violation::h1646a55e979504ab
+            58 ┊     0.02% ┊ core::slice::index::slice_end_index_overflow_fail::h44ceca6bfa85b168
+            58 ┊     0.02% ┊ core::str::traits::str_index_overflow_fail::hfac46406dea00eae
+            58 ┊     0.02% ┊ core::ptr::drop_in_place<std::backtrace_rs::backtrace::libunwind::Bomb>::ha1f8a5ec382c7873
+            57 ┊     0.02% ┊ addr2line::has_windows_root::hd07db83178f70193
+            55 ┊     0.02% ┊ core::ptr::drop_in_place<std::backtrace_rs::symbolize::gimli::Library>::he1d3fc89d95742ab
+            54 ┊     0.02% ┊ core::panicking::panic_const::panic_const_rem_by_zero::h3a1a875e01d18d87
+            54 ┊     0.02% ┊ __rust_alloc
+            54 ┊     0.02% ┊ alloc::raw_vec::capacity_overflow::h1d367b37f58596d3
+            54 ┊     0.02% ┊ core::panicking::panic_const::panic_const_div_by_zero::hbdf06d0496e98425
+            51 ┊     0.02% ┊ <rustc_demangle::SizeLimitedFmtAdapter<F> as core::fmt::Write>::write_str::hd0851e37539040d8
+            49 ┊     0.02% ┊ <&T as core::fmt::Debug>::fmt::hceb9371470c72dae
+            48 ┊     0.02% ┊ std::backtrace_rs::symbolize::gimli::Cache::with_global::MAPPINGS_CACHE::hc51f942c192d8b27
+            45 ┊     0.01% ┊ core::ptr::drop_in_place<std::sync::poison::rwlock::RwLockReadGuard<std::panicking::Hook>>::ha82cb38c0a693c4a
+            43 ┊     0.01% ┊ core::panicking::assert_failed::hf5c4898457e9114b
+            43 ┊     0.01% ┊ alloc::boxed::Box<T,A>::new_uninit_in::hb31b48c352916ab5
+            43 ┊     0.01% ┊ alloc::boxed::Box<T,A>::new_uninit_in::hc3310b7ad6163ff4
+            40 ┊     0.01% ┊ core::ptr::drop_in_place<core::option::Option<std::thread::Thread>>::hc42aa4992967fe47
+            34 ┊     0.01% ┊ core::ptr::drop_in_place<core::result::Result<addr2line::FrameIter<gimli::read::endian_slice::EndianSlice<gimli::endianity::LittleEndian>>,gimli::read::Error>>::he5e9ff7990c6beed
+            34 ┊     0.01% ┊ _start
+            32 ┊     0.01% ┊ __abi_tag
+            32 ┊     0.01% ┊ core::ptr::drop_in_place<std::thread::Thread>::h203009a4ad36bada
+            32 ┊     0.01% ┊ .Lanon.091bb1e21048aea0cb3f6f1d206f2415.40
+            32 ┊     0.01% ┊ .Lanon.091bb1e21048aea0cb3f6f1d206f2415.42
+            31 ┊     0.01% ┊ core::panicking::panic_fmt::hf8ffc7c15bfb58a0
+            31 ┊     0.01% ┊ <core::cell::BorrowMutError as core::fmt::Debug>::fmt::hb6a448964972af09
+            31 ┊     0.01% ┊ <core::fmt::Error as core::fmt::Debug>::fmt::h8fa06cb8cfdceb99.71
+            31 ┊     0.01% ┊ <rustc_demangle::SizeLimitExhausted as core::fmt::Debug>::fmt::hc863cdef15b709ec
+            31 ┊     0.01% ┊ std::sys::backtrace::_print_fmt::{{closure}}::h00e6d627e50bfc5d
+            30 ┊     0.01% ┊ core::ptr::drop_in_place<gimli::read::abbrev::Attributes>::heb064fac41a6927e
+            30 ┊     0.01% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::ha8a0ade38236097b
+            29 ┊     0.01% ┊ <std::panicking::begin_panic_handler::StaticStrPayload as core::fmt::Display>::fmt::ha8b97b10cb290fed
+            28 ┊     0.01% ┊ rust_begin_unwind
+            28 ┊     0.01% ┊ core::ptr::drop_in_place<std::panicking::begin_panic_handler::FormatStringPayload>::he987fd7ec52adaf0
+            26 ┊     0.01% ┊ <T as core::any::Any>::type_id::h8c3c3ba1f2ebb1e5
+            26 ┊     0.01% ┊ <T as core::any::Any>::type_id::h4a17315c30ff84f5
+            25 ┊     0.01% ┊ <() as core::fmt::Debug>::fmt::hf27a63746a3211df
+            24 ┊     0.01% ┊ core::option::unwrap_failed::h12717cc50f158ee2
+            24 ┊     0.01% ┊ <alloc::string::String as core::fmt::Display>::fmt::h29bfab9f1324032c
+            23 ┊     0.01% ┊ <&T as core::fmt::Display>::fmt::h0e3ec628b856fe61
+            23 ┊     0.01% ┊ core::ptr::drop_in_place<alloc::string::String>::h4c0a0ed1921a1518
+            22 ┊     0.01% ┊ alloc::raw_vec::handle_error::he39a50b4f8f417a7
+            22 ┊     0.01% ┊ panic_unwind::imp::panic::exception_cleanup::hd82a5d231fa7c9c4
+            21 ┊     0.01% ┊ <&T as core::fmt::Debug>::fmt::hdec3cd7df363df61
+            21 ┊     0.01% ┊ <core::fmt::Arguments as core::fmt::Display>::fmt::h6430220142ee8748
+            21 ┊     0.01% ┊ core::ptr::drop_in_place<std::io::Write::write_fmt::Adapter<std::io::cursor::Cursor<&mut [u8]>>>::h101910d6058e3439
+            21 ┊     0.01% ┊ core::ptr::drop_in_place<std::ffi::os_str::OsString>::h3bf1f18f80e40f7e
+            20 ┊     0.01% ┊ core::fmt::Write::write_fmt::hc02d8edaf996c92b
+            20 ┊     0.01% ┊ core::fmt::Write::write_fmt::h92b234d70bdbdee6
+            20 ┊     0.01% ┊ core::fmt::Write::write_fmt::hc33de75ff1a2fe80
+            20 ┊     0.01% ┊ core::fmt::Write::write_fmt::hea57ac09249d6db1
+            20 ┊     0.01% ┊ core::fmt::Write::write_fmt::hf47284dc58d6c2ab
+            20 ┊     0.01% ┊ core::fmt::Write::write_fmt::h94697419a1ac377a
+            19 ┊     0.01% ┊ std::panicking::panic_count::is_zero_slow_path::h964c4711602484bf
+            18 ┊     0.01% ┊ __rg_oom
+            18 ┊     0.01% ┊ alloc::alloc::handle_alloc_error::hff7cd8bed17d1d5d
+            18 ┊     0.01% ┊ core::slice::<impl [T]>::copy_from_slice::len_mismatch_fail::h9edd9812268a51b4
+            17 ┊     0.01% ┊ core::ptr::drop_in_place<core::result::Result<(),std::io::error::Error>>::h9106c28cca74d265
+            17 ┊     0.01% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h999ac850b3e1500f
+            17 ┊     0.01% ┊ std::sys::personality::gcc::find_eh_action::{{closure}}::h32da6a7552c9b5a0
+            17 ┊     0.01% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h7967143d080ac78b
+            17 ┊     0.01% ┊ std::sys::personality::gcc::find_eh_action::{{closure}}::h7d1de29a46b6b32b
+            16 ┊     0.01% ┊ core::panicking::panic_cannot_unwind::hf517234e476fc7c7
+            16 ┊     0.01% ┊ <std::panicking::begin_panic_handler::StaticStrPayload as core::panic::PanicPayload>::get::hbad44de501108bc7
+            16 ┊     0.01% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.323
+            16 ┊     0.01% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.8
+            16 ┊     0.01% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.118
+            16 ┊     0.01% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.1075
+            16 ┊     0.01% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.671
+            16 ┊     0.01% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.736
+            16 ┊     0.01% ┊ std::sys::thread_local::guard::key::enable::DTORS::h2a503f494e7daf42
+            14 ┊     0.00% ┊ std::alloc::rust_oom::hda180eacbcfe9ee5
+            13 ┊     0.00% ┊ std::sys::pal::unix::args::imp::ARGV_INIT_ARRAY::init_wrapper::h13c0c38b9bb45ea7
+            13 ┊     0.00% ┊ <alloc::string::String as core::fmt::Write>::write_char::h748fa1ef5166fde7.81
+            13 ┊     0.00% ┊ <std::panicking::begin_panic_handler::StaticStrPayload as core::panic::PanicPayload>::as_str::habf825a303475049
+            10 ┊     0.00% ┊ std::sys::pal::unix::abort_internal::hac8a9a93523d7e74
+            10 ┊     0.00% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h0faf1064c8bc1eeb
+            10 ┊     0.00% ┊ core::ops::function::FnOnce::call_once{{vtable.shim}}::h360d1464cd0cd33b
+             9 ┊     0.00% ┊ core::panicking::panic_in_cleanup::h15db6728a9723d70
+             9 ┊     0.00% ┊ core::slice::index::slice_start_index_len_fail::h432d3a2aff6aa21a
+             9 ┊     0.00% ┊ core::slice::index::slice_end_index_len_fail::h96be072ce58b093f
+             9 ┊     0.00% ┊ core::slice::index::slice_index_order_fail::h21d535e4d76668b5
+             9 ┊     0.00% ┊ core::str::slice_error_fail::h91d994a0d1b0561d
+             9 ┊     0.00% ┊ std::process::abort::h3a63d3ae4af2eaf1
+             9 ┊     0.00% ┊ std::sys::backtrace::__rust_end_short_backtrace::h7d7e47ef99abf6aa
+             8 ┊     0.00% ┊ core::panic::PanicPayload::as_str::h7f1dc705fbf9ed90
+             8 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.140
+             8 ┊     0.00% ┊ std::sys::pal::unix::args::imp::ARGV_INIT_ARRAY::haa8523b5ba28d87b
+             8 ┊     0.00% ┊ memchr::arch::x86_64::memchr::memchr_raw::FN::h8ae04967346b5f89.0
+             8 ┊     0.00% ┊ DW.ref.rust_eh_personality
+             6 ┊     0.00% ┊ __rust_alloc_error_handler
+             5 ┊     0.00% ┊ std::sys::backtrace::__rust_begin_short_backtrace::hfacc9bc09697879e
+             4 ┊     0.00% ┊ .Lanon.c73a592eccae7816b90589f0447882b5.253
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.22
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.132
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.129
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.137
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.134
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.147
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.122
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.144
+             4 ┊     0.00% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.237
+             4 ┊     0.00% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.585
+             4 ┊     0.00% ┊ .Lanon.a9d7ff4935140b8d38885355bf97d04a.868
+             4 ┊     0.00% ┊ .Lanon.dd41884d50050871d9da8318a31565c5.19
+             1 ┊     0.00% ┊ std::panicking::default_hook::{{closure}}::FIRST_PANIC::h2a26726726d3d739
+        241778 ┊    77.07% ┊ Σ [440 Total Rows]

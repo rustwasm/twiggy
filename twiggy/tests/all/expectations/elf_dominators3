@@ -1,0 +1,6 @@
+ Retained Bytes │ Retained % │ Dominator Tree
+────────────────┼────────────┼────────────────────────────────────────────────────────────────────────────────────
+            639 ┊      0.20% ┊ rust_panic
+            535 ┊      0.17% ┊   ⤷ __rust_start_panic
+            287 ┊      0.09% ┊       ⤷ panic_unwind::imp::panic::exception_cleanup::hd82a5d231fa7c9c4
+             93 ┊      0.03% ┊       ⤷ core::ptr::drop_in_place<panic_unwind::imp::Exception>::hc2382f1a41edffcb

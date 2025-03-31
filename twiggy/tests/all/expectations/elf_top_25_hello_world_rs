@@ -1,29 +1,29 @@
  Shallow Bytes │ Shallow % │ Item
-───────────────┼───────────┼───────────────────────────────────────────────────────────────
-          9751 ┊     0.46% ┊ stats_arena_print
-          9503 ┊     0.45% ┊ std::sys_common::backtrace::output::hf6421f76165dc3d9
-          7917 ┊     0.38% ┊ je_stats_print
-          7852 ┊     0.37% ┊ mallocx
-          7019 ┊     0.33% ┊ je_arena_boot
-          6221 ┊     0.30% ┊ je_malloc_vsnprintf
-          6198 ┊     0.30% ┊ std::panicking::default_hook::{{closure}}::h027136eae47935d0
-          4313 ┊     0.21% ┊ je_arena_palloc
-          4028 ┊     0.19% ┊ realloc
-          3908 ┊     0.19% ┊ malloc_init_hard_a0_locked
-          3510 ┊     0.17% ┊ std::sys_common::backtrace::output_fileline::hcf938cef3f70d455
-          3185 ┊     0.15% ┊ calloc
-          3178 ┊     0.15% ┊ malloc
-          3093 ┊     0.15% ┊ rallocx
-          3086 ┊     0.15% ┊ je_arena_ralloc_no_move
-          3015 ┊     0.14% ┊ std::panicking::rust_panic_with_hook::hc482345e1eead25b
-          2952 ┊     0.14% ┊ je_arena_ralloc
-          2696 ┊     0.13% ┊ arena_run_dalloc
-          2302 ┊     0.11% ┊ arena_purge_to_limit
-          2286 ┊     0.11% ┊ core::str::pattern::StrSearcher::new::h05915110cf690552
-          2194 ┊     0.10% ┊ arena_run_heap_remove
-          2168 ┊     0.10% ┊ je_prof_free_sampled_object
-          2158 ┊     0.10% ┊ prof_tdata_destroy_locked
-          2041 ┊     0.10% ┊ stats_print_helper
-          1897 ┊     0.09% ┊ imemalign
-        150168 ┊     7.15% ┊ ... and 753 more.
-        256639 ┊    12.23% ┊ Σ [778 Total Rows]
+───────────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         19545 ┊     6.23% ┊ std::backtrace_rs::symbolize::gimli::Cache::with_global::hda41e5ce2e638dbf
+         12227 ┊     3.90% ┊ std::backtrace_rs::symbolize::gimli::Context::new::h36f7279e64f729ba
+          9710 ┊     3.10% ┊ gimli::read::dwarf::Unit<R>::new::ha14026aa0df75fc3
+          9563 ┊     3.05% ┊ miniz_oxide::inflate::core::decompress::hac20cdac69cf1b03
+          6776 ┊     2.16% ┊ addr2line::ResUnit<R>::find_function_or_location::{{closure}}::hb0f4e11c2628b129
+          5918 ┊     1.89% ┊ addr2line::Lines::parse::hf56d45532c9cdd53
+          5016 ┊     1.60% ┊ addr2line::function::Function<R>::parse_children::ha5a223c2ceda250b
+          4715 ┊     1.50% ┊ gimli::read::unit::parse_attribute::he3623f25de2bc58f
+          3792 ┊     1.21% ┊ gimli::read::rnglists::RngListIter<R>::next::h0a17264f919a4338
+          3183 ┊     1.01% ┊ <&T as core::fmt::Display>::fmt::h98b2a165420fa5eb
+          3005 ┊     0.96% ┊ rustc_demangle::try_demangle::h15f91ce94fd1193f
+          2850 ┊     0.91% ┊ std::backtrace_rs::symbolize::gimli::elf::<impl std::backtrace_rs::symbolize::gimli::Mapping>::new_debug::h9ec6bbf4be39e1b3
+          2727 ┊     0.87% ┊ core::slice::sort::stable::quicksort::quicksort::he669545dd2c45c0a
+          2611 ┊     0.83% ┊ core::slice::sort::stable::quicksort::quicksort::he7b04f966ead366f
+          2575 ┊     0.82% ┊ core::slice::sort::stable::quicksort::quicksort::h3030826ddfc51330
+          2525 ┊     0.80% ┊ gimli::read::line::parse_attribute::hc037578c427b09f8
+          2500 ┊     0.80% ┊ core::slice::sort::stable::quicksort::quicksort::h16560da3e7ccbec2
+          2481 ┊     0.79% ┊ core::slice::sort::stable::quicksort::quicksort::hc3b4b6276e848b30
+          2455 ┊     0.78% ┊ gimli::read::index::UnitIndex<R>::parse::h43e6494ccf64cfc2
+          2360 ┊     0.75% ┊ addr2line::render_file::h8b2b27d4ac1b7166
+          2278 ┊     0.73% ┊ std::panicking::rust_panic_with_hook::h66e909d048c263a9
+          2152 ┊     0.69% ┊ <&str as core::str::pattern::Pattern>::is_contained_in::h8969625a96e5f095
+          2136 ┊     0.68% ┊ main
+          1895 ┊     0.60% ┊ gimli::read::unit::Attribute<R>::value::h1b2c3068fe9de893
+          1810 ┊     0.58% ┊ rustc_demangle::v0::Printer::print_path::h237f306c4cf20d50
+        124973 ┊    39.84% ┊ ... and 415 more.
+        241778 ┊    77.07% ┊ Σ [440 Total Rows]
