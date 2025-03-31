@@ -80,6 +80,7 @@ pub fn parse(data: &[u8]) -> anyhow::Result<ir::Items> {
     }
 
     if let BinaryFormat::Elf = file.format() {
+        let mut any_relocs = false;
         for section in file.sections() {
             if section.name().unwrap().starts_with(".debug")
                 || section.name().unwrap().starts_with(".eh_frame")
@@ -88,9 +89,23 @@ pub fn parse(data: &[u8]) -> anyhow::Result<ir::Items> {
             }
 
             for (offset, reloc) in section.relocations() {
+                any_relocs = true;
                 edge_for_reloc(&file, &mut items, &symbols, offset, reloc);
             }
         }
+
+        if !any_relocs {
+            eprintln!(
+                "Warning: Couldn't find any relocations. \
+                 The dominators, garbage and paths subcommands will not function correctly.\n\
+                 Hint: Try recompiling the binary with --emit-relocs.\n"
+            );
+        }
+    } else {
+        eprintln!(
+            "Warning: Note: The dominators, garbage and paths subcommands currently only support \
+                WASM and ELF.\n"
+        )
     }
 
     Ok(items.finish())
